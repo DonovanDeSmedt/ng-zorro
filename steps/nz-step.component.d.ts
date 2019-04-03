@@ -29,6 +29,7 @@ export declare class NzStepComponent {
         index: number;
     }>;
     nzTitle: string | TemplateRef<void>;
+    nzCtx: any;
     nzIcon: StepNgClassType | TemplateRef<void>;
     nzStatus: string;
     nzDescription: string | TemplateRef<void>;
