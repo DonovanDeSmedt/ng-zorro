@@ -20,7 +20,7 @@ export declare class NzMenuDirective implements AfterContentInit {
     nzTheme: 'light' | 'dark';
     nzInlineIndent: number;
     nzMode: NzMode;
-    readonly nzClick: EventEmitter<NzMenuItemDirective>;
+    nzClick: EventEmitter<NzMenuItemDirective>;
     nzInDropDown: boolean;
     nzSelectable: boolean;
     nzInlineCollapsed: boolean;

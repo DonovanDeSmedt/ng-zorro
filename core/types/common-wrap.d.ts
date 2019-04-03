@@ -1,1 +1,1 @@
-export declare type FunctionProp<T> = (...args: any[]) => T;
+export declare type FunctionProp<T> = T | ((...args: any[]) => T);

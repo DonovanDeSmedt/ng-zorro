@@ -7,7 +7,7 @@ export declare class NzTheadComponent implements AfterContentInit, OnDestroy {
     private unsubscribe$;
     template: TemplateRef<void>;
     listOfNzThComponent: QueryList<NzThComponent>;
-    readonly nzSortChange: EventEmitter<{
+    nzSortChange: EventEmitter<{
         key: string;
         value: string;
     }>;

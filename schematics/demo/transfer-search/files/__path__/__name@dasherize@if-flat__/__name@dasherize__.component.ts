@@ -6,22 +6,17 @@ import { NzMessageService } from 'ng-zorro-antd';
   <% if(inlineTemplate) { %>template: `
     <nz-transfer
       [nzDataSource]="list"
-      [nzDisabled]="disabled"
       nzShowSearch
       [nzFilterOption]="filterOption"
       (nzSearchChange)="search($event)"
       (nzSelectChange)="select($event)"
       (nzChange)="change($event)">
     </nz-transfer>
-    <div style="margin-top: 8px;">
-      <nz-switch [(ngModel)]="disabled" nzCheckedChildren="disabled" nzUnCheckedChildren="disabled"></nz-switch>
-    <div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component implements OnInit {
   // tslint:disable-next-line:no-any
   list: any[] = [];
-  disabled = false;
 
   ngOnInit(): void {
     for (let i = 0; i < 20; i++) {

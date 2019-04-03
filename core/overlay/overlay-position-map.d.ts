@@ -4,5 +4,4 @@ export declare const POSITION_MAP: {
 };
 export declare const DEFAULT_4_POSITIONS: ConnectionPositionPair[];
 export declare const DEFAULT_DROPDOWN_POSITIONS: ConnectionPositionPair[];
-export declare const EXPANDED_DROPDOWN_POSITIONS: ConnectionPositionPair[];
 export declare const DEFAULT_MENTION_POSITIONS: ConnectionPositionPair[];

@@ -1,9 +1,11 @@
 import { NzCollapsePanelComponent } from './nz-collapse-panel.component';
 export declare class NzCollapseComponent {
-    private listOfNzCollapsePanelComponent;
+    private _accordion;
+    private _bordered;
+    private listOfPanel;
     nzAccordion: boolean;
     nzBordered: boolean;
-    addPanel(value: NzCollapsePanelComponent): void;
-    removePanel(value: NzCollapsePanelComponent): void;
     click(collapse: NzCollapsePanelComponent): void;
+    addCollapse(collapse: NzCollapsePanelComponent): void;
+    removeCollapse(collapse: NzCollapsePanelComponent): void;
 }

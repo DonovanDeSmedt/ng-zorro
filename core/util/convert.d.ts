@@ -20,4 +20,3 @@ export declare function valueFunctionProp<T>(prop: FunctionProp<T>, ...args: any
  * ```
  */
 export declare function InputBoolean(): any;
-export declare function InputCssPixel(): any;

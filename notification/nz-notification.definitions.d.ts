@@ -6,7 +6,6 @@ export interface NzNotificationData extends NzMessageData {
     title?: string;
 }
 export interface NzNotificationDataOptions extends NzMessageDataOptions {
-    nzKey?: string;
     nzStyle?: any;
     nzClass?: any;
 }

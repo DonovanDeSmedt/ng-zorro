@@ -41,32 +41,29 @@ export declare class NzTreeComponent implements OnInit, OnChanges, OnDestroy {
     nzSelectedKeys: string[];
     nzCheckedKeys: string[];
     nzSearchValue: string;
-    readonly nzExpandedKeysChange: EventEmitter<string[]>;
-    readonly nzSelectedKeysChange: EventEmitter<string[]>;
-    readonly nzCheckedKeysChange: EventEmitter<string[]>;
-    readonly nzSearchValueChange: EventEmitter<NzFormatEmitEvent>;
+    nzExpandedKeysChange: EventEmitter<string[]>;
+    nzSelectedKeysChange: EventEmitter<string[]>;
+    nzCheckedKeysChange: EventEmitter<string[]>;
+    nzSearchValueChange: EventEmitter<NzFormatEmitEvent>;
     /**
      * @deprecated use
      * nzSearchValueChange instead
      */
-    readonly nzOnSearchNode: EventEmitter<NzFormatEmitEvent>;
-    readonly nzClick: EventEmitter<NzFormatEmitEvent>;
-    readonly nzDblClick: EventEmitter<NzFormatEmitEvent>;
-    readonly nzContextMenu: EventEmitter<NzFormatEmitEvent>;
-    readonly nzCheckBoxChange: EventEmitter<NzFormatEmitEvent>;
-    readonly nzExpandChange: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDragStart: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDragEnter: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDragOver: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDragLeave: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDrop: EventEmitter<NzFormatEmitEvent>;
-    readonly nzOnDragEnd: EventEmitter<NzFormatEmitEvent>;
+    nzOnSearchNode: EventEmitter<NzFormatEmitEvent>;
+    nzClick: EventEmitter<NzFormatEmitEvent>;
+    nzDblClick: EventEmitter<NzFormatEmitEvent>;
+    nzContextMenu: EventEmitter<NzFormatEmitEvent>;
+    nzCheckBoxChange: EventEmitter<NzFormatEmitEvent>;
+    nzExpandChange: EventEmitter<NzFormatEmitEvent>;
+    nzOnDragStart: EventEmitter<NzFormatEmitEvent>;
+    nzOnDragEnter: EventEmitter<NzFormatEmitEvent>;
+    nzOnDragOver: EventEmitter<NzFormatEmitEvent>;
+    nzOnDragLeave: EventEmitter<NzFormatEmitEvent>;
+    nzOnDrop: EventEmitter<NzFormatEmitEvent>;
+    nzOnDragEnd: EventEmitter<NzFormatEmitEvent>;
     nzTreeTemplate: TemplateRef<any>;
     _searchValue: any;
-    nzDefaultSubject: ReplaySubject<{
-        type: string;
-        keys: string[];
-    }>;
+    nzDefaultSubject: ReplaySubject<{}>;
     nzDefaultSubscription: Subscription;
     nzNodes: NzTreeNode[];
     prefixCls: string;

@@ -11,8 +11,8 @@ export declare class NzTdComponent {
     nzChecked: boolean;
     nzDisabled: boolean;
     nzIndeterminate: boolean;
-    readonly nzCheckedChange: EventEmitter<boolean>;
-    readonly nzExpandChange: EventEmitter<boolean>;
+    nzCheckedChange: EventEmitter<boolean>;
+    nzExpandChange: EventEmitter<boolean>;
     nzIndentSize: number;
     nzExpand: boolean;
     nzShowExpand: boolean;
@@ -20,6 +20,6 @@ export declare class NzTdComponent {
     nzLeft: string;
     nzRight: string;
     updateExpandIconClass(): void;
-    expandChange(e: Event): void;
+    expandChange(): void;
     constructor(elementRef: ElementRef, renderer: Renderer2);
 }

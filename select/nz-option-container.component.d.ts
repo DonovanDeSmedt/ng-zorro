@@ -19,10 +19,10 @@ export declare class NzOptionContainerComponent implements AfterContentInit, OnD
     listOfNzOptionLiComponent: QueryList<NzOptionLiComponent>;
     listOfNzOptionComponent: QueryList<NzOptionComponent>;
     listOfNzOptionGroupComponent: QueryList<NzOptionGroupComponent>;
-    readonly nzListOfSelectedValueChange: EventEmitter<any[]>;
-    readonly nzListOfTemplateOptionChange: EventEmitter<NzOptionComponent[]>;
-    readonly nzClickOption: EventEmitter<void>;
-    readonly nzScrollToBottom: EventEmitter<void>;
+    nzListOfSelectedValueChange: EventEmitter<any[]>;
+    nzListOfTemplateOptionChange: EventEmitter<NzOptionComponent[]>;
+    nzClickOption: EventEmitter<void>;
+    nzScrollToBottom: EventEmitter<void>;
     nzMode: string;
     nzServerSearch: boolean;
     nzFilterOption: TFilterOption;

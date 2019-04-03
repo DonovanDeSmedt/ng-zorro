@@ -16,8 +16,8 @@ export declare class NzCarouselComponent implements AfterViewInit, OnDestroy, Af
     slideContents: QueryList<NzCarouselContentDirective>;
     slickList: ElementRef;
     slickTrack: ElementRef;
-    readonly nzAfterChange: EventEmitter<number>;
-    readonly nzBeforeChange: EventEmitter<{
+    nzAfterChange: EventEmitter<number>;
+    nzBeforeChange: EventEmitter<{
         from: number;
         to: number;
     }>;

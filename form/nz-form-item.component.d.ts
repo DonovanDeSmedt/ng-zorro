@@ -1,15 +1,12 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Platform } from '@angular/cdk/platform';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { ElementRef, Renderer2 } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 import { NzRowComponent } from '../grid/nz-row.component';
-import { NzFormExplainComponent } from './nz-form-explain.component';
 /** should add nz-row directive to host, track https://github.com/angular/angular/issues/8785 **/
-export declare class NzFormItemComponent extends NzRowComponent implements AfterContentInit, OnDestroy {
-    private cdr;
+export declare class NzFormItemComponent extends NzRowComponent {
     private _flex;
-    listOfNzFormExplainComponent: QueryList<NzFormExplainComponent>;
+    withHelp: number;
     nzFlex: boolean;
-    constructor(elementRef: ElementRef, renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService, mediaMatcher: MediaMatcher, ngZone: NgZone, platform: Platform, cdr: ChangeDetectorRef);
-    ngAfterContentInit(): void;
+    enableHelp(): void;
+    disableHelp(): void;
+    constructor(elementRef: ElementRef, renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService);
 }

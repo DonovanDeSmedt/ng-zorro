@@ -1,9 +1,14 @@
 import { TemplateRef } from '@angular/core';
 import { NzCardTabComponent } from './nz-card-tab.component';
 export declare class NzCardComponent {
-    nzBordered: boolean;
-    nzLoading: boolean;
-    nzHoverable: boolean;
+    private _bordered;
+    private _loading;
+    private _hoverable;
+    private _title;
+    private _extra;
+    isTitleString: boolean;
+    isExtraString: boolean;
+    tab: NzCardTabComponent;
     nzBodyStyle: {
         [key: string]: string;
     };
@@ -12,5 +17,9 @@ export declare class NzCardComponent {
     nzType: string;
     nzTitle: string | TemplateRef<void>;
     nzExtra: string | TemplateRef<void>;
-    tab: NzCardTabComponent;
+    readonly isInner: boolean;
+    readonly isTabs: boolean;
+    nzBordered: boolean;
+    nzLoading: boolean;
+    nzHoverable: boolean;
 }

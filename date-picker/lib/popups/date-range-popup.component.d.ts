@@ -50,8 +50,8 @@ export declare class DateRangePopupComponent implements OnInit, OnChanges {
     getPartTypeIndex(partType: RangePartType): number;
     getPlaceholder(partType?: RangePartType): string;
     hasSelectedValue(): boolean;
-    disabledStartTime: (value: Date | Date[]) => DisabledTimeConfig;
-    disabledEndTime: (value: Date | Date[]) => DisabledTimeConfig;
+    disabledStartTime: (value: Date) => DisabledTimeConfig;
+    disabledEndTime: (value: Date) => DisabledTimeConfig;
     isAllowedSelectedValue(): boolean;
     timePickerDisabled(): boolean;
     okDisabled(): boolean;

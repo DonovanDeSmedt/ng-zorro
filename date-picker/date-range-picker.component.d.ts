@@ -12,10 +12,10 @@ export declare class DateRangePickerComponent extends AbstractPickerComponent im
     nzShowToday: boolean;
     nzMode: PanelMode | PanelMode[];
     nzRanges: FunctionProp<PresetRanges>;
-    readonly nzOnPanelChange: EventEmitter<"time" | "month" | "year" | "decade" | "date" | PanelMode[]>;
+    nzOnPanelChange: EventEmitter<"time" | "month" | "year" | "decade" | "date" | PanelMode[]>;
     private _showTime;
     nzShowTime: object | boolean;
-    readonly nzOnOk: EventEmitter<Date | Date[]>;
+    nzOnOk: EventEmitter<Date | Date[]>;
     readonly realShowToday: boolean;
     pickerStyle: object;
     extraFooter: TemplateRef<void> | string;

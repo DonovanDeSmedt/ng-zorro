@@ -1,13 +1,9 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges } from '@angular/core';
-export declare class NzTransferSearchComponent implements OnChanges {
-    private cdr;
+import { EventEmitter } from '@angular/core';
+export declare class NzTransferSearchComponent {
     placeholder: string;
     value: string;
-    disabled: boolean;
-    readonly valueChanged: EventEmitter<string>;
-    readonly valueClear: EventEmitter<{}>;
-    constructor(cdr: ChangeDetectorRef);
+    valueChanged: EventEmitter<string>;
+    valueClear: EventEmitter<{}>;
     _handle(): void;
     _clear(): void;
-    ngOnChanges(): void;
 }

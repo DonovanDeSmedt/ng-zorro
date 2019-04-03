@@ -1,26 +1,25 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { DoCheck, ElementRef, EventEmitter, IterableDiffer, IterableDiffers, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 import { TransferItem } from './interface';
-export declare class NzTransferListComponent implements OnChanges, OnInit {
+export declare class NzTransferListComponent implements OnChanges, OnInit, DoCheck {
     private el;
     private updateHostClassService;
-    private cdr;
+    private _showSearch;
     direction: string;
     titleText: string;
     dataSource: TransferItem[];
     itemUnit: string;
     itemsUnit: string;
     filter: string;
-    disabled: boolean;
     showSearch: boolean;
     searchPlaceholder: string;
     notFoundContent: string;
     filterOption: (inputValue: string, item: TransferItem) => boolean;
     render: TemplateRef<void>;
     footer: TemplateRef<void>;
-    readonly handleSelectAll: EventEmitter<boolean>;
-    readonly handleSelect: EventEmitter<TransferItem>;
-    readonly filterChange: EventEmitter<{
+    handleSelectAll: EventEmitter<boolean>;
+    handleSelect: EventEmitter<TransferItem>;
+    filterChange: EventEmitter<{
         direction: string;
         value: string;
     }>;
@@ -37,9 +36,10 @@ export declare class NzTransferListComponent implements OnChanges, OnInit {
     handleFilter(value: string): void;
     handleClear(): void;
     private matchFilter;
-    constructor(el: ElementRef, updateHostClassService: NzUpdateHostClassService, cdr: ChangeDetectorRef);
+    listDiffer: IterableDiffer<{}>;
+    constructor(el: ElementRef, updateHostClassService: NzUpdateHostClassService, differs: IterableDiffers);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
-    markForCheck(): void;
+    ngDoCheck(): void;
     _handleSelect(item: TransferItem): void;
 }

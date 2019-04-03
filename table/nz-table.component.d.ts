@@ -43,13 +43,13 @@ export declare class NzTableComponent implements OnInit, AfterViewInit, OnDestro
     tableBodyElement: ElementRef;
     tableMainElement: ElementRef;
     listOfNzThComponent: QueryList<NzThComponent>;
-    readonly nzPageSizeChange: EventEmitter<number>;
-    readonly nzPageIndexChange: EventEmitter<number>;
+    nzPageSizeChange: EventEmitter<number>;
+    nzPageIndexChange: EventEmitter<number>;
     nzShowTotal: TemplateRef<{
         $implicit: number;
         range: [number, number];
     }>;
-    readonly nzCurrentPageDataChange: EventEmitter<any[]>;
+    nzCurrentPageDataChange: EventEmitter<any[]>;
     nzSize: string;
     /** page size changer select values */
     nzPageSizeOptions: number[];

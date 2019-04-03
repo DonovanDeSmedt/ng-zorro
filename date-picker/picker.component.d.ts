@@ -16,8 +16,8 @@ export declare class NzPickerComponent implements OnInit, AfterViewInit {
     size: 'large' | 'small';
     style: object;
     value: CandyDate | CandyDate[];
-    readonly valueChange: EventEmitter<CandyDate | CandyDate[]>;
-    readonly openChange: EventEmitter<boolean>;
+    valueChange: EventEmitter<CandyDate | CandyDate[]>;
+    openChange: EventEmitter<boolean>;
     origin: CdkOverlayOrigin;
     cdkConnectedOverlay: CdkConnectedOverlay;
     pickerInput: ElementRef;

@@ -21,7 +21,7 @@ export declare class NzSubMenuComponent implements OnInit, OnDestroy {
     level: number;
     triggerWidth: any;
     subMenus: QueryList<NzSubMenuComponent>;
-    readonly nzOpenChange: EventEmitter<boolean>;
+    nzOpenChange: EventEmitter<boolean>;
     cdkOverlay: CdkConnectedOverlay;
     trigger: ElementRef;
     nzOpen: boolean;

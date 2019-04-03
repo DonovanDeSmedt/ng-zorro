@@ -1,16 +1,22 @@
-import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NzCollapseComponent } from './nz-collapse.component';
-export declare class NzCollapsePanelComponent implements OnInit, OnDestroy {
-    private cdr;
+export declare class NzCollapsePanelComponent implements OnDestroy, OnInit {
     private nzCollapseComponent;
-    nzActive: boolean;
-    nzDisabled: boolean;
+    private elementRef;
+    private _disabled;
+    private _showArrow;
+    private _active;
+    private _header;
+    isHeaderString: boolean;
+    private el;
+    nzActiveChange: EventEmitter<boolean>;
     nzShowArrow: boolean;
+    readonly isNoArrow: boolean;
     nzHeader: string | TemplateRef<void>;
-    readonly nzActiveChange: EventEmitter<boolean>;
+    nzDisabled: boolean;
+    nzActive: boolean;
     clickHeader(): void;
-    markForCheck(): void;
-    constructor(cdr: ChangeDetectorRef, nzCollapseComponent: NzCollapseComponent);
+    constructor(nzCollapseComponent: NzCollapseComponent, elementRef: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
 }

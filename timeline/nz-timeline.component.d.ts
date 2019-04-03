@@ -1,21 +1,14 @@
-import { AfterContentInit, ChangeDetectorRef, ElementRef, OnChanges, OnDestroy, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterContentInit, OnDestroy, QueryList, TemplateRef } from '@angular/core';
 import { NzTimelineItemComponent } from './nz-timeline-item.component';
-export declare type NzTimelineMode = 'left' | 'alternate' | 'right';
-export declare class NzTimelineComponent implements AfterContentInit, OnChanges, OnDestroy {
-    private cdr;
-    timeline: ElementRef<HTMLElement>;
+export declare class NzTimelineComponent implements AfterContentInit, OnDestroy {
+    private _pending;
+    private unsubscribe$;
+    isPendingString: boolean;
+    isPendingBoolean: boolean;
+    nzPending: string | boolean | TemplateRef<void>;
     listOfTimeLine: QueryList<NzTimelineItemComponent>;
     _pendingContent: TemplateRef<void>;
-    nzMode: NzTimelineMode;
-    nzPending: string | boolean | TemplateRef<void>;
-    nzPendingDot: string | TemplateRef<void>;
-    nzReverse: boolean;
-    isPendingBoolean: boolean;
-    private destroy$;
-    constructor(cdr: ChangeDetectorRef);
-    ngOnChanges(changes: SimpleChanges): void;
-    ngAfterContentInit(): void;
+    updateChildrenTimeLine(): void;
     ngOnDestroy(): void;
-    private updateChildren;
-    private reverseChildTimelineDots;
+    ngAfterContentInit(): void;
 }

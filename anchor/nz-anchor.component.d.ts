@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NzScrollService } from '../core/scroll/nz-scroll.service';
 import { NzAnchorLinkComponent } from './nz-anchor-link.component';
 export declare class NzAnchorComponent implements OnDestroy, AfterViewInit {
@@ -8,10 +9,11 @@ export declare class NzAnchorComponent implements OnDestroy, AfterViewInit {
     private links;
     private animating;
     private target;
-    private scroll$;
-    private ink;
+    scroll$: Subscription;
     visible: boolean;
     wrapperStyle: {};
+    private wrap;
+    private ink;
     private _affix;
     nzAffix: boolean;
     private _bounds;
@@ -20,9 +22,9 @@ export declare class NzAnchorComponent implements OnDestroy, AfterViewInit {
     nzOffsetTop: number;
     private _showInkInFixed;
     nzShowInkInFixed: boolean;
-    nzTarget: string | Element;
-    readonly nzClick: EventEmitter<string>;
-    readonly nzScroll: EventEmitter<NzAnchorLinkComponent>;
+    nzTarget: Element;
+    nzClick: EventEmitter<string>;
+    nzScroll: EventEmitter<NzAnchorLinkComponent>;
     constructor(scrollSrv: NzScrollService, doc: any, cd: ChangeDetectorRef);
     registerLink(link: NzAnchorLinkComponent): void;
     unregisterLink(link: NzAnchorLinkComponent): void;

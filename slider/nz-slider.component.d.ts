@@ -19,7 +19,7 @@ export declare class NzSliderComponent implements ControlValueAccessor, OnInit, 
     nzMax: number;
     nzDefaultValue: SliderValue;
     nzTipFormatter: (value: number) => string;
-    readonly nzOnAfterChange: EventEmitter<number | number[]>;
+    nzOnAfterChange: EventEmitter<number | number[]>;
     nzVertical: boolean;
     nzRange: boolean;
     nzDots: boolean;

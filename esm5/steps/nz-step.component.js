@@ -2,35 +2,40 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 var NzStepComponent = /** @class */ (function () {
-    function NzStepComponent(cdr) {
-        this.cdr = cdr;
-        this.isCustomStatus = false;
+    function NzStepComponent(elementRef, nzUpdateHostClassService) {
+        this.elementRef = elementRef;
+        this.nzUpdateHostClassService = nzUpdateHostClassService;
         this._status = 'wait';
-        this.oldAPIIcon = true;
-        this.isIconString = true;
-        this.direction = 'horizontal';
-        this.index = 0;
-        this.last = false;
-        this.outStatus = 'process';
-        this.showProcessDot = false;
         this._currentIndex = 0;
+        this.el = this.elementRef.nativeElement;
+        this.oldAPIIcon = true;
+        this.isCustomStatus = false;
+        this.isDescriptionString = true;
+        this.isTitleString = true;
+        this.isIconString = true;
+        this.last = false;
+        this.showProcessDot = false;
+        this.direction = 'horizontal';
+        this.outStatus = 'process';
+        this.index = 0;
     }
-    Object.defineProperty(NzStepComponent.prototype, "nzStatus", {
+    Object.defineProperty(NzStepComponent.prototype, "nzTitle", {
         get: /**
          * @return {?}
          */
         function () {
-            return this._status;
+            return this._title;
         },
         set: /**
-         * @param {?} status
+         * @param {?} value
          * @return {?}
          */
-        function (status) {
-            this._status = status;
-            this.isCustomStatus = true;
+        function (value) {
+            this.isTitleString = !(value instanceof TemplateRef);
+            this._title = value;
         },
         enumerable: true,
         configurable: true
@@ -49,12 +54,56 @@ var NzStepComponent = /** @class */ (function () {
         function (value) {
             if (!(value instanceof TemplateRef)) {
                 this.isIconString = true;
-                this.oldAPIIcon = typeof value === 'string' && value.indexOf('anticon') > -1;
+                if (typeof value === 'string') {
+                    /** @type {?} */
+                    var str = /** @type {?} */ (value);
+                    this.oldAPIIcon = str.indexOf('anticon') > -1;
+                }
+                else {
+                    this.oldAPIIcon = true;
+                }
             }
             else {
                 this.isIconString = false;
             }
             this._icon = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzStepComponent.prototype, "nzStatus", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._status;
+        },
+        set: /**
+         * @param {?} status
+         * @return {?}
+         */
+        function (status) {
+            this._status = status;
+            this.isCustomStatus = true;
+            this.updateClassMap();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzStepComponent.prototype, "nzDescription", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._description;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.isDescriptionString = !(value instanceof TemplateRef);
+            this._description = value;
         },
         enumerable: true,
         configurable: true
@@ -73,8 +122,19 @@ var NzStepComponent = /** @class */ (function () {
         function (current) {
             this._currentIndex = current;
             if (!this.isCustomStatus) {
-                this._status = current > this.index ? 'finish' : current === this.index ? this.outStatus || '' : 'wait';
+                if (current > this.index) {
+                    this._status = 'finish';
+                }
+                else if (current === this.index) {
+                    if (this.outStatus) {
+                        this._status = this.outStatus;
+                    }
+                }
+                else {
+                    this._status = 'wait';
+                }
             }
+            this.updateClassMap();
         },
         enumerable: true,
         configurable: true
@@ -82,80 +142,87 @@ var NzStepComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzStepComponent.prototype.detectChanges = /**
+    NzStepComponent.prototype.updateClassMap = /**
      * @return {?}
      */
     function () {
-        this.cdr.detectChanges();
+        var _a;
+        /** @type {?} */
+        var classMap = (_a = {},
+            _a['ant-steps-item'] = true,
+            _a["ant-steps-item-wait"] = this.nzStatus === 'wait',
+            _a["ant-steps-item-process"] = this.nzStatus === 'process',
+            _a["ant-steps-item-finish"] = this.nzStatus === 'finish',
+            _a["ant-steps-item-error"] = this.nzStatus === 'error',
+            _a['ant-steps-custom'] = !!this.nzIcon,
+            _a['ant-steps-next-error'] = (this.outStatus === 'error') && (this.currentIndex === this.index + 1),
+            _a);
+        this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
     };
     NzStepComponent.decorators = [
         { type: Component, args: [{
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-step',
+                    providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
-                    template: "<div class=\"ant-steps-item-tail\" *ngIf=\"last !== true\"></div>\n<div class=\"ant-steps-item-icon\">\n  <ng-template [ngIf]=\"!showProcessDot\">\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'finish' && !nzIcon\"><i nz-icon type=\"check\"></i></span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'error'\"><i nz-icon type=\"close\"></i></span>\n    <span class=\"ant-steps-icon\" *ngIf=\"(nzStatus === 'process' || nzStatus === 'wait') && !nzIcon\">{{\n      index + 1\n    }}</span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzIcon\">\n      <ng-container *ngIf=\"isIconString; else iconTemplate\">\n        <i nz-icon [type]=\"!oldAPIIcon && nzIcon\" [ngClass]=\"oldAPIIcon && nzIcon\"></i>\n      </ng-container>\n      <ng-template #iconTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzIcon\" [ngTemplateOutletContext]=\"nzCtx\"></ng-template>\n      </ng-template>\n    </span>\n  </ng-template>\n  <ng-template [ngIf]=\"showProcessDot\">\n    <span class=\"ant-steps-icon\">\n      <ng-template #processDotTemplate> <span class=\"ant-steps-icon-dot\"></span> </ng-template>\n      <ng-template\n        [ngTemplateOutlet]=\"customProcessTemplate || processDotTemplate\"\n        [ngTemplateOutletContext]=\"{ $implicit: processDotTemplate, status: nzStatus, index: index }\"\n      >\n      </ng-template>\n    </span>\n  </ng-template>\n</div>\n<div class=\"ant-steps-item-content\">\n  <div class=\"ant-steps-item-title\">\n    <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n  </div>\n  <div class=\"ant-steps-item-description\">\n    <ng-container *nzStringTemplateOutlet=\"nzDescription\">{{ nzDescription }}</ng-container>\n  </div>\n</div>\n",
-                    host: {
-                        '[class.ant-steps-item]': 'true',
-                        '[class.ant-steps-item-wait]': 'nzStatus === "wait"',
-                        '[class.ant-steps-item-process]': 'nzStatus === "process"',
-                        '[class.ant-steps-item-finish]': 'nzStatus === "finish"',
-                        '[class.ant-steps-item-error]': 'nzStatus === "error"',
-                        '[class.ant-steps-custom]': '!!nzIcon',
-                        '[class.ant-steps-next-error]': '(outStatus === "error") && (currentIndex === index + 1)'
-                    }
+                    template: "<ng-template #titleTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n</ng-template>\n<ng-template #descriptionTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzDescription\"></ng-template>\n</ng-template>\n<div class=\"ant-steps-item-tail\" *ngIf=\"last !== true\"></div>\n<div class=\"ant-steps-item-icon\">\n  <ng-template [ngIf]=\"!showProcessDot\">\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'finish' && !nzIcon\">\n      <i nz-icon type=\"check\"></i>\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'error'\">\n      <i nz-icon type=\"close\"></i>\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"(nzStatus === 'process' || nzStatus === 'wait') && !nzIcon\">\n      {{ index + 1 }}\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzIcon\">\n      <ng-container *ngIf=\"isIconString; else iconTemplate\">\n        <i nz-icon [type]=\"!oldAPIIcon && nzIcon\" [ngClass]=\"oldAPIIcon && nzIcon\"></i>\n      </ng-container>\n      <ng-template #iconTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzIcon\"></ng-template>\n    </ng-template>\n    </span>\n  </ng-template>\n  <ng-template [ngIf]=\"showProcessDot\">\n    <span class=\"ant-steps-icon\">\n      <ng-template #processDotTemplate>\n        <span class=\"ant-steps-icon-dot\"></span>\n      </ng-template>\n      <ng-template [ngTemplateOutlet]=\"customProcessTemplate||processDotTemplate\" [ngTemplateOutletContext]=\"{ $implicit: processDotTemplate, status:nzStatus, index:index }\"></ng-template>\n    </span>\n  </ng-template>\n</div>\n<div class=\"ant-steps-item-content\">\n  <div class=\"ant-steps-item-title\">\n    <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n  </div>\n  <div class=\"ant-steps-item-description\">\n    <ng-container *ngIf=\"isDescriptionString; else descriptionTemplate\">{{ nzDescription }}</ng-container>\n  </div>\n</div>"
                 }] }
     ];
     /** @nocollapse */
     NzStepComponent.ctorParameters = function () { return [
-        { type: ChangeDetectorRef }
+        { type: ElementRef },
+        { type: NzUpdateHostClassService }
     ]; };
     NzStepComponent.propDecorators = {
         processDotTemplate: [{ type: ViewChild, args: ['processDotTemplate',] }],
         nzTitle: [{ type: Input }],
-        nzDescription: [{ type: Input }],
+        nzIcon: [{ type: Input }],
         nzStatus: [{ type: Input }],
-        nzCtx: [{ type: Input }],
-        nzIcon: [{ type: Input }]
+        nzDescription: [{ type: Input }]
     };
     return NzStepComponent;
 }());
 export { NzStepComponent };
 function NzStepComponent_tsickle_Closure_declarations() {
     /** @type {?} */
-    NzStepComponent.prototype.processDotTemplate;
-    /** @type {?} */
-    NzStepComponent.prototype.nzTitle;
-    /** @type {?} */
-    NzStepComponent.prototype.nzDescription;
-    /** @type {?} */
-    NzStepComponent.prototype.isCustomStatus;
-    /** @type {?} */
     NzStepComponent.prototype._status;
-    /** @type {?} */
-    NzStepComponent.prototype.nzCtx;
-    /** @type {?} */
-    NzStepComponent.prototype.oldAPIIcon;
-    /** @type {?} */
-    NzStepComponent.prototype.isIconString;
-    /** @type {?} */
-    NzStepComponent.prototype._icon;
-    /** @type {?} */
-    NzStepComponent.prototype.customProcessTemplate;
-    /** @type {?} */
-    NzStepComponent.prototype.direction;
-    /** @type {?} */
-    NzStepComponent.prototype.index;
-    /** @type {?} */
-    NzStepComponent.prototype.last;
-    /** @type {?} */
-    NzStepComponent.prototype.outStatus;
-    /** @type {?} */
-    NzStepComponent.prototype.showProcessDot;
     /** @type {?} */
     NzStepComponent.prototype._currentIndex;
     /** @type {?} */
-    NzStepComponent.prototype.cdr;
+    NzStepComponent.prototype._description;
+    /** @type {?} */
+    NzStepComponent.prototype._icon;
+    /** @type {?} */
+    NzStepComponent.prototype._title;
+    /** @type {?} */
+    NzStepComponent.prototype.el;
+    /** @type {?} */
+    NzStepComponent.prototype.oldAPIIcon;
+    /** @type {?} */
+    NzStepComponent.prototype.isCustomStatus;
+    /** @type {?} */
+    NzStepComponent.prototype.isDescriptionString;
+    /** @type {?} */
+    NzStepComponent.prototype.isTitleString;
+    /** @type {?} */
+    NzStepComponent.prototype.isIconString;
+    /** @type {?} */
+    NzStepComponent.prototype.last;
+    /** @type {?} */
+    NzStepComponent.prototype.showProcessDot;
+    /** @type {?} */
+    NzStepComponent.prototype.direction;
+    /** @type {?} */
+    NzStepComponent.prototype.outStatus;
+    /** @type {?} */
+    NzStepComponent.prototype.index;
+    /** @type {?} */
+    NzStepComponent.prototype.processDotTemplate;
+    /** @type {?} */
+    NzStepComponent.prototype.customProcessTemplate;
+    /** @type {?} */
+    NzStepComponent.prototype.elementRef;
+    /** @type {?} */
+    NzStepComponent.prototype.nzUpdateHostClassService;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotc3RlcC5jb21wb25lbnQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsic3RlcHMvbnotc3RlcC5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFDTCx1QkFBdUIsRUFDdkIsaUJBQWlCLEVBQ2pCLFNBQVMsRUFDVCxLQUFLLEVBQ0wsV0FBVyxFQUNYLFNBQVMsRUFDVCxpQkFBaUIsRUFDbEIsTUFBTSxlQUFlLENBQUM7O0lBMkVyQix5QkFBb0IsR0FBc0I7UUFBdEIsUUFBRyxHQUFILEdBQUcsQ0FBbUI7UUF6QzFDLHNCQUFpQixLQUFLLENBQUM7dUJBQ0wsTUFBTTtRQWtCeEIsa0JBQWEsSUFBSSxDQUFDO1FBQ2xCLG9CQUFlLElBQUksQ0FBQztRQUlwQixpQkFBWSxZQUFZLENBQUM7UUFDekIsYUFBUSxDQUFDLENBQUM7UUFDVixZQUFPLEtBQUssQ0FBQztRQUNiLGlCQUFZLFNBQVMsQ0FBQztRQUN0QixzQkFBaUIsS0FBSyxDQUFDOzZCQVdDLENBQUM7S0FFcUI7SUFqRDlDLHNCQUNJLHFDQUFROzs7O1FBRFo7WUFFRSxPQUFPLElBQUksQ0FBQyxPQUFPLENBQUM7U0FDckI7Ozs7O1FBQ0QsVUFBYSxNQUFjO1lBQ3pCLElBQUksQ0FBQyxPQUFPLEdBQUcsTUFBTSxDQUFDO1lBQ3RCLElBQUksQ0FBQyxjQUFjLEdBQUcsSUFBSSxDQUFDO1NBQzVCOzs7T0FKQTtJQVdELHNCQUNJLG1DQUFNOzs7O1FBRFY7WUFFRSxPQUFPLElBQUksQ0FBQyxLQUFLLENBQUM7U0FDbkI7Ozs7O1FBQ0QsVUFBVyxLQUFzQztZQUMvQyxJQUFJLENBQUMsQ0FBQyxLQUFLLFlBQVksV0FBVyxDQUFDLEVBQUU7Z0JBQ25DLElBQUksQ0FBQyxZQUFZLEdBQUcsSUFBSSxDQUFDO2dCQUN6QixJQUFJLENBQUMsVUFBVSxHQUFHLE9BQU8sS0FBSyxLQUFLLFFBQVEsSUFBSSxLQUFLLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO2FBQzlFO2lCQUFNO2dCQUNMLElBQUksQ0FBQyxZQUFZLEdBQUcsS0FBSyxDQUFDO2FBQzNCO1lBQ0QsSUFBSSxDQUFDLEtBQUssR0FBRyxLQUFLLENBQUM7U0FDcEI7OztPQVRBO0lBcUJELHNCQUFJLHlDQUFZOzs7O1FBQWhCO1lBQ0UsT0FBTyxJQUFJLENBQUMsYUFBYSxDQUFDO1NBQzNCOzs7OztRQUNELFVBQWlCLE9BQWU7WUFDOUIsSUFBSSxDQUFDLGFBQWEsR0FBRyxPQUFPLENBQUM7WUFDN0IsSUFBSSxDQUFDLElBQUksQ0FBQyxjQUFjLEVBQUU7Z0JBQ3hCLElBQUksQ0FBQyxPQUFPLEdBQUcsT0FBTyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsT0FBTyxLQUFLLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxTQUFTLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUM7YUFDekc7U0FDRjs7O09BTkE7Ozs7SUFXRCx1Q0FBYTs7O0lBQWI7UUFDRSxJQUFJLENBQUMsR0FBRyxDQUFDLGFBQWEsRUFBRSxDQUFDO0tBQzFCOztnQkEzRUYsU0FBUyxTQUFDO29CQUNULGVBQWUsRUFBRSx1QkFBdUIsQ0FBQyxNQUFNO29CQUMvQyxhQUFhLEVBQUUsaUJBQWlCLENBQUMsSUFBSTtvQkFDckMsUUFBUSxFQUFFLFNBQVM7b0JBQ25CLG1CQUFtQixFQUFFLEtBQUs7b0JBQzFCLG1zREFBdUM7b0JBQ3ZDLElBQUksRUFBRTt3QkFDSix3QkFBd0IsRUFBRSxNQUFNO3dCQUNoQyw2QkFBNkIsRUFBRSxxQkFBcUI7d0JBQ3BELGdDQUFnQyxFQUFFLHdCQUF3Qjt3QkFDMUQsK0JBQStCLEVBQUUsdUJBQXVCO3dCQUN4RCw4QkFBOEIsRUFBRSxzQkFBc0I7d0JBQ3RELDBCQUEwQixFQUFFLFVBQVU7d0JBQ3RDLDhCQUE4QixFQUFFLHlEQUF5RDtxQkFDMUY7aUJBQ0Y7Ozs7Z0JBekJDLGlCQUFpQjs7O3FDQTJCaEIsU0FBUyxTQUFDLG9CQUFvQjswQkFFOUIsS0FBSztnQ0FDTCxLQUFLOzJCQUVMLEtBQUs7d0JBV0wsS0FBSzt5QkFHTCxLQUFLOzswQkFoRFI7O1NBNEJhLGVBQWUiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneSxcbiAgQ2hhbmdlRGV0ZWN0b3JSZWYsXG4gIENvbXBvbmVudCxcbiAgSW5wdXQsXG4gIFRlbXBsYXRlUmVmLFxuICBWaWV3Q2hpbGQsXG4gIFZpZXdFbmNhcHN1bGF0aW9uXG59IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5pbXBvcnQgeyBOZ0NsYXNzVHlwZSB9IGZyb20gJy4uL2NvcmUvdHlwZXMvbmctY2xhc3MnO1xuXG5AQ29tcG9uZW50KHtcbiAgY2hhbmdlRGV0ZWN0aW9uOiBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneS5PblB1c2gsXG4gIGVuY2Fwc3VsYXRpb246IFZpZXdFbmNhcHN1bGF0aW9uLk5vbmUsXG4gIHNlbGVjdG9yOiAnbnotc3RlcCcsXG4gIHByZXNlcnZlV2hpdGVzcGFjZXM6IGZhbHNlLFxuICB0ZW1wbGF0ZVVybDogJy4vbnotc3RlcC5jb21wb25lbnQuaHRtbCcsXG4gIGhvc3Q6IHtcbiAgICAnW2NsYXNzLmFudC1zdGVwcy1pdGVtXSc6ICd0cnVlJyxcbiAgICAnW2NsYXNzLmFudC1zdGVwcy1pdGVtLXdhaXRdJzogJ256U3RhdHVzID09PSBcIndhaXRcIicsXG4gICAgJ1tjbGFzcy5hbnQtc3RlcHMtaXRlbS1wcm9jZXNzXSc6ICduelN0YXR1cyA9PT0gXCJwcm9jZXNzXCInLFxuICAgICdbY2xhc3MuYW50LXN0ZXBzLWl0ZW0tZmluaXNoXSc6ICduelN0YXR1cyA9PT0gXCJmaW5pc2hcIicsXG4gICAgJ1tjbGFzcy5hbnQtc3RlcHMtaXRlbS1lcnJvcl0nOiAnbnpTdGF0dXMgPT09IFwiZXJyb3JcIicsXG4gICAgJ1tjbGFzcy5hbnQtc3RlcHMtY3VzdG9tXSc6ICchIW56SWNvbicsXG4gICAgJ1tjbGFzcy5hbnQtc3RlcHMtbmV4dC1lcnJvcl0nOiAnKG91dFN0YXR1cyA9PT0gXCJlcnJvclwiKSAmJiAoY3VycmVudEluZGV4ID09PSBpbmRleCArIDEpJ1xuICB9XG59KVxuZXhwb3J0IGNsYXNzIE56U3RlcENvbXBvbmVudCB7XG4gIEBWaWV3Q2hpbGQoJ3Byb2Nlc3NEb3RUZW1wbGF0ZScpIHByb2Nlc3NEb3RUZW1wbGF0ZTogVGVtcGxhdGVSZWY8dm9pZD47XG5cbiAgQElucHV0KCkgbnpUaXRsZTogc3RyaW5nIHwgVGVtcGxhdGVSZWY8dm9pZD47XG4gIEBJbnB1dCgpIG56RGVzY3JpcHRpb246IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+O1xuXG4gIEBJbnB1dCgpXG4gIGdldCBuelN0YXR1cygpOiBzdHJpbmcge1xuICAgIHJldHVybiB0aGlzLl9zdGF0dXM7XG4gIH1cbiAgc2V0IG56U3RhdHVzKHN0YXR1czogc3RyaW5nKSB7XG4gICAgdGhpcy5fc3RhdHVzID0gc3RhdHVzO1xuICAgIHRoaXMuaXNDdXN0b21TdGF0dXMgPSB0cnVlO1xuICB9XG4gIGlzQ3VzdG9tU3RhdHVzID0gZmFsc2U7XG4gIHByaXZhdGUgX3N0YXR1cyA9ICd3YWl0JztcblxuICBASW5wdXQoKVxuICBuekN0eDogYW55O1xuXG4gIEBJbnB1dCgpXG4gIGdldCBuekljb24oKTogTmdDbGFzc1R5cGUgfCBUZW1wbGF0ZVJlZjx2b2lkPiB7XG4gICAgcmV0dXJuIHRoaXMuX2ljb247XG4gIH1cbiAgc2V0IG56SWNvbih2YWx1ZTogTmdDbGFzc1R5cGUgfCBUZW1wbGF0ZVJlZjx2b2lkPikge1xuICAgIGlmICghKHZhbHVlIGluc3RhbmNlb2YgVGVtcGxhdGVSZWYpKSB7XG4gICAgICB0aGlzLmlzSWNvblN0cmluZyA9IHRydWU7XG4gICAgICB0aGlzLm9sZEFQSUljb24gPSB0eXBlb2YgdmFsdWUgPT09ICdzdHJpbmcnICYmIHZhbHVlLmluZGV4T2YoJ2FudGljb24nKSA+IC0xO1xuICAgIH0gZWxzZSB7XG4gICAgICB0aGlzLmlzSWNvblN0cmluZyA9IGZhbHNlO1xuICAgIH1cbiAgICB0aGlzLl9pY29uID0gdmFsdWU7XG4gIH1cbiAgb2xkQVBJSWNvbiA9IHRydWU7XG4gIGlzSWNvblN0cmluZyA9IHRydWU7XG4gIHByaXZhdGUgX2ljb246IE5nQ2xhc3NUeXBlIHwgVGVtcGxhdGVSZWY8dm9pZD47XG5cbiAgY3VzdG9tUHJvY2Vzc1RlbXBsYXRlOiBUZW1wbGF0ZVJlZjx7ICRpbXBsaWNpdDogVGVtcGxhdGVSZWY8dm9pZD47IHN0YXR1czogc3RyaW5nOyBpbmRleDogbnVtYmVyIH0+OyAvLyBTZXQgYnkgcGFyZW50LlxuICBkaXJlY3Rpb24gPSAnaG9yaXpvbnRhbCc7XG4gIGluZGV4ID0gMDtcbiAgbGFzdCA9IGZhbHNlO1xuICBvdXRTdGF0dXMgPSAncHJvY2Vzcyc7XG4gIHNob3dQcm9jZXNzRG90ID0gZmFsc2U7XG5cbiAgZ2V0IGN1cnJlbnRJbmRleCgpOiBudW1iZXIge1xuICAgIHJldHVybiB0aGlzLl9jdXJyZW50SW5kZXg7XG4gIH1cbiAgc2V0IGN1cnJlbnRJbmRleChjdXJyZW50OiBudW1iZXIpIHtcbiAgICB0aGlzLl9jdXJyZW50SW5kZXggPSBjdXJyZW50O1xuICAgIGlmICghdGhpcy5pc0N1c3RvbVN0YXR1cykge1xuICAgICAgdGhpcy5fc3RhdHVzID0gY3VycmVudCA+IHRoaXMuaW5kZXggPyAnZmluaXNoJyA6IGN1cnJlbnQgPT09IHRoaXMuaW5kZXggPyB0aGlzLm91dFN0YXR1cyB8fCAnJyA6ICd3YWl0JztcbiAgICB9XG4gIH1cbiAgcHJpdmF0ZSBfY3VycmVudEluZGV4ID0gMDtcblxuICBjb25zdHJ1Y3Rvcihwcml2YXRlIGNkcjogQ2hhbmdlRGV0ZWN0b3JSZWYpIHt9XG5cbiAgZGV0ZWN0Q2hhbmdlcygpOiB2b2lkIHtcbiAgICB0aGlzLmNkci5kZXRlY3RDaGFuZ2VzKCk7XG4gIH1cbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotc3RlcC5jb21wb25lbnQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsic3RlcHMvbnotc3RlcC5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFDTCxTQUFTLEVBQ1QsVUFBVSxFQUNWLEtBQUssRUFDTCxXQUFXLEVBQ1gsU0FBUyxFQUNWLE1BQU0sZUFBZSxDQUFDO0FBRXZCLE9BQU8sRUFBRSx3QkFBd0IsRUFBRSxNQUFNLDRDQUE0QyxDQUFDOztJQW1IcEYseUJBQW9CLFVBQXNCLEVBQVUsd0JBQWtEO1FBQWxGLGVBQVUsR0FBVixVQUFVLENBQVk7UUFBVSw2QkFBd0IsR0FBeEIsd0JBQXdCLENBQTBCO3VCQXZHcEYsTUFBTTs2QkFDQSxDQUFDO2tCQUlDLElBQUksQ0FBQyxVQUFVLENBQUMsYUFBYTswQkFDMUMsSUFBSTs4QkFDQSxLQUFLO21DQUNBLElBQUk7NkJBQ1YsSUFBSTs0QkFDTCxJQUFJO29CQUNaLEtBQUs7OEJBQ0ssS0FBSzt5QkFDVixZQUFZO3lCQUNaLFNBQVM7cUJBQ2IsQ0FBQztLQXlGUjtJQXJGRCxzQkFDSSxvQ0FBTzs7OztRQUtYO1lBQ0UsT0FBTyxJQUFJLENBQUMsTUFBTSxDQUFDO1NBQ3BCOzs7OztRQVJELFVBQ1ksS0FBaUM7WUFDM0MsSUFBSSxDQUFDLGFBQWEsR0FBRyxDQUFDLENBQUMsS0FBSyxZQUFZLFdBQVcsQ0FBQyxDQUFDO1lBQ3JELElBQUksQ0FBQyxNQUFNLEdBQUcsS0FBSyxDQUFDO1NBQ3JCOzs7T0FBQTtJQU1ELHNCQUNJLG1DQUFNOzs7O1FBZVY7WUFDRSxPQUFPLElBQUksQ0FBQyxLQUFLLENBQUM7U0FDbkI7Ozs7O1FBbEJELFVBQ1csS0FBMEM7WUFDbkQsSUFBSSxDQUFDLENBQUMsS0FBSyxZQUFZLFdBQVcsQ0FBQyxFQUFFO2dCQUNuQyxJQUFJLENBQUMsWUFBWSxHQUFHLElBQUksQ0FBQztnQkFDekIsSUFB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Z0JBTUgsd0JBQXdCOzs7cUNBNEI5QixTQUFTLFNBQUMsb0JBQW9COzBCQUc5QixLQUFLO3lCQVVMLEtBQUs7MkJBb0JMLEtBQUs7Z0NBV0wsS0FBSzs7MEJBaEZSOztTQW1CYSxlQUFlIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgQ29tcG9uZW50LFxuICBFbGVtZW50UmVmLFxuICBJbnB1dCxcbiAgVGVtcGxhdGVSZWYsXG4gIFZpZXdDaGlsZFxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuaW1wb3J0IHsgTnpVcGRhdGVIb3N0Q2xhc3NTZXJ2aWNlIH0gZnJvbSAnLi4vY29yZS9zZXJ2aWNlcy91cGRhdGUtaG9zdC1jbGFzcy5zZXJ2aWNlJztcblxuLy8gdHNsaW50OmRpc2FibGUtbmV4dC1saW5lOm5vLWFueVxuZXhwb3J0IHR5cGUgU3RlcE5nQ2xhc3NUeXBlID0gc3RyaW5nIHwgc3RyaW5nW10gfCBTZXQ8c3RyaW5nPiB8IHsgWyBrbGFzczogc3RyaW5nIF06IGFueTsgfTtcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yICAgICAgICAgICA6ICduei1zdGVwJyxcbiAgcHJvdmlkZXJzICAgICAgICAgIDogWyBOelVwZGF0ZUhvc3RDbGFzc1NlcnZpY2UgXSxcbiAgcHJlc2VydmVXaGl0ZXNwYWNlczogZmFsc2UsXG4gIHRlbXBsYXRlVXJsICAgICAgICA6ICcuL256LXN0ZXAuY29tcG9uZW50Lmh0bWwnXG59KVxuZXhwb3J0IGNsYXNzIE56U3RlcENvbXBvbmVudCB7XG4gIHByaXZhdGUgX3N0YXR1cyA9ICd3YWl0JztcbiAgcHJpdmF0ZSBfY3VycmVudEluZGV4ID0gMDtcbiAgcHJpdmF0ZSBfZGVzY3JpcHRpb246IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+O1xuICBwcml2YXRlIF9pY29uOiBTdGVwTmdDbGFzc1R5cGUgfCBUZW1wbGF0ZVJlZjx2b2lkPjtcbiAgcHJpdmF0ZSBfdGl0bGU6IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+O1xuICBwcml2YXRlIGVsOiBIVE1MRWxlbWVudCA9IHRoaXMuZWxlbWVudFJlZi5uYXRpdmVFbGVtZW50O1xuICBvbGRBUElJY29uID0gdHJ1ZTsgLy8gTWFrZSB0aGUgdXNlciBkZWZpbmVkIGljb24gY29tcGF0aWJsZSB0byBvbGQgQVBJLiBTaG91bGQgYmUgcmVtb3ZlZCBpbiAyLjAuXG4gIGlzQ3VzdG9tU3RhdHVzID0gZmFsc2U7XG4gIGlzRGVzY3JpcHRpb25TdHJpbmcgPSB0cnVlO1xuICBpc1RpdGxlU3RyaW5nID0gdHJ1ZTtcbiAgaXNJY29uU3RyaW5nID0gdHJ1ZTtcbiAgbGFzdCA9IGZhbHNlO1xuICBzaG93UHJvY2Vzc0RvdCA9IGZhbHNlO1xuICBkaXJlY3Rpb24gPSAnaG9yaXpvbnRhbCc7XG4gIG91dFN0YXR1cyA9ICdwcm9jZXNzJztcbiAgaW5kZXggPSAwO1xuICBAVmlld0NoaWxkKCdwcm9jZXNzRG90VGVtcGxhdGUnKSBwcm9jZXNzRG90VGVtcGxhdGU6IFRlbXBsYXRlUmVmPHZvaWQ+O1xuICBjdXN0b21Qcm9jZXNzVGVtcGxhdGU6IFRlbXBsYXRlUmVmPHsgJGltcGxpY2l0OiBUZW1wbGF0ZVJlZjx2b2lkPiwgc3RhdHVzOiBzdHJpbmcsIGluZGV4OiBudW1iZXIgfT47XG5cbiAgQElucHV0KClcbiAgc2V0IG56VGl0bGUodmFsdWU6IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+KSB7XG4gICAgdGhpcy5pc1RpdGxlU3RyaW5nID0gISh2YWx1ZSBpbnN0YW5jZW9mIFRlbXBsYXRlUmVmKTtcbiAgICB0aGlzLl90aXRsZSA9IHZhbHVlO1xuICB9XG5cbiAgZ2V0IG56VGl0bGUoKTogc3RyaW5nIHwgVGVtcGxhdGVSZWY8dm9pZD4ge1xuICAgIHJldHVybiB0aGlzLl90aXRsZTtcbiAgfVxuXG4gIEBJbnB1dCgpXG4gIHNldCBuekljb24odmFsdWU6IFN0ZXBOZ0NsYXNzVHlwZSB8IFRlbXBsYXRlUmVmPHZvaWQ+KSB7XG4gICAgaWYgKCEodmFsdWUgaW5zdGFuY2VvZiBUZW1wbGF0ZVJlZikpIHtcbiAgICAgIHRoaXMuaXNJY29uU3RyaW5nID0gdHJ1ZTtcbiAgICAgIGlmICh0eXBlb2YgdmFsdWUgPT09ICdzdHJpbmcnKSB7XG4gICAgICAgIGNvbnN0IHN0ciA9IHZhbHVlIGFzIHN0cmluZztcbiAgICAgICAgdGhpcy5vbGRBUElJY29uID0gc3RyLmluZGV4T2YoJ2FudGljb24nKSA+IC0xO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgdGhpcy5vbGRBUElJY29uID0gdHJ1ZTtcbiAgICAgIH1cbiAgICB9IGVsc2Uge1xuICAgICAgdGhpcy5pc0ljb25TdHJpbmcgPSBmYWxzZTtcbiAgICB9XG4gICAgdGhpcy5faWNvbiA9IHZhbHVlO1xuICB9XG5cbiAgZ2V0IG56SWNvbigpOiBTdGVwTmdDbGFzc1R5cGUgfCBUZW1wbGF0ZVJlZjx2b2lkPiB7XG4gICAgcmV0dXJuIHRoaXMuX2ljb247XG4gIH1cblxuICBASW5wdXQoKVxuICBzZXQgbnpTdGF0dXMoc3RhdHVzOiBzdHJpbmcpIHtcbiAgICB0aGlzLl9zdGF0dXMgPSBzdGF0dXM7XG4gICAgdGhpcy5pc0N1c3RvbVN0YXR1cyA9IHRydWU7XG4gICAgdGhpcy51cGRhdGVDbGFzc01hcCgpO1xuICB9XG5cbiAgZ2V0IG56U3RhdHVzKCk6IHN0cmluZyB7XG4gICAgcmV0dXJuIHRoaXMuX3N0YXR1cztcbiAgfVxuXG4gIEBJbnB1dCgpXG4gIHNldCBuekRlc2NyaXB0aW9uKHZhbHVlOiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPikge1xuICAgIHRoaXMuaXNEZXNjcmlwdGlvblN0cmluZyA9ICEodmFsdWUgaW5zdGFuY2VvZiBUZW1wbGF0ZVJlZik7XG4gICAgdGhpcy5fZGVzY3JpcHRpb24gPSB2YWx1ZTtcbiAgfVxuXG4gIGdldCBuekRlc2NyaXB0aW9uKCk6IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+IHtcbiAgICByZXR1cm4gdGhpcy5fZGVzY3JpcHRpb247XG4gIH1cblxuICBnZXQgY3VycmVudEluZGV4KCk6IG51bWJlciB7XG4gICAgcmV0dXJuIHRoaXMuX2N1cnJlbnRJbmRleDtcbiAgfVxuXG4gIHNldCBjdXJyZW50SW5kZXgoY3VycmVudDogbnVtYmVyKSB7XG4gICAgdGhpcy5fY3VycmVudEluZGV4ID0gY3VycmVudDtcbiAgICBpZiAoIXRoaXMuaXNDdXN0b21TdGF0dXMpIHtcbiAgICAgIGlmIChjdXJyZW50ID4gdGhpcy5pbmRleCkge1xuICAgICAgICB0aGlzLl9zdGF0dXMgPSAnZmluaXNoJztcbiAgICAgIH0gZWxzZSBpZiAoY3VycmVudCA9PT0gdGhpcy5pbmRleCkge1xuICAgICAgICBpZiAodGhpcy5vdXRTdGF0dXMpIHtcbiAgICAgICAgICB0aGlzLl9zdGF0dXMgPSB0aGlzLm91dFN0YXR1cztcbiAgICAgICAgfVxuICAgICAgfSBlbHNlIHtcbiAgICAgICAgdGhpcy5fc3RhdHVzID0gJ3dhaXQnO1xuICAgICAgfVxuICAgIH1cbiAgICB0aGlzLnVwZGF0ZUNsYXNzTWFwKCk7XG4gIH1cblxuICB1cGRhdGVDbGFzc01hcCgpOiB2b2lkIHtcbiAgICBjb25zdCBjbGFzc01hcCA9IHtcbiAgICAgIFsgJ2FudC1zdGVwcy1pdGVtJyBdICAgICAgICA6IHRydWUsXG4gICAgICBbIGBhbnQtc3RlcHMtaXRlbS13YWl0YCBdICAgOiB0aGlzLm56U3RhdHVzID09PSAnd2FpdCcsXG4gICAgICBbIGBhbnQtc3RlcHMtaXRlbS1wcm9jZXNzYCBdOiB0aGlzLm56U3RhdHVzID09PSAncHJvY2VzcycsXG4gICAgICBbIGBhbnQtc3RlcHMtaXRlbS1maW5pc2hgIF0gOiB0aGlzLm56U3RhdHVzID09PSAnZmluaXNoJyxcbiAgICAgIFsgYGFudC1zdGVwcy1pdGVtLWVycm9yYCBdICA6IHRoaXMubnpTdGF0dXMgPT09ICdlcnJvcicsXG4gICAgICBbICdhbnQtc3RlcHMtY3VzdG9tJyBdICAgICAgOiAhIXRoaXMubnpJY29uLFxuICAgICAgWyAnYW50LXN0ZXBzLW5leHQtZXJyb3InIF0gIDogKHRoaXMub3V0U3RhdHVzID09PSAnZXJyb3InKSAmJiAodGhpcy5jdXJyZW50SW5kZXggPT09IHRoaXMuaW5kZXggKyAxKVxuICAgIH07XG4gICAgdGhpcy5uelVwZGF0ZUhvc3RDbGFzc1NlcnZpY2UudXBkYXRlSG9zdENsYXNzKHRoaXMuZWwsIGNsYXNzTWFwKTtcbiAgfVxuXG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgZWxlbWVudFJlZjogRWxlbWVudFJlZiwgcHJpdmF0ZSBuelVwZGF0ZUhvc3RDbGFzc1NlcnZpY2U6IE56VXBkYXRlSG9zdENsYXNzU2VydmljZSkge1xuICB9XG59XG4iXX0=
