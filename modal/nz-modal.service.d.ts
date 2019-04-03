@@ -10,7 +10,7 @@ export declare class ModalBuilderForService {
     private modalRef;
     private overlayRef;
     constructor(overlay: Overlay, options?: ModalOptionsForService);
-    getInstance(): NzModalComponent | null;
+    getInstance(): NzModalComponent;
     destroyModal(): void;
     private changeProps;
     private createModal;

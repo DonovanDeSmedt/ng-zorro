@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 export declare class NzRadioComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
     private elementRef;
     private renderer;
+    private document;
     private cdr;
     private focusMonitor;
     select$: Subject<NzRadioComponent>;
@@ -19,11 +20,11 @@ export declare class NzRadioComponent implements ControlValueAccessor, AfterView
     nzDisabled: boolean;
     nzAutoFocus: boolean;
     updateAutoFocus(): void;
-    onClick(event: MouseEvent): void;
+    onClick(): void;
     focus(): void;
     blur(): void;
     markForCheck(): void;
-    constructor(elementRef: ElementRef, renderer: Renderer2, cdr: ChangeDetectorRef, focusMonitor: FocusMonitor);
+    constructor(elementRef: ElementRef, renderer: Renderer2, document: any, cdr: ChangeDetectorRef, focusMonitor: FocusMonitor);
     setDisabledState(isDisabled: boolean): void;
     writeValue(value: boolean): void;
     registerOnChange(fn: (_: boolean) => {}): void;

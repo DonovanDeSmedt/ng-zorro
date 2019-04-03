@@ -1,16 +1,11 @@
 
-    <nz-tree-select
-      style="width: 250px"
-      nzPlaceHolder="Please select"
-      [nzMaxTagCount]="3"
-      [nzMaxTagPlaceholder]="omittedPlaceHolder"
+    <nz-tree-select style="width: 250px"
       [nzNodes]="nodes"
       [nzDefaultExpandAll]="true"
       [nzAllowClear]="false"
+      nzPlaceHolder="Please select"
       [(ngModel)]="value"
       [nzMultiple]="true"
-      (ngModelChange)="onChange($event)"
-    >
+      (ngModelChange)="onChange($event)">
     </nz-tree-select>
-    <ng-template #omittedPlaceHolder let-omittedValues> and {{ omittedValues.length }} more... </ng-template>
   

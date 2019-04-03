@@ -9,9 +9,10 @@ import { Component } from '@angular/core';
       <label nz-radio [ngStyle]="style" nzValue="C">Option C</label>
       <label nz-radio [ngStyle]="style" nzValue="M">
         More...
-        <input type="text" nz-input *ngIf="radioValue == 'M'" style="width: 100px; margin-left: 10px;" />
+        <input type="text" nz-input *ngIf="radioValue=='M'" style="width: 100px; margin-left: 10px;">
       </label>
     </nz-radio-group>
+
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
       [nz-radio] {
@@ -22,8 +23,8 @@ import { Component } from '@angular/core';
 export class <%= classify(name) %>Component {
   radioValue = 'A';
   style = {
-    display: 'block',
-    height: '30px',
+    display   : 'block',
+    height    : '30px',
     lineHeight: '30px'
   };
 }

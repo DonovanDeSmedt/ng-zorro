@@ -14,9 +14,8 @@
   .input-group(~'@{ant-prefix}-input');
   &-wrapper {
     display: inline-block;
-    width: 100%;
-    text-align: start;
     vertical-align: top; // https://github.com/ant-design/ant-design/issues/6403
+    width: 100%;
   }
 }
 
@@ -28,14 +27,6 @@
   // https://github.com/ant-design/ant-design/issues/6144
   .@{ant-prefix}-input {
     min-height: 100%; // use min-height, assume that no smaller height to override
-  }
-}
-
-.@{ant-prefix}-input-password-icon {
-  cursor: pointer;
-  transition: all 0.3s;
-  &:hover {
-    color: #333;
   }
 }
 

@@ -5,12 +5,12 @@ import { Component } from '@angular/core';
   <% if(inlineTemplate) { %>template: `
     <div style="margin-bottom: 16px;">
       <nz-input-group nzAddOnBefore="Http://" nzAddOnAfter=".com">
-        <input type="text" nz-input [(ngModel)]="inputValue" />
+        <input type="text" nz-input [(ngModel)]="inputValue">
       </nz-input-group>
     </div>
     <div style="margin-bottom: 16px;">
       <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
-        <input type="text" nz-input [(ngModel)]="inputValue" />
+        <input type="text" nz-input [(ngModel)]="inputValue">
       </nz-input-group>
       <ng-template #addOnBeforeTemplate>
         <nz-select [ngModel]="'Http://'">
@@ -28,9 +28,12 @@ import { Component } from '@angular/core';
       </ng-template>
     </div>
     <div style="margin-bottom: 16px;">
-      <nz-input-group [nzAddOnAfterIcon]="'setting'">
-        <input type="text" nz-input [(ngModel)]="inputValue" />
+      <nz-input-group [nzAddOnAfter]="addOnAfterIconTemplate">
+        <input type="text" nz-input [(ngModel)]="inputValue">
       </nz-input-group>
+      <ng-template #addOnAfterIconTemplate>
+        <i nz-icon type="setting"></i>
+      </ng-template>
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })

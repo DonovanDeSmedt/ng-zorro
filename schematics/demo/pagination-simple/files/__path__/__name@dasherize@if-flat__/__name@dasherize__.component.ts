@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-pagination [nzPageIndex]="2" [nzTotal]="50" nzSimple></nz-pagination>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    <nz-pagination [nzPageIndex]="2" [nzTotal]="50" nzSimple></nz-pagination>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

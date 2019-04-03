@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
       <nz-tab nzTitle="Tab 3">
         Content of Tab Pane 3
       </nz-tab>
-    </nz-tabset>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+    </nz-tabset>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

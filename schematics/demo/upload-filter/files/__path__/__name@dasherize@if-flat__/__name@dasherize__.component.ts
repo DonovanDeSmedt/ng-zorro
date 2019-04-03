@@ -5,25 +5,27 @@ import { Observable, Observer } from 'rxjs';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-upload
-      nzAction="https://jsonplaceholder.typicode.com/posts/"
-      [nzFileList]="fileList"
-      nzMultiple
-      [nzLimit]="2"
-      [nzFilter]="filters"
-      (nzChange)="handleChange($event)"
-    >
-      <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
-    </nz-upload>
+  <nz-upload
+    nzAction="https://jsonplaceholder.typicode.com/posts/"
+    [nzFileList]="fileList"
+    nzMultiple
+    [nzLimit]="2"
+    [nzFilter]="filters"
+    (nzChange)="handleChange($event)">
+    <button nz-button>
+      <i nz-icon type="upload"></i><span>Upload</span>
+    </button>
+  </nz-upload>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
+
   constructor(private msg: NzMessageService) {}
 
   filters: UploadFilter[] = [
     {
       name: 'type',
-      fn: (fileList: UploadFile[]) => {
+      fn  : (fileList: UploadFile[]) => {
         const filterFiles = fileList.filter(w => ~['image/png'].indexOf(w.type));
         if (filterFiles.length !== fileList.length) {
           this.msg.error(`包含文件格式不正确，只支持 png 格式`);
@@ -61,8 +63,7 @@ export class <%= classify(name) %>Component {
       info.file.url = info.file.response.url;
     }
     // 3. filter successfully uploaded files according to response from server
-    // tslint:disable-next-line:no-any
-    this.fileList = fileList.filter((item: any) => {
+    this.fileList = fileList.filter(item => {
       if (item.response) {
         return item.response.status === 'success';
       }

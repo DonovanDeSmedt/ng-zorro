@@ -1,55 +1,51 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, QueryList, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, TemplateRef } from '@angular/core';
 import { NzCarouselContentDirective } from './nz-carousel-content.directive';
-export declare type NzCarouselEffects = 'fade' | 'scrollx';
 export declare type SwipeDirection = 'swipeleft' | 'swiperight';
-export declare class NzCarouselComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
+export declare class NzCarouselComponent implements AfterViewInit, OnDestroy, AfterContentInit {
     elementRef: ElementRef;
     private renderer;
-    private cdr;
-    private ngZone;
+    private _autoPlay;
+    private _autoPlaySpeed;
+    private _dots;
+    private _vertical;
+    private _effect;
+    private unsubscribe$;
+    activeIndex: number;
+    transform: string;
+    timeout: any;
     slideContents: QueryList<NzCarouselContentDirective>;
     slickList: ElementRef;
     slickTrack: ElementRef;
-    nzTransitionSpeed: number;
-    nzDotRender: TemplateRef<{
-        $implicit: number;
-    }>;
-    nzEffect: NzCarouselEffects;
-    nzEnableSwipe: boolean;
-    nzDots: boolean;
-    nzVertical: boolean;
-    nzAutoPlay: boolean;
-    nzAutoPlaySpeed: number;
     readonly nzAfterChange: EventEmitter<number>;
     readonly nzBeforeChange: EventEmitter<{
         from: number;
         to: number;
     }>;
-    activeIndex: number;
-    transform: string;
-    transitionAction: number | null;
-    private el;
-    private subs_;
+    nzEnableSwipe: boolean;
+    onWindowResize(e: UIEvent): void;
     readonly nextIndex: number;
     readonly prevIndex: number;
-    constructor(elementRef: ElementRef, renderer: Renderer2, cdr: ChangeDetectorRef, ngZone: NgZone);
-    ngAfterContentInit(): void;
-    ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
-    setContentActive(index: number): void;
-    private setTransition;
+    nzDotRender: TemplateRef<{
+        $implicit: number;
+    }>;
+    nzDots: boolean;
+    nzEffect: string;
+    nzAutoPlay: boolean;
+    nzAutoPlaySpeed: number;
+    nzVertical: boolean;
+    setActive(content: NzCarouselContentDirective, i: number): void;
+    renderContent(): void;
+    setUpAutoPlay(): void;
+    updateMode(): void;
+    clearTimeout(): void;
     next(): void;
     pre(): void;
     goTo(index: number): void;
     onKeyDown(e: KeyboardEvent): void;
     swipe(action?: SwipeDirection): void;
     swipeInProgress(e: any): void;
-    clearTimeout(): void;
-    /**
-     * Make a carousel scroll to `this.nextIndex` after `this.nzAutoPlaySpeed` milliseconds.
-     */
-    private setUpNextScroll;
-    private updateMode;
-    private renderContent;
+    constructor(elementRef: ElementRef, renderer: Renderer2);
+    ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
 }

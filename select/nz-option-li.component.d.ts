@@ -1,19 +1,15 @@
-import { ChangeDetectorRef, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ElementRef } from '@angular/core';
 import { NzOptionComponent } from './nz-option.component';
-import { NzSelectService } from './nz-select.service';
-export declare class NzOptionLiComponent implements OnInit, OnDestroy {
+export declare class NzOptionLiComponent {
     private elementRef;
-    nzSelectService: NzSelectService;
-    private cdr;
     el: HTMLElement;
     selected: boolean;
     active: boolean;
-    destroy$: Subject<{}>;
     nzOption: NzOptionComponent;
-    nzMenuItemSelectedIcon: TemplateRef<void>;
-    clickOption(): void;
-    constructor(elementRef: ElementRef, nzSelectService: NzSelectService, cdr: ChangeDetectorRef, renderer: Renderer2);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
+    nzShowActive: boolean;
+    nzMode: string;
+    compareWith: (o1: any, o2: any) => boolean;
+    nzActiveOption: NzOptionComponent;
+    nzListOfSelectedValue: any[];
+    constructor(elementRef: ElementRef);
 }

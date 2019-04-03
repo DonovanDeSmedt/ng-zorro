@@ -9,16 +9,16 @@
   top: 0;
   left: 0;
   z-index: @zindex-popover;
-  font-weight: normal;
-  white-space: normal;
-  text-align: left;
   cursor: auto;
   user-select: text;
+  white-space: normal;
+  font-weight: normal;
+  text-align: left;
 
-  &::after {
-    position: absolute;
-    background: fade(@white, 1%);
+  &:after {
     content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.01);
   }
 
   &-hidden {
@@ -55,24 +55,16 @@
     background-clip: padding-box;
     border-radius: @border-radius-base;
     box-shadow: @box-shadow-base;
-    box-shadow: ~'0 0 8px @{shadow-color} \9';
-  }
-
-  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    /* IE10+ */
-    &-inner {
-      box-shadow: @box-shadow-base;
-    }
   }
 
   &-title {
     min-width: @popover-min-width;
-    min-height: 32px;
     margin: 0; // reset heading margin
     padding: 5px @padding-md 4px;
+    min-height: 32px;
+    border-bottom: 1px solid @border-color-split;
     color: @heading-color;
     font-weight: 500;
-    border-bottom: 1px solid @border-color-split;
   }
 
   &-inner-content {
@@ -81,10 +73,10 @@
   }
 
   &-message {
-    position: relative;
     padding: 4px 0 12px;
-    color: @popover-color;
     font-size: @font-size-base;
+    color: @popover-color;
+    position: relative;
     > .@{iconfont-css-prefix} {
       position: absolute;
       top: 8px; // 4px for padding-top, 4px for vertical middle;
@@ -97,8 +89,8 @@
   }
 
   &-buttons {
-    margin-bottom: 4px;
     text-align: right;
+    margin-bottom: 4px;
     button {
       margin-left: 8px;
     }
@@ -108,25 +100,22 @@
   // .popover-arrow is outer, .popover-arrow:after is inner
 
   &-arrow {
-    position: absolute;
-    display: block;
+    background: @popover-bg;
+    background-color: inherit;
     width: sqrt(@popover-arrow-width * @popover-arrow-width * 2);
     height: sqrt(@popover-arrow-width * @popover-arrow-width * 2);
-    background: transparent;
-    border-width: sqrt(@popover-arrow-width * @popover-arrow-width * 2) / 2;
-    border-style: solid;
     transform: rotate(45deg);
+    position: absolute;
+    display: block;
+    border-color: transparent;
+    border-style: solid;
   }
 
   &-placement-top > &-content > &-arrow,
   &-placement-topLeft > &-content > &-arrow,
   &-placement-topRight > &-content > &-arrow {
-    bottom: @popover-distance - @popover-arrow-width + 2.2px;
-    border-top-color: transparent;
-    border-right-color: @popover-bg;
-    border-bottom-color: @popover-bg;
-    border-left-color: transparent;
-    box-shadow: 3px 3px 7px fade(@black, 7%);
+    bottom: @popover-distance - @popover-arrow-width + 1.5px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
   }
   &-placement-top > &-content > &-arrow {
     left: 50%;
@@ -143,11 +132,7 @@
   &-placement-rightTop > &-content > &-arrow,
   &-placement-rightBottom > &-content > &-arrow {
     left: @popover-distance - @popover-arrow-width + 2px;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: @popover-bg;
-    border-left-color: @popover-bg;
-    box-shadow: -3px 3px 7px fade(@black, 7%);
+    box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
   }
   &-placement-right > &-content > &-arrow {
     top: 50%;
@@ -164,11 +149,7 @@
   &-placement-bottomLeft > &-content > &-arrow,
   &-placement-bottomRight > &-content > &-arrow {
     top: @popover-distance - @popover-arrow-width + 2px;
-    border-top-color: @popover-bg;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: @popover-bg;
-    box-shadow: -2px -2px 5px fade(@black, 6%);
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.06);
   }
   &-placement-bottom > &-content > &-arrow {
     left: 50%;
@@ -185,11 +166,7 @@
   &-placement-leftTop > &-content > &-arrow,
   &-placement-leftBottom > &-content > &-arrow {
     right: @popover-distance - @popover-arrow-width + 2px;
-    border-top-color: @popover-bg;
-    border-right-color: @popover-bg;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-    box-shadow: 3px -3px 7px fade(@black, 7%);
+    box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
   }
   &-placement-left > &-content > &-arrow {
     top: 50%;

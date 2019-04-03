@@ -9,14 +9,11 @@ import setHours from 'date-fns/set_hours';
       nzFormat="yyyy-MM-dd HH:mm:ss"
       [nzDisabledDate]="disabledDate"
       [nzDisabledTime]="disabledDateTime"
-      [nzShowTime]="{ nzDefaultOpenValue: timeDefaultValue }"
-    >
+      [nzShowTime]="{ nzDefaultOpenValue: timeDefaultValue }">
     </nz-date-picker>
-    <br />
+    <br>
     <nz-month-picker [nzDisabledDate]="disabledDate" nzPlaceHolder="Select month"></nz-month-picker>
-    <br />
-    <nz-year-picker [nzDisabledDate]="disabledDate"></nz-year-picker>
-    <br />
+    <br>
     <nz-range-picker
       [nzDisabledDate]="disabledDate"
       [nzDisabledTime]="disabledRangeTime"
@@ -25,21 +22,18 @@ import setHours from 'date-fns/set_hours';
     ></nz-range-picker>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-date-picker,
-      nz-month-picker,
-      nz-year-picker,
-      nz-range-picker,
-      nz-week-picker {
-        margin: 0 8px 12px 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    nz-date-picker, nz-month-picker, nz-range-picker, nz-week-picker {
+      margin: 0 8px 12px 0;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
+
 export class <%= classify(name) %>Component {
   today = new Date();
   timeDefaultValue = setHours(new Date(), 0);
 
   range(start: number, end: number): number[] {
-    const result: number[] = [];
+    const result = [];
     for (let i = start; i < end; i++) {
       result.push(i);
     }
@@ -53,24 +47,24 @@ export class <%= classify(name) %>Component {
 
   disabledDateTime = (): object => {
     return {
-      nzDisabledHours: () => this.range(0, 24).splice(4, 20),
+      nzDisabledHours  : () => this.range(0, 24).splice(4, 20),
       nzDisabledMinutes: () => this.range(30, 60),
-      nzDisabledSeconds: () => [55, 56]
+      nzDisabledSeconds: () => [ 55, 56 ]
     };
   };
 
-  disabledRangeTime = (_value: Date[], type: 'start' | 'end'): object => {
+  disabledRangeTime = (value: Date[], type: 'start' | 'end'): object => {
     if (type === 'start') {
       return {
-        nzDisabledHours: () => this.range(0, 60).splice(4, 20),
+        nzDisabledHours  : () => this.range(0, 60).splice(4, 20),
         nzDisabledMinutes: () => this.range(30, 60),
-        nzDisabledSeconds: () => [55, 56]
+        nzDisabledSeconds: () => [ 55, 56 ]
       };
     }
     return {
-      nzDisabledHours: () => this.range(0, 60).splice(20, 4),
+      nzDisabledHours  : () => this.range(0, 60).splice(20, 4),
       nzDisabledMinutes: () => this.range(0, 31),
-      nzDisabledSeconds: () => [55, 56]
+      nzDisabledSeconds: () => [ 55, 56 ]
     };
   };
 }

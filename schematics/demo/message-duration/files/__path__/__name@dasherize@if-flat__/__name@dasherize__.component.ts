@@ -6,14 +6,13 @@ import { NzMessageService } from 'ng-zorro-antd';
   <% if(inlineTemplate) { %>template: `
     <button nz-button [nzType]="'default'" (click)="createBasicMessage()">Customized display duration</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   createBasicMessage(): void {
-    this.message.success('This is a prompt message for success, and it will disappear in 10 seconds', {
-      nzDuration: 10000
-    });
+    this.message.success('This is a prompt message for success, and it will disappear in 10 seconds', { nzDuration: 10000 });
   }
 
-  constructor(private message: NzMessageService) {}
+  constructor(private message: NzMessageService) {
+  }
 }

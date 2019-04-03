@@ -1,8 +1,6 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
-import { DateHelperService } from '../i18n/date-helper.service';
 import { NzDatePickerI18nInterface } from '../i18n/nz-i18n.interface';
 import { NzI18nService } from '../i18n/nz-i18n.service';
 import { CandyDate } from './lib/candy-date';
@@ -12,9 +10,6 @@ import { NzPickerComponent } from './picker.component';
  */
 export declare abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     protected i18n: NzI18nService;
-    protected cdr: ChangeDetectorRef;
-    protected dateHelper: DateHelperService;
-    noAnimation?: NzNoAnimationDirective | undefined;
     nzAllowClear: boolean;
     nzAutoFocus: boolean;
     nzDisabled: boolean;
@@ -27,16 +22,16 @@ export declare abstract class AbstractPickerComponent implements OnInit, OnChang
     nzDropdownClassName: string;
     nzSize: 'large' | 'small';
     nzStyle: object;
-    nzFormat: string;
-    nzValue: CompatibleValue | null;
     readonly nzOnOpenChange: EventEmitter<boolean>;
+    nzFormat: string;
+    nzValue: CompatibleValue;
     protected picker: NzPickerComponent;
     isRange: boolean;
     readonly realOpenState: boolean;
     initValue(): void;
     protected destroyed$: Subject<void>;
     protected isCustomPlaceHolder: boolean;
-    constructor(i18n: NzI18nService, cdr: ChangeDetectorRef, dateHelper: DateHelperService, noAnimation?: NzNoAnimationDirective | undefined);
+    constructor(i18n: NzI18nService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -51,7 +46,7 @@ export declare abstract class AbstractPickerComponent implements OnInit, OnChang
      * @param open The overlayOpen in picker component
      */
     onOpenChange(open: boolean): void;
-    onChangeFn: (val: CompatibleDate | null) => void;
+    onChangeFn: (val: CompatibleDate) => void;
     onTouchedFn: () => void;
     writeValue(value: CompatibleDate): void;
     registerOnChange(fn: any): void;
@@ -59,6 +54,7 @@ export declare abstract class AbstractPickerComponent implements OnInit, OnChang
     setDisabledState(disabled: boolean): void;
     private setLocale;
     private setDefaultPlaceHolder;
+    private formatDate;
     private setValue;
 }
 export declare type CompatibleValue = CandyDate | CandyDate[];

@@ -10,4 +10,5 @@ import { Component } from '@angular/core';
     </nz-steps>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

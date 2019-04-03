@@ -10,20 +10,16 @@ import { Component } from '@angular/core';
       <label nz-radio nzValue="left">left</label>
     </nz-radio-group>
     <button nz-button nzType="primary" (click)="open()">Open</button>
-    <nz-drawer
-      [nzClosable]="false"
-      [nzVisible]="visible"
-      [nzPlacement]="placement"
-      nzTitle="Basic Drawer"
-      (nzOnClose)="close()"
-    >
+    <nz-drawer [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="placement" nzTitle="Basic Drawer" (nzOnClose)="close()">
       <p>Some contents...</p>
       <p>Some contents...</p>
       <p>Some contents...</p>
     </nz-drawer>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
+
 export class <%= classify(name) %>Component {
+
   visible = false;
   placement = 'left';
   open(): void {

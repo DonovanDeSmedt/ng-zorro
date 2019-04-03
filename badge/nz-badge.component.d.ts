@@ -1,12 +1,11 @@
-import { AfterViewInit, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterViewInit, ElementRef, OnInit, Renderer2 } from '@angular/core';
 export declare type NzBadgeStatusType = 'success' | 'processing' | 'default' | 'error' | 'warning';
-export declare class NzBadgeComponent implements OnInit, AfterViewInit, OnChanges {
+export declare class NzBadgeComponent implements OnInit, AfterViewInit {
     private renderer;
     private elementRef;
-    maxNumberArray: string[];
-    countArray: number[];
+    maxNumberArray: any[];
+    countArray: any[];
     countSingleArray: number[];
-    count: number;
     contentElement: ElementRef;
     nzShowZero: boolean;
     nzShowDot: boolean;
@@ -17,12 +16,11 @@ export declare class NzBadgeComponent implements OnInit, AfterViewInit, OnChange
         [key: string]: string;
     };
     nzStatus: NzBadgeStatusType;
-    nzCount: number | TemplateRef<void>;
-    checkContent(): void;
+    nzCount: number;
     readonly showSup: boolean;
-    generateMaxNumberArray(): void;
     constructor(renderer: Renderer2, elementRef: ElementRef);
+    private _count;
+    checkContent(): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
 }

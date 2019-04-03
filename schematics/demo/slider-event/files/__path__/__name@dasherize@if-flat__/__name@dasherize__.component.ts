@@ -4,28 +4,30 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-slider
-      [(ngModel)]="singleValue"
-      (ngModelChange)="onChange($event)"
+      [nzDefaultValue]="30"
+      [(ngModel)]="singleValue" (ngModelChange)="onChange($event)"
       (nzOnAfterChange)="onAfterChange($event)"
     ></nz-slider>
     <nz-slider
       nzRange
       [nzStep]="10"
-      [(ngModel)]="rangeValue"
-      (ngModelChange)="onChange($event)"
+      [nzDefaultValue]="[20, 50]"
+      [(ngModel)]="rangeValue" (ngModelChange)="onChange($event)"
       (nzOnAfterChange)="onAfterChange($event)"
     ></nz-slider>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
-  singleValue = 30;
-  rangeValue = [20, 50];
 
-  onChange(value: number): void {
+  singleValue;
+  rangeValue;
+
+  onChange(value) {
     console.log(`onChange: ${value}`);
   }
 
-  onAfterChange(value: number): void {
+  onAfterChange(value) {
     console.log(`onAfterChange: ${value}`);
   }
+
 }

@@ -1,6 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { NzMentionTriggerDirective } from './nz-mention-trigger';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 export interface MentionOnSearchTypes {
     value: string;
     prefix: string;
@@ -14,6 +13,7 @@ export declare type MentionPlacement = 'top' | 'bottom';
 export declare class NzMentionComponent implements OnDestroy, AfterContentInit, OnChanges {
     private ngDocument;
     private changeDetectorRef;
+    private ngZone;
     private overlay;
     private viewContainerRef;
     nzValueWith: (value: any) => string;
@@ -24,8 +24,8 @@ export declare class NzMentionComponent implements OnDestroy, AfterContentInit, 
     nzSuggestions: string[];
     readonly nzOnSelect: EventEmitter<string | {}>;
     readonly nzOnSearchChange: EventEmitter<MentionOnSearchTypes>;
-    trigger: NzMentionTriggerDirective;
-    suggestionsTemp: TemplateRef<void>;
+    trigger: any;
+    suggestionsTemp: any;
     suggestionChild: TemplateRef<{
         $implicit: any;
     }>;
@@ -45,7 +45,7 @@ export declare class NzMentionComponent implements OnDestroy, AfterContentInit, 
     private overlayBackdropClickSubscription;
     private readonly triggerNativeElement;
     constructor(ngDocument: any, // tslint:disable-line:no-any
-    changeDetectorRef: ChangeDetectorRef, overlay: Overlay, viewContainerRef: ViewContainerRef);
+    changeDetectorRef: ChangeDetectorRef, ngZone: NgZone, overlay: Overlay, viewContainerRef: ViewContainerRef);
     ngOnChanges(changes: SimpleChanges): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

@@ -15,12 +15,12 @@ export declare class InnerPopupComponent implements OnInit, OnChanges {
     selectedValue: CandyDate[];
     hoverValue: CandyDate[];
     panelMode: PanelMode;
-    readonly panelModeChange: EventEmitter<PanelMode>;
+    panelModeChange: EventEmitter<PanelMode>;
     value: CandyDate;
-    readonly headerChange: EventEmitter<CandyDate>;
-    readonly selectDate: EventEmitter<CandyDate>;
-    readonly selectTime: EventEmitter<CandyDate>;
-    readonly dayHover: EventEmitter<CandyDate>;
+    headerChange: EventEmitter<CandyDate>;
+    selectDate: EventEmitter<CandyDate>;
+    selectTime: EventEmitter<CandyDate>;
+    dayHover: EventEmitter<CandyDate>;
     prefixCls: string;
     constructor();
     ngOnInit(): void;

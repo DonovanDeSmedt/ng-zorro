@@ -5,20 +5,26 @@ import { MentionOnSearchTypes } from 'ng-zorro-antd';
   selector: '<%= selector %>',
   encapsulation: ViewEncapsulation.None,
   <% if(inlineTemplate) { %>template: `
-    <nz-mention [nzSuggestions]="suggestions" [nzLoading]="loading" (nzOnSearchChange)="onSearchChange($event)">
-      <input nzMentionTrigger nz-input [(ngModel)]="inputValue" />
-    </nz-mention>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+  <nz-mention
+    [nzSuggestions]="suggestions"
+    [nzLoading]="loading"
+    (nzOnSearchChange)="onSearchChange($event)">
+    <input
+      nzMentionTrigger
+      nz-input
+      [(ngModel)]="inputValue">
+  </nz-mention>
+`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
   inputValue: string;
   loading = false;
-  suggestions: string[] = [];
+  suggestions = [];
 
-  onSearchChange({ value }: MentionOnSearchTypes): void {
+  onSearchChange({value}: MentionOnSearchTypes): void {
     console.log(`search: ${value}`);
     this.loading = true;
-    this.fetchSuggestions(value, suggestions => {
+    this.fetchSuggestions(value, (suggestions) => {
       console.log(suggestions);
       this.suggestions = suggestions;
       this.loading = false;

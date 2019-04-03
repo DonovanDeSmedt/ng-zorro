@@ -1,10 +1,11 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
 var locale = {
     placeholder: '請選擇時間',
 };
 export default locale;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiemhfVFcuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsiaTE4bi9sYW5ndWFnZXMvdGltZS1waWNrZXIvemhfVFcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7SUFBTSxNQUFNLEdBQUc7SUFDYixXQUFXLEVBQUUsT0FBTztDQUNyQjtBQUVELGVBQWUsTUFBTSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgbG9jYWxlID0ge1xuICBwbGFjZWhvbGRlcjogJ+iri+mBuOaTh+aZgumWkycsXG59O1xuXG5leHBvcnQgZGVmYXVsdCBsb2NhbGU7XG4iXX0=
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiemhfVFcuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsiaTE4bi9sYW5ndWFnZXMvdGltZS1waWNrZXIvemhfVFcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxJQUFNLE1BQU0sR0FBRztJQUNiLFdBQVcsRUFBRSxPQUFPO0NBQ3JCLENBQUM7QUFFRixlQUFlLE1BQU0sQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGxvY2FsZSA9IHtcbiAgcGxhY2Vob2xkZXI6ICfoq4vpgbjmk4fmmYLplpMnLFxufTtcblxuZXhwb3J0IGRlZmF1bHQgbG9jYWxlO1xuIl19

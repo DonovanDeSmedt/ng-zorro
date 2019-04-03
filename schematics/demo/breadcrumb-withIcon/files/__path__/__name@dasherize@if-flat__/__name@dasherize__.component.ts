@@ -13,8 +13,7 @@ import { Component } from '@angular/core';
       <nz-breadcrumb-item>
         Application
       </nz-breadcrumb-item>
-    </nz-breadcrumb>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </nz-breadcrumb>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component { }

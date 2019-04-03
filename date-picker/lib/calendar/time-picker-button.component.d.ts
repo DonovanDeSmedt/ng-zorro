@@ -4,7 +4,7 @@ export declare class TimePickerButtonComponent {
     locale: NzCalendarI18nInterface;
     timePickerDisabled: boolean;
     showTimePicker: boolean;
-    readonly showTimePickerChange: EventEmitter<boolean>;
+    showTimePickerChange: EventEmitter<boolean>;
     prefixCls: string;
     onClick(): void;
 }

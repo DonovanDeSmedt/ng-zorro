@@ -4,13 +4,16 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-pagination [nzPageIndex]="1" [nzTotal]="85" [nzPageSize]="20" [nzShowTotal]="totalTemplate"></nz-pagination>
-    <br />
+    <br>
     <nz-pagination [nzPageIndex]="1" [nzTotal]="85" [nzPageSize]="20" [nzShowTotal]="rangeTemplate"></nz-pagination>
-    <ng-template #totalTemplate let-total> Total {{ total }} items </ng-template>
+    <ng-template #totalTemplate let-total>
+      Total {{total}} items
+    </ng-template>
     <ng-template #rangeTemplate let-range="range" let-total>
-      {{ range[0] }}-{{ range[1] }} of {{ total }} items
+      {{range[0]}}-{{range[1]}} of {{total}} items
     </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

@@ -27,9 +27,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      .ant-tag {
-        margin-bottom: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    .ant-tag {
+      margin-bottom: 8px;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/index';
 import { NzDrawerPlacement } from './nz-drawer-options';
 export declare abstract class NzDrawerRef<R = any> {
     abstract afterClose: Observable<R>;
@@ -7,7 +7,6 @@ export declare abstract class NzDrawerRef<R = any> {
     abstract close(result?: R): void;
     abstract open(): void;
     abstract nzClosable: boolean;
-    abstract nzNoAnimation: boolean;
     abstract nzMaskClosable: boolean;
     abstract nzMask: boolean;
     abstract nzTitle: string | TemplateRef<{}>;

@@ -3,14 +3,16 @@ import { Component } from '@angular/core';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-switch [(ngModel)]="mode"> </nz-switch>
+    <nz-switch [(ngModel)]="mode">
+    </nz-switch>
     Change Mode
     <nz-divider nzType="vertical"></nz-divider>
-    <nz-switch [(ngModel)]="dark"> </nz-switch>
+    <nz-switch [(ngModel)]="dark">
+    </nz-switch>
     Change Theme
-    <br />
-    <br />
-    <ul nz-menu [nzMode]="mode ? 'vertical' : 'inline'" [nzTheme]="dark ? 'dark' : 'light'" style="width: 240px;">
+    <br>
+    <br>
+    <ul nz-menu [nzMode]="mode?'vertical':'inline'" [nzTheme]="dark?'dark':'light'" style="width: 240px;">
       <li nz-submenu>
         <span title><i nz-icon type="mail"></i> Navigation One</span>
         <ul>
@@ -52,9 +54,8 @@ import { Component } from '@angular/core';
           <li nz-menu-item>Option 11</li>
         </ul>
       </li>
-    </ul>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </ul>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   mode = false;

@@ -19,4 +19,5 @@ import { Component } from '@angular/core';
     </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

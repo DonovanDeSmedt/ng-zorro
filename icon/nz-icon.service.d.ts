@@ -1,6 +1,5 @@
 import { HttpBackend } from '@angular/common/http';
 import { InjectionToken, RendererFactory2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { IconDefinition, IconService } from '@ant-design/icons-angular';
 export interface NzIconfontOption {
     scriptUrl: string;
@@ -14,7 +13,6 @@ export declare const NZ_ICONS_USED_BY_ZORRO: IconDefinition[];
  */
 export declare class NzIconService extends IconService {
     protected rendererFactory: RendererFactory2;
-    protected sanitizer: DomSanitizer;
     protected handler: HttpBackend;
     protected document: any;
     private icons;
@@ -27,5 +25,5 @@ export declare class NzIconService extends IconService {
     normalizeSvgElement(svg: SVGElement): void;
     fetchFromIconfont(opt: NzIconfontOption): void;
     createIconfontIcon(type: string): SVGElement;
-    constructor(rendererFactory: RendererFactory2, sanitizer: DomSanitizer, handler: HttpBackend, document: any, icons: IconDefinition[], defaultColor: string);
+    constructor(rendererFactory: RendererFactory2, handler: HttpBackend, document: any, icons: IconDefinition[], defaultColor: string);
 }

@@ -31,13 +31,15 @@ import { Component } from '@angular/core';
     </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      button {
-        margin-right: 8px;
-        margin-bottom: 8px;
-        width: 70px;
-        text-align: center;
-        padding: 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    button {
+      margin-right: 8px;
+      margin-bottom: 8px;
+      width: 70px;
+      text-align: center;
+      padding: 0;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+
+export class <%= classify(name) %>Component {
+}

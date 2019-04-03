@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
     <nz-alert nzType="success" nzMessage="Success Text"></nz-alert>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

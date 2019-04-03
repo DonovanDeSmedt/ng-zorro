@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NzI18nService } from '../i18n/nz-i18n.service';
 import { TransferCanMove, TransferChange, TransferItem, TransferSearchChange, TransferSelectChange } from './interface';
@@ -47,7 +47,7 @@ export declare class NzTransferComponent implements OnInit, OnChanges, OnDestroy
     moveToRight: () => void;
     moveTo(direction: string): void;
     private truthMoveTo;
-    constructor(cdr: ChangeDetectorRef, i18n: NzI18nService, renderer: Renderer2, elementRef: ElementRef);
+    constructor(cdr: ChangeDetectorRef, i18n: NzI18nService);
     private markForCheckAllList;
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

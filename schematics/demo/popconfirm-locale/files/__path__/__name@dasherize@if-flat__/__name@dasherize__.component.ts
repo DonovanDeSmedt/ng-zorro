@@ -4,18 +4,12 @@ import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <a
-      nz-popconfirm
-      nzTitle="Are you sure?"
-      nzOkText="ok"
-      nzCancelText="cancel"
-      (nzOnConfirm)="confirm()"
-      (nzOnCancel)="cancel()"
-      >delete</a
-    >
+    <a nz-popconfirm nzTitle="Are you sure?" nzOkText="ok" nzCancelText="cancel" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">delete</a>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
+
 export class <%= classify(name) %>Component {
+
   cancel(): void {
     this.nzMessageService.info('click cancel');
   }
@@ -24,5 +18,7 @@ export class <%= classify(name) %>Component {
     this.nzMessageService.info('click confirm');
   }
 
-  constructor(private nzMessageService: NzMessageService) {}
+  constructor(private nzMessageService: NzMessageService) {
+
+  }
 }

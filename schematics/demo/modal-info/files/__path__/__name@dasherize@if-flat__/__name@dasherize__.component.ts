@@ -9,14 +9,12 @@ import { NzModalService } from 'ng-zorro-antd';
     <button nz-button (click)="error()">Error</button>
     <button nz-button (click)="warning()">Warning</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      button {
-        margin-right: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`button {
+      margin-right: 8px;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
-  constructor(private modalService: NzModalService) {}
+  constructor(private modalService: NzModalService) { }
 
   info(): void {
     this.modalService.info({

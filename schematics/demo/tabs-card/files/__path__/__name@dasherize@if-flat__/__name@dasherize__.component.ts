@@ -4,11 +4,12 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
-      <nz-tab *ngFor="let tab of tabs" [nzTitle]="'Tab' + tab"> Content of Tab Pane {{ tab }} </nz-tab>
-    </nz-tabset>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+      <nz-tab *ngFor="let tab of tabs" [nzTitle]="'Tab' + tab ">
+        Content of Tab Pane {{ tab }}
+      </nz-tab>
+    </nz-tabset>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
-  tabs = [1, 2, 3];
+  tabs = [ 1, 2, 3 ];
 }

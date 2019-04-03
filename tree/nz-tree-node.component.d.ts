@@ -1,31 +1,24 @@
-import { ChangeDetectorRef, ElementRef, NgZone, OnChanges, OnDestroy, OnInit, Renderer2, TemplateRef } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChange, TemplateRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
-import { NzFormatBeforeDropEvent } from '../tree/interface';
-import { NzTreeBaseService } from './nz-tree-base.service';
+import { NzFormatBeforeDropEvent, NzFormatEmitEvent } from '../tree/interface';
 import { NzTreeNode } from './nz-tree-node';
+import { NzTreeService } from './nz-tree.service';
 export declare class NzTreeNodeComponent implements OnInit, OnChanges, OnDestroy {
-    nzTreeService: NzTreeBaseService;
+    private nzTreeService;
     private ngZone;
     private renderer;
     private elRef;
-    private cdr;
-    noAnimation?: NzNoAnimationDirective | undefined;
     dragElement: ElementRef;
-    /**
-     * for global property
-     */
-    nzTreeNode: NzTreeNode;
     nzShowLine: boolean;
     nzShowExpand: boolean;
+    nzMultiple: boolean;
     nzCheckable: boolean;
     nzAsyncData: boolean;
+    nzCheckStrictly: boolean;
     nzHideUnMatched: boolean;
-    nzNoAnimation: boolean;
-    nzSelectMode: boolean;
-    nzShowIcon: boolean;
     nzTreeTemplate: TemplateRef<void>;
     nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
+    nzTreeNode: NzTreeNode;
     nzDraggable: boolean;
     /**
      * @deprecated use
@@ -34,28 +27,39 @@ export declare class NzTreeNodeComponent implements OnInit, OnChanges, OnDestroy
     nzDefaultExpandAll: boolean;
     nzExpandAll: boolean;
     nzSearchValue: string;
+    readonly clickNode: EventEmitter<NzFormatEmitEvent>;
+    readonly dblClick: EventEmitter<NzFormatEmitEvent>;
+    readonly contextMenu: EventEmitter<NzFormatEmitEvent>;
+    readonly clickCheckBox: EventEmitter<NzFormatEmitEvent>;
+    readonly clickExpand: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDragStart: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDragEnter: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDragOver: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDragLeave: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDrop: EventEmitter<NzFormatEmitEvent>;
+    readonly nzDragEnd: EventEmitter<NzFormatEmitEvent>;
     prefixCls: string;
-    highlightKeys: string[];
+    highlightKeys: any[];
     nzNodeClass: {};
     nzNodeSwitcherClass: {};
     nzNodeContentClass: {};
-    nzNodeCheckboxClass: {};
     nzNodeContentIconClass: {};
     nzNodeContentLoadingClass: {};
+    nzNodeChildrenClass: {};
     /**
      * drag var
      */
-    destroy$: Subject<{}>;
+    destory$: Subject<{}>;
     dragPos: number;
-    dragPosClass: {
-        [key: string]: string;
-    };
+    dragPosClass: object;
     /**
      * default set
      */
+    _nzTreeNode: NzTreeNode;
     _searchValue: string;
-    _nzDraggable: boolean;
     _nzExpandAll: boolean;
+    _nzDraggable: boolean;
+    oldAPIIcon: boolean;
     readonly nzIcon: string;
     readonly canDraggable: boolean | null;
     readonly isShowLineIcon: boolean;
@@ -67,7 +71,6 @@ export declare class NzTreeNodeComponent implements OnInit, OnChanges, OnDestroy
      * reset node class
      */
     setClassMap(): void;
-    onMousedown(event: MouseEvent): void;
     /**
      * click node to select, 200ms to dbl click
      */
@@ -102,9 +105,10 @@ export declare class NzTreeNodeComponent implements OnInit, OnChanges, OnDestroy
      * 监听拖拽事件
      */
     handDragEvent(): void;
-    markForCheck(): void;
-    constructor(nzTreeService: NzTreeBaseService, ngZone: NgZone, renderer: Renderer2, elRef: ElementRef, cdr: ChangeDetectorRef, noAnimation?: NzNoAnimationDirective | undefined);
+    constructor(nzTreeService: NzTreeService, ngZone: NgZone, renderer: Renderer2, elRef: ElementRef);
     ngOnInit(): void;
-    ngOnChanges(): void;
+    ngOnChanges(changes: {
+        [propertyName: string]: SimpleChange;
+    }): void;
     ngOnDestroy(): void;
 }

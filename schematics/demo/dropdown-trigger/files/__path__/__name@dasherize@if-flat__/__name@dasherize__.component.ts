@@ -4,7 +4,9 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-dropdown [nzTrigger]="'click'">
-      <a nz-dropdown> Click me <i nz-icon type="down"></i> </a>
+      <a nz-dropdown>
+        Click me <i nz-icon type="down"></i>
+      </a>
       <ul nz-menu>
         <li nz-menu-item>1st menu item</li>
         <li nz-menu-item>2nd menu item</li>
@@ -25,8 +27,8 @@ import { Component } from '@angular/core';
           </ul>
         </li>
       </ul>
-    </nz-dropdown>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </nz-dropdown>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

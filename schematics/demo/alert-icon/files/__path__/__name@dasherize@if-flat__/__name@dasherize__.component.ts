@@ -11,24 +11,25 @@ import { Component } from '@angular/core';
       nzType="success"
       nzMessage="Success Tips"
       nzDescription="Detailed description and advices about successful copywriting."
-      nzShowIcon
-    >
+      nzShowIcon>
     </nz-alert>
     <nz-alert
       nzType="info"
       nzMessage="Informational Notes"
       nzDescription="Additional description and informations about copywriting."
-      nzShowIcon
-    >
+      nzShowIcon>
     </nz-alert>
     <nz-alert
       nzType="warning"
       nzMessage="Warning"
       nzDescription="This is a warning notice about copywriting."
-      nzShowIcon
-    >
+      nzShowIcon>
     </nz-alert>
-    <nz-alert nzType="error" nzMessage="Error" nzDescription="This is an error message about copywriting." nzShowIcon>
+    <nz-alert
+      nzType="error"
+      nzMessage="Error"
+      nzDescription="This is an error message about copywriting."
+      nzShowIcon>
     </nz-alert>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
@@ -37,4 +38,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

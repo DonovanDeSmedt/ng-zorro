@@ -1,17 +1,17 @@
 import { EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { DateHelperService } from '../../../i18n/date-helper.service';
+import { NzI18nService } from '../../../i18n/nz-i18n.service';
 import { CandyDate } from '../candy-date';
 export declare class MonthTableComponent implements OnInit, OnChanges {
-    private dateHelper;
+    private i18n;
     value: CandyDate;
-    readonly valueChange: EventEmitter<CandyDate>;
+    valueChange: EventEmitter<CandyDate>;
     disabledDate: (date: Date) => boolean;
     prefixCls: string;
     panelMonths: PanelMonthData[][];
-    constructor(dateHelper: DateHelperService);
+    constructor(i18n: NzI18nService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    trackPanelMonth(_index: number, monthData: PanelMonthData): number;
+    trackPanelMonth(index: number, monthData: PanelMonthData): number;
     private render;
     private makePanelMonths;
     private chooseMonth;
@@ -21,6 +21,6 @@ export interface PanelMonthData {
     content: string;
     month: number;
     title: string;
-    classMap: object | null;
-    onClick: VoidFunction | null;
+    classMap: object;
+    onClick(): void;
 }

@@ -1,11 +1,10 @@
-import { IndexableObject } from '../../../core/types/indexable';
 /**
  * Wrapping kind APIs for date operating and unify
  * NOTE: every new API return new CandyDate object without side effects to the former Date object
  * NOTE: most APIs are based on local time other than customized locale id (this needs tobe support in future)
  * TODO: support format() against to angular's core API
  */
-export declare class CandyDate implements IndexableObject {
+export declare class CandyDate {
     nativeDate: Date;
     constructor(date?: Date | string);
     getYear(): number;
@@ -28,12 +27,16 @@ export declare class CandyDate implements IndexableObject {
     }): CandyDate;
     setDate(amount: number): CandyDate;
     addDays(amount: number): CandyDate;
-    endOf(grain: 'month'): CandyDate | null;
+    endOf(grain: 'month'): CandyDate;
     isSame(date: CandyDate | Date, grain: CandyDateCompareGrain): boolean;
-    isAfter(date: CandyDate | Date | null, grain: CandyDateCompareGrain): boolean;
-    isBefore(date: CandyDate | Date | null, grain: CandyDateCompareGrain): boolean;
+    isAfter(date: CandyDate | Date, grain: CandyDateCompareGrain): boolean;
+    isBefore(date: CandyDate | Date, grain: CandyDateCompareGrain): boolean;
     isToday(): boolean;
     isInvalid(): boolean;
+    /**
+     * 0-6 (Sunday to Saturday)
+     */
+    firstDayOfWeek(locale?: string): number;
     private toNativeDate;
 }
 export declare type CandyDateCompareGrain = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';

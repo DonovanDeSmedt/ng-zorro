@@ -1,103 +1,95 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { ExtendedMark, Marks, SliderHandler, SliderShowTooltip, SliderValue } from './nz-slider-definitions';
+import { Observable, Subscription } from 'rxjs';
+import { Marks } from './nz-slider-marks.component';
+import { NzSliderService } from './nz-slider.service';
+export declare type SliderValue = number[] | number;
+export declare class SliderHandle {
+    offset: number;
+    value: number;
+    active: boolean;
+}
 export declare class NzSliderComponent implements ControlValueAccessor, OnInit, OnChanges, OnDestroy {
-    private cdr;
-    slider: ElementRef;
+    private utils;
+    nzDebugId: number | string;
     nzDisabled: boolean;
+    nzStep: number;
+    nzMarks: Marks;
+    nzMin: number;
+    nzMax: number;
+    nzDefaultValue: SliderValue;
+    nzTipFormatter: (value: number) => string;
+    readonly nzOnAfterChange: EventEmitter<number | number[]>;
+    nzVertical: boolean;
+    nzRange: boolean;
     nzDots: boolean;
     nzIncluded: boolean;
-    nzRange: boolean;
-    nzVertical: boolean;
-    nzDefaultValue: SliderValue | null;
-    nzMarks: Marks | null;
-    nzMax: number;
-    nzMin: number;
-    nzStep: number;
-    nzTooltipVisible: SliderShowTooltip;
-    nzTipFormatter: (value: number) => string;
-    readonly nzOnAfterChange: EventEmitter<SliderValue>;
-    value: SliderValue | null;
+    private _disabled;
+    private _dots;
+    private _included;
+    private _range;
+    private _vertical;
+    value: SliderValue;
+    slider: ElementRef;
     sliderDOM: HTMLDivElement;
-    cacheSliderStart: number | null;
-    cacheSliderLength: number | null;
-    activeValueIndex: number | undefined;
+    cacheSliderStart: number;
+    cacheSliderLength: number;
+    prefixCls: string;
+    classMap: object;
+    activeValueIndex: number;
     track: {
-        offset: null | number;
-        length: null | number;
+        offset: any;
+        length: any;
     };
-    handles: SliderHandler[];
-    marksArray: ExtendedMark[] | null;
+    handles: SliderHandle[];
+    marksArray: Marks[];
     bounds: {
-        lower: SliderValue | null;
-        upper: SliderValue | null;
+        lower: any;
+        upper: any;
     };
+    onValueChange: (value: SliderValue) => void;
+    onTouched: () => void;
     isDragging: boolean;
-    private dragStart$;
-    private dragMove$;
-    private dragEnd$;
-    private dragStart_;
-    private dragMove_;
-    private dragEnd_;
-    constructor(cdr: ChangeDetectorRef);
-    ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
-    writeValue(val: SliderValue | null): void;
-    onValueChange(_value: SliderValue): void;
-    onTouched(): void;
+    dragstart$: Observable<number>;
+    dragmove$: Observable<number>;
+    dragend$: Observable<Event>;
+    dragstart_: Subscription;
+    dragmove_: Subscription;
+    dragend_: Subscription;
+    setValue(val: SliderValue, isWriteValue?: boolean): void;
+    getValue(cloneAndSort?: boolean): SliderValue;
+    getValueToOffset(value?: SliderValue): SliderValue;
+    writeValue(val: SliderValue): void;
     registerOnChange(fn: (value: SliderValue) => void): void;
     registerOnTouched(fn: () => void): void;
     setDisabledState(isDisabled: boolean): void;
-    private setValue;
-    private getValue;
-    /**
-     * Clone & sort current value and convert them to offsets, then return the new one.
-     */
-    private getValueToOffset;
-    /**
-     * Find the closest value to be activated (only for range = true).
-     */
-    private setActiveValueIndex;
-    private setActiveValue;
-    /**
-     * Update track and handles' position and length.
-     */
-    private updateTrackAndHandles;
-    private onDragStart;
-    private onDragMove;
-    private onDragEnd;
-    /**
-     * Create user interactions handles.
-     */
-    private createDraggingObservables;
-    private subscribeDrag;
-    private unsubscribeDrag;
-    private toggleDragMoving;
-    private toggleDragDisabled;
-    private findClosestValue;
-    private valueToOffset;
-    private getSliderStartPosition;
-    private getSliderLength;
-    /**
-     * Cache DOM layout/reflow operations for performance (may not necessary?)
-     */
-    private cacheSliderProperty;
-    private formatValue;
-    /**
-     * Check if value is valid and throw error if value-type/range not match.
-     */
-    private assertValueValid;
-    /**
-     * Assert that if `this.nzRange` is `true`, value is also a range, vice versa.
-     */
-    private assertValueTypeMatch;
-    private valuesEqual;
-    /**
-     * Show one handle's tooltip and hide others'.
-     */
-    private showHandleTooltip;
-    private hideAllHandleTooltip;
-    private generateHandles;
-    private generateMarkItems;
+    constructor(utils: NzSliderService);
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
+    setClassMap(): void;
+    setActiveValueIndex(pointerValue: number): void;
+    setActiveValue(pointerValue: number): void;
+    updateTrackAndHandles(): void;
+    toMarksArray(marks: Marks): Marks[];
+    onDragStart(value: number): void;
+    onDragMove(value: number): void;
+    onDragEnd(): void;
+    createDrag(): void;
+    subscribeDrag(periods?: string[]): void;
+    unsubscribeDrag(periods?: string[]): void;
+    toggleDragMoving(movable: boolean): void;
+    toggleDragDisabled(disabled: boolean): void;
+    findClosestValue(position: number): number;
+    valueToOffset(value: number): number;
+    getSliderStartPosition(): number;
+    getSliderLength(): number;
+    cacheSliderProperty(remove?: boolean): void;
+    formatValue(value: SliderValue): SliderValue;
+    checkValidValue(value: SliderValue): boolean;
+    isValueEqual(value: SliderValue, val: SliderValue): boolean;
+    log(...messages: any[]): void;
+    private _showHandleTooltip;
+    private _hideAllHandleTooltip;
+    private _generateHandles;
 }

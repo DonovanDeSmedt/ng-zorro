@@ -4,27 +4,15 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-layout>
-      <nz-sider
-        nzCollapsible
-        [(nzCollapsed)]="isCollapsed"
-        [nzBreakpoint]="'lg'"
-        [nzCollapsedWidth]="0"
-        [nzZeroTrigger]="zeroTrigger"
-      >
-        <div class="logo"></div>
+      <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'lg'">
+        <div class="logo">
+        </div>
         <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-          <li nz-menu-item>
-            <span><i nz-icon type="user"></i><span class="nav-text">nav 1</span></span>
+          <li nz-menu-item><span><i nz-icon type="user"></i><span class="nav-text">nav 1</span></span></li>
+          <li nz-menu-item><span><i nz-icon type="video-camera"></i><span class="nav-text">nav 2</span></span>
           </li>
-          <li nz-menu-item>
-            <span><i nz-icon type="video-camera"></i><span class="nav-text">nav 2</span></span>
-          </li>
-          <li nz-menu-item>
-            <span><i nz-icon type="upload"></i><span class="nav-text">nav 3</span></span>
-          </li>
-          <li nz-menu-item>
-            <span><i nz-icon type="user"></i><span class="nav-text">nav 4</span></span>
-          </li>
+          <li nz-menu-item><span><i nz-icon type="upload"></i><span class="nav-text">nav 3</span></span></li>
+          <li nz-menu-item><span><i nz-icon type="user"></i><span class="nav-text">nav 4</span></span></li>
         </ul>
       </nz-sider>
       <nz-layout>
@@ -34,17 +22,14 @@ import { Component } from '@angular/core';
             Content
           </div>
         </nz-content>
-        <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>
+        <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
       </nz-layout>
     </nz-layout>
-    <ng-template #zeroTrigger>
-      <i nz-icon type="menu-fold" theme="outline"></i>
-    </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      .logo {
+      :host ::ng-deep .logo {
         height: 32px;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255,255,255,.2);
         margin: 16px;
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>

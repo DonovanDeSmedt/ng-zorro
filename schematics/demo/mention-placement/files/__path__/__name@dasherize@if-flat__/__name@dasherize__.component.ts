@@ -4,10 +4,17 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: '<%= selector %>',
   encapsulation: ViewEncapsulation.None,
   <% if(inlineTemplate) { %>template: `
-    <nz-mention nzPlacement="top" [nzSuggestions]="suggestions" (nzOnSelect)="onSelect($event)">
-      <input nzMentionTrigger nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)" />
-    </nz-mention>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+  <nz-mention
+    nzPlacement="top"
+    [nzSuggestions]="suggestions"
+    (nzOnSelect)="onSelect($event)">
+    <input
+      nzMentionTrigger
+      nz-input
+      [(ngModel)]="inputValue"
+      (ngModelChange)="onChange($event)">
+  </nz-mention>
+`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
   inputValue: string;

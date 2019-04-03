@@ -9,9 +9,10 @@ import { Component } from '@angular/core';
     button.
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      strong {
-        color: rgba(64, 64, 64, 0.6);
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    :host ::ng-deep strong {
+      color: rgba(64, 64, 64, 0.6);
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

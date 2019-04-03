@@ -1,8 +1,9 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import {
   NzDropdownContextComponent,
   NzDropdownService,
   NzFormatEmitEvent,
+  NzTreeComponent,
   NzTreeNode
 } from 'ng-zorro-antd';
 
@@ -10,13 +11,15 @@ import {
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-tree
+      #treeCom
       [nzData]="nodes"
+      nzMultiple="true"
       (nzClick)="activeNode($event)"
       (nzDblClick)="openFolder($event)">
       <ng-template #contextTemplate>
         <ul nz-menu nzInDropDown>
-          <li nz-menu-item (click)="selectDropdown()">Action 1</li>
-          <li nz-menu-item (click)="selectDropdown()">Action 2</li>
+          <li nz-menu-item (click)="selectDropdown('file')">新建文件</li>
+          <li nz-menu-item (click)="selectDropdown('folder')">新建文件夹</li>
         </ul>
       </ng-template>
       <ng-template #nzTreeTemplate let-node>
@@ -26,7 +29,7 @@ import {
             <span class="folder-name">{{node.title}}</span>
             <span class="folder-desc">created by {{node?.origin?.author | lowercase}}</span>
           </span>
-          <span *ngIf="node.isLeaf" (contextmenu)="contextMenu($event,contextTemplate)">
+          <span *ngIf="node.isLeaf">
             <i nz-icon type="file"></i>
             <span class="file-name">{{node.title}}</span>
             <span class="file-desc">modified by {{node?.origin?.author | lowercase}}</span>
@@ -75,6 +78,7 @@ import {
 })
 
 export class <%= classify(name) %>Component {
+  @ViewChild('treeCom') treeCom: NzTreeComponent;
   dropdown: NzDropdownContextComponent;
   // actived node
   activedNode: NzTreeNode;
@@ -97,27 +101,31 @@ export class <%= classify(name) %>Component {
     ]
   } ];
 
-  openFolder(data: NzTreeNode | Required<NzFormatEmitEvent>): void {
+  openFolder(data: NzTreeNode | NzFormatEmitEvent): void {
     // do something if u want
     if (data instanceof NzTreeNode) {
       data.isExpanded = !data.isExpanded;
     } else {
-      const node = data.node;
-      if (node) {
-        node.isExpanded = !node.isExpanded;
-      }
+      data.node.isExpanded = !data.node.isExpanded;
     }
   }
 
   activeNode(data: NzFormatEmitEvent): void {
-    this.activedNode = data.node!;
+    if (this.activedNode) {
+      // delete selectedNodeList(u can do anything u want)
+      this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
+    }
+    data.node.isSelected = true;
+    this.activedNode = data.node;
+    // add selectedNodeList
+    this.treeCom.nzTreeService.setSelectedNodeList(this.activedNode);
   }
 
   contextMenu($event: MouseEvent, template: TemplateRef<void>): void {
     this.dropdown = this.nzDropdownService.create($event, template);
   }
 
-  selectDropdown(): void {
+  selectDropdown(type: string): void {
     this.dropdown.close();
     // do something
   }

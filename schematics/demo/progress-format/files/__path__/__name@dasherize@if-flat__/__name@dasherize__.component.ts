@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: '<%= selector %>',
@@ -15,6 +15,6 @@ import { Component } from '@angular/core';
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
-  formatOne = (percent: number) => `${percent} Days`;
+  formatOne = percent => `${percent} Days`;
   formatTwo = () => `Done`;
 }

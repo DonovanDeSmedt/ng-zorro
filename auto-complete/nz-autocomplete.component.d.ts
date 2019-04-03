@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
 import { NzDropDownPosition } from '../core/types/drop-down-position';
 import { NzAutocompleteOptionComponent, NzOptionSelectionChange } from './nz-autocomplete-option.component';
 export interface AutocompleteDataSourceItem {
@@ -11,7 +10,6 @@ export declare type AutocompleteDataSource = AutocompleteDataSourceItem[] | stri
 export declare class NzAutocompleteComponent implements AfterViewInit, OnDestroy {
     private changeDetectorRef;
     private ngZone;
-    noAnimation?: NzNoAnimationDirective | undefined;
     nzWidth: number;
     nzOverlayClassName: string;
     nzOverlayStyle: {
@@ -42,14 +40,14 @@ export declare class NzAutocompleteComponent implements AfterViewInit, OnDestroy
     private dataSourceChangeSubscription;
     /** Options changes listener */
     readonly optionSelectionChanges: Observable<NzOptionSelectionChange>;
-    constructor(changeDetectorRef: ChangeDetectorRef, ngZone: NgZone, noAnimation?: NzNoAnimationDirective | undefined);
+    constructor(changeDetectorRef: ChangeDetectorRef, ngZone: NgZone);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     setVisibility(): void;
     setActiveItem(index: number): void;
     setNextItemActive(): void;
     setPreviousItemActive(): void;
-    getOptionIndex(option?: NzAutocompleteOptionComponent): number;
+    getOptionIndex(option: NzAutocompleteOptionComponent): number | undefined;
     private optionsInit;
     /**
      * Clear the status of options

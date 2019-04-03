@@ -1,14 +1,33 @@
 import { OnChanges, SimpleChanges } from '@angular/core';
-import { DisplayedStep, ExtendedMark } from './nz-slider-definitions';
+import { MarksArray } from './nz-slider-marks.component';
 export declare class NzSliderStepComponent implements OnChanges {
-    nzLowerBound: number | null;
-    nzUpperBound: number | null;
-    nzMarksArray: ExtendedMark[];
+    private _vertical;
+    private _included;
+    nzLowerBound: number;
+    nzUpperBound: number;
+    nzMarksArray: MarksArray;
+    nzPrefixCls: string;
     nzVertical: boolean;
     nzIncluded: boolean;
-    steps: DisplayedStep[];
+    attrs: Array<{
+        id: number;
+        value: number;
+        offset: number;
+        classes: {
+            [key: string]: boolean;
+        };
+        style: object;
+    }>;
     ngOnChanges(changes: SimpleChanges): void;
-    trackById(_index: number, step: DisplayedStep): number;
-    private buildSteps;
-    private togglePointActive;
+    trackById(index: number, attr: {
+        id: number;
+        value: number;
+        offset: number;
+        classes: {
+            [key: string]: boolean;
+        };
+        style: object;
+    }): number;
+    buildAttrs(): void;
+    togglePointActive(): void;
 }

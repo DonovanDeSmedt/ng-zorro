@@ -13,8 +13,8 @@ import { Component } from '@angular/core';
       <div nz-col [nzXs]="{ span: 5, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
         Col
       </div>
-    </div>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </div>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

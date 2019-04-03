@@ -6,16 +6,13 @@ import { NzNotificationService } from 'ng-zorro-antd';
   <% if(inlineTemplate) { %>template: `
     <button nz-button [nzType]="'primary'" (click)="createBasicNotification()">Open the notification box</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   createBasicNotification(): void {
-    this.notification.blank(
-      'Notification Title',
-      'I will never close automatically. I will be close automatically. I will never close automatically.',
-      { nzDuration: 0 }
-    );
+    this.notification.blank('Notification Title', 'I will never close automatically. I will be close automatically. I will never close automatically.', { nzDuration: 0 });
   }
 
-  constructor(private notification: NzNotificationService) {}
+  constructor(private notification: NzNotificationService) {
+  }
 }

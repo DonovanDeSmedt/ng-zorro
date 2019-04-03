@@ -11,7 +11,7 @@
         height: 16px;
         line-height: 1;
         font-size: 16px;
-        color: rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, .25);
       }
 
       [nz-icon]:first-child {
@@ -22,7 +22,7 @@
         right: 0;
       }
 
-      .icon-highlight {
+      .icon-highlight{
         color: rgba(0, 0, 0, 0.45);
       }
     

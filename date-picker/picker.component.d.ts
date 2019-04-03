@@ -1,13 +1,12 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
-import { DateHelperService } from '../i18n/date-helper.service';
+import { NzI18nService } from '../i18n/nz-i18n.service';
 import { CandyDate } from './lib/candy-date';
 export declare class NzPickerComponent implements OnInit, AfterViewInit {
-    private dateHelper;
+    private i18n;
     private changeDetector;
-    noAnimation: boolean;
     isRange: boolean;
-    open: boolean | undefined;
+    open: boolean;
     disabled: boolean;
     placeholder: string | string[];
     allowClear: boolean;
@@ -16,8 +15,8 @@ export declare class NzPickerComponent implements OnInit, AfterViewInit {
     format: string;
     size: 'large' | 'small';
     style: object;
-    value: CandyDate | CandyDate[] | null;
-    readonly valueChange: EventEmitter<CandyDate | CandyDate[] | null>;
+    value: CandyDate | CandyDate[];
+    readonly valueChange: EventEmitter<CandyDate | CandyDate[]>;
     readonly openChange: EventEmitter<boolean>;
     origin: CdkOverlayOrigin;
     cdkConnectedOverlay: CdkConnectedOverlay;
@@ -32,7 +31,7 @@ export declare class NzPickerComponent implements OnInit, AfterViewInit {
     currentPositionX: 'start' | 'end';
     currentPositionY: 'top' | 'bottom';
     readonly realOpenState: boolean;
-    constructor(dateHelper: DateHelperService, changeDetector: ChangeDetectorRef);
+    constructor(i18n: NzI18nService, changeDetector: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     showOverlay(): void;
@@ -42,10 +41,10 @@ export declare class NzPickerComponent implements OnInit, AfterViewInit {
     onOverlayDetach(): void;
     onPositionChange(position: ConnectedOverlayPositionChange): void;
     onClickClear(event: MouseEvent): void;
-    getReadableValue(partType?: RangePartType): string | null;
+    getReadableValue(partType?: RangePartType): string;
     getPartTypeIndex(partType: RangePartType): number;
     getPlaceholder(partType?: RangePartType): string;
-    isEmptyValue(value: CandyDate[] | CandyDate | null): boolean;
+    isEmptyValue(value: CandyDate[] | CandyDate): boolean;
     isOpenHandledByUser(): boolean;
     animationStart(): void;
     animationDone(): void;

@@ -8,14 +8,14 @@ export declare class CalendarFooterComponent {
     hasTimePicker: boolean;
     isRange: boolean;
     showTimePicker: boolean;
-    readonly showTimePickerChange: EventEmitter<boolean>;
+    showTimePickerChange: EventEmitter<boolean>;
     timePickerDisabled: boolean;
     okDisabled: boolean;
     disabledDate: (d: Date) => boolean;
     extraFooter: TemplateRef<void> | string;
     rangeQuickSelector: TemplateRef<void>;
-    readonly clickOk: EventEmitter<void>;
-    readonly clickToday: EventEmitter<CandyDate>;
+    clickOk: EventEmitter<void>;
+    clickToday: EventEmitter<CandyDate>;
     prefixCls: string;
     isTemplateRef: typeof isTemplateRef;
     isNonEmptyString: typeof isNonEmptyString;

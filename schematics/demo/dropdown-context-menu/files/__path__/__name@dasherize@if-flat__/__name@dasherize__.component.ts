@@ -4,10 +4,7 @@ import { NzDropdownContextComponent, NzDropdownService, NzMenuItemDirective } fr
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <div
-      style="background: rgb(190, 200, 200); padding: 32px;text-align: center"
-      (contextmenu)="contextMenu($event, template)"
-    >
+    <div style="background: rgb(190, 200, 200); padding: 32px;text-align: center" (contextmenu)="contextMenu($event,template)">
       <ng-template #template>
         <ul nz-menu nzInDropDown (nzClick)="close($event)">
           <li nz-menu-item>1st menu item</li>
@@ -32,7 +29,7 @@ import { NzDropdownContextComponent, NzDropdownService, NzMenuItemDirective } fr
       <span style="color:#fff;font-size: 14px;">Context Menu</span>
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   private dropdown: NzDropdownContextComponent;
@@ -46,5 +43,7 @@ export class <%= classify(name) %>Component {
     this.dropdown.close();
   }
 
-  constructor(private nzDropdownService: NzDropdownService) {}
+  constructor(private nzDropdownService: NzDropdownService) {
+
+  }
 }

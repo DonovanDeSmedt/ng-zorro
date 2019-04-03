@@ -4,36 +4,35 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-tag
-      *ngFor="let tag of tags; let i = index"
+      *ngFor="let tag of tags; let i = index;"
       [nzMode]="i === 0 ? 'default' : 'closeable'"
-      (nzAfterClose)="handleClose(tag)"
-    >
+      (nzAfterClose)="handleClose(tag)">
       {{ sliceTagName(tag) }}
     </nz-tag>
-    <nz-tag *ngIf="!inputVisible" class="editable-tag" nzNoAnimation (click)="showInput()">
+    <nz-tag
+      *ngIf="!inputVisible"
+      class="editable-tag"
+      (click)="showInput()">
       <i nz-icon type="plus"></i> New Tag
     </nz-tag>
     <input
       #inputElement
       nz-input
       nzSize="small"
-      *ngIf="inputVisible"
-      type="text"
+      *ngIf="inputVisible" type="text"
       [(ngModel)]="inputValue"
       style="width: 78px;"
       (blur)="handleInputConfirm()"
-      (keydown.enter)="handleInputConfirm()"
-    />
+      (keydown.enter)="handleInputConfirm()">
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      .editable-tag {
-        background: rgb(255, 255, 255);
-        border-style: dashed;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`.editable-tag ::ng-deep .ant-tag {
+      background: rgb(255, 255, 255);
+      border-style: dashed;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
-  tags = ['Unremovable', 'Tag 2', 'Tag 3'];
+
+  tags = [ 'Unremovable', 'Tag 2', 'Tag 3' ];
   inputVisible = false;
   inputValue = '';
   @ViewChild('inputElement') inputElement: ElementRef;
@@ -56,7 +55,7 @@ export class <%= classify(name) %>Component {
 
   handleInputConfirm(): void {
     if (this.inputValue && this.tags.indexOf(this.inputValue) === -1) {
-      this.tags = [...this.tags, this.inputValue];
+      this.tags.push(this.inputValue);
     }
     this.inputValue = '';
     this.inputVisible = false;

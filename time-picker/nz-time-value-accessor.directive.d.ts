@@ -1,8 +1,8 @@
 import { ElementRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { DateHelperService } from '../i18n/date-helper.service';
+import { NzI18nService } from '../i18n/nz-i18n.service';
 export declare class NzTimeValueAccessorDirective implements ControlValueAccessor {
-    private dateHelper;
+    private i18n;
     private elementRef;
     private _onChange;
     private _onTouch;
@@ -12,7 +12,7 @@ export declare class NzTimeValueAccessorDirective implements ControlValueAccesso
     changed(): void;
     touched(): void;
     setRange(): void;
-    constructor(dateHelper: DateHelperService, elementRef: ElementRef);
+    constructor(i18n: NzI18nService, elementRef: ElementRef);
     writeValue(value: Date): void;
     registerOnChange(fn: (value: Date) => void): void;
     registerOnTouched(fn: () => void): void;

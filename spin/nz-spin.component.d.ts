@@ -1,21 +1,18 @@
-import { ChangeDetectorRef, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
-import { NzSizeLDSType } from '../core/types/size';
-export declare class NzSpinComponent implements OnChanges, OnDestroy, OnInit {
-    private cdr;
+import { AfterViewInit, ElementRef, Renderer2, TemplateRef } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+export declare class NzSpinComponent implements AfterViewInit {
+    private elementRef;
+    private renderer;
+    spinning$: BehaviorSubject<boolean>;
+    debounceSpinning$: Observable<boolean>;
+    containerElement: ElementRef;
+    nestedElement: ElementRef;
     nzIndicator: TemplateRef<void>;
-    nzSize: NzSizeLDSType;
+    nzSize: string;
     nzTip: string;
     nzDelay: number;
-    nzSimple: boolean;
     nzSpinning: boolean;
-    loading: boolean;
-    private spinning$;
-    private loading$;
-    private loading_;
-    subscribeLoading(): void;
-    unsubscribeLoading(): void;
-    constructor(cdr: ChangeDetectorRef);
-    ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
+    checkNested(): void;
+    constructor(elementRef: ElementRef, renderer: Renderer2);
+    ngAfterViewInit(): void;
 }

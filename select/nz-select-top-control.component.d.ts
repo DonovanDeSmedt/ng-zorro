@@ -1,40 +1,41 @@
-import { ChangeDetectorRef, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef } from '@angular/core';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
+import { ElementRef, EventEmitter, Renderer2 } from '@angular/core';
 import { NzOptionComponent } from './nz-option.component';
-import { NzSelectService } from './nz-select.service';
-export declare class NzSelectTopControlComponent implements OnInit, OnDestroy {
+export declare class NzSelectTopControlComponent {
     private renderer;
-    nzSelectService: NzSelectService;
-    private cdr;
-    noAnimation?: NzNoAnimationDirective | undefined;
+    private _listOfSelectedValue;
+    private _listTemplateOfOption;
+    listOfCachedSelectedOption: NzOptionComponent[];
     inputValue: string;
     isComposing: boolean;
-    private destroy$;
     inputElement: ElementRef;
+    readonly nzListOfSelectedValueChange: EventEmitter<any[]>;
+    readonly nzOnSearch: EventEmitter<{
+        value: string;
+        emit: boolean;
+    }>;
+    nzMode: string;
     nzShowSearch: boolean;
+    nzDisabled: boolean;
     nzPlaceHolder: string;
     nzOpen: boolean;
-    nzMaxTagCount: number;
-    nzAllowClear: boolean;
-    nzShowArrow: boolean;
-    nzLoading: boolean;
-    nzSuffixIcon: TemplateRef<void>;
-    nzClearIcon: TemplateRef<void>;
-    nzRemoveIcon: TemplateRef<void>;
-    nzMaxTagPlaceholder: TemplateRef<{
-        $implicit: any[];
-    }>;
-    nzTokenSeparators: string[];
-    onClearSelection(e: MouseEvent): void;
-    setInputValue(value: string): void;
+    compareWith: (o1: any, o2: any) => boolean;
+    nzListOfSelectedValue: any[];
+    nzListTemplateOfOption: NzOptionComponent[];
+    /** cached selected option list **/
+    updateListOfCachedOption(): void;
+    setInputValue(value: string, emit: boolean): void;
+    readonly isSingleMode: boolean;
+    readonly isMultipleOrTags: boolean;
     readonly placeHolderDisplay: string;
-    readonly selectedValueStyle: {
+    readonly selectedValueDisplay: {
         [key: string]: string;
     };
-    trackValue(_index: number, option: NzOptionComponent): any;
+    readonly singleValueLabel: string;
+    focusOnInput(): void;
+    getPropertyFromValue(value: any, prop: string): string;
+    isOptionDisplay(value: any): boolean;
+    removeValueFormSelected(value: any, event?: MouseEvent): void;
     updateWidth(): void;
-    removeSelectedValue(option: NzOptionComponent, e: KeyboardEvent): void;
-    constructor(renderer: Renderer2, nzSelectService: NzSelectService, cdr: ChangeDetectorRef, noAnimation?: NzNoAnimationDirective | undefined);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
+    onKeyDownInput(e: KeyboardEvent): void;
+    constructor(renderer: Renderer2);
 }

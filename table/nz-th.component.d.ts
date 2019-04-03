@@ -1,8 +1,5 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ElementRef, EventEmitter, Renderer2 } from '@angular/core';
 import { NzDropDownComponent } from '../dropdown/nz-dropdown.component';
-import { NzI18nInterface } from '../i18n/nz-i18n.interface';
-import { NzI18nService } from '../i18n/nz-i18n.service';
 export declare type NzThFilterType = Array<{
     text: string;
     value: any;
@@ -13,21 +10,26 @@ export interface NzThItemInterface {
     value: any;
     checked: boolean;
 }
-export declare class NzThComponent implements OnChanges, OnInit, OnDestroy {
-    private cdr;
-    private i18n;
+export declare class NzThComponent {
+    private elementRef;
+    private renderer;
+    private _sort;
+    private _filters;
+    private _showSort;
+    private _showFilter;
+    private _showCheckbox;
+    private _showRowSelection;
+    private _hasDefaultFilter;
+    private _customFilter;
+    el: HTMLElement;
     hasFilterValue: boolean;
     filterVisible: boolean;
     multipleFilterList: NzThItemInterface[];
     singleFilterList: NzThItemInterface[];
-    locale: NzI18nInterface['Table'];
-    nzWidthChange$: Subject<{}>;
-    private destroy$;
-    private hasDefaultFilter;
     nzDropDownComponent: NzDropDownComponent;
     nzSelections: Array<{
         text: string;
-        onSelect(...args: any[]): any;
+        onSelect: any;
     }>;
     nzChecked: boolean;
     nzDisabled: boolean;
@@ -35,26 +37,27 @@ export declare class NzThComponent implements OnChanges, OnInit, OnDestroy {
     nzSortKey: string;
     nzFilterMultiple: boolean;
     nzWidth: string;
-    nzLeft: string;
-    nzRight: string;
-    nzAlign: 'left' | 'right' | 'center';
-    nzSort: 'ascend' | 'descend' | null;
-    nzFilters: NzThFilterType;
-    nzExpand: boolean;
-    nzShowCheckbox: boolean;
+    readonly nzCheckedChange: EventEmitter<boolean>;
+    readonly nzSortChange: EventEmitter<string>;
+    readonly nzSortChangeWithKey: EventEmitter<{
+        key: string;
+        value: string;
+    }>;
+    readonly nzFilterChange: EventEmitter<any>;
+    readonly hasActionsClass: boolean;
+    readonly hasFiltersClass: boolean;
+    readonly hasSortersClass: boolean;
+    updateSortValue(): void;
     nzCustomFilter: boolean;
     nzShowSort: boolean;
     nzShowFilter: boolean;
     nzShowRowSelection: boolean;
-    readonly nzCheckedChange: EventEmitter<boolean>;
-    readonly nzSortChange: EventEmitter<string | null>;
-    readonly nzSortChangeWithKey: EventEmitter<{
-        key: string;
-        value: string | null;
-    }>;
-    readonly nzFilterChange: EventEmitter<any>;
-    updateSortValue(): void;
-    setSortValue(value: 'ascend' | 'descend' | null): void;
+    nzLeft: string;
+    nzRight: string;
+    nzExpand: boolean;
+    nzShowCheckbox: boolean;
+    nzSort: string;
+    setSortValue(value: string): void;
     readonly filterList: NzThItemInterface[];
     readonly filterValue: any;
     updateFilterStatus(): void;
@@ -64,12 +67,9 @@ export declare class NzThComponent implements OnChanges, OnInit, OnDestroy {
     checkSingle(filter: NzThItemInterface): void;
     hideDropDown(): void;
     dropDownVisibleChange(value: boolean): void;
+    nzFilters: NzThFilterType;
     initMultipleFilterList(force?: boolean): void;
     initSingleFilterList(force?: boolean): void;
     checkDefaultFilters(): void;
-    marForCheck(): void;
-    constructor(cdr: ChangeDetectorRef, i18n: NzI18nService);
-    ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
+    constructor(elementRef: ElementRef, renderer: Renderer2);
 }

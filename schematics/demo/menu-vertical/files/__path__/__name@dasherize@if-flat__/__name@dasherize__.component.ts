@@ -44,9 +44,8 @@ import { Component } from '@angular/core';
           <li nz-menu-item>Option 11</li>
         </ul>
       </li>
-    </ul>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </ul>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   change(value: boolean): void {

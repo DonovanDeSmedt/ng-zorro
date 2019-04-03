@@ -1,8 +1,3 @@
-export declare class AnimationDuration {
-    static SLOW: string;
-    static BASE: string;
-    static FAST: string;
-}
 export declare class AnimationCurves {
     static EASE_BASE_OUT: string;
     static EASE_BASE_IN: string;

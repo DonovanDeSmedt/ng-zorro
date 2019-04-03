@@ -1,81 +1,66 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
 
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-tree
-      #nzTreeComponent
+      #treeCom
       [nzData]="nodes"
-      nzCheckable
+      nzCheckable="true"
+      nzMultiple="true"
       [nzCheckedKeys]="defaultCheckedKeys"
       [nzExpandedKeys]="defaultExpandedKeys"
       [nzSelectedKeys]="defaultSelectedKeys"
       (nzClick)="nzClick($event)"
-      (nzCheckBoxChange)="nzCheck($event)"
-      (nzExpandChange)="nzCheck($event)"
-    >
+      (nzSelectedKeysChange)="nzSelect($event)"
+      (nzCheckBoxChange)="nzCheck($event)">
     </nz-tree>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component implements OnInit, AfterViewInit {
-  @ViewChild('nzTreeComponent') nzTreeComponent: NzTreeComponent;
-  defaultCheckedKeys = ['10020'];
-  defaultSelectedKeys = ['10010'];
-  defaultExpandedKeys = ['100', '1001'];
 
-  nodes: NzTreeNodeOptions[] = [
-    {
-      title: 'parent 1',
-      key: '100',
+export class <%= classify(name) %>Component implements OnInit {
+  @ViewChild('treeCom') treeCom;
+  defaultCheckedKeys = [ '1001', '1002' ];
+  defaultSelectedKeys = [ '10011' ];
+  defaultExpandedKeys = [ '100', '1001' ];
+
+  nodes: NzTreeNodeOptions[] = [ {
+    title   : 'parent 1',
+    key     : '100',
+    children: [ {
+      title   : 'parent 1-0',
+      key     : '1001',
+      disabled: true,
       children: [
-        {
-          title: 'parent 1-0',
-          key: '1001',
-          disabled: true,
-          children: [
-            { title: 'leaf 1-0-0', key: '10010', disableCheckbox: true, isLeaf: true },
-            { title: 'leaf 1-0-1', key: '10011', isLeaf: true }
-          ]
-        },
-        {
-          title: 'parent 1-1',
-          key: '1002',
-          children: [
-            { title: 'leaf 1-1-0', key: '10020', isLeaf: true },
-            { title: 'leaf 1-1-1', key: '10021', isLeaf: true }
-          ]
-        }
+        { title: 'leaf 1-0-0', key: '10010', disableCheckbox: true, isLeaf: true },
+        { title: 'leaf 1-0-1', key: '10011', isLeaf: true, checked: true }
       ]
-    }
-  ];
+    }, {
+      title   : 'parent 1-1',
+      key     : '1002',
+      children: [
+        { title: 'leaf 1-1-0', key: '10020', isLeaf: true }
+      ]
+    } ]
+  } ];
 
   nzClick(event: NzFormatEmitEvent): void {
-    console.log(event);
+    console.log(event, event.selectedKeys, event.keys, event.nodes, this.treeCom.getSelectedNodeList());
   }
 
   nzCheck(event: NzFormatEmitEvent): void {
-    console.log(event);
+    console.log(event, event.checkedKeys, event.keys, event.nodes);
   }
 
   // nzSelectedKeys change
   nzSelect(keys: string[]): void {
-    console.log(keys, this.nzTreeComponent.getSelectedNodeList());
+    console.log(keys, this.treeCom.getSelectedNodeList());
   }
 
   ngOnInit(): void {
-    // TODO something
-  }
-
-  ngAfterViewInit(): void {
-    // get node by key: '10011'
-    console.log(this.nzTreeComponent.getTreeNodeByKey('10011'));
-    // use tree methods
-    console.log(
-      this.nzTreeComponent.getTreeNodes(),
-      this.nzTreeComponent.getCheckedNodeList(),
-      this.nzTreeComponent.getSelectedNodeList(),
-      this.nzTreeComponent.getExpandedNodeList()
-    );
+    setTimeout(() => {
+      console.log(this.treeCom.getTreeNodes(), this.treeCom.getCheckedNodeList(), this.treeCom.getSelectedNodeList());
+    }, 500);
   }
 }

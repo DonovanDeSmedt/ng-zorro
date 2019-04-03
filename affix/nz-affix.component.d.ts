@@ -1,25 +1,26 @@
-import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { NzScrollService } from '../core/scroll/nz-scroll.service';
 export declare class NzAffixComponent implements OnInit, OnDestroy {
     private scrollSrv;
+    private _el;
     private doc;
+    private cd;
     nzTarget: string | Element | Window;
-    nzOffsetTop: number | null;
+    nzOffsetTop: number;
     nzOffsetBottom: number;
     readonly nzChange: EventEmitter<boolean>;
+    constructor(scrollSrv: NzScrollService, _el: ElementRef, doc: any, cd: ChangeDetectorRef);
     private timeout;
-    private readonly events;
-    private fixedEl;
-    private readonly placeholderNode;
+    private events;
     private affixStyle;
     private placeholderStyle;
+    private wrap;
     private _target;
     private _offsetTop;
     private _offsetBottom;
-    constructor(_el: ElementRef, scrollSrv: NzScrollService, doc: any);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    getOffset(element: Element, target: Element | Window | undefined): {
+    getOffset(element: Element, target: Element | Window | null): {
         top: number;
         left: number;
         width: number;
@@ -31,6 +32,5 @@ export declare class NzAffixComponent implements OnInit, OnDestroy {
     private genStyle;
     private setAffixStyle;
     private setPlaceholderStyle;
-    private syncPlaceholderStyle;
-    updatePosition(e: Event): void;
+    updatePosition(e: any): void;
 }

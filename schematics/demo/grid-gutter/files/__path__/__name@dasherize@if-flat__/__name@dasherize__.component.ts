@@ -38,9 +38,10 @@ import { Component } from '@angular/core';
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
       .gutter-box {
-        background: #00a0e9;
+        background: #00A0E9;
         padding: 5px 0;
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

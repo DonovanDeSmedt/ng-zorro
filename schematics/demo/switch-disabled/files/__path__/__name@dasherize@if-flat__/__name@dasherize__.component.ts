@@ -4,14 +4,12 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-switch [(ngModel)]="switchValue" [nzDisabled]="isDisabled"></nz-switch>
-    <br />
-    <button nz-button [nzType]="'primary'" (click)="isDisabled = !isDisabled">Toggle disabled</button>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+    <br>
+    <button nz-button [nzType]="'primary'" (click)="isDisabled = !isDisabled">Toggle disabled</button>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-switch {
-        margin-bottom: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    nz-switch {
+      margin-bottom: 8px;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
   switchValue = false;

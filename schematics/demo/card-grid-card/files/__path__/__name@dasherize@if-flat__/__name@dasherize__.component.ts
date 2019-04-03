@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class <%= classify(name) %>Component {
   gridStyle = {
-    width: '25%',
+    width    : '25%',
     textAlign: 'center'
   };
 }

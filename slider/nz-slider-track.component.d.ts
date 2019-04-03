@@ -1,16 +1,18 @@
 import { OnChanges, SimpleChanges } from '@angular/core';
-export interface NzSliderTrackStyle {
-    bottom?: string | null;
-    height?: string | null;
-    left?: string | null;
-    width?: string | null;
-    visibility?: string;
-}
 export declare class NzSliderTrackComponent implements OnChanges {
-    nzOffset: number;
-    nzLength: number;
+    private _vertical;
+    private _included;
+    nzOffset: any;
+    nzLength: any;
+    nzClassName: any;
     nzVertical: boolean;
     nzIncluded: boolean;
-    style: NzSliderTrackStyle;
+    style: {
+        bottom?: string;
+        height?: string;
+        left?: string;
+        width?: string;
+        visibility?: string;
+    };
     ngOnChanges(changes: SimpleChanges): void;
 }

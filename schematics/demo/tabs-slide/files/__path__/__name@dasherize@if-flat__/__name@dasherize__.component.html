@@ -8,16 +8,13 @@
       style="height:220px;"
       [nzTabPosition]="nzTabPosition"
       [(nzSelectedIndex)]="selectedIndex"
-      (nzSelectChange)="log([$event])"
-    >
+      (nzSelectChange)="log([$event])">
       <nz-tab
         *ngFor="let tab of tabs"
         [nzTitle]="tab.name"
-        (nzSelect)="log(['select', tab])"
-        (nzClick)="log(['click', tab])"
-        (nzDeselect)="log(['deselect', tab])"
-      >
+        (nzSelect)="log(['select',tab])"
+        (nzClick)="log(['click',tab])"
+        (nzDeselect)="log(['deselect',tab])">
         {{ tab.content }}
       </nz-tab>
     </nz-tabset>
-  

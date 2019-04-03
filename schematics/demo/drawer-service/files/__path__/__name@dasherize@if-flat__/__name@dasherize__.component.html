@@ -1,12 +1,12 @@
 
     <ng-template #drawerTemplate let-data let-drawerRef="drawerRef">
-      value: {{ data?.value }}
-      <br />
+      value: {{data?.value}}
+      <br>
       <button nz-button nzType="primary" (click)="drawerRef.close()">close</button>
     </ng-template>
     <div nz-form>
       <nz-form-item>
-        <input nz-input [(ngModel)]="value" />
+        <input nz-input [(ngModel)]="value">
       </nz-form-item>
     </div>
     <button nz-button nzType="primary" (click)="openTemplate()">Use Template</button>&nbsp;

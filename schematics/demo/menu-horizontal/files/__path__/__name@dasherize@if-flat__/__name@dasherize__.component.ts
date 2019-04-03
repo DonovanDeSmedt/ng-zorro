@@ -42,7 +42,7 @@ import { Component } from '@angular/core';
       <li nz-menu-item>
         <a href="https://ng.ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
       </li>
-    </ul>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+    </ul>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

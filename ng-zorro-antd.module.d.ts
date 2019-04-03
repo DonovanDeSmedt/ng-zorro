@@ -12,13 +12,11 @@ export * from './card';
 export * from './carousel';
 export * from './checkbox';
 export * from './collapse';
-export * from './comment';
 export * from './date-picker';
 export * from './divider';
 export * from './drawer';
 export * from './dropdown';
 export * from './drawer';
-export * from './empty';
 export * from './form';
 export * from './grid';
 export * from './i18n';
@@ -29,14 +27,12 @@ export * from './layout';
 export * from './list';
 export * from './mention';
 export * from './menu';
-export * from './page-header';
 export * from './pagination';
 export * from './progress';
 export * from './radio';
 export * from './rate';
 export * from './select';
 export * from './spin';
-export * from './statistic';
 export * from './steps';
 export * from './switch';
 export * from './table';
@@ -62,7 +58,6 @@ export * from './time-picker';
 export * from './version';
 export * from './core/wave';
 export * from './core/util';
-export * from './core/no-animation';
 export declare class NgZorroAntdModule {
     /**
      * @deprecated Use `NgZorroAntdModule` instead.

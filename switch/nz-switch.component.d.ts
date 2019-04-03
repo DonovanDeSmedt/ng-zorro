@@ -6,16 +6,16 @@ export declare class NzSwitchComponent implements ControlValueAccessor, AfterVie
     private cdr;
     private focusMonitor;
     checked: boolean;
+    private switchElement;
     onChange: (value: boolean) => void;
     onTouched: () => void;
-    private switchElement;
     nzLoading: boolean;
     nzDisabled: boolean;
     nzControl: boolean;
     nzCheckedChildren: string | TemplateRef<void>;
     nzUnCheckedChildren: string | TemplateRef<void>;
     nzSize: NzSizeDSType;
-    hostClick(e: MouseEvent): void;
+    onClick(e: MouseEvent): void;
     updateValue(value: boolean): void;
     onKeyDown(e: KeyboardEvent): void;
     focus(): void;

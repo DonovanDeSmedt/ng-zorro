@@ -1,7 +1,5 @@
-import { ChangeDetectorRef, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
+import { OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { FunctionProp } from '../core/types/common-wrap';
-import { DateHelperService } from '../i18n/date-helper.service';
 import { NzI18nService } from '../i18n/nz-i18n.service';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { CandyDate } from './lib/candy-date';
@@ -18,7 +16,7 @@ export declare class HeaderPickerComponent extends AbstractPickerComponent imple
     panelMode: PanelMode;
     extraFooter: TemplateRef<void> | string;
     private supportPanels;
-    constructor(i18n: NzI18nService, cdr: ChangeDetectorRef, dateHelper: DateHelperService, noAnimation?: NzNoAnimationDirective);
+    constructor(i18n: NzI18nService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     onPanelModeChange(mode: PanelMode): void;

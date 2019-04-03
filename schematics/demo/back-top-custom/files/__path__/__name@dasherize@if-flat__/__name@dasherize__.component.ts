@@ -13,25 +13,25 @@ import { Component } from '@angular/core';
     button.
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      :host ::ng-deep .ant-back-top {
-        bottom: 100px;
-      }
+    :host ::ng-deep .ant-back-top {
+      bottom: 100px;
+    }
 
-      :host ::ng-deep .ant-back-top-inner {
-        height: 40px;
-        width: 40px;
-        line-height: 40px;
-        border-radius: 4px;
-        background-color: #1088e9;
-        color: #fff;
-        text-align: center;
-        font-size: 20px;
-      }
+    :host ::ng-deep .ant-back-top-inner {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      border-radius: 4px;
+      background-color: #1088e9;
+      color: #fff;
+      text-align: center;
+      font-size: 20px;
+    }
 
-      :host ::ng-deep strong {
-        color: #1088e9;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    :host ::ng-deep strong {
+      color: #1088e9;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
   notify(): void {

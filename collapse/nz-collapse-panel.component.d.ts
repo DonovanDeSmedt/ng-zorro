@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NzCollapseComponent } from './nz-collapse.component';
 export declare class NzCollapsePanelComponent implements OnInit, OnDestroy {
     private cdr;
@@ -6,13 +6,11 @@ export declare class NzCollapsePanelComponent implements OnInit, OnDestroy {
     nzActive: boolean;
     nzDisabled: boolean;
     nzShowArrow: boolean;
-    nzExtra: string | TemplateRef<void>;
     nzHeader: string | TemplateRef<void>;
-    nzExpandedIcon: string | TemplateRef<void>;
     readonly nzActiveChange: EventEmitter<boolean>;
     clickHeader(): void;
     markForCheck(): void;
-    constructor(cdr: ChangeDetectorRef, nzCollapseComponent: NzCollapseComponent, elementRef: ElementRef, renderer: Renderer2);
+    constructor(cdr: ChangeDetectorRef, nzCollapseComponent: NzCollapseComponent);
     ngOnInit(): void;
     ngOnDestroy(): void;
 }

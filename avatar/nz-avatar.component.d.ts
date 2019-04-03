@@ -3,9 +3,6 @@ import { NzUpdateHostClassService } from '../core/services/update-host-class.ser
 import { NzSizeLDSType } from '../core/types/size';
 export declare type NzAvatarShape = 'square' | 'circle';
 export declare type NzAvatarSize = NzSizeLDSType | number;
-export interface NzAvatarSizeMap {
-    [size: string]: string;
-}
 export declare class NzAvatarComponent implements OnChanges {
     private elementRef;
     private cd;

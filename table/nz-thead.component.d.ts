@@ -1,20 +1,18 @@
-import { AfterContentInit, AfterViewInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, TemplateRef } from '@angular/core';
-import { NzTableComponent } from './nz-table.component';
+import { AfterContentInit, EventEmitter, OnDestroy, QueryList, TemplateRef } from '@angular/core';
 import { NzThComponent } from './nz-th.component';
-export declare class NzTheadComponent implements AfterContentInit, OnDestroy, AfterViewInit {
+import { NzTableComponent } from './nz-table.component';
+export declare class NzTheadComponent implements AfterContentInit, OnDestroy {
     nzTableComponent: NzTableComponent;
-    private elementRef;
-    private renderer;
-    private destroy$;
-    templateRef: TemplateRef<void>;
+    private _singleSort;
+    private unsubscribe$;
+    template: TemplateRef<void>;
     listOfNzThComponent: QueryList<NzThComponent>;
-    nzSingleSort: boolean;
     readonly nzSortChange: EventEmitter<{
         key: string;
         value: string;
     }>;
-    constructor(nzTableComponent: NzTableComponent, elementRef: ElementRef, renderer: Renderer2);
+    nzSingleSort: boolean;
+    constructor(nzTableComponent: NzTableComponent);
     ngAfterContentInit(): void;
-    ngAfterViewInit(): void;
     ngOnDestroy(): void;
 }

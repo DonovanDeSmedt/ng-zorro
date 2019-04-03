@@ -5,9 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @returns A new object instance with sorted keys
  */
 function sortObjectByKeys(obj) {
-    return Object.keys(obj)
-        .sort()
-        .reduce((result, key) => (result[key] = obj[key]) && result, {});
+    return Object.keys(obj).sort().reduce((result, key) => (result[key] = obj[key]) && result, {});
 }
 /** Adds a package to the package.json in the given host tree. */
 function addPackageToPackageJson(host, pkg, version) {

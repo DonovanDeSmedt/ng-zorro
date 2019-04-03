@@ -1,5 +1,4 @@
 import { Observable, Subscription } from 'rxjs';
-import { IndexableObject } from '../core/types/indexable';
 /** 状态 */
 export declare type UploadFileStatus = 'error' | 'success' | 'done' | 'uploading' | 'removed';
 /** 上传方式 */
@@ -21,9 +20,7 @@ export interface UploadFile {
     thumbUrl?: string;
     response?: any;
     error?: any;
-    linkProps?: {
-        download: string;
-    };
+    linkProps?: any;
     type: string;
     [key: string]: any;
 }
@@ -39,7 +36,6 @@ export interface UploadChangeParam {
 export interface ShowUploadListInterface {
     showRemoveIcon?: boolean;
     showPreviewIcon?: boolean;
-    hidePreviewIconInNonImage?: boolean;
 }
 export interface ZipButtonOptions {
     disabled?: boolean;
@@ -67,9 +63,9 @@ export interface UploadFilter {
 export interface UploadXHRArgs {
     action?: string;
     name?: string;
-    headers?: IndexableObject;
+    headers?: {};
     file: UploadFile;
-    data?: IndexableObject;
+    data?: {};
     withCredentials?: boolean;
     onProgress?: (e: any, file: UploadFile) => void;
     onSuccess?: (ret: any, file: UploadFile, xhr: any) => void;

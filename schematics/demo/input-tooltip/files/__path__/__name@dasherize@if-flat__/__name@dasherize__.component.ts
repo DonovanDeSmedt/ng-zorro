@@ -5,16 +5,7 @@ import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/co
   encapsulation: ViewEncapsulation.None,
   <% if(inlineTemplate) { %>template: `
     <nz-tooltip nzTrigger="focus" nzPlacement="topLeft" nzOverlayClassName="numeric-input" [nzTitle]="title">
-      <input
-        #inputElement
-        style="width: 120px"
-        nz-input
-        nz-tooltip
-        placeholder="Input a number"
-        [ngModel]="value"
-        (ngModelChange)="onChange($event)"
-        (blur)="onBlur()"
-      />
+      <input #inputElement style="width: 120px" nz-input nz-tooltip placeholder="Input a number" [ngModel]="value" (ngModelChange)="onChange($event)" (blur)="onBlur()">
     </nz-tooltip>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
@@ -26,6 +17,7 @@ import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/co
       .numeric-input .numeric-input-title {
         font-size: 14px;
       }
+
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
@@ -61,8 +53,8 @@ export class <%= classify(name) %>Component {
   formatNumber(value: string): string {
     const string = `${value}`;
     const list = string.split('.');
-    const prefix = list[0].charAt(0) === '-' ? '-' : '';
-    let num = prefix ? list[0].slice(1) : list[0];
+    const prefix = list[ 0 ].charAt(0) === '-' ? '-' : '';
+    let num = prefix ? list[ 0 ].slice(1) : list[ 0 ];
     let result = '';
     while (num.length > 3) {
       result = `,${num.slice(-3)}${result}`;
@@ -71,6 +63,7 @@ export class <%= classify(name) %>Component {
     if (num) {
       result = num + result;
     }
-    return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`;
+    return `${prefix}${result}${list[ 1 ] ? `.${list[ 1 ]}` : ''}`;
   }
+
 }

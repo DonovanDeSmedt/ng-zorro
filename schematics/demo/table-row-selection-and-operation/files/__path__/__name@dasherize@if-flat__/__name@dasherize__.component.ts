@@ -1,43 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
-export interface Data {
-  id: number;
-  name: string;
-  age: number;
-  address: string;
-  disabled: boolean;
-}
-
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <div class="operate">
-      <button
-        nz-button
-        [disabled]="numberOfChecked === 0"
-        [nzType]="'primary'"
-        [nzLoading]="isOperating"
-        (click)="operateData()"
-      >
+    <div style="margin-bottom: 16px;">
+      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="operateData()">
         Reload
       </button>
-      <span *ngIf="numberOfChecked">Selected {{ numberOfChecked }} items</span>
+      <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table
       #rowSelectionTable
-      nzShowPagination
-      nzShowSizeChanger
-      [nzData]="listOfAllData"
+      [nzData]="dataSet"
       (nzCurrentPageDataChange)="currentPageDataChange($event)"
-    >
+      (nzPageIndexChange)="refreshStatus()"
+      (nzPageSizeChange)="refreshStatus()">
       <thead>
         <tr>
-          <th
-            nzShowCheckbox
-            [(nzChecked)]="isAllDisplayDataChecked"
-            [nzIndeterminate]="isIndeterminate"
-            (nzCheckedChange)="checkAll($event)"
-          ></th>
+          <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
           <th>Name</th>
           <th>Age</th>
           <th>Address</th>
@@ -45,75 +25,58 @@ export interface Data {
       </thead>
       <tbody>
         <tr *ngFor="let data of rowSelectionTable.data">
-          <td
-            nzShowCheckbox
-            [(nzChecked)]="mapOfCheckedId[data.id]"
-            [nzDisabled]="data.disabled"
-            (nzCheckedChange)="refreshStatus()"
-          ></td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
+          <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{data.name}}</td>
+          <td>{{data.age}}</td>
+          <td>{{data.address}}</td>
         </tr>
       </tbody>
-    </nz-table>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      .operate {
-        margin-bottom: 16px;
-      }
-
-      .operate span {
-        margin-left: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    </nz-table>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component implements OnInit {
-  isAllDisplayDataChecked = false;
-  isOperating = false;
-  isIndeterminate = false;
-  listOfDisplayData: Data[] = [];
-  listOfAllData: Data[] = [];
-  mapOfCheckedId: { [key: string]: boolean } = {};
-  numberOfChecked = 0;
+  allChecked = false;
+  disabledButton = true;
+  checkedNumber = 0;
+  displayData: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
+  operating = false;
+  dataSet = [];
+  indeterminate = false;
 
-  currentPageDataChange($event: Data[]): void {
-    this.listOfDisplayData = $event;
-    this.refreshStatus();
+  currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean }>): void {
+    this.displayData = $event;
   }
 
   refreshStatus(): void {
-    this.isAllDisplayDataChecked = this.listOfDisplayData
-      .filter(item => !item.disabled)
-      .every(item => this.mapOfCheckedId[item.id]);
-    this.isIndeterminate =
-      this.listOfDisplayData.filter(item => !item.disabled).some(item => this.mapOfCheckedId[item.id]) &&
-      !this.isAllDisplayDataChecked;
-    this.numberOfChecked = this.listOfAllData.filter(item => this.mapOfCheckedId[item.id]).length;
+    const allChecked = this.displayData.every(value => value.checked === true);
+    const allUnChecked = this.displayData.every(value => !value.checked);
+    this.allChecked = allChecked;
+    this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.disabledButton = !this.dataSet.some(value => value.checked);
+    this.checkedNumber = this.dataSet.filter(value => value.checked).length;
   }
 
   checkAll(value: boolean): void {
-    this.listOfDisplayData.filter(item => !item.disabled).forEach(item => (this.mapOfCheckedId[item.id] = value));
+    this.displayData.forEach(data => data.checked = value);
     this.refreshStatus();
   }
 
   operateData(): void {
-    this.isOperating = true;
-    setTimeout(() => {
-      this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
+    this.operating = true;
+    setTimeout(_ => {
+      this.dataSet.forEach(value => value.checked = false);
       this.refreshStatus();
-      this.isOperating = false;
+      this.operating = false;
     }, 1000);
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < 100; i++) {
-      this.listOfAllData.push({
-        id: i,
-        name: `Edward King ${i}`,
-        age: 32,
+    for (let i = 0; i < 46; i++) {
+      this.dataSet.push({
+        name   : `Edward King ${i}`,
+        age    : 32,
         address: `London, Park Lane no. ${i}`,
-        disabled: i % 2 === 0
+        checked: false
       });
     }
   }

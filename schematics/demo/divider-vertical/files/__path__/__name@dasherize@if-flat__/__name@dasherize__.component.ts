@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <div>
-      Text
+    <div>Text
       <nz-divider nzType="vertical"></nz-divider>
       <a href="#">Link</a>
       <nz-divider nzType="vertical"></nz-divider>
@@ -12,4 +11,7 @@ import { Component } from '@angular/core';
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+
+export class <%= classify(name) %>Component {
+
+}

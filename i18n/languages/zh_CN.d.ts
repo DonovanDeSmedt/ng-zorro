@@ -74,16 +74,13 @@ declare const _default: {
         previousCentury: string;
         nextCentury: string;
     };
-    global: {
-        placeholder: string;
-    };
     Table: {
         filterTitle: string;
         filterConfirm: string;
         filterReset: string;
+        emptyText: string;
         selectAll: string;
         selectInvert: string;
-        sortTitle: string;
     };
     Modal: {
         okText: string;
@@ -95,18 +92,19 @@ declare const _default: {
         okText: string;
     };
     Transfer: {
+        notFoundContent: string;
         searchPlaceholder: string;
         itemUnit: string;
         itemsUnit: string;
+    };
+    Select: {
+        notFoundContent: string;
     };
     Upload: {
         uploading: string;
         removeFile: string;
         uploadError: string;
         previewFile: string;
-    };
-    Empty: {
-        description: string;
     };
 };
 export default _default;

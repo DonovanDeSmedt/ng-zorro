@@ -1,13 +1,11 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { NzUpdateHostClassService as UpdateCls } from '../core/services/update-host-class.service';
 import { NzTimeValueAccessorDirective } from './nz-time-value-accessor.directive';
 import { TimeHolder } from './time-holder';
-export declare type NzTimePickerUnit = 'hour' | 'minute' | 'second';
 export declare class NzTimePickerPanelComponent implements ControlValueAccessor, OnInit, OnDestroy {
     private element;
     private updateCls;
-    private cdr;
     private _nzHourStep;
     private _nzMinuteStep;
     private _nzSecondStep;
@@ -40,14 +38,15 @@ export declare class NzTimePickerPanelComponent implements ControlValueAccessor,
         disabled: boolean;
     }>;
     nzTimeValueAccessorDirective: NzTimeValueAccessorDirective;
-    hourListElement: DebugElement;
-    minuteListElement: DebugElement;
-    secondListElement: DebugElement;
+    hourListElement: any;
+    minuteListElement: any;
+    secondListElement: any;
     nzInDatePicker: boolean;
     nzAddOn: TemplateRef<void>;
     nzHideDisabledOptions: boolean;
     nzClearText: string;
     nzPlaceHolder: string;
+    readonly timeClear: EventEmitter<void>;
     nzAllowEmpty: boolean;
     opened: boolean;
     nzDefaultOpenValue: Date;
@@ -75,10 +74,11 @@ export declare class NzTimePickerPanelComponent implements ControlValueAccessor,
         index: number;
         disabled: boolean;
     }): void;
-    scrollToSelected(instance: HTMLElement, index: number, duration: number | undefined, unit: NzTimePickerUnit): void;
-    translateIndex(index: number, unit: NzTimePickerUnit): number;
+    scrollToSelected(instance: HTMLElement, index: number, duration: number, unit: string): void;
+    translateIndex(index: number, unit: string): number;
     scrollTo(element: HTMLElement, to: number, duration: number): void;
     calcIndex(array: number[], index: number): number;
+    clear(): void;
     protected changed(): void;
     protected touched(): void;
     private setClassMap;
@@ -95,7 +95,7 @@ export declare class NzTimePickerPanelComponent implements ControlValueAccessor,
         disabled: boolean;
     }): boolean;
     initPosition(): void;
-    constructor(element: ElementRef, updateCls: UpdateCls, cdr: ChangeDetectorRef);
+    constructor(element: ElementRef, updateCls: UpdateCls);
     ngOnInit(): void;
     ngOnDestroy(): void;
     writeValue(value: Date): void;

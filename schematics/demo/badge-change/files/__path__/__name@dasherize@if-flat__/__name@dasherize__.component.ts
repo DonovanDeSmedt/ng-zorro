@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: '<%= selector %>',
+  encapsulation: ViewEncapsulation.None,
   <% if(inlineTemplate) { %>template: `
     <div>
       <nz-badge [nzCount]="count">
@@ -21,21 +22,22 @@ import { Component } from '@angular/core';
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-badge {
-        margin-right: 20px;
-      }
+    .ant-badge:not(.ant-badge-status) {
+      margin-right: 20px;
+    }
 
-      .head-example {
-        width: 42px;
-        height: 42px;
-        border-radius: 4px;
-        background: #eee;
-        display: inline-block;
-        vertical-align: middle;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    .head-example {
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      background: #eee;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
+
   count = 5;
   dot = true;
 

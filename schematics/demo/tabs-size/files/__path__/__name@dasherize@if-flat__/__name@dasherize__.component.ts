@@ -9,12 +9,13 @@ import { Component } from '@angular/core';
       <label nz-radio-button nzValue="large"><span>Large</span></label>
     </nz-radio-group>
     <nz-tabset [nzSize]="size">
-      <nz-tab *ngFor="let tab of tabs" [nzTitle]="'Tab ' + tab"> Content of tab {{ tab }} </nz-tab>
-    </nz-tabset>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+      <nz-tab *ngFor="let tab of tabs" [nzTitle]="'Tab ' + tab">
+        Content of tab {{ tab }}
+      </nz-tab>
+    </nz-tabset>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   size = 'small';
-  tabs = [1, 2, 3];
+  tabs = [ 1, 2, 3 ];
 }

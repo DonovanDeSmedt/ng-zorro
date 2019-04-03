@@ -29,12 +29,11 @@ export declare class NzInputNumberComponent implements ControlValueAccessor, Aft
     nzDisabled: boolean;
     nzAutoFocus: boolean;
     nzFormatter: (value: number) => string | number;
-    [property: string]: any;
     updateAutoFocus(): void;
     onModelChange(value: string): void;
     getCurrentValidValue(value: string | number): number;
     isNotCompleteNumber(num: string | number): boolean;
-    getValidValue(value?: string | number): string | number | undefined;
+    getValidValue(value: string | number): string | number;
     toNumber(num: string | number): number;
     setValidateValue(): void;
     onBlur(): void;

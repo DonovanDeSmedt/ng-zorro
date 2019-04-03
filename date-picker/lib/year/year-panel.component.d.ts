@@ -4,9 +4,8 @@ import { CandyDate } from '../candy-date';
 export declare class YearPanelComponent implements OnChanges {
     locale: NzCalendarI18nInterface;
     value: CandyDate;
-    readonly valueChange: EventEmitter<CandyDate>;
-    disabledDate: (date: Date) => boolean;
-    readonly decadePanelShow: EventEmitter<void>;
+    valueChange: EventEmitter<CandyDate>;
+    decadePanelShow: EventEmitter<void>;
     readonly currentYear: number;
     readonly startYear: number;
     readonly endYear: number;
@@ -16,20 +15,19 @@ export declare class YearPanelComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void;
     previousDecade(): void;
     nextDecade(): void;
-    trackPanelYear(_index: number, yearData: PanelYearData): string;
+    trackPanelYear(index: number, yearData: PanelYearData): string;
     private render;
     private gotoYear;
     private chooseYear;
     private makePanelYears;
 }
 export interface PanelYearData {
-    disabled: boolean;
     content: string;
     year: number;
     title: string;
     isCurrent: boolean;
     isLowerThanStart: boolean;
     isBiggerThanEnd: boolean;
-    classMap: object | null;
-    onClick: VoidFunction | null;
+    classMap: object;
+    onClick(): void;
 }

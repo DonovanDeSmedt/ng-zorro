@@ -8,7 +8,9 @@ import { Component } from '@angular/core';
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
-  formatter(value: number): string {
+
+  formatter(value) {
     return `${value}%`;
   }
+
 }

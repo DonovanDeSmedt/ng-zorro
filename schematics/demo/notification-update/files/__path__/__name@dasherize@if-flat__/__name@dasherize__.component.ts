@@ -4,19 +4,20 @@ import { NzNotificationService } from 'ng-zorro-antd';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <button nz-button [nzType]="'primary'" (click)="createAutoUpdatingNotifications()">
-      Open the notification box
-    </button>
+    <button nz-button [nzType]="'primary'" (click)="createAutoUpdatingNotifications()">Open the notification box</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
-  constructor(private notification: NzNotificationService) {}
+
+  constructor(private notification: NzNotificationService) {
+  }
 
   createAutoUpdatingNotifications(): void {
     this.notification.blank('Notification Title', 'Description.', {
-      nzKey: 'key'
-    });
+        nzKey: 'key'
+      }
+    );
 
     setTimeout(() => {
       this.notification.blank('New Title', 'New description', {

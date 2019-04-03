@@ -32,37 +32,37 @@ import { Component } from '@angular/core';
     </nz-calendar>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      .events {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
+    .events {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-      .events .ant-badge-status {
-        overflow: hidden;
-        white-space: nowrap;
-        width: 100%;
-        text-overflow: ellipsis;
-        font-size: 12px;
-      }
+    .events .ant-badge-status {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+      text-overflow: ellipsis;
+      font-size: 12px;
+    }
 
-      .notes-month {
-        text-align: center;
-        font-size: 28px;
-      }
+    .notes-month {
+      text-align: center;
+      font-size: 28px;
+    }
 
-      .notes-month section {
-        font-size: 28px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    .notes-month section {
+      font-size: 28px;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
   listDataMap = {
-    eight: [
+    eight : [
       { type: 'warning', content: 'This is warning event.' },
       { type: 'success', content: 'This is usual event.' }
     ],
-    ten: [
+    ten   : [
       { type: 'warning', content: 'This is warning event.' },
       { type: 'success', content: 'This is usual event.' },
       { type: 'error', content: 'This is error event.' }

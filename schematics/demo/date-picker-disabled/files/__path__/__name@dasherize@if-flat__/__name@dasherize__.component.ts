@@ -4,18 +4,17 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-date-picker nzDisabled></nz-date-picker>
-    <br />
+    <br>
     <nz-month-picker nzDisabled></nz-month-picker>
-    <br />
+    <br>
     <nz-range-picker nzDisabled></nz-range-picker>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-date-picker,
-      nz-month-picker,
-      nz-range-picker,
-      nz-week-picker {
-        margin: 0 8px 12px 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    nz-date-picker, nz-month-picker, nz-range-picker, nz-week-picker {
+      margin: 0 8px 12px 0;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+
+export class <%= classify(name) %>Component {
+}

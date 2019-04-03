@@ -9,26 +9,7 @@ import { Component } from '@angular/core';
     <nz-badge [nzCount]="0" nzShowZero>
       <a class="head-example"></a>
     </nz-badge>
-    <nz-badge [nzCount]="iconTemplate">
-      <a class="head-example"></a>
-    </nz-badge>
-    <ng-template #iconTemplate>
-      <i nz-icon type="clock-circle" class="ant-scroll-number-custom-component" style="color: #f5222d"></i>
-    </ng-template>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      nz-badge {
-        margin-right: 20px;
-      }
-
-      .head-example {
-        width: 42px;
-        height: 42px;
-        border-radius: 4px;
-        background: #eee;
-        display: inline-block;
-        vertical-align: middle;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

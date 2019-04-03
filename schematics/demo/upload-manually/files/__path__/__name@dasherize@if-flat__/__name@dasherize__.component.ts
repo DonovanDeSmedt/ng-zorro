@@ -6,19 +6,16 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-      <button nz-button><i nz-icon type="upload"></i><span>Select File</span></button>
-    </nz-upload>
-    <button
-      nz-button
-      [nzType]="'primary'"
-      [nzLoading]="uploading"
-      (click)="handleUpload()"
-      [disabled]="fileList.length == 0"
-      style="margin-top: 16px"
-    >
-      {{ uploading ? 'Uploading' : 'Start Upload' }}
+  <nz-upload
+    [(nzFileList)]="fileList"
+    [nzBeforeUpload]="beforeUpload">
+    <button nz-button>
+      <i nz-icon type="upload"></i><span>Select File</span>
     </button>
+  </nz-upload>
+  <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px">
+    {{ uploading ? 'Uploading' : 'Start Upload' }}
+  </button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
@@ -28,9 +25,9 @@ export class <%= classify(name) %>Component {
   constructor(private http: HttpClient, private msg: NzMessageService) {}
 
   beforeUpload = (file: UploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
+    this.fileList.push(file);
     return false;
-  };
+  }
 
   handleUpload(): void {
     const formData = new FormData();
@@ -47,12 +44,11 @@ export class <%= classify(name) %>Component {
       .request(req)
       .pipe(filter(e => e instanceof HttpResponse))
       .subscribe(
-        () => {
+        (event: {}) => {
           this.uploading = false;
-          this.fileList = [];
           this.msg.success('upload successfully.');
         },
-        () => {
+        err => {
           this.uploading = false;
           this.msg.error('upload failed.');
         }

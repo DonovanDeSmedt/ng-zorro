@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
     <button nz-button style="margin-top: 16px" nzType="primary" (click)="toggleReverse()">Toggle Reverse</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
+
 export class <%= classify(name) %>Component {
   reverse = false;
 

@@ -1,20 +1,20 @@
 import { EventEmitter, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 import { NgClassType } from '../core/types/ng-class';
 export declare class NzAlertComponent implements OnChanges {
-    destroy: boolean;
+    display: boolean;
+    isTypeSet: boolean;
+    isShowIconSet: boolean;
     iconType: string;
     iconTheme: string;
-    private isTypeSet;
-    private isShowIconSet;
+    readonly nzOnClose: EventEmitter<boolean>;
+    nzCloseable: boolean;
+    nzShowIcon: boolean;
+    nzBanner: boolean;
     nzCloseText: string | TemplateRef<void>;
     nzIconType: NgClassType;
     nzMessage: string | TemplateRef<void>;
     nzDescription: string | TemplateRef<void>;
-    nzType: 'success' | 'info' | 'warning' | 'error';
-    nzCloseable: boolean;
-    nzShowIcon: boolean;
-    nzBanner: boolean;
-    readonly nzOnClose: EventEmitter<boolean>;
+    nzType: string;
     closeAlert(): void;
     onFadeAnimationDone(): void;
     updateIconClassMap(): void;

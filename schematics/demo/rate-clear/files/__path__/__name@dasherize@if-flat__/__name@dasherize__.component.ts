@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   <% if(inlineTemplate) { %>template: `
     <nz-rate [(ngModel)]="value" nzAllowHalf></nz-rate>
     <span class="ant-rate-text">allowClear: true</span>
-    <br />
+    <br>
     <nz-rate [(ngModel)]="value" nzAllowHalf [nzAllowClear]="false"></nz-rate>
     <span class="ant-rate-text">allowClear: false</span>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>

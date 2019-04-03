@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
       <span checked>Dark</span>
       <span unchecked>Light</span>
     </nz-switch>
-    <br />
-    <br />
-    <ul nz-menu [nzMode]="'inline'" style="width: 240px;" [nzTheme]="theme ? 'dark' : 'light'">
+    <br>
+    <br>
+    <ul nz-menu [nzMode]="'inline'" style="width: 240px;" [nzTheme]="theme?'dark':'light'">
       <li nz-submenu nzOpen>
         <span title><i nz-icon type="mail"></i> Navigation One</span>
         <ul>
@@ -50,9 +50,8 @@ import { Component } from '@angular/core';
           <li nz-menu-item>Option 11</li>
         </ul>
       </li>
-    </ul>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </ul>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   theme = true;

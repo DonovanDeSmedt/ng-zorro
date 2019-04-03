@@ -13,9 +13,7 @@ function default_1(options) {
         }
         const installTaskId = context.addTask(new tasks_1.NodePackageInstallTask());
         context.addTask(new tasks_1.RunSchematicTask('ng-add-setup-project', options), [installTaskId]);
-        if (options.bootPage) {
-            context.addTask(new tasks_1.RunSchematicTask('boot-page', options));
-        }
+        context.addTask(new tasks_1.RunSchematicTask('bootstrap', options));
     };
 }
 exports.default = default_1;

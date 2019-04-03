@@ -45,12 +45,11 @@ import { Component } from '@angular/core';
           <li nz-menu-item>Option 11</li>
         </ul>
       </li>
-    </ul>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </ul>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
-  openMap: { [name: string]: boolean } = {
+  openMap = {
     sub1: true,
     sub2: false,
     sub3: false
@@ -59,7 +58,7 @@ export class <%= classify(name) %>Component {
   openHandler(value: string): void {
     for (const key in this.openMap) {
       if (key !== value) {
-        this.openMap[key] = false;
+        this.openMap[ key ] = false;
       }
     }
   }

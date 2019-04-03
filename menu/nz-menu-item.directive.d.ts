@@ -1,27 +1,29 @@
-import { ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
-import { NzMenuService } from './nz-menu.service';
-import { NzSubmenuService } from './nz-submenu.service';
-export declare class NzMenuItemDirective implements OnInit, OnChanges, OnDestroy {
-    private nzUpdateHostClassService;
-    private nzMenuService;
-    private nzSubmenuService;
+import { ChangeDetectorRef, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { NzMenuDirective } from './nz-menu.directive';
+import { NzSubMenuComponent } from './nz-submenu.component';
+export declare class NzMenuItemDirective implements OnInit {
     private renderer;
-    private elementRef;
-    private el;
-    private destroy$;
-    private originalPadding;
-    selected$: Subject<boolean>;
-    nzPaddingLeft: number;
+    cd: ChangeDetectorRef;
+    private nzMenuDirective;
+    nzSubMenuComponent: NzSubMenuComponent;
+    private hostElement;
+    private _disabled;
+    private _selected;
+    private _initialized;
+    level: number;
+    padding: any;
+    isInDropDown: boolean;
     nzDisabled: boolean;
     nzSelected: boolean;
     /** clear all item selected status except this */
-    clickMenuItem(e: MouseEvent): void;
-    setClassMap(): void;
-    setSelectedState(value: boolean): void;
-    constructor(nzUpdateHostClassService: NzUpdateHostClassService, nzMenuService: NzMenuService, nzSubmenuService: NzSubmenuService, renderer: Renderer2, elementRef: ElementRef);
+    onClickItem(e: MouseEvent): void;
+    /** define host class */
+    readonly isInDropDownClass: boolean;
+    readonly isNotInDropDownClass: boolean;
+    readonly setDropDownDisableClass: boolean;
+    readonly setMenuDisableClass: boolean;
+    readonly setPaddingLeft: number;
+    constructor(renderer: Renderer2, cd: ChangeDetectorRef, nzMenuDirective: NzMenuDirective, nzSubMenuComponent: NzSubMenuComponent, hostElement: ElementRef);
     ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
+    setClass(): void;
 }

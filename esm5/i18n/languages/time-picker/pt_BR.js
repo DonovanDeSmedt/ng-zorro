@@ -1,10 +1,11 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
 var locale = {
     placeholder: 'Hora',
 };
 export default locale;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHRfQlIuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsiaTE4bi9sYW5ndWFnZXMvdGltZS1waWNrZXIvcHRfQlIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7SUFBTSxNQUFNLEdBQUc7SUFDYixXQUFXLEVBQUUsTUFBTTtDQUNwQjtBQUVELGVBQWUsTUFBTSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgbG9jYWxlID0ge1xuICBwbGFjZWhvbGRlcjogJ0hvcmEnLFxufTtcblxuZXhwb3J0IGRlZmF1bHQgbG9jYWxlO1xuIl19
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHRfQlIuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsiaTE4bi9sYW5ndWFnZXMvdGltZS1waWNrZXIvcHRfQlIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxJQUFNLE1BQU0sR0FBRztJQUNiLFdBQVcsRUFBRSxNQUFNO0NBQ3BCLENBQUM7QUFFRixlQUFlLE1BQU0sQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGxvY2FsZSA9IHtcbiAgcGxhY2Vob2xkZXI6ICdIb3JhJyxcbn07XG5cbmV4cG9ydCBkZWZhdWx0IGxvY2FsZTtcbiJdfQ==

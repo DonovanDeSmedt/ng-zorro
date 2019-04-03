@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { NzMessageConfig } from '../message/nz-message-config';
 export interface NzNotificationConfig extends NzMessageConfig {
-    nzTop?: string | number;
-    nzBottom?: string | number;
+    nzTop?: string;
+    nzBottom?: string;
     nzPlacement?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | string;
 }
 export declare const NZ_NOTIFICATION_DEFAULT_CONFIG: InjectionToken<NzNotificationConfig>;

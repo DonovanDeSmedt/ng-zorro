@@ -3,9 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzFileList]="fileList">
-      <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
-    </nz-upload>
+  <nz-upload
+    nzAction="https://jsonplaceholder.typicode.com/posts/"
+    [nzFileList]="fileList">
+    <button nz-button>
+      <i nz-icon type="upload"></i><span>Upload</span>
+    </button>
+  </nz-upload>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {

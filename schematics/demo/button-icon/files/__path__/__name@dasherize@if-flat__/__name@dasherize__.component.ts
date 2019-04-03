@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     <button nz-button nzType="primary"><i nz-icon type="search"></i>Search</button>
     <button nz-button nzType="default" nzShape="circle"><i nz-icon type="search"></i></button>
     <button nz-button nzType="default"><i nz-icon type="search"></i>Search</button>
-    <br />
+    <br>
     <button nz-button nzType="default" nzShape="circle"><i nz-icon type="search"></i></button>
     <button nz-button nzType="default"><i nz-icon type="search"></i>Search</button>
     <button nz-button nzType="dashed" nzShape="circle"><i nz-icon type="search"></i></button>
@@ -20,4 +20,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

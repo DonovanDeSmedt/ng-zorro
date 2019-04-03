@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: '<%= selector %>',
@@ -10,13 +11,11 @@ import { Component, OnInit } from '@angular/core';
       [nzFilterOption]="filterOption"
       (nzSearchChange)="search($event)"
       (nzSelectChange)="select($event)"
-      (nzChange)="change($event)"
-    >
+      (nzChange)="change($event)">
     </nz-transfer>
     <div style="margin-top: 8px;">
       <nz-switch [(ngModel)]="disabled" nzCheckedChildren="disabled" nzUnCheckedChildren="disabled"></nz-switch>
-      <div></div>
-    </div>
+    <div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component implements OnInit {
@@ -27,10 +26,10 @@ export class <%= classify(name) %>Component implements OnInit {
   ngOnInit(): void {
     for (let i = 0; i < 20; i++) {
       this.list.push({
-        key: i.toString(),
-        title: `content${i + 1}`,
+        key        : i.toString(),
+        title      : `content${i + 1}`,
         description: `description of content${i + 1}`,
-        direction: Math.random() * 2 > 1 ? 'right' : ''
+        direction  : Math.random() * 2 > 1 ? 'right' : ''
       });
     }
   }

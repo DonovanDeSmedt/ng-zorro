@@ -1,7 +1,11 @@
 
     <nz-tree
       [nzData]="nodes"
-      nzDraggable
-      (nzOnDrop)="nzEvent($event)">
+      nzDraggable="true"
+      (nzOnDragStart)="nzEvent($event)"
+      (nzOnDragEnter)="nzEvent($event)"
+      (nzOnDragLeave)="nzEvent($event)"
+      (nzOnDrop)="nzEvent($event)"
+      (nzOnDragEnd)="nzEvent($event)">
     </nz-tree>
   

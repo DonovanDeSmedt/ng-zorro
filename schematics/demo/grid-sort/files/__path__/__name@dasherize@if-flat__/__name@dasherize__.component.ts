@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
       </div>
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

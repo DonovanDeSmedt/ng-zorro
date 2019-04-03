@@ -4,28 +4,11 @@ import { NzMessageDataFilled, NzMessageDataOptions } from './nz-message.definiti
 export declare class NzMessageContainerComponent {
     protected cdr: ChangeDetectorRef;
     messages: NzMessageDataFilled[];
-    config: Required<NzMessageConfig>;
-    top: string | null;
+    config: NzMessageConfig;
     constructor(cdr: ChangeDetectorRef, defaultConfig: NzMessageConfig, config: NzMessageConfig);
     setConfig(config: NzMessageConfig): void;
-    /**
-     * Create a new message.
-     * @param message Parsed message configuration.
-     */
     createMessage(message: NzMessageDataFilled): void;
-    /**
-     * Remove a message by `messageId`.
-     * @param messageId Id of the message to be removed.
-     * @param userAction Whether this is closed by user interaction.
-     */
-    removeMessage(messageId: string, userAction?: boolean): void;
-    /**
-     * Remove all messages.
-     */
+    removeMessage(messageId: string): void;
     removeMessageAll(): void;
-    /**
-     * Merge default options and custom message options
-     * @param options
-     */
-    protected _mergeMessageOptions(options?: NzMessageDataOptions): NzMessageDataOptions;
+    protected _mergeMessageOptions(options: NzMessageDataOptions): NzMessageDataOptions;
 }

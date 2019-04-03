@@ -1,17 +1,54 @@
 import { OnChanges, SimpleChanges } from '@angular/core';
-import { DisplayedMark, ExtendedMark } from './nz-slider-definitions';
 export declare class NzSliderMarksComponent implements OnChanges {
-    nzLowerBound: number | null;
-    nzUpperBound: number | null;
-    nzMarksArray: ExtendedMark[];
+    private _vertical;
+    private _included;
+    nzLowerBound: number;
+    nzUpperBound: number;
+    nzMarksArray: MarksArray;
+    nzClassName: string;
     nzMin: number;
     nzMax: number;
     nzVertical: boolean;
     nzIncluded: boolean;
-    marks: DisplayedMark[];
+    attrs: Array<{
+        id: number;
+        value: number;
+        offset: number;
+        classes: {
+            [key: string]: boolean;
+        };
+        style: object;
+        label: Mark;
+    }>;
     ngOnChanges(changes: SimpleChanges): void;
-    trackById(_index: number, mark: DisplayedMark): number;
-    private buildMarks;
-    private buildStyles;
-    private togglePointActive;
+    trackById(index: number, attr: {
+        id: number;
+        value: number;
+        offset: number;
+        classes: {
+            [key: string]: boolean;
+        };
+        style: object;
+        label: Mark;
+    }): number;
+    buildAttrs(): void;
+    togglePointActive(): void;
+}
+export declare type Mark = string | {
+    style: object;
+    label: string;
+};
+export declare class Marks {
+    number: Mark;
+}
+export declare class MarksArray extends Array<{
+    value: number;
+    offset: number;
+    config: Mark;
+}> {
+    [index: number]: {
+        value: number;
+        offset: number;
+        config: Mark;
+    };
 }

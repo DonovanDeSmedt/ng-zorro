@@ -7,35 +7,38 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <div>
-      <cdk-virtual-scroll-viewport itemSize="73" class="demo-infinite-container">
-        <nz-list>
-          <nz-list-item *cdkVirtualFor="let item of ds">
-            <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
-            <nz-list-item-meta
-              *ngIf="item"
-              [nzTitle]="nzTitle"
-              nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              [nzDescription]="item.email"
-            >
-              <ng-template #nzTitle>
-                <a href="https://ng.ant.design">{{ item.name.last }}</a>
-              </ng-template>
-            </nz-list-item-meta>
-          </nz-list-item>
-        </nz-list>
-      </cdk-virtual-scroll-viewport>
-    </div>
+  <div>
+    <cdk-virtual-scroll-viewport
+      itemSize="73"
+      class="demo-infinite-container"
+    >
+      <nz-list>
+        <nz-list-item *cdkVirtualFor="let item of ds">
+          <nz-skeleton
+            *ngIf="!item"
+            [nzAvatar]="true"
+            [nzParagraph]="{ rows: 1 }"
+          ></nz-skeleton>
+          <nz-list-item-meta
+            *ngIf="item"
+            [nzTitle]="nzTitle"
+            nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            [nzDescription]="item.email"
+          >
+            <ng-template #nzTitle>
+              <a href="https://ng.ant.design">{{item.name.last}}</a>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </nz-list>
+    </cdk-virtual-scroll-viewport>
+  </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      .demo-infinite-container {
+      :host ::ng-deep .demo-infinite-container {
         height: 300px;
         border: 1px solid #e8e8e8;
         border-radius: 4px;
-      }
-
-      nz-list {
-        padding: 24px;
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -86,9 +89,17 @@ class MyDataSource extends DataSource<string | undefined> {
     this.fetchedPages.add(page);
 
     this.http
-      .get(`https://randomuser.me/api/?results=${this.pageSize}&inc=name,gender,email,nat&noinfo`)
+      .get(
+        `https://randomuser.me/api/?results=${
+          this.pageSize
+        }&inc=name,gender,email,nat&noinfo`
+      )
       .subscribe((res: any) => {
-        this.cachedData.splice(page * this.pageSize, this.pageSize, ...res.results);
+        this.cachedData.splice(
+          page * this.pageSize,
+          this.pageSize,
+          ...res.results
+        );
         this.dataStream.next(this.cachedData);
       });
   }

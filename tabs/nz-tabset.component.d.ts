@@ -20,6 +20,7 @@ export declare class NzTabSetComponent implements AfterContentChecked, OnInit, A
     private nzUpdateHostClassService;
     private elementRef;
     private cdr;
+    private document;
     private indexToSelect;
     private el;
     private _selectedIndex;
@@ -56,7 +57,7 @@ export declare class NzTabSetComponent implements AfterContentChecked, OnInit, A
     /** Clamps the given index to the bounds of 0 and the tabs length. */
     private clampTabIndex;
     private subscribeToTabLabels;
-    constructor(renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, cdr: ChangeDetectorRef);
+    constructor(renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, cdr: ChangeDetectorRef, document: any);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
     ngAfterContentChecked(): void;

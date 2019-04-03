@@ -4,81 +4,82 @@
 .@{dialog-prefix-cls} {
   .reset-component;
   position: relative;
-  top: 100px;
   width: auto;
   margin: 0 auto;
+  top: 100px;
   padding-bottom: 24px;
 
   &-wrap {
     position: fixed;
+    overflow: auto;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: @zindex-modal;
-    overflow: auto;
-    outline: 0;
     -webkit-overflow-scrolling: touch;
+    outline: 0;
   }
 
   &-title {
     margin: 0;
-    color: @heading-color;
-    font-weight: 500;
     font-size: @font-size-lg;
     line-height: 22px;
+    font-weight: 500;
+    color: @heading-color;
   }
 
   &-content {
     position: relative;
     background-color: @component-background;
-    background-clip: padding-box;
     border: 0;
     border-radius: @border-radius-base;
+    background-clip: padding-box;
     box-shadow: @shadow-2;
   }
 
   &-close {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
     position: absolute;
-    top: 0;
     right: 0;
-    z-index: @zindex-popup-close;
-    padding: 0;
-    color: @text-color-secondary;
+    top: 0;
+    z-index: 10;
     font-weight: 700;
     line-height: 1;
     text-decoration: none;
-    background: transparent;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
     transition: color 0.3s;
+    color: @text-color-secondary;
+    outline: 0;
+    padding: 0;
 
     &-x {
       display: block;
-      width: 56px;
-      height: 56px;
-      font-size: @font-size-lg;
       font-style: normal;
-      line-height: 56px;
+      vertical-align: baseline;
       text-align: center;
       text-transform: none;
       text-rendering: auto;
+      width: 56px;
+      height: 56px;
+      line-height: 56px;
+      font-size: @font-size-lg;
     }
 
     &:focus,
     &:hover {
-      color: @icon-color-hover;
+      color: #444;
       text-decoration: none;
     }
   }
 
   &-header {
     padding: 16px 24px;
-    color: @text-color;
-    background: @modal-header-bg;
-    border-bottom: @border-width-base @border-style-base @border-color-split;
     border-radius: @border-radius-base @border-radius-base 0 0;
+    background: @modal-header-bg;
+    color: @text-color;
+    border-bottom: @border-width-base @border-style-base @border-color-split;
   }
 
   &-body {
@@ -89,21 +90,21 @@
   }
 
   &-footer {
+    border-top: @border-width-base @border-style-base @border-color-split;
     padding: 10px 16px;
     text-align: right;
-    border-top: @border-width-base @border-style-base @border-color-split;
     border-radius: 0 0 @border-radius-base @border-radius-base;
     button + button {
-      margin-bottom: 0;
       margin-left: 8px;
+      margin-bottom: 0;
     }
   }
 
   &.zoom-enter,
   &.zoom-appear {
+    animation-duration: @animation-duration-slow;
     transform: none; // reset scale avoid mousePosition bug
     opacity: 0;
-    animation-duration: @animation-duration-slow;
     user-select: none; // https://github.com/ant-design/ant-design/issues/11777
   }
 
@@ -111,11 +112,11 @@
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
-    z-index: @zindex-modal-mask;
-    height: 100%;
+    bottom: 0;
     background-color: @modal-mask-bg;
+    height: 100%;
+    z-index: @zindex-modal-mask;
     filter: ~'alpha(opacity=50)';
 
     &-hidden {
@@ -130,25 +131,25 @@
 
 .@{dialog-prefix-cls}-centered {
   text-align: center;
-  &::before {
+  &:before {
+    content: '';
     display: inline-block;
-    width: 0;
     height: 100%;
     vertical-align: middle;
-    content: '';
+    width: 0;
   }
   .@{dialog-prefix-cls} {
-    top: 0;
     display: inline-block;
-    text-align: left;
     vertical-align: middle;
+    top: 0;
+    text-align: left;
   }
 }
 
 @media (max-width: @screen-sm-max) {
   .@{dialog-prefix-cls} {
-    max-width: calc(100vw - 16px);
-    margin: 8px auto;
+    width: auto !important;
+    margin: 10px;
   }
   .@{dialog-prefix-cls}-centered {
     .@{dialog-prefix-cls} {

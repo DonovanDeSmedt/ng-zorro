@@ -1,12 +1,11 @@
 
     <nz-table
       #groupingTable
-      [nzData]="listOfDisplayData"
+      [nzData]="displayData"
       nzBordered
       nzSize="middle"
-      [nzWidthConfig]="widthConfig"
-      [nzScroll]="scrollConfig"
-    >
+      [nzWidthConfig]="['100px','200px','200px','100px','100px',null,null,'60px']"
+      [nzScroll]="{ x:'130%',y: '240px' }">
       <thead>
         <tr>
           <th rowspan="4" nzLeft="0px" nzShowFilter [nzFilters]="filterName" (nzFilterChange)="search($event)">Name</th>
@@ -31,15 +30,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of groupingTable.data">
-          <td nzLeft="0px">{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.street }}</td>
-          <td>{{ data.building }}</td>
-          <td>{{ data.number }}</td>
-          <td>{{ data.companyAddress }}</td>
-          <td>{{ data.companyName }}</td>
-          <td nzRight="0px">{{ data.gender }}</td>
+          <td nzLeft="0px">{{data.name}}</td>
+          <td>{{data.age}}</td>
+          <td>{{data.street}}</td>
+          <td>{{data.building}}</td>
+          <td>{{data.number}}</td>
+          <td>{{data.companyAddress}}</td>
+          <td>{{data.companyName}}</td>
+          <td nzRight="0px">{{data.gender}}</td>
         </tr>
       </tbody>
     </nz-table>
-  

@@ -6,10 +6,12 @@ import { NzMessageService } from 'ng-zorro-antd';
   <% if(inlineTemplate) { %>template: `
     <button nz-button [nzType]="'primary'" (click)="createBasicMessage()">Display normal message</button>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
-  constructor(private message: NzMessageService) {}
+
+  constructor(private message: NzMessageService) {
+  }
 
   createBasicMessage(): void {
     this.message.info('This is a normal message');

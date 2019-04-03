@@ -3,12 +3,19 @@
 
 @collapse-prefix-cls: ~'@{ant-prefix}-collapse';
 
+.collapse-close() {
+  transform: rotate(0);
+}
+.collapse-open() {
+  transform: rotate(90deg);
+}
+
 .@{collapse-prefix-cls} {
   .reset-component;
   background-color: @collapse-header-bg;
+  border-radius: @border-radius-base;
   border: @border-width-base @border-style-base @border-color-base;
   border-bottom: 0;
-  border-radius: @border-radius-base;
 
   & > &-item {
     border-bottom: @border-width-base @border-style-base @border-color-base;
@@ -21,31 +28,27 @@
     }
 
     > .@{collapse-prefix-cls}-header {
-      position: relative;
+      line-height: 22px;
       padding: @collapse-header-padding;
       color: @heading-color;
-      line-height: 22px;
       cursor: pointer;
+      position: relative;
       transition: all 0.3s;
 
-      .@{collapse-prefix-cls}-arrow {
+      .arrow {
         .iconfont-mixin();
-        position: absolute;
-        top: 50%;
-        left: @padding-md;
-        display: inline-block;
-        margin-top: 2px;
         font-size: @font-size-sm;
+        position: absolute;
+        display: inline-block;
         line-height: 46px;
+        vertical-align: top;
+        top: 50%;
         transform: translateY(-50%);
-
+        left: @padding-md;
         & svg {
+          .collapse-close();
           transition: transform 0.24s;
         }
-      }
-
-      .@{collapse-prefix-cls}-extra {
-        float: right;
       }
 
       &:focus {
@@ -85,6 +88,12 @@
     }
   }
 
+  & > &-item > &-header[aria-expanded='true'] {
+    .anticon-right svg {
+      .collapse-open();
+    }
+  }
+
   &-borderless {
     background-color: @component-background;
     border: 0;
@@ -111,8 +120,8 @@
   & &-item-disabled > &-header {
     &,
     & > .arrow {
-      color: @disabled-color;
       cursor: not-allowed;
+      color: @disabled-color;
     }
   }
 }

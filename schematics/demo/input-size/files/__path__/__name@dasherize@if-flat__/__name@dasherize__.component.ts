@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <div class="example-input">
-      <input nz-input placeholder="large size" nzSize="large" />
-      <input nz-input placeholder="default size" nzSize="default" />
-      <input nz-input placeholder="small size" nzSize="small" />
+      <input nz-input placeholder="large size" nzSize="large">
+      <input nz-input placeholder="default size" nzSize="default">
+      <input nz-input placeholder="small size" nzSize="small">
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
@@ -16,4 +16,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

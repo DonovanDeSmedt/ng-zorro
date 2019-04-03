@@ -13,13 +13,12 @@ import { Component } from '@angular/core';
         </ng-template>
         Content of {{ tab }}
       </nz-tab>
-    </nz-tabset>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </nz-tabset>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   index = 0;
-  tabs = ['Tab 1', 'Tab 2'];
+  tabs = [ 'Tab 1', 'Tab 2' ];
 
   closeTab(tab: string): void {
     this.tabs.splice(this.tabs.indexOf(tab), 1);

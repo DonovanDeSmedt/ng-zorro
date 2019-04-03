@@ -6,8 +6,7 @@
       [(ngModel)]="startValue"
       nzPlaceHolder="Start"
       (ngModelChange)="onStartChange($event)"
-      (nzOnOpenChange)="handleStartOpenChange($event)"
-    >
+      (nzOnOpenChange)="handleStartOpenChange($event)">
     </nz-date-picker>
     <nz-date-picker
       [nzDisabledDate]="disabledEndDate"
@@ -17,7 +16,6 @@
       nzPlaceHolder="End"
       [nzOpen]="endOpen"
       (ngModelChange)="onEndChange($event)"
-      (nzOnOpenChange)="handleEndOpenChange($event)"
-    >
+      (nzOnOpenChange)="handleEndOpenChange($event)">
     </nz-date-picker>
   

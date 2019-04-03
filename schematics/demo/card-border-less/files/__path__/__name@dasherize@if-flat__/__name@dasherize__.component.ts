@@ -14,10 +14,9 @@ import { Component } from '@angular/core';
       <a>More</a>
     </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      p {
-        margin: 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`p {
+      margin: 0;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: '<%= selector %>',
@@ -10,14 +10,12 @@ import { Component } from '@angular/core';
     <nz-month-picker [nzRenderExtraFooter]="footerRender" nzPlaceHolder="Select month"></nz-month-picker>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-date-picker,
-      nz-month-picker,
-      nz-range-picker,
-      nz-week-picker {
-        margin: 0 8px 12px 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    nz-date-picker, nz-month-picker, nz-range-picker, nz-week-picker {
+      margin: 0 8px 12px 0;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
+
 export class <%= classify(name) %>Component {
   plainFooter = 'plain extra footer';
   footerRender = () => 'extra footer';

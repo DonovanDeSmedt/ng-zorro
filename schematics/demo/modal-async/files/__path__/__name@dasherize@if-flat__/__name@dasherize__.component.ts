@@ -6,13 +6,7 @@ import { Component } from '@angular/core';
     <button nz-button nzType="primary" (click)="showModal()">
       <span>Show Modal</span>
     </button>
-    <nz-modal
-      [(nzVisible)]="isVisible"
-      nzTitle="Modal Title"
-      (nzOnCancel)="handleCancel()"
-      (nzOnOk)="handleOk()"
-      [nzOkLoading]="isOkLoading"
-    >
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
       <p>Modal Content</p>
     </nz-modal>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
@@ -28,7 +22,7 @@ export class <%= classify(name) %>Component {
 
   handleOk(): void {
     this.isOkLoading = true;
-    setTimeout(() => {
+    window.setTimeout(() => {
       this.isVisible = false;
       this.isOkLoading = false;
     }, 3000);

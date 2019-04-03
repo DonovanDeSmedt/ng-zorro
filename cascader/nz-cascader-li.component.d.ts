@@ -1,15 +1,12 @@
-import { ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CascaderOption } from './nz-cascader-definitions';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CascaderOption } from './types';
 export declare class NzCascaderOptionComponent {
     private sanitizer;
-    private cdr;
     option: CascaderOption;
     activated: boolean;
     highlightText: string;
     nzLabelProperty: string;
-    constructor(sanitizer: DomSanitizer, cdr: ChangeDetectorRef, elementRef: ElementRef, renderer: Renderer2);
+    constructor(sanitizer: DomSanitizer);
     getOptionLabel(): string;
-    renderHighlightString(str: string): SafeHtml;
-    markForCheck(): void;
+    renderHighlightString(str: string): string;
 }

@@ -88,13 +88,13 @@ import { Component } from '@angular/core';
           </li>
         </ul>
       </nz-dropdown>
-    </div>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+    </div>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      [nz-button] {
+      :host ::ng-deep .ant-btn {
         margin-right: 8px;
         margin-bottom: 8px;
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

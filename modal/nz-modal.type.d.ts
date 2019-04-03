@@ -1,6 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { EventEmitter, TemplateRef, Type } from '@angular/core';
-export declare type OnClickCallback<T> = (instance: T) => (false | void | {}) | Promise<false | void | {}>;
+export declare type OnClickCallback<T> = ((instance: T) => (false | void | {}) | Promise<false | void | {}>);
 export declare type ModalType = 'default' | 'confirm';
 export declare type ConfirmType = 'confirm' | 'info' | 'success' | 'error' | 'warning';
 export interface ModalOptions<T = any, R = any> {
@@ -21,19 +21,16 @@ export interface ModalOptions<T = any, R = any> {
     nzMaskClosable?: boolean;
     nzMaskStyle?: object;
     nzBodyStyle?: object;
-    nzFooter?: string | TemplateRef<{}> | Array<ModalButtonOptions<T>> | null;
+    nzFooter?: string | TemplateRef<{}> | Array<ModalButtonOptions<T>>;
     nzGetContainer?: HTMLElement | OverlayRef | (() => HTMLElement | OverlayRef);
     nzAfterOpen?: EventEmitter<void>;
     nzAfterClose?: EventEmitter<R>;
-    nzOkText?: string | null;
+    nzOkText?: string;
     nzOkType?: string;
     nzOkLoading?: boolean;
-    nzOkDisabled?: boolean;
-    nzCancelDisabled?: boolean;
     nzOnOk?: EventEmitter<T> | OnClickCallback<T>;
-    nzCancelText?: string | null;
+    nzCancelText?: string;
     nzCancelLoading?: boolean;
-    nzNoAnimation?: boolean;
     nzOnCancel?: EventEmitter<T> | OnClickCallback<T>;
 }
 export interface ModalOptionsForService<T = any> extends ModalOptions<T> {
@@ -50,6 +47,5 @@ export interface ModalButtonOptions<T = any> {
     show?: boolean | ((this: ModalButtonOptions<T>, contentComponentInstance?: T) => boolean);
     loading?: boolean | ((this: ModalButtonOptions<T>, contentComponentInstance?: T) => boolean);
     disabled?: boolean | ((this: ModalButtonOptions<T>, contentComponentInstance?: T) => boolean);
-    onClick?(this: ModalButtonOptions<T>, contentComponentInstance?: T): (void | {}) | Promise<void | {}>;
-    [key: string]: any;
+    onClick?(this: ModalButtonOptions<T>, contentComponentInstance?: T): (void | {}) | Promise<(void | {})>;
 }

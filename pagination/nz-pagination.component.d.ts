@@ -1,21 +1,28 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NzI18nService } from '../i18n/nz-i18n.service';
-export declare class NzPaginationComponent implements OnInit, OnDestroy, OnChanges {
+export declare class NzPaginationComponent implements OnInit, OnDestroy {
     private i18n;
-    private cdr;
+    private unsubscribe$;
     locale: any;
+    private _itemRender;
+    private _showSizeChanger;
+    private _showQuickJumper;
+    private _simple;
+    private _hideOnSinglePage;
+    private _pageSize;
+    private _pageSizeOptions;
+    private _total;
+    private _pageIndex;
     firstIndex: number;
-    pages: number[];
-    private $destroy;
-    readonly nzPageSizeChange: EventEmitter<number>;
-    readonly nzPageIndexChange: EventEmitter<number>;
+    pages: any[];
     nzShowTotal: TemplateRef<{
         $implicit: number;
         range: [number, number];
     }>;
     nzInTable: boolean;
-    nzSize: 'default' | 'small';
-    nzPageSizeOptions: number[];
+    nzSize: string;
+    readonly nzPageSizeChange: EventEmitter<number>;
+    readonly nzPageIndexChange: EventEmitter<number>;
     nzItemRender: TemplateRef<{
         $implicit: 'page' | 'prev' | 'next';
         page: number;
@@ -24,25 +31,28 @@ export declare class NzPaginationComponent implements OnInit, OnDestroy, OnChang
     nzHideOnSinglePage: boolean;
     nzShowQuickJumper: boolean;
     nzSimple: boolean;
-    nzTotal: number;
+    /** page size changer select values */
+    nzPageSizeOptions: number[];
     nzPageIndex: number;
     nzPageSize: number;
-    validatePageIndex(value: number): number;
-    updatePageIndexValue(page: number): void;
-    isPageIndexValid(value: number): boolean;
+    nzTotal: number;
     jumpPage(index: number): void;
-    jumpDiff(diff: number): void;
+    jumpPreFive(): void;
+    jumpNextFive(): void;
+    jumpPreOne(): void;
+    jumpNextOne(): void;
     onPageSizeChange($event: number): void;
-    handleKeyDown(_: KeyboardEvent, input: HTMLInputElement, clearInputValue: boolean): void;
+    handleKeyDown(e: KeyboardEvent, input: HTMLInputElement, clearInputValue: boolean): void;
+    isValid(page: number): boolean;
+    handleChange(value: number, target: HTMLInputElement, clearInputValue: boolean): void;
+    checkLastIndexOverflow(): boolean;
+    readonly lastIndex: number;
     /** generate indexes list */
     buildIndexes(): void;
-    readonly lastIndex: number;
     readonly isLastIndex: boolean;
     readonly isFirstIndex: boolean;
-    readonly ranges: number[];
-    readonly showAddOption: boolean;
-    constructor(i18n: NzI18nService, cdr: ChangeDetectorRef);
+    min(val1: number, val2: number): number;
+    constructor(i18n: NzI18nService);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    ngOnChanges(changes: SimpleChanges): void;
 }

@@ -7,13 +7,14 @@ import { Component } from '@angular/core';
     <nz-tag>
       <a href="https://github.com/NG-ZORRO/ng-zorro-antd">Link</a>
     </nz-tag>
-    <nz-tag nzMode="closeable" (nzOnClose)="onClose()" (nzAfterClose)="afterClose()">Tag 2</nz-tag>
+    <nz-tag nzMode="closeable" (nzOnClose)="onClose($event)" (nzAfterClose)="afterClose()">Tag 2</nz-tag>
     <nz-tag nzMode="closeable" (nzOnClose)="preventDefault($event)">Prevent Default</nz-tag>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
-  onClose(): void {
+
+  onClose(e: MouseEvent): void {
     console.log('tag was closed.');
   }
 

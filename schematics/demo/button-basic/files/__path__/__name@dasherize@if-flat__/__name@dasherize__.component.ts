@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
     <button nz-button nzType="primary">Primary</button>
     <button nz-button nzType="default">Default</button>
     <button nz-button nzType="dashed">Dashed</button>
-    <button nz-button nzType="danger">Danger</button>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+    <button nz-button nzType="danger">Danger</button>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
       [nz-button] {
         margin-right: 8px;
@@ -15,4 +14,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

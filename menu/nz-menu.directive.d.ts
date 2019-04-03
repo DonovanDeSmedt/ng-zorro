@@ -1,33 +1,46 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
-import { NzDirectionVHIType } from '../core/types/direction';
-import { NzMenuDropdownService } from '../dropdown/nz-menu-dropdown.service';
+import { AfterContentInit, ElementRef, EventEmitter } from '@angular/core';
 import { NzMenuItemDirective } from './nz-menu-item.directive';
-import { NzMenuMenuService } from './nz-menu-menu.service';
-import { NzMenuService } from './nz-menu.service';
 import { NzSubMenuComponent } from './nz-submenu.component';
-export declare function NzMenuFactory(dropService: NzMenuDropdownService, menuService: NzMenuMenuService): NzMenuService;
-export declare class NzMenuDirective implements AfterContentInit, OnInit, OnChanges, OnDestroy {
-    elementRef: ElementRef;
-    private nzMenuService;
-    private nzUpdateHostClassService;
-    private destroy$;
+export declare type NzMode = 'vertical' | 'horizontal' | 'inline';
+export declare class NzMenuDirective implements AfterContentInit {
+    el: ElementRef;
+    private _selectable;
+    private _inlineCollapsed;
+    private _inDropDown;
+    /** view init flat */
+    private isInit;
+    /** cache mode */
     private cacheMode;
-    private listOfOpenedNzSubMenuComponent;
-    listOfNzMenuItemDirective: QueryList<NzMenuItemDirective>;
-    listOfNzSubMenuComponent: QueryList<NzSubMenuComponent>;
-    nzInlineIndent: number;
+    /** opened index of array */
+    private subMenusOpenIndex;
+    /** collection of menu item */
+    menuItems: NzMenuItemDirective[];
+    /** collection of sub menu */
+    subMenus: NzSubMenuComponent[];
     nzTheme: 'light' | 'dark';
-    nzMode: NzDirectionVHIType;
-    nzInDropDown: boolean;
-    nzInlineCollapsed: boolean;
-    nzSelectable: boolean;
+    nzInlineIndent: number;
+    nzMode: NzMode;
     readonly nzClick: EventEmitter<NzMenuItemDirective>;
+    nzInDropDown: boolean;
+    nzSelectable: boolean;
+    nzInlineCollapsed: boolean;
     updateInlineCollapse(): void;
-    setClassMap(): void;
-    constructor(elementRef: ElementRef, nzMenuService: NzMenuService, nzUpdateHostClassService: NzUpdateHostClassService);
-    ngOnInit(): void;
+    /** define host class */
+    readonly isInDropDownClass: boolean;
+    readonly isNotInDropDownClass: boolean;
+    readonly setDropDownThemeLightClass: boolean;
+    readonly setDropDownThemeDarkClass: boolean;
+    readonly setMenuThemeLightClass: boolean;
+    readonly setMenuThemeDarkClass: boolean;
+    readonly setMenuVerticalClass: boolean;
+    readonly setMenuHorizontalClass: boolean;
+    readonly setMenuInlineClass: boolean;
+    readonly setMenuInlineCollapsedClass: boolean;
+    constructor(el: ElementRef);
     ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
+    /** trigger when menu item clicked */
+    clearAllSelected(): void;
+    hideSubMenus(): void;
+    reductionSubMenus(): void;
+    clickItem(value: NzMenuItemDirective): void;
 }

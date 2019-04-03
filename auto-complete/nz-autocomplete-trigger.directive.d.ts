@@ -12,11 +12,11 @@ export declare class NzAutocompleteTriggerDirective implements ControlValueAcces
     private document;
     /** Bind nzAutocomplete component */
     nzAutocomplete: NzAutocompleteComponent;
-    _onChange: (value: any) => void;
+    _onChange: (value: {}) => void;
     _onTouched: () => void;
     panelOpen: boolean;
     /** Current active option */
-    readonly activeOption: NzAutocompleteOptionComponent | undefined;
+    readonly activeOption: NzAutocompleteOptionComponent;
     private overlayRef;
     private portal;
     private positionStrategy;

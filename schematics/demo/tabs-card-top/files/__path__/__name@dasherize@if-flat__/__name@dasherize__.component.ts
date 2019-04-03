@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
       :host {
-        background: #f5f5f5;
+        background: #F5F5F5;
         overflow: hidden;
         padding: 24px;
         display: block;
@@ -47,5 +47,5 @@ import { Component } from '@angular/core';
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
-  tabs = [1, 2, 3];
+  tabs = [ 1, 2, 3 ];
 }

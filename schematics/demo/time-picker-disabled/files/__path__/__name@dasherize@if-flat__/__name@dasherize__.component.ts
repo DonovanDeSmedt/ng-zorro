@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
     <nz-time-picker nzDisabled></nz-time-picker>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

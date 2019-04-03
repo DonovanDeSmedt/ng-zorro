@@ -13,16 +13,15 @@ import { Component } from '@angular/core';
     </ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      nz-date-picker,
-      nz-month-picker,
-      nz-range-picker,
-      nz-week-picker {
-        margin: 0 8px 12px 0;
-      }
-      .border {
-        border: 1px solid #1890ff;
-        border-radius: 50%;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    nz-date-picker, nz-month-picker, nz-range-picker, nz-week-picker {
+      margin: 0 8px 12px 0;
+    }
+    .border{
+      border: 1px solid #1890ff;
+      border-radius: 50%;
+     }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+
+export class <%= classify(name) %>Component {
+}

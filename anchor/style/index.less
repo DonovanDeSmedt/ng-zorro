@@ -9,37 +9,37 @@
   padding-left: @anchor-border-width;
 
   &-wrapper {
-    margin-left: -4px;
-    padding-left: 4px;
-    overflow: auto;
     background-color: @component-background;
+    overflow: auto;
+    padding-left: 4px;
+    margin-left: -4px;
   }
 
   &-ink {
     position: absolute;
-    top: 0;
-    left: 0;
     height: 100%;
-    &::before {
+    left: 0;
+    top: 0;
+    &:before {
+      content: ' ';
       position: relative;
-      display: block;
       width: @anchor-border-width;
       height: 100%;
-      margin: 0 auto;
+      display: block;
       background-color: @border-color-split;
-      content: ' ';
+      margin: 0 auto;
     }
     &-ball {
-      position: absolute;
-      left: 50%;
       display: none;
+      position: absolute;
       width: 8px;
       height: 8px;
-      background-color: @component-background;
-      border: 2px solid @primary-color;
       border-radius: 8px;
-      transform: translateX(-50%);
+      border: 2px solid @primary-color;
+      background-color: @component-background;
+      left: 50%;
       transition: top 0.3s ease-in-out;
+      transform: translateX(-50%);
       &.visible {
         display: inline-block;
       }
@@ -55,14 +55,14 @@
     line-height: 1.143;
 
     &-title {
-      position: relative;
       display: block;
-      margin-bottom: 6px;
-      overflow: hidden;
+      position: relative;
+      transition: all 0.3s;
       color: @text-color;
       white-space: nowrap;
+      overflow: hidden;
       text-overflow: ellipsis;
-      transition: all 0.3s;
+      margin-bottom: 6px;
 
       &:only-child {
         margin-bottom: 0;

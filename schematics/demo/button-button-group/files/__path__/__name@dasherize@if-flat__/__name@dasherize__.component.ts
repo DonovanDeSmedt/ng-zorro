@@ -27,8 +27,7 @@ import { Component } from '@angular/core';
     <nz-button-group>
       <button nz-button nzType="primary"><i nz-icon type="cloud"></i></button>
       <button nz-button nzType="primary"><i nz-icon type="cloud-download"></i></button>
-    </nz-button-group>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+    </nz-button-group>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
       h4 {
         margin: 16px 0;
@@ -51,4 +50,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

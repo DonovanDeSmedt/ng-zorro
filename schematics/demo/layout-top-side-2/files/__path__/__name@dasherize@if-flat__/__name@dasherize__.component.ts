@@ -55,14 +55,12 @@ import { Component } from '@angular/core';
       </nz-layout>
     </nz-layout>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      .logo {
-        width: 120px;
-        height: 31px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 16px 28px 16px 0;
-        float: left;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`.logo {
+      width: 120px;
+      height: 31px;
+      background: rgba(255,255,255,.2);
+      margin: 16px 28px 16px 0;
+      float: left;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component { }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NzSkeletonAvatar, NzSkeletonParagraph, NzSkeletonTitle } from './nz-skeleton.type';
 export declare class NzSkeletonComponent implements OnInit, OnChanges {
     private cdr;
@@ -12,7 +12,7 @@ export declare class NzSkeletonComponent implements OnInit, OnChanges {
     paragraph: NzSkeletonParagraph;
     rowsList: number[];
     widthList: Array<number | string>;
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef);
+    constructor(cdr: ChangeDetectorRef);
     toCSSUnit(value?: number | string): string;
     private getTitleProps;
     private getAvatarProps;

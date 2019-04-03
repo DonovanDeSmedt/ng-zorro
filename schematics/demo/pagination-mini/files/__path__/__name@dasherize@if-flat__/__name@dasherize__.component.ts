@@ -4,24 +4,13 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'"></nz-pagination>
-    <br />
-    <nz-pagination
-      [(nzPageIndex)]="current"
-      [nzTotal]="50"
-      [nzSize]="'small'"
-      nzShowSizeChanger
-      nzShowQuickJumper
-    ></nz-pagination>
-    <br />
-    <nz-pagination
-      [(nzPageIndex)]="current"
-      [nzTotal]="50"
-      [nzSize]="'small'"
-      [nzShowTotal]="totalTemplate"
-    ></nz-pagination>
-    <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
+    <br>
+    <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'" nzShowSizeChanger nzShowQuickJumper></nz-pagination>
+    <br>
+    <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'" [nzShowTotal]="totalTemplate"></nz-pagination>
+    <ng-template #totalTemplate let-total>Total {{total}} items</ng-template>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+  styles  : []
 })
 export class <%= classify(name) %>Component {
   current = 1;

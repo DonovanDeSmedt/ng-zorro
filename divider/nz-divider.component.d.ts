@@ -1,4 +1,4 @@
-import { ElementRef, OnChanges, OnInit, TemplateRef } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 export declare class NzDividerComponent implements OnChanges, OnInit {
     private elementRef;
@@ -9,6 +9,6 @@ export declare class NzDividerComponent implements OnChanges, OnInit {
     nzDashed: boolean;
     private setClass;
     constructor(elementRef: ElementRef, nzUpdateHostClassService: NzUpdateHostClassService);
-    ngOnChanges(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
 }

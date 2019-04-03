@@ -17,11 +17,9 @@ import { Component } from '@angular/core';
       </button>
     </p>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      button {
-        margin-right: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`button {
+      margin-right: 8px;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
   isCheckedButton = true;

@@ -1,6 +1,6 @@
 /* entryComponents: NzModalCustomComponent */
 
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd';
 
 @Component({
@@ -24,9 +24,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd';
       <p>some contents...</p>
     </ng-template>
     <ng-template #tplFooter>
-      <button nz-button nzType="primary" (click)="destroyTplModal()" [nzLoading]="tplModalButtonLoading">
-        Close after submit
-      </button>
+      <button nz-button nzType="primary" (click)="destroyTplModal()" [nzLoading]="tplModalButtonLoading">Close after submit</button>
     </ng-template>
 
     <br /><br />
@@ -40,30 +38,25 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd';
     <br /><br />
 
     <button nz-button nzType="primary" (click)="openAndCloseAll()">Open more modals then close all after 2s</button>
-    <nz-modal [(nzVisible)]="htmlModalVisible" nzMask="false" nzZIndex="1001" nzTitle="Non-service html modal"
-      >This is a non-service html modal</nz-modal
-    >
+    <nz-modal [(nzVisible)]="htmlModalVisible" nzMask="false" nzZIndex="1001" nzTitle="Non-service html modal">This is a non-service html modal</nz-modal>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      button {
-        margin-right: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  <% if(inlineStyle) { %>styles: [`button {
+      margin-right: 8px;
+    }`]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
   tplModal: NzModalRef;
   tplModalButtonLoading = false;
   htmlModalVisible = false;
-  disabled = false;
 
-  constructor(private modalService: NzModalService) {}
+  constructor(private modalService: NzModalService) { }
 
   createModal(): void {
     this.modalService.create({
       nzTitle: 'Modal Title',
       nzContent: 'string, will close after 1 sec',
       nzClosable: false,
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000))
+      nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
     });
   }
 
@@ -80,7 +73,7 @@ export class <%= classify(name) %>Component {
 
   destroyTplModal(): void {
     this.tplModalButtonLoading = true;
-    setTimeout(() => {
+    window.setTimeout(() => {
       this.tplModalButtonLoading = false;
       this.tplModal.destroy();
     }, 1000);
@@ -94,30 +87,28 @@ export class <%= classify(name) %>Component {
         title: 'title in component',
         subtitle: 'component sub title，will be changed after 2 sec'
       },
-      nzFooter: [
-        {
-          label: 'change component tilte from outside',
-          onClick: componentInstance => {
-            componentInstance!.title = 'title in inner component is changed';
-          }
+      nzFooter: [{
+        label: 'change component tilte from outside',
+        onClick: (componentInstance) => {
+          componentInstance.title = 'title in inner component is changed';
         }
-      ]
+      }]
     });
 
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
 
     // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+    modal.afterClose.subscribe((result) => console.log('[afterClose] The result is:', result));
 
     // delay until modal instance created
-    setTimeout(() => {
+    window.setTimeout(() => {
       const instance = modal.getContentComponent();
       instance.subtitle = 'sub title is changed';
     }, 2000);
   }
 
   createCustomButtonModal(): void {
-    const modal: NzModalRef = this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: 'custom button demo',
       nzContent: 'pass array of button config to nzFooter to create multiple buttons',
       nzFooter: [
@@ -129,8 +120,7 @@ export class <%= classify(name) %>Component {
         {
           label: 'Confirm',
           type: 'primary',
-          onClick: () =>
-            this.modalService.confirm({ nzTitle: 'Confirm Modal Title', nzContent: 'Confirm Modal Content' })
+          onClick: () => this.modalService.confirm({ nzTitle: 'Confirm Modal Title', nzContent: 'Confirm Modal Content' })
         },
         {
           label: 'Change Button Status',
@@ -138,8 +128,8 @@ export class <%= classify(name) %>Component {
           loading: false,
           onClick(): void {
             this.loading = true;
-            setTimeout(() => (this.loading = false), 1000);
-            setTimeout(() => {
+            window.setTimeout(() => this.loading = false, 1000);
+            window.setTimeout(() => {
               this.loading = false;
               this.disabled = true;
               this.label = 'can not be clicked！';
@@ -149,7 +139,7 @@ export class <%= classify(name) %>Component {
         {
           label: 'async load',
           type: 'dashed',
-          onClick: () => new Promise(resolve => setTimeout(resolve, 2000))
+          onClick: () => new Promise(resolve => window.setTimeout(resolve, 2000))
         }
       ]
     });
@@ -158,21 +148,18 @@ export class <%= classify(name) %>Component {
   openAndCloseAll(): void {
     let pos = 0;
 
-    ['create', 'info', 'success', 'error'].forEach(method =>
-      // @ts-ignore
-      this.modalService[method]({
-        nzMask: false,
-        nzTitle: `Test ${method} title`,
-        nzContent: `Test content: <b>${method}</b>`,
-        nzStyle: { position: 'absolute', top: `${pos * 70}px`, left: `${pos++ * 300}px` }
-      })
-    );
+    [ 'create', 'info', 'success', 'error' ].forEach((method) => this.modalService[method]({
+      nzMask: false,
+      nzTitle: `Test ${method} title`,
+      nzContent: `Test content: <b>${method}</b>`,
+      nzStyle: { position: 'absolute', top: `${pos * 70}px`, left: `${(pos++) * 300}px` }
+    }));
 
     this.htmlModalVisible = true;
 
     this.modalService.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
 
-    setTimeout(() => this.modalService.closeAll(), 2000);
+    window.setTimeout(() => this.modalService.closeAll(), 2000);
   }
 }
 
@@ -193,7 +180,7 @@ export class NzModalCustomComponent {
   @Input() title: string;
   @Input() subtitle: string;
 
-  constructor(private modal: NzModalRef) {}
+  constructor(private modal: NzModalRef) { }
 
   destroyModal(): void {
     this.modal.destroy({ data: 'this the result data' });

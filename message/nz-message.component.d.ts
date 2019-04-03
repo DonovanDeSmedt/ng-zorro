@@ -6,7 +6,7 @@ export declare class NzMessageComponent implements OnInit, OnDestroy {
     protected cdr: ChangeDetectorRef;
     nzMessage: NzMessageDataFilled;
     nzIndex: number;
-    protected _options: Required<NzMessageDataOptions>;
+    protected _options: NzMessageDataOptions;
     private _autoErase;
     private _eraseTimer;
     private _eraseTimingStart;
@@ -16,7 +16,7 @@ export declare class NzMessageComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void;
     onEnter(): void;
     onLeave(): void;
-    protected _destroy(userAction?: boolean): void;
+    protected _destroy(): void;
     private _initErase;
     private _updateTTL;
     private _startEraseTimeout;

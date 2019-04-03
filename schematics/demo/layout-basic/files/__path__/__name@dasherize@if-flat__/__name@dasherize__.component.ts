@@ -37,40 +37,41 @@ import { Component } from '@angular/core';
     </nz-layout>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      :host {
-        text-align: center;
-      }
+    :host {
+      text-align: center;
+    }
 
-      nz-header,
-      nz-footer {
-        background: #7dbcea;
-        color: #fff;
-      }
+    :host ::ng-deep .ant-layout-header,
+    :host ::ng-deep .ant-layout-footer {
+      background: #7dbcea;
+      color: #fff;
+    }
 
-      nz-footer {
-        line-height: 1.5;
-      }
+    :host ::ng-deep .ant-layout-footer {
+      line-height: 1.5;
+    }
 
-      nz-sider {
-        background: #3ba0e9;
-        color: #fff;
-        line-height: 120px;
-      }
+    :host ::ng-deep .ant-layout-sider {
+      background: #3ba0e9;
+      color: #fff;
+      line-height: 120px;
+    }
 
-      nz-content {
-        background: rgba(16, 142, 233, 1);
-        color: #fff;
-        min-height: 120px;
-        line-height: 120px;
-      }
+    :host ::ng-deep .ant-layout-content {
+      background: rgba(16, 142, 233, 1);
+      color: #fff;
+      min-height: 120px;
+      line-height: 120px;
+    }
 
-      nz-layout {
-        margin-bottom: 48px;
-      }
+    :host > ::ng-deep .ant-layout {
+      margin-bottom: 48px;
+    }
 
-      nz-layout:last-child {
-        margin: 0;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    :host ::ng-deep .ant-layout:last-child {
+      margin: 0;
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

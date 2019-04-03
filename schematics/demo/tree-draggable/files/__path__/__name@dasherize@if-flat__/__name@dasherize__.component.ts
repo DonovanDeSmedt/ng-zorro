@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { NzFormatEmitEvent } from 'ng-zorro-antd';
+import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd';
 
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-tree
       [nzData]="nodes"
-      nzDraggable
-      (nzOnDrop)="nzEvent($event)">
+      nzDraggable="true"
+      (nzOnDragStart)="nzEvent($event)"
+      (nzOnDragEnter)="nzEvent($event)"
+      (nzOnDragLeave)="nzEvent($event)"
+      (nzOnDrop)="nzEvent($event)"
+      (nzOnDragEnd)="nzEvent($event)">
     </nz-tree>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`

@@ -1,4 +1,4 @@
-import { ElementRef, Renderer2, TemplateRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 import { NzCardTabComponent } from './nz-card-tab.component';
 export declare class NzCardComponent {
     nzBordered: boolean;
@@ -13,5 +13,4 @@ export declare class NzCardComponent {
     nzTitle: string | TemplateRef<void>;
     nzExtra: string | TemplateRef<void>;
     tab: NzCardTabComponent;
-    constructor(renderer: Renderer2, elementRef: ElementRef);
 }

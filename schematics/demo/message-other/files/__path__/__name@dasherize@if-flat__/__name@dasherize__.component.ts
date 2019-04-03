@@ -19,5 +19,6 @@ export class <%= classify(name) %>Component {
     this.message.create(type, `This is a message of ${type}`);
   }
 
-  constructor(private message: NzMessageService) {}
+  constructor(private message: NzMessageService) {
+  }
 }

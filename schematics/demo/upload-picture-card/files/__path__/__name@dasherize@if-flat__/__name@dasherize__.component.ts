@@ -1,50 +1,38 @@
 import { Component } from '@angular/core';
-import { UploadFile } from 'ng-zorro-antd';
+import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <div class="clearfix">
-      <nz-upload
-        nzAction="https://jsonplaceholder.typicode.com/posts/"
-        nzListType="picture-card"
-        [(nzFileList)]="fileList"
-        [nzShowButton]="fileList.length < 3"
-        [nzShowUploadList]="showUploadList"
-        [nzPreview]="handlePreview"
-      >
+  <div class="clearfix">
+    <nz-upload
+      nzAction="https://jsonplaceholder.typicode.com/posts/"
+      nzListType="picture-card"
+      [(nzFileList)]="fileList"
+      [nzShowButton]="fileList.length < 3"
+      [nzPreview]="handlePreview">
         <i nz-icon type="plus"></i>
         <div class="ant-upload-text">Upload</div>
-      </nz-upload>
-      <nz-modal
-        [nzVisible]="previewVisible"
-        [nzContent]="modalContent"
-        [nzFooter]="null"
-        (nzOnCancel)="previewVisible = false"
-      >
-        <ng-template #modalContent>
-          <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-        </ng-template>
-      </nz-modal>
-    </div>
+    </nz-upload>
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+      <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+      </ng-template>
+    </nz-modal>
+  </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      i[nz-icon] {
-        font-size: 32px;
-        color: #999;
-      }
-      .ant-upload-text {
-        margin-top: 8px;
-        color: #666;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  :host ::ng-deep i {
+    font-size: 32px;
+    color: #999;
+  }
+  :host ::ng-deep .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component {
-  showUploadList = {
-    showPreviewIcon: true,
-    showRemoveIcon: true,
-    hidePreviewIconInNonImage: true
-  };
   fileList = [
     {
       uid: -1,
@@ -53,13 +41,13 @@ export class <%= classify(name) %>Component {
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
   ];
-  previewImage: string | undefined = '';
+  previewImage = '';
   previewVisible = false;
 
-  constructor() {}
+  constructor(private msg: NzMessageService) {}
 
   handlePreview = (file: UploadFile) => {
     this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
-  };
+  }
 }

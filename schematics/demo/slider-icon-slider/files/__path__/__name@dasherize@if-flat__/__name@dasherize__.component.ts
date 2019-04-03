@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
         height: 16px;
         line-height: 1;
         font-size: 16px;
-        color: rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, .25);
       }
 
       [nz-icon]:first-child {
@@ -33,29 +33,29 @@ import { Component, OnInit } from '@angular/core';
         right: 0;
       }
 
-      .icon-highlight {
+      .icon-highlight{
         color: rgba(0, 0, 0, 0.45);
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component implements OnInit {
+
   min = 0;
   max = 20;
   mid = parseFloat(((this.max - this.min) / 2).toFixed(5));
   preHighLight = false;
   nextHighLight = false;
-  _sliderValue = 0;
-
+  _sliderValue;
   set sliderValue(value: number) {
     this._sliderValue = value;
     this.highlightIcon();
   }
 
-  get sliderValue(): number {
+  get sliderValue() {
     return this._sliderValue;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.sliderValue = 0;
   }
 
@@ -64,4 +64,5 @@ export class <%= classify(name) %>Component implements OnInit {
     this.preHighLight = !lower;
     this.nextHighLight = lower;
   }
+
 }

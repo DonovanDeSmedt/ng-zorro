@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <button nz-button nzType="primary" (click)="showModal()">
       <span>Show Modal</span>
     </button>
-    <nz-modal
-      [(nzVisible)]="isVisible"
-      [nzTitle]="modalTitle"
-      [nzContent]="modalContent"
-      [nzFooter]="modalFooter"
-      (nzOnCancel)="handleCancel()"
-    >
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
       <ng-template #modalTitle>
         Custom Modal Title
       </ng-template>
@@ -38,7 +33,7 @@ export class <%= classify(name) %>Component {
   isVisible = false;
   isConfirmLoading = false;
 
-  constructor() {}
+  constructor() { }
 
   showModal(): void {
     this.isVisible = true;

@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
         An Application
       </nz-breadcrumb-item>
     </nz-breadcrumb>
-    <br />
+    <br>
     <h4>TemplateRef</h4>
     <nz-breadcrumb [nzSeparator]="iconTemplate">
       <nz-breadcrumb-item>
@@ -43,4 +43,5 @@ import { Component } from '@angular/core';
       }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

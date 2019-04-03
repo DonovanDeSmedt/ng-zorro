@@ -1,15 +1,9 @@
 {
   "name": "ng-zorro-antd",
-  "version": "7.2.0",
+  "version": "7.0.0-rc.3",
   "license": "MIT",
   "description": "An enterprise-class UI components based on Ant Design and Angular",
   "schematics": "./schematics/collection.json",
-  "ng-update": {
-    "migrations": "./schematics/migration.json",
-    "packageGroup": [
-      "ng-zorro-antd"
-    ]
-  },
   "keywords": [
     "ant",
     "design",
@@ -29,15 +23,17 @@
   "dependencies": {
     "date-fns": "^1.29.0",
     "@angular/cdk": "^7.0.0",
-    "@ant-design/icons-angular": "^2.0.2",
+    "@ant-design/icons-angular": "2.0.0-beta.1",
     "tslib": "^1.9.0"
   },
   "peerDependencies": {
     "@angular/animations": "^7.0.0",
-    "@angular/cdk": "^7.3.0",
+    "@angular/cdk": "^7.0.0",
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
-    "@angular/forms": "^7.0.0"
+    "@angular/forms": "^7.0.0",
+    "tslib": "^1.9.0",
+    "typescript": "~3.1.1"
   },
   "main": "bundles/ng-zorro-antd.umd.js",
   "module": "fesm5/ng-zorro-antd.js",

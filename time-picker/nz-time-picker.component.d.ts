@@ -1,12 +1,15 @@
-import { CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnInit, Renderer2, TemplateRef } from '@angular/core';
+import { CdkOverlayOrigin, ConnectionPositionPair, Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
+import { AfterViewInit, ElementRef, EventEmitter, OnInit, Renderer2, TemplateRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { NzUpdateHostClassService as UpdateCls } from '../core/services/update-host-class.service';
+import { NzI18nService as I18n } from '../i18n/nz-i18n.service';
 export declare class NzTimePickerComponent implements ControlValueAccessor, OnInit, AfterViewInit {
     private element;
     private renderer;
+    private overlay;
+    private positionBuilder;
+    private i18n;
     private updateCls;
-    cdr: ChangeDetectorRef;
     private _disabled;
     private _value;
     private _allowEmpty;
@@ -41,15 +44,14 @@ export declare class NzTimePickerComponent implements ControlValueAccessor, OnIn
     open(): void;
     close(): void;
     updateAutoFocus(): void;
-    onClickClearBtn(): void;
     private setClassMap;
     focus(): void;
     blur(): void;
-    constructor(element: ElementRef, renderer: Renderer2, updateCls: UpdateCls, cdr: ChangeDetectorRef);
+    constructor(element: ElementRef, renderer: Renderer2, overlay: Overlay, positionBuilder: OverlayPositionBuilder, i18n: I18n, updateCls: UpdateCls);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     writeValue(time: Date | null): void;
-    registerOnChange(fn: (time: Date | null) => void): void;
+    registerOnChange(fn: (time: Date) => void): void;
     registerOnTouched(fn: () => void): void;
     setDisabledState(isDisabled: boolean): void;
 }

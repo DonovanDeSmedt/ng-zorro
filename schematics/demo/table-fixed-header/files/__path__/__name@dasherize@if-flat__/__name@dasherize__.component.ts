@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
-    <nz-table #headerTable [nzData]="listOfData" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+    <nz-table #nzTable [nzData]="dataSet" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
       <thead>
         <tr>
           <th nzWidth="150px">Name</th>
@@ -12,23 +12,23 @@ import { Component, OnInit } from '@angular/core';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of headerTable.data">
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
+        <tr *ngFor="let data of nzTable.data">
+          <td>{{data.name}}</td>
+          <td>{{data.age}}</td>
+          <td>{{data.address}}</td>
         </tr>
       </tbody>
-    </nz-table>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+    </nz-table>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
 export class <%= classify(name) %>Component implements OnInit {
-  listOfData: any[] = [];
+  dataSet = [];
 
   ngOnInit(): void {
     for (let i = 0; i < 100; i++) {
-      this.listOfData.push({
-        name: `Edward King ${i}`,
-        age: 32,
+      this.dataSet.push({
+        name   : `Edward King ${i}`,
+        age    : 32,
         address: `London, Park Lane no. ${i}`
       });
     }

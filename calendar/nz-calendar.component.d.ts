@@ -1,19 +1,10 @@
-import { ChangeDetectorRef, EventEmitter, OnInit, TemplateRef } from '@angular/core';
+import { EventEmitter, OnInit, TemplateRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { DateHelperService } from '../i18n/date-helper.service';
-import { NzI18nService } from '../i18n/nz-i18n.service';
-export declare type ModeType = 'month' | 'year';
+import { NzI18nService as I18n } from '../i18n/nz-i18n.service';
 export declare class NzCalendarComponent implements ControlValueAccessor, OnInit {
     private i18n;
-    private cdr;
-    private dateHelper;
-    nzMode: ModeType;
-    readonly nzModeChange: EventEmitter<ModeType>;
-    readonly nzPanelChange: EventEmitter<{
-        date: Date;
-        mode: ModeType;
-    }>;
-    readonly nzSelectChange: EventEmitter<Date>;
+    nzMode: 'month' | 'year';
+    readonly nzModeChange: EventEmitter<'month' | 'year'>;
     nzValue: Date;
     readonly nzValueChange: EventEmitter<Date>;
     nzDateCell: TemplateRef<{
@@ -67,13 +58,14 @@ export declare class NzCalendarComponent implements ControlValueAccessor, OnInit
     monthFullCell: TemplateRef<{
         $implicit: Date;
     }> | null;
+    private prefixCls;
     private currentDate;
     private onChangeFn;
     private onTouchFn;
     private readonly calendarStart;
-    constructor(i18n: NzI18nService, cdr: ChangeDetectorRef, dateHelper: DateHelperService);
+    constructor(i18n: I18n);
     ngOnInit(): void;
-    onModeChange(mode: ModeType): void;
+    onModeChange(mode: 'month' | 'year'): void;
     onDateSelect(date: Date): void;
     onYearSelect(year: number): void;
     onMonthSelect(month: number): void;

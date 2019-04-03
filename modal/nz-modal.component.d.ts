@@ -1,7 +1,8 @@
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { AfterViewInit, ChangeDetectorRef, ComponentFactoryResolver, ComponentRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, Type, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ComponentFactoryResolver, ComponentRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NzMeasureScrollbarService } from '../core/services/nz-measure-scrollbar.service';
 import { NzI18nService } from '../i18n/nz-i18n.service';
 import { NzModalConfig } from './nz-modal-config';
 import { NzModalControlService } from './nz-modal-control.service';
@@ -11,70 +12,63 @@ export declare const MODAL_ANIMATE_DURATION = 200;
 export declare class NzModalComponent<T = any, R = any> extends NzModalRef<T, R> implements OnInit, OnChanges, AfterViewInit, OnDestroy, ModalOptions<T> {
     private overlay;
     private i18n;
+    private renderer;
     private cfr;
     private elementRef;
     private viewContainer;
+    private nzMeasureScrollbarService;
     private modalControl;
     private focusTrapFactory;
-    private cdr;
     private config;
     private document;
-    nzVisible: boolean;
-    nzClosable: boolean;
-    nzMask: boolean;
-    nzMaskClosable: boolean;
-    nzOkLoading: boolean;
-    nzOkDisabled: boolean;
-    nzCancelDisabled: boolean;
-    nzCancelLoading: boolean;
-    nzKeyboard: boolean;
-    nzNoAnimation: boolean;
+    private unsubscribe$;
+    private previouslyFocusedElement;
+    private focusTrap;
+    locale: any;
+    nzModalType: ModalType;
     nzContent: string | TemplateRef<{}> | Type<T>;
     nzComponentParams: T;
-    nzFooter: string | TemplateRef<{}> | Array<ModalButtonOptions<T>> | null;
+    nzFooter: string | TemplateRef<{}> | Array<ModalButtonOptions<T>>;
     nzGetContainer: HTMLElement | OverlayRef | (() => HTMLElement | OverlayRef);
+    nzVisible: boolean;
+    readonly nzVisibleChange: EventEmitter<boolean>;
     nzZIndex: number;
     nzWidth: number | string;
     nzWrapClassName: string;
     nzClassName: string;
     nzStyle: object;
+    nzIconType: string;
     nzTitle: string | TemplateRef<{}>;
+    nzClosable: boolean;
+    nzMask: boolean;
+    nzMaskClosable: boolean;
     nzMaskStyle: object;
     nzBodyStyle: object;
-    nzOkText: string | null;
-    nzCancelText: string | null;
-    nzOkType: string;
-    nzIconType: string;
-    nzModalType: ModalType;
-    readonly nzOnOk: EventEmitter<T> | OnClickCallback<T>;
-    readonly nzOnCancel: EventEmitter<T> | OnClickCallback<T>;
     readonly nzAfterOpen: EventEmitter<void>;
     readonly nzAfterClose: EventEmitter<R>;
-    readonly nzVisibleChange: EventEmitter<boolean>;
-    modalContainer: ElementRef;
-    bodyContainer: ViewContainerRef;
-    autoFocusButtonOk: ElementRef;
     readonly afterOpen: Observable<void>;
     readonly afterClose: Observable<R>;
-    readonly cancelText: string;
+    nzOkText: string;
     readonly okText: string;
+    nzOkType: string;
+    nzOkLoading: boolean;
+    readonly nzOnOk: EventEmitter<T> | OnClickCallback<T>;
+    autoFocusButtonOk: ElementRef;
+    nzCancelText: string;
+    readonly cancelText: string;
+    nzCancelLoading: boolean;
+    readonly nzOnCancel: EventEmitter<T> | OnClickCallback<T>;
+    modalContainer: ElementRef;
+    bodyContainer: ViewContainerRef;
+    nzKeyboard: boolean;
     readonly hidden: boolean;
-    locale: {
-        okText?: string;
-        cancelText?: string;
-    };
-    maskAnimationClassMap: object | null;
-    modalAnimationClassMap: object | null;
+    maskAnimationClassMap: object;
+    modalAnimationClassMap: object;
     transformOrigin: string;
     private contentComponentRef;
     private animationState;
     private container;
-    private unsubscribe$;
-    private previouslyFocusedElement;
-    private focusTrap;
-    private scrollStrategy;
-    [key: string]: any;
-    constructor(overlay: Overlay, i18n: NzI18nService, cfr: ComponentFactoryResolver, elementRef: ElementRef, viewContainer: ViewContainerRef, modalControl: NzModalControlService, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, config: NzModalConfig, document: any);
+    constructor(overlay: Overlay, i18n: NzI18nService, renderer: Renderer2, cfr: ComponentFactoryResolver, elementRef: ElementRef, viewContainer: ViewContainerRef, nzMeasureScrollbarService: NzMeasureScrollbarService, modalControl: NzModalControlService, focusTrapFactory: FocusTrapFactory, config: NzModalConfig, document: any);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngAfterViewInit(): void;
@@ -96,7 +90,7 @@ export declare class NzModalComponent<T = any, R = any> extends NzModalRef<T, R>
     isNonEmptyString(value: {}): boolean;
     isTemplateRef(value: {}): boolean;
     isComponent(value: {}): boolean;
-    isModalButtons(value: string | TemplateRef<{}> | Array<ModalButtonOptions<T>> | null): boolean;
+    isModalButtons(value: {}): boolean;
     private handleVisibleStateChange;
     getButtonCallableProp(options: ModalButtonOptions<T>, prop: string): {};
     onButtonClick(button: ModalButtonOptions<T>): void;
@@ -110,6 +104,16 @@ export declare class NzModalComponent<T = any, R = any> extends NzModalRef<T, R>
      */
     private createDynamicComponent;
     private updateTransformOrigin;
+    /**
+     * Take care of the body's overflow to decide the existense of scrollbar
+     * @param plusNum The number that the openModals.length will increase soon
+     */
+    private changeBodyOverflow;
+    /**
+     * Check whether the body element is able to has the scroll bar (if the body content height exceeds the window's height)
+     * Exceptional Cases: users can show the scroll bar by their own permanently (eg. overflow: scroll)
+     */
+    private hasBodyScrollBar;
     private mergeDefaultConfig;
     private savePreviouslyFocusedElement;
     private trapFocus;

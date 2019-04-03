@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: '<%= selector %>',
@@ -46,13 +50,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
           <button nz-button nzType="primary">Submit</button>
         </nz-form-control>
       </nz-form-item>
-    </form>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+    </form>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`
-      form {
+    form {
         max-width: 600px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+    }
+  `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
 export class <%= classify(name) %>Component implements OnInit {
   validateForm: FormGroup;
@@ -61,16 +64,17 @@ export class <%= classify(name) %>Component implements OnInit {
     console.log(this.validateForm.value);
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      datePicker: [null],
-      datePickerTime: [null],
-      monthPicker: [null],
-      rangePicker: [[]],
-      rangePickerTime: [[]],
-      timePicker: [null]
+      datePicker     : [ null ],
+      datePickerTime : [ null ],
+      monthPicker    : [ null ],
+      rangePicker    : [ [] ],
+      rangePickerTime: [ [] ],
+      timePicker     : [ null ]
     });
   }
 }

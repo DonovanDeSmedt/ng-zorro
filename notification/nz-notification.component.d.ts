@@ -8,5 +8,5 @@ export declare class NzNotificationComponent extends NzMessageComponent {
     nzMessage: NzNotificationDataFilled;
     constructor(container: NzNotificationContainerComponent, cdr: ChangeDetectorRef);
     close(): void;
-    readonly state: string | undefined;
+    readonly state: string;
 }

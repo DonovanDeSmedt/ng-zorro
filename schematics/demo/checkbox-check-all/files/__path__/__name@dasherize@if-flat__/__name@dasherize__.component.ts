@@ -4,16 +4,11 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <div style="border-bottom: 1px solid rgb(233, 233, 233);">
-      <label
-        nz-checkbox
-        [(ngModel)]="allChecked"
-        (ngModelChange)="updateAllChecked()"
-        [nzIndeterminate]="indeterminate"
-      >
+      <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
         Check all
       </label>
     </div>
-    <br />
+    <br>
     <nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
@@ -29,19 +24,9 @@ export class <%= classify(name) %>Component {
   updateAllChecked(): void {
     this.indeterminate = false;
     if (this.allChecked) {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => {
-        return {
-          ...item,
-          checked: true
-        };
-      });
+      this.checkOptionsOne.forEach(item => item.checked = true);
     } else {
-      this.checkOptionsOne = this.checkOptionsOne.map(item => {
-        return {
-          ...item,
-          checked: false
-        };
-      });
+      this.checkOptionsOne.forEach(item => item.checked = false);
     }
   }
 

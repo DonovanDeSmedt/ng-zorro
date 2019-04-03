@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, OnInit, Renderer2, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, EventEmitter, NgZone, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Platform } from '@angular/cdk/platform';
 import { NzLayoutComponent } from './nz-layout.component';
@@ -13,13 +13,11 @@ export declare class NzSiderComponent implements OnInit, AfterViewInit, OnDestro
     private destroy$;
     private dimensionMap;
     nzWidth: number;
-    nzTheme: 'light' | 'dark';
     nzCollapsedWidth: number;
     nzBreakpoint: NzBreakPoint;
-    nzZeroTrigger: TemplateRef<void>;
-    nzTrigger: TemplateRef<void>;
     nzReverseArrow: boolean;
     nzCollapsible: boolean;
+    nzTrigger: TemplateRef<void>;
     nzCollapsed: boolean;
     readonly nzCollapsedChange: EventEmitter<{}>;
     readonly flexSetting: string;
@@ -28,7 +26,7 @@ export declare class NzSiderComponent implements OnInit, AfterViewInit, OnDestro
     toggleCollapse(): void;
     readonly isZeroTrigger: boolean;
     readonly isSiderTrigger: boolean;
-    constructor(nzLayoutComponent: NzLayoutComponent, mediaMatcher: MediaMatcher, ngZone: NgZone, platform: Platform, cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef);
+    constructor(nzLayoutComponent: NzLayoutComponent, mediaMatcher: MediaMatcher, ngZone: NgZone, platform: Platform, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

@@ -4,11 +4,7 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
-      <nz-calendar
-        nzCard
-        (nzSelectChange)="onValueChange($event)"
-        (nzPanelChange)="onPanelChange($event)"
-      ></nz-calendar>
+      <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
     </div>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
@@ -17,8 +13,7 @@ export class <%= classify(name) %>Component {
     console.log(`Current value: ${value}`);
   }
 
-  onPanelChange(change: { date: Date; mode: string }): void {
-    console.log(`Current value: ${change.date}`);
-    console.log(`Current mode: ${change.mode}`);
+  onModeChange(mode: 'month'|'year'): void {
+    console.log(`Current mode: ${mode}`);
   }
 }

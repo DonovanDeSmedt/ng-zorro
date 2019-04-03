@@ -7,16 +7,14 @@ import { Component } from '@angular/core';
       nzType="warning"
       nzCloseable
       nzMessage="Warning Text Warning Text Warning Text Warning Text Warning Text Warning Text Warning Text"
-      (nzOnClose)="afterClose()"
-    >
+      (nzOnClose)="afterClose()">
     </nz-alert>
     <nz-alert
       nzType="error"
       nzCloseable
       nzMessage="Error Text"
       nzDescription="Error Description Error Description Error Description Error Description Error Description Error Description"
-      (nzOnClose)="afterClose()"
-    >
+      (nzOnClose)="afterClose()">
     </nz-alert>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`

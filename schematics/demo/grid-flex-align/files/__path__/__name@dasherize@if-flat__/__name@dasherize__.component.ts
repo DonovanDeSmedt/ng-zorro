@@ -25,8 +25,8 @@ import { Component } from '@angular/core';
         <div nz-col nzSpan="4"><p class="height-120">col-4</p></div>
         <div nz-col nzSpan="4"><p class="height-80">col-4</p></div>
       </div>
-    </div>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  styles: []
+    </div>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+  styles  : []
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component {
+}

@@ -1,34 +1,26 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChange, TemplateRef } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { NzNoAnimationDirective } from '../core/no-animation/nz-no-animation.directive';
-import { NzTreeSelectService } from '../tree-select/nz-tree-select.service';
+import { EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChange, TemplateRef } from '@angular/core';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { NzFormatBeforeDropEvent, NzFormatEmitEvent } from '../tree/interface';
-import { NzTreeBaseService } from './nz-tree-base.service';
 import { NzTreeNode } from './nz-tree-node';
 import { NzTreeService } from './nz-tree.service';
-export declare function NzTreeServiceFactory(treeSelectService: NzTreeSelectService, treeService: NzTreeService): NzTreeBaseService;
-export declare class NzTreeComponent implements OnInit, OnDestroy, ControlValueAccessor, OnChanges {
-    nzTreeService: NzTreeBaseService;
-    private cdr;
-    noAnimation?: NzNoAnimationDirective | undefined;
+export declare class NzTreeComponent implements OnInit, OnChanges, OnDestroy {
+    nzTreeService: NzTreeService;
     nzShowIcon: boolean;
     nzShowLine: boolean;
+    nzCheckStrictly: boolean;
     nzCheckable: boolean;
     nzShowExpand: boolean;
     nzAsyncData: boolean;
     nzDraggable: boolean;
+    nzMultiple: boolean;
     nzExpandAll: boolean;
     nzHideUnMatched: boolean;
-    nzSelectMode: boolean;
-    nzCheckStrictly: boolean;
     /**
      * @deprecated use
      * nzExpandAll instead
      */
     nzDefaultExpandAll: boolean;
     nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
-    nzMultiple: boolean;
     nzData: any[];
     /**
      * @deprecated use
@@ -70,20 +62,18 @@ export declare class NzTreeComponent implements OnInit, OnDestroy, ControlValueA
     readonly nzOnDrop: EventEmitter<NzFormatEmitEvent>;
     readonly nzOnDragEnd: EventEmitter<NzFormatEmitEvent>;
     nzTreeTemplate: TemplateRef<any>;
-    _searchValue: string;
-    _nzMultiple: boolean;
+    _searchValue: any;
     nzDefaultSubject: ReplaySubject<{
         type: string;
         keys: string[];
     }>;
-    destroy$: Subject<{}>;
+    nzDefaultSubscription: Subscription;
     nzNodes: NzTreeNode[];
     prefixCls: string;
-    classMap: {};
+    nzTreeClass: {};
     onChange: (value: NzTreeNode[]) => void;
     onTouched: () => void;
     getTreeNodes(): NzTreeNode[];
-    getTreeNodeByKey(key: string): NzTreeNode | null;
     /**
      * public function
      */
@@ -96,8 +86,7 @@ export declare class NzTreeComponent implements OnInit, OnDestroy, ControlValueA
     writeValue(value: NzTreeNode[]): void;
     registerOnChange(fn: (_: NzTreeNode[]) => void): void;
     registerOnTouched(fn: () => void): void;
-    initNzData(value: any[]): void;
-    constructor(nzTreeService: NzTreeBaseService, cdr: ChangeDetectorRef, noAnimation?: NzNoAnimationDirective | undefined);
+    constructor(nzTreeService: NzTreeService);
     ngOnInit(): void;
     ngOnChanges(changes: {
         [propertyName: string]: SimpleChange;

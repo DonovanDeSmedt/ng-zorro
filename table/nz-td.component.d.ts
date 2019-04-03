@@ -1,22 +1,25 @@
-import { ElementRef, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
-export declare class NzTdComponent implements OnChanges {
+import { ElementRef, EventEmitter, Renderer2 } from '@angular/core';
+export declare class NzTdComponent {
     private elementRef;
-    private nzUpdateHostClassService;
+    private renderer;
+    private _showExpand;
+    private _indentSize;
+    private _expand;
+    private _showCheckbox;
+    isIndentSizeSet: boolean;
+    el: HTMLElement;
     nzChecked: boolean;
     nzDisabled: boolean;
     nzIndeterminate: boolean;
-    nzLeft: string;
-    nzRight: string;
-    nzAlign: 'left' | 'right' | 'center';
+    readonly nzCheckedChange: EventEmitter<boolean>;
+    readonly nzExpandChange: EventEmitter<boolean>;
     nzIndentSize: number;
     nzExpand: boolean;
     nzShowExpand: boolean;
     nzShowCheckbox: boolean;
-    readonly nzCheckedChange: EventEmitter<boolean>;
-    readonly nzExpandChange: EventEmitter<boolean>;
+    nzLeft: string;
+    nzRight: string;
+    updateExpandIconClass(): void;
     expandChange(e: Event): void;
-    setClassMap(): void;
-    constructor(elementRef: ElementRef, nzUpdateHostClassService: NzUpdateHostClassService);
-    ngOnChanges(changes: SimpleChanges): void;
+    constructor(elementRef: ElementRef, renderer: Renderer2);
 }

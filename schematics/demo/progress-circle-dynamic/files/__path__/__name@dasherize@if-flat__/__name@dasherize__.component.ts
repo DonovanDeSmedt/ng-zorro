@@ -8,12 +8,7 @@ import { Component } from '@angular/core';
       <button nz-button (click)="decline()"><i nz-icon type="minus"></i></button>
       <button nz-button (click)="increase()"><i nz-icon type="plus"></i></button>
     </nz-button-group>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      nz-progress {
-        margin-right: 8px;
-      }
-    `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
+  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
   percent = 0;
@@ -32,3 +27,4 @@ export class <%= classify(name) %>Component {
     }
   }
 }
+

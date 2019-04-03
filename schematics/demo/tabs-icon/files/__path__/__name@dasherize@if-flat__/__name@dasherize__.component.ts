@@ -5,23 +5,24 @@ import { Component } from '@angular/core';
   <% if(inlineTemplate) { %>template: `
     <nz-tabset>
       <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
-        <ng-template #titleTemplate> <i nz-icon [type]="tab.icon"></i>{{ tab.name }} </ng-template>
+        <ng-template #titleTemplate>
+          <i nz-icon [type]="tab.icon"></i>{{ tab.name }}
+        </ng-template>
         {{ tab.name }}
       </nz-tab>
-    </nz-tabset>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+    </nz-tabset>`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
   tabs = [
     {
       active: true,
-      name: 'Tab 1',
-      icon: 'apple'
+      name  : 'Tab 1',
+      icon  : 'apple'
     },
     {
       active: false,
-      name: 'Tab 2',
-      icon: 'android'
+      name  : 'Tab 2',
+      icon  : 'android'
     }
   ];
 }

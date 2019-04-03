@@ -4,13 +4,21 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: '<%= selector %>',
   encapsulation: ViewEncapsulation.None,
   <% if(inlineTemplate) { %>template: `
-    <nz-mention [nzSuggestions]="webFrameworks" [nzValueWith]="valueWith" (nzOnSelect)="onSelect($event)">
-      <input placeholder="@someone" nz-input nzMentionTrigger [(ngModel)]="inputValue" />
-      <ng-container *nzMentionSuggestion="let framework">
+  <nz-mention
+    [nzSuggestions]="webFrameworks"
+    [nzValueWith]="valueWith"
+    (nzOnSelect)="onSelect($event)">
+    <input
+      placeholder="@someone"
+      nz-input
+      nzMentionTrigger
+      [(ngModel)]="inputValue"
+    >
+    <ng-container *nzMentionSuggestion="let framework">
         <span>{{ framework.name }} - {{ framework.type }}</span>
-      </ng-container>
-    </nz-mention>
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+    </ng-container>
+  </nz-mention>
+`<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
 })
 export class <%= classify(name) %>Component {
   inputValue: string;
@@ -22,7 +30,7 @@ export class <%= classify(name) %>Component {
     { name: 'Django', type: 'Python' }
   ];
 
-  valueWith = (data: { name: string; type: string }) => data.name;
+  valueWith = data => data.name;
 
   onSelect(value: string): void {
     console.log(value);

@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, Renderer2 } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { NzCheckboxComponent } from './nz-checkbox.component';
 export declare class NzCheckboxWrapperComponent {
     readonly nzOnChange: EventEmitter<string[]>;
@@ -7,5 +7,4 @@ export declare class NzCheckboxWrapperComponent {
     removeCheckbox(value: NzCheckboxComponent): void;
     outputValue(): string[];
     onChange(): void;
-    constructor(renderer: Renderer2, elementRef: ElementRef);
 }

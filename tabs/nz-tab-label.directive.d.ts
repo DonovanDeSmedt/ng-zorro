@@ -1,8 +1,8 @@
-import { ElementRef, Renderer2 } from '@angular/core';
+import { ElementRef } from '@angular/core';
 export declare class NzTabLabelDirective {
     elementRef: ElementRef;
     disabled: boolean;
-    constructor(elementRef: ElementRef, renderer: Renderer2);
+    constructor(elementRef: ElementRef);
     getOffsetLeft(): number;
     getOffsetWidth(): number;
     getOffsetTop(): number;

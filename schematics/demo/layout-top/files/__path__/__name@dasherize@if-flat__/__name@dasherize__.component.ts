@@ -20,17 +20,16 @@ import { Component } from '@angular/core';
         </nz-breadcrumb>
         <div style="background:#fff; padding: 24px; min-height: 280px;">Content</div>
       </nz-content>
-      <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>
+      <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
     </nz-layout>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
-  <% if(inlineStyle) { %>styles: [`
-      .logo {
-        width: 120px;
-        height: 31px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 16px 24px 16px 0;
-        float: left;
-      }
+  <% if(inlineStyle) { %>styles: [`.logo {
+      width: 120px;
+      height: 31px;
+      background: rgba(255,255,255,.2);
+      margin: 16px 24px 16px 0;
+      float: left;
+    }
     `]<% } else { %>styleUrls: ['./<%= dasherize(name) %>.component.<%= styleext %>']<% } %>
 })
-export class <%= classify(name) %>Component {}
+export class <%= classify(name) %>Component { }

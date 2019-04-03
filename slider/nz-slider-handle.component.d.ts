@@ -1,28 +1,22 @@
-import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { NGStyleInterface } from '../core/types/ng-class';
+import { OnChanges, SimpleChanges } from '@angular/core';
 import { NzToolTipComponent } from '../tooltip/nz-tooltip.component';
-import { SliderShowTooltip } from './nz-slider-definitions';
 import { NzSliderComponent } from './nz-slider.component';
-export declare class NzSliderHandleComponent implements OnChanges, OnDestroy {
-    private sliderComponent;
-    private cdr;
-    tooltip: NzToolTipComponent;
+export declare class NzSliderHandleComponent implements OnChanges {
+    private _slider;
+    nzClassName: string;
     nzVertical: string;
     nzOffset: number;
     nzValue: number;
-    nzTooltipVisible: SliderShowTooltip;
     nzTipFormatter: (value: number) => string;
     nzActive: boolean;
+    tooltip: NzToolTipComponent;
     tooltipTitle: string;
-    style: NGStyleInterface;
-    private hovers_;
-    constructor(sliderComponent: NzSliderComponent, cdr: ChangeDetectorRef);
+    style: object;
+    constructor(_slider: NzSliderComponent);
     ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
-    enterHandle: () => void;
-    leaveHandle: () => void;
-    private toggleTooltip;
-    private updateTooltipTitle;
-    private updateTooltipPosition;
-    private updateStyle;
+    onMouseEnter($event: MouseEvent): void;
+    onMouseLeave($event: MouseEvent): void;
+    private _updateTooltipTitle;
+    private _updateTooltipPosition;
+    private _updateStyle;
 }

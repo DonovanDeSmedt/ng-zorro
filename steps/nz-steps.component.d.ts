@@ -1,5 +1,5 @@
 import { AfterContentInit, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
-import { NgClassType } from '../core/types/ng-class';
+import { ClassMap } from '../core/interface/interface';
 import { NzSizeDSType } from '../core/types/size';
 import { NzStepComponent } from './nz-step.component';
 export declare type NzDirectionType = 'horizontal' | 'vertical';
@@ -23,7 +23,7 @@ export declare class NzStepsComponent implements OnChanges, OnInit, OnDestroy, A
         status: string;
         index: number;
     }>;
-    classMap: NgClassType;
+    classMap: ClassMap;
     private destroy$;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;

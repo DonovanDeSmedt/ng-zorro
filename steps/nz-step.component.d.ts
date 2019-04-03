@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, Renderer2, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { NgClassType } from '../core/types/ng-class';
 export declare class NzStepComponent {
     private cdr;
@@ -25,6 +25,6 @@ export declare class NzStepComponent {
     showProcessDot: boolean;
     currentIndex: number;
     private _currentIndex;
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef);
-    markForCheck(): void;
+    constructor(cdr: ChangeDetectorRef);
+    detectChanges(): void;
 }

@@ -31,5 +31,6 @@ export declare class NzInputGroupComponent implements AfterContentInit {
     readonly isSmallGroupWrapper: boolean;
     readonly isSmallSearch: boolean;
     updateChildrenInputSize(): void;
+    constructor();
     ngAfterContentInit(): void;
 }

@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, ElementRef, OnChanges, OnDestroy, QueryList, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { NzSizeLDSType } from '../core/types/size';
 import { NzRadioComponent } from './nz-radio.component';
@@ -17,7 +17,7 @@ export declare class NzRadioGroupComponent implements AfterContentInit, ControlV
     nzSize: NzSizeLDSType;
     nzName: string;
     updateChildrenStatus(): void;
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef);
+    constructor(cdr: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
