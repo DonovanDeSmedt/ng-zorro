@@ -1,4 +1,4 @@
-import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChange } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 import { NzRowComponent } from './nz-row.component';
 import { NzRowDirective } from './nz-row.directive';
@@ -14,7 +14,6 @@ export declare class NzColComponent implements OnInit, OnChanges {
     private elementRef;
     nzRowComponent: NzRowComponent;
     nzRowDirective: NzRowDirective;
-    private renderer;
     private el;
     private prefixCls;
     readonly paddingLeft: number;
@@ -37,6 +36,6 @@ export declare class NzColComponent implements OnInit, OnChanges {
     ngOnChanges(changes: {
         [propertyName: string]: SimpleChange;
     }): void;
-    constructor(nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, nzRowComponent: NzRowComponent, nzRowDirective: NzRowDirective, renderer: Renderer2);
+    constructor(nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, nzRowComponent: NzRowComponent, nzRowDirective: NzRowDirective);
     ngOnInit(): void;
 }

@@ -6,10 +6,17 @@ import { NzAutocompleteComponent } from './nz-autocomplete.component';
 export declare const NZ_AUTOCOMPLETE_VALUE_ACCESSOR: ExistingProvider;
 export declare function getNzAutocompleteMissingPanelError(): Error;
 export declare class NzAutocompleteTriggerDirective implements ControlValueAccessor, OnDestroy {
-    private _element;
+    private elementRef;
     private _overlay;
-    private _viewContainerRef;
-    private _document;
+    private viewContainerRef;
+    private document;
+    /** Bind nzAutocomplete component */
+    nzAutocomplete: NzAutocompleteComponent;
+    _onChange: (value: {}) => void;
+    _onTouched: () => void;
+    panelOpen: boolean;
+    /** Current active option */
+    readonly activeOption: NzAutocompleteOptionComponent;
     private overlayRef;
     private portal;
     private positionStrategy;
@@ -18,35 +25,32 @@ export declare class NzAutocompleteTriggerDirective implements ControlValueAcces
     private optionsChangeSubscription;
     private overlayBackdropClickSubscription;
     private overlayPositionChangeSubscription;
-    _onChange: (value: {}) => void;
-    _onTouched: () => void;
-    panelOpen: boolean;
-    /** 用于绑定 nzAutocomplete 组件 */
-    nzAutocomplete: NzAutocompleteComponent;
-    /**
-     * 当前被激活的 Option
-     */
-    readonly activeOption: NzAutocompleteOptionComponent;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _document: any);
+    constructor(elementRef: ElementRef, _overlay: Overlay, viewContainerRef: ViewContainerRef, document: any);
+    ngOnDestroy(): void;
+    writeValue(value: any): void;
+    registerOnChange(fn: (value: {}) => {}): void;
+    registerOnTouched(fn: () => {}): void;
+    setDisabledState(isDisabled: boolean): void;
     openPanel(): void;
     closePanel(): void;
+    handleKeydown(event: KeyboardEvent): void;
+    handleInput(event: KeyboardEvent): void;
+    handleFocus(): void;
+    handleBlur(): void;
     /**
-     * 订阅数据源改变事件
+     * Subscription data source changes event
      */
     private subscribeOptionsChange;
     /**
-     * 订阅 option 选择事件
-     * 并设置值
+     * Subscription option changes event and set the value
      */
     private subscribeSelectionChange;
     /**
-     * 订阅组件外部的单击事件
-     * 并关闭弹窗
+     * Subscription external click and close panel
      */
     private subscribeOverlayBackdropClick;
     /**
-     * 订阅 Overlay 位置改变事件
-     * 并重新设置动画方向
+     * Subscription overlay position changes and reset dropdown position
      */
     private subscribeOverlayPositionChange;
     private attachOverlay;
@@ -56,17 +60,8 @@ export declare class NzAutocompleteTriggerDirective implements ControlValueAcces
     private getHostWidth;
     private getOverlayPosition;
     private resetActiveItem;
-    handleKeydown(event: KeyboardEvent): void;
     private setValueAndClose;
     private setTriggerValue;
     private doBackfill;
-    handleInput(event: KeyboardEvent): void;
-    handleFocus(): void;
-    handleBlur(): void;
     private canOpen;
-    writeValue(value: any): void;
-    registerOnChange(fn: (value: {}) => {}): void;
-    registerOnTouched(fn: () => {}): void;
-    setDisabledState(isDisabled: boolean): void;
-    ngOnDestroy(): void;
 }

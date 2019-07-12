@@ -2,36 +2,17 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 var NzAutocompleteOptgroupComponent = /** @class */ (function () {
     function NzAutocompleteOptgroupComponent() {
     }
-    Object.defineProperty(NzAutocompleteOptgroupComponent.prototype, "nzLabel", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._label;
-        },
-        /** group 的 label，支持 'string' 和 `TemplateRef` */
-        set: /**
-         * group 的 label，支持 'string' 和 `TemplateRef`
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isLabelString = !(value instanceof TemplateRef);
-            this._label = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzAutocompleteOptgroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-auto-optgroup',
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    template: "<div class=\"ant-select-dropdown-menu-item-group-title\">\n  <ng-container *ngIf=\"isLabelString; else labelTemplate\">{{nzLabel}}</ng-container>\n  <ng-template #labelTemplate>\n    <ng-template [ngTemplateOutlet]=\"nzLabel\"></ng-template>\n  </ng-template>\n</div>\n<ul class=\"ant-select-dropdown-menu-item-group-list\">\n  <ng-content select=\"nz-auto-option\"></ng-content>\n</ul>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<div class=\"ant-select-dropdown-menu-item-group-title\">\r\n  <ng-container *nzStringTemplateOutlet=\"nzLabel\">{{nzLabel}}</ng-container>\r\n</div>\r\n<ul class=\"ant-select-dropdown-menu-item-group-list\">\r\n  <ng-content select=\"nz-auto-option\"></ng-content>\r\n</ul>\r\n",
                     host: {
                         'role': 'group',
                         'class': 'ant-select-dropdown-menu-item-group'
@@ -48,9 +29,7 @@ var NzAutocompleteOptgroupComponent = /** @class */ (function () {
 export { NzAutocompleteOptgroupComponent };
 function NzAutocompleteOptgroupComponent_tsickle_Closure_declarations() {
     /** @type {?} */
-    NzAutocompleteOptgroupComponent.prototype.isLabelString;
-    /** @type {?} */
-    NzAutocompleteOptgroupComponent.prototype._label;
+    NzAutocompleteOptgroupComponent.prototype.nzLabel;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotYXV0b2NvbXBsZXRlLW9wdGdyb3VwLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJhdXRvLWNvbXBsZXRlL256LWF1dG9jb21wbGV0ZS1vcHRncm91cC5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFDTCx1QkFBdUIsRUFDdkIsU0FBUyxFQUNULEtBQUssRUFDTCxXQUFXLEVBQ1osTUFBTSxlQUFlLENBQUM7O0lBNEJyQjtLQUNDO0lBYkQsc0JBQ0ksb0RBQU87Ozs7UUFLWDtZQUNFLE9BQU8sSUFBSSxDQUFDLE1BQU0sQ0FBQztTQUNwQjtRQVRELGdEQUFnRDs7Ozs7O1FBQ2hELFVBQ1ksS0FBaUM7WUFDM0MsSUFBSSxDQUFDLGFBQWEsR0FBRyxDQUFDLENBQUMsS0FBSyxZQUFZLFdBQVcsQ0FBQyxDQUFDO1lBQ3JELElBQUksQ0FBQyxNQUFNLEdBQUcsS0FBSyxDQUFDO1NBQ3JCOzs7T0FBQTs7Z0JBbEJGLFNBQVMsU0FBQztvQkFDVCxRQUFRLEVBQWEsa0JBQWtCO29CQUN2QyxtQkFBbUIsRUFBRSxLQUFLO29CQUMxQixlQUFlLEVBQU0sdUJBQXVCLENBQUMsTUFBTTtvQkFDbkQsZ1pBQWdFO29CQUNoRSxJQUFJLEVBQWlCO3dCQUNuQixNQUFNLEVBQUcsT0FBTzt3QkFDaEIsT0FBTyxFQUFFLHFDQUFxQztxQkFDL0M7aUJBQ0Y7Ozs7OzBCQUtFLEtBQUs7OzBDQXJCUjs7U0FpQmEsK0JBQStCIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgQ2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3ksXG4gIENvbXBvbmVudCxcbiAgSW5wdXQsXG4gIFRlbXBsYXRlUmVmXG59IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5AQ29tcG9uZW50KHtcbiAgc2VsZWN0b3IgICAgICAgICAgIDogJ256LWF1dG8tb3B0Z3JvdXAnLFxuICBwcmVzZXJ2ZVdoaXRlc3BhY2VzOiBmYWxzZSxcbiAgY2hhbmdlRGV0ZWN0aW9uICAgIDogQ2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3kuT25QdXNoLFxuICB0ZW1wbGF0ZVVybCAgICAgICAgOiAnLi9uei1hdXRvY29tcGxldGUtb3B0Z3JvdXAuY29tcG9uZW50Lmh0bWwnLFxuICBob3N0ICAgICAgICAgICAgICAgOiB7XG4gICAgJ3JvbGUnIDogJ2dyb3VwJyxcbiAgICAnY2xhc3MnOiAnYW50LXNlbGVjdC1kcm9wZG93bi1tZW51LWl0ZW0tZ3JvdXAnXG4gIH1cbn0pXG5leHBvcnQgY2xhc3MgTnpBdXRvY29tcGxldGVPcHRncm91cENvbXBvbmVudCB7XG4gIGlzTGFiZWxTdHJpbmc6IGJvb2xlYW47XG5cbiAgLyoqIGdyb3VwIOeahCBsYWJlbO+8jOaUr+aMgSAnc3RyaW5nJyDlkowgYFRlbXBsYXRlUmVmYCAqL1xuICBASW5wdXQoKVxuICBzZXQgbnpMYWJlbCh2YWx1ZTogc3RyaW5nIHwgVGVtcGxhdGVSZWY8dm9pZD4pIHtcbiAgICB0aGlzLmlzTGFiZWxTdHJpbmcgPSAhKHZhbHVlIGluc3RhbmNlb2YgVGVtcGxhdGVSZWYpO1xuICAgIHRoaXMuX2xhYmVsID0gdmFsdWU7XG4gIH1cblxuICBnZXQgbnpMYWJlbCgpOiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPiB7XG4gICAgcmV0dXJuIHRoaXMuX2xhYmVsO1xuICB9XG5cbiAgX2xhYmVsOiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPjtcblxuICBjb25zdHJ1Y3RvcigpIHtcbiAgfVxuXG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotYXV0b2NvbXBsZXRlLW9wdGdyb3VwLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJhdXRvLWNvbXBsZXRlL256LWF1dG9jb21wbGV0ZS1vcHRncm91cC5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSx1QkFBdUIsRUFBRSxTQUFTLEVBQUUsS0FBSyxFQUFlLGlCQUFpQixFQUFFLE1BQU0sZUFBZSxDQUFDOztJQWlCeEc7S0FDQzs7Z0JBaEJGLFNBQVMsU0FBQztvQkFDVCxRQUFRLEVBQWEsa0JBQWtCO29CQUN2QyxtQkFBbUIsRUFBRSxLQUFLO29CQUMxQixlQUFlLEVBQU0sdUJBQXVCLENBQUMsTUFBTTtvQkFDbkQsYUFBYSxFQUFRLGlCQUFpQixDQUFDLElBQUk7b0JBQzNDLGtTQUFnRTtvQkFDaEUsSUFBSSxFQUFpQjt3QkFDbkIsTUFBTSxFQUFHLE9BQU87d0JBQ2hCLE9BQU8sRUFBRSxxQ0FBcUM7cUJBQy9DO2lCQUNGOzs7OzswQkFHRSxLQUFLOzswQ0FmUjs7U0FhYSwrQkFBK0IiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneSwgQ29tcG9uZW50LCBJbnB1dCwgVGVtcGxhdGVSZWYsIFZpZXdFbmNhcHN1bGF0aW9uIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcblxyXG5AQ29tcG9uZW50KHtcclxuICBzZWxlY3RvciAgICAgICAgICAgOiAnbnotYXV0by1vcHRncm91cCcsXHJcbiAgcHJlc2VydmVXaGl0ZXNwYWNlczogZmFsc2UsXHJcbiAgY2hhbmdlRGV0ZWN0aW9uICAgIDogQ2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3kuT25QdXNoLFxyXG4gIGVuY2Fwc3VsYXRpb24gICAgICA6IFZpZXdFbmNhcHN1bGF0aW9uLk5vbmUsXHJcbiAgdGVtcGxhdGVVcmwgICAgICAgIDogJy4vbnotYXV0b2NvbXBsZXRlLW9wdGdyb3VwLmNvbXBvbmVudC5odG1sJyxcclxuICBob3N0ICAgICAgICAgICAgICAgOiB7XHJcbiAgICAncm9sZScgOiAnZ3JvdXAnLFxyXG4gICAgJ2NsYXNzJzogJ2FudC1zZWxlY3QtZHJvcGRvd24tbWVudS1pdGVtLWdyb3VwJ1xyXG4gIH1cclxufSlcclxuZXhwb3J0IGNsYXNzIE56QXV0b2NvbXBsZXRlT3B0Z3JvdXBDb21wb25lbnQge1xyXG5cclxuICBASW5wdXQoKSBuekxhYmVsOiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPjtcclxuXHJcbiAgY29uc3RydWN0b3IoKSB7XHJcbiAgfVxyXG5cclxufVxyXG4iXX0=

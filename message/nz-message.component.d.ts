@@ -1,8 +1,9 @@
-import { OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { NzMessageContainerComponent } from './nz-message-container.component';
 import { NzMessageDataFilled, NzMessageDataOptions } from './nz-message.definitions';
 export declare class NzMessageComponent implements OnInit, OnDestroy {
     private _messageContainer;
+    protected cdr: ChangeDetectorRef;
     nzMessage: NzMessageDataFilled;
     nzIndex: number;
     protected _options: NzMessageDataOptions;
@@ -10,7 +11,7 @@ export declare class NzMessageComponent implements OnInit, OnDestroy {
     private _eraseTimer;
     private _eraseTimingStart;
     private _eraseTTL;
-    constructor(_messageContainer: NzMessageContainerComponent);
+    constructor(_messageContainer: NzMessageContainerComponent, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     onEnter(): void;

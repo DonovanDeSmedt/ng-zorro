@@ -2,121 +2,89 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-import { Component, ElementRef, Input, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 export class NzTimelineItemComponent {
     /**
      * @param {?} renderer
+     * @param {?} cdr
      */
-    constructor(renderer) {
+    constructor(renderer, cdr) {
         this.renderer = renderer;
-        this._color = 'blue';
-        this._isLast = false;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set isLast(value) {
-        this._isLast = value;
-        if (this.isLast) {
-            this.renderer.addClass(this.liTemplate.nativeElement, 'ant-timeline-item-last');
-        }
-        else {
-            this.renderer.removeClass(this.liTemplate.nativeElement, 'ant-timeline-item-last');
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get isLast() {
-        return this._isLast;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set nzDot(value) {
-        this.isDotString = !(value instanceof TemplateRef);
-        this._dot = value;
-    }
-    /**
-     * @return {?}
-     */
-    get nzDot() {
-        return this._dot;
-    }
-    /**
-     * @param {?} color
-     * @return {?}
-     */
-    set nzColor(color) {
-        this._color = color;
-        this.updateClassMap();
-    }
-    /**
-     * @return {?}
-     */
-    get nzColor() {
-        return this._color;
-    }
-    /**
-     * @return {?}
-     */
-    updateClassMap() {
-        /** @type {?} */
-        const defaultColors = ['blue', 'red', 'green'];
-        /** @type {?} */
-        const circle = this.liTemplate.nativeElement.querySelector('.ant-timeline-item-head');
-        if (defaultColors.indexOf(this._color) === -1) {
-            this.renderer.setStyle(circle, 'border-color', this._color);
-        }
-        else {
-            this.renderer.removeStyle(circle, 'border-color');
-        }
-        this.classMap = {
-            ['ant-timeline-item-head-green']: this.nzColor === 'green',
-            ['ant-timeline-item-head-red']: this.nzColor === 'red',
-            ['ant-timeline-item-head-blue']: this.nzColor === 'blue'
-        };
+        this.cdr = cdr;
+        this.nzColor = 'blue';
+        this.isLast = false;
     }
     /**
      * @return {?}
      */
     ngOnInit() {
-        this.updateClassMap();
+        this.tryUpdateCustomColor();
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if (changes["nzColor"]) {
+            this.tryUpdateCustomColor();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    detectChanges() {
+        this.cdr.detectChanges();
+    }
+    /**
+     * @return {?}
+     */
+    tryUpdateCustomColor() {
+        /** @type {?} */
+        const defaultColors = ['blue', 'red', 'green'];
+        /** @type {?} */
+        const circle = this.liTemplate.nativeElement.querySelector('.ant-timeline-item-head');
+        if (defaultColors.indexOf(this.nzColor) === -1) {
+            this.renderer.setStyle(circle, 'border-color', this.nzColor);
+        }
+        else {
+            this.renderer.removeStyle(circle, 'border-color');
+        }
     }
 }
 NzTimelineItemComponent.decorators = [
     { type: Component, args: [{
-                selector: 'nz-timeline-item',
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
-                template: "<li class=\"ant-timeline-item\" #liTemplate>\n  <div class=\"ant-timeline-item-tail\"></div>\n  <div\n    class=\"ant-timeline-item-head\"\n    [class.ant-timeline-item-head-custom]=\"nzDot\"\n    [ngClass]=\"classMap\">\n    <ng-container *ngIf=\"isDotString; else dotTemplate\">{{ nzDot }}</ng-container>\n    <ng-template #dotTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzDot\"></ng-template>\n    </ng-template>\n  </div>\n  <div class=\"ant-timeline-item-content\">\n    <ng-content></ng-content>\n  </div>\n</li>"
+                selector: 'nz-timeline-item, [nz-timeline-item]',
+                template: "<li\r\n  class=\"ant-timeline-item\"\r\n  [class.ant-timeline-item-right]=\"position === 'right'\"\r\n  [class.ant-timeline-item-left]=\"position === 'left'\"\r\n  [class.ant-timeline-item-last]=\"isLast\"\r\n  #liTemplate>\r\n  <div class=\"ant-timeline-item-tail\"></div>\r\n  <div\r\n    class=\"ant-timeline-item-head\"\r\n    [class.ant-timeline-item-head-red]=\"nzColor === 'red'\"\r\n    [class.ant-timeline-item-head-blue]=\"nzColor === 'blue'\"\r\n    [class.ant-timeline-item-head-green]=\"nzColor === 'green'\"\r\n    [class.ant-timeline-item-head-custom]=\"!!nzDot\">\r\n    <ng-container *nzStringTemplateOutlet=\"nzDot\">{{ nzDot }}</ng-container>\r\n  </div>\r\n  <div class=\"ant-timeline-item-content\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</li>"
             }] }
 ];
 /** @nocollapse */
 NzTimelineItemComponent.ctorParameters = () => [
-    { type: Renderer2 }
+    { type: Renderer2 },
+    { type: ChangeDetectorRef }
 ];
 NzTimelineItemComponent.propDecorators = {
     liTemplate: [{ type: ViewChild, args: ['liTemplate',] }],
-    nzDot: [{ type: Input }],
-    nzColor: [{ type: Input }]
+    nzColor: [{ type: Input }],
+    nzDot: [{ type: Input }]
 };
 function NzTimelineItemComponent_tsickle_Closure_declarations() {
     /** @type {?} */
-    NzTimelineItemComponent.prototype._dot;
-    /** @type {?} */
-    NzTimelineItemComponent.prototype._color;
-    /** @type {?} */
-    NzTimelineItemComponent.prototype._isLast;
-    /** @type {?} */
     NzTimelineItemComponent.prototype.liTemplate;
     /** @type {?} */
-    NzTimelineItemComponent.prototype.isDotString;
+    NzTimelineItemComponent.prototype.nzColor;
     /** @type {?} */
-    NzTimelineItemComponent.prototype.classMap;
+    NzTimelineItemComponent.prototype.nzDot;
+    /** @type {?} */
+    NzTimelineItemComponent.prototype.isLast;
+    /** @type {?} */
+    NzTimelineItemComponent.prototype.position;
     /** @type {?} */
     NzTimelineItemComponent.prototype.renderer;
+    /** @type {?} */
+    NzTimelineItemComponent.prototype.cdr;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotdGltZWxpbmUtaXRlbS5jb21wb25lbnQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsidGltZWxpbmUvbnotdGltZWxpbmUtaXRlbS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFDTCxTQUFTLEVBQ1QsVUFBVSxFQUNWLEtBQUssRUFFTCxTQUFTLEVBQ1QsV0FBVyxFQUNYLFNBQVMsRUFDVixNQUFNLGVBQWUsQ0FBQztBQU92QixNQUFNOzs7O0lBMERKLFlBQW9CLFFBQW1CO1FBQW5CLGFBQVEsR0FBUixRQUFRLENBQVc7c0JBeERkLE1BQU07dUJBQ2IsS0FBSztLQXdEdEI7Ozs7O0lBbkRELElBQUksTUFBTSxDQUFDLEtBQWM7UUFDdkIsSUFBSSxDQUFDLE9BQU8sR0FBRyxLQUFLLENBQUM7UUFDckIsSUFBSSxJQUFJLENBQUMsTUFBTSxFQUFFO1lBQ2YsSUFBSSxDQUFDLFFBQVEsQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxhQUFhLEVBQUUsd0JBQXdCLENBQUMsQ0FBQztTQUNqRjthQUFNO1lBQ0wsSUFBSSxDQUFDLFFBQVEsQ0FBQyxXQUFXLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxhQUFhLEVBQUUsd0JBQXdCLENBQUMsQ0FBQztTQUNwRjtLQUNGOzs7O0lBRUQsSUFBSSxNQUFNO1FBQ1IsT0FBTyxJQUFJLENBQUMsT0FBTyxDQUFDO0tBQ3JCOzs7OztJQUVELElBQ0ksS0FBSyxDQUFDLEtBQWlDO1FBQ3pDLElBQUksQ0FBQyxXQUFXLEdBQUcsQ0FBQyxDQUFDLEtBQUssWUFBWSxXQUFXLENBQUMsQ0FBQztRQUNuRCxJQUFJLENBQUMsSUFBSSxHQUFHLEtBQUssQ0FBQztLQUNuQjs7OztJQUVELElBQUksS0FBSztRQUNQLE9BQU8sSUFBSSxDQUFDLElBQUksQ0FBQztLQUNsQjs7Ozs7SUFFRCxJQUNJLE9BQU8sQ0FBQyxLQUFhO1FBQ3ZCLElBQUksQ0FBQyxNQUFNLEdBQUcsS0FBSyxDQUFDO1FBQ3BCLElBQUksQ0FBQyxjQUFjLEVBQUUsQ0FBQztLQUN2Qjs7OztJQUVELElBQUksT0FBTztRQUNULE9BQU8sSUFBSSxDQUFDLE1BQU0sQ0FBQztLQUNwQjs7OztJQUVELGNBQWM7O1FBRVosTUFBTSxhQUFhLEdBQUcsQ0FBRSxNQUFNLEVBQUUsS0FBSyxFQUFFLE9BQU8sQ0FBRSxDQUFDOztRQUNqRCxNQUFNLE1BQU0sR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLGFBQWEsQ0FBQyxhQUFhLENBQUMseUJBQXlCLENBQUMsQ0FBQztRQUN0RixJQUFJLGFBQWEsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxFQUFFO1lBQzdDLElBQUksQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLE1BQU0sRUFBRSxjQUFjLEVBQUUsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1NBQzdEO2FBQU07WUFDTCxJQUFJLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxNQUFNLEVBQUUsY0FBYyxDQUFDLENBQUM7U0FDbkQ7UUFFRCxJQUFJLENBQUMsUUFBUSxHQUFHO1lBQ2QsQ0FBRSw4QkFBOEIsQ0FBRSxFQUFFLElBQUksQ0FBQyxPQUFPLEtBQUssT0FBTztZQUM1RCxDQUFFLDRCQUE0QixDQUFFLEVBQUksSUFBSSxDQUFDLE9BQU8sS0FBSyxLQUFLO1lBQzFELENBQUUsNkJBQTZCLENBQUUsRUFBRyxJQUFJLENBQUMsT0FBTyxLQUFLLE1BQU07U0FDNUQsQ0FBQztLQUNIOzs7O0lBS0QsUUFBUTtRQUNOLElBQUksQ0FBQyxjQUFjLEVBQUUsQ0FBQztLQUN2Qjs7O1lBcEVGLFNBQVMsU0FBQztnQkFDVCxRQUFRLEVBQWEsa0JBQWtCO2dCQUN2QyxtQkFBbUIsRUFBRSxLQUFLO2dCQUMxQix5aEJBQXdEO2FBQ3pEOzs7O1lBVEMsU0FBUzs7O3lCQWNSLFNBQVMsU0FBQyxZQUFZO29CQWlCdEIsS0FBSztzQkFVTCxLQUFLIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgQ29tcG9uZW50LFxuICBFbGVtZW50UmVmLFxuICBJbnB1dCxcbiAgT25Jbml0LFxuICBSZW5kZXJlcjIsXG4gIFRlbXBsYXRlUmVmLFxuICBWaWV3Q2hpbGRcbn0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbkBDb21wb25lbnQoe1xuICBzZWxlY3RvciAgICAgICAgICAgOiAnbnotdGltZWxpbmUtaXRlbScsXG4gIHByZXNlcnZlV2hpdGVzcGFjZXM6IGZhbHNlLFxuICB0ZW1wbGF0ZVVybCAgICAgICAgOiAnLi9uei10aW1lbGluZS1pdGVtLmNvbXBvbmVudC5odG1sJ1xufSlcbmV4cG9ydCBjbGFzcyBOelRpbWVsaW5lSXRlbUNvbXBvbmVudCBpbXBsZW1lbnRzIE9uSW5pdCB7XG4gIHByaXZhdGUgX2RvdDogc3RyaW5nIHwgVGVtcGxhdGVSZWY8dm9pZD47XG4gIHByaXZhdGUgX2NvbG9yOiBzdHJpbmcgPSAnYmx1ZSc7XG4gIHByaXZhdGUgX2lzTGFzdCA9IGZhbHNlO1xuICBAVmlld0NoaWxkKCdsaVRlbXBsYXRlJykgbGlUZW1wbGF0ZTogRWxlbWVudFJlZjtcbiAgaXNEb3RTdHJpbmc6IGJvb2xlYW47XG4gIGNsYXNzTWFwO1xuXG4gIHNldCBpc0xhc3QodmFsdWU6IGJvb2xlYW4pIHtcbiAgICB0aGlzLl9pc0xhc3QgPSB2YWx1ZTtcbiAgICBpZiAodGhpcy5pc0xhc3QpIHtcbiAgICAgIHRoaXMucmVuZGVyZXIuYWRkQ2xhc3ModGhpcy5saVRlbXBsYXRlLm5hdGl2ZUVsZW1lbnQsICdhbnQtdGltZWxpbmUtaXRlbS1sYXN0Jyk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMucmVuZGVyZXIucmVtb3ZlQ2xhc3ModGhpcy5saVRlbXBsYXRlLm5hdGl2ZUVsZW1lbnQsICdhbnQtdGltZWxpbmUtaXRlbS1sYXN0Jyk7XG4gICAgfVxuICB9XG5cbiAgZ2V0IGlzTGFzdCgpOiBib29sZWFuIHtcbiAgICByZXR1cm4gdGhpcy5faXNMYXN0O1xuICB9XG5cbiAgQElucHV0KClcbiAgc2V0IG56RG90KHZhbHVlOiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPikge1xuICAgIHRoaXMuaXNEb3RTdHJpbmcgPSAhKHZhbHVlIGluc3RhbmNlb2YgVGVtcGxhdGVSZWYpO1xuICAgIHRoaXMuX2RvdCA9IHZhbHVlO1xuICB9XG5cbiAgZ2V0IG56RG90KCk6IHN0cmluZyB8IFRlbXBsYXRlUmVmPHZvaWQ+IHtcbiAgICByZXR1cm4gdGhpcy5fZG90O1xuICB9XG5cbiAgQElucHV0KClcbiAgc2V0IG56Q29sb3IoY29sb3I6IHN0cmluZykge1xuICAgIHRoaXMuX2NvbG9yID0gY29sb3I7XG4gICAgdGhpcy51cGRhdGVDbGFzc01hcCgpO1xuICB9XG5cbiAgZ2V0IG56Q29sb3IoKTogc3RyaW5nIHtcbiAgICByZXR1cm4gdGhpcy5fY29sb3I7XG4gIH1cblxuICB1cGRhdGVDbGFzc01hcCgpOiB2b2lkIHtcbiAgICAvLyBTdXBwb3J0IGN1c3RvbSBjb2xvclxuICAgIGNvbnN0IGRlZmF1bHRDb2xvcnMgPSBbICdibHVlJywgJ3JlZCcsICdncmVlbicgXTtcbiAgICBjb25zdCBjaXJjbGUgPSB0aGlzLmxpVGVtcGxhdGUubmF0aXZlRWxlbWVudC5xdWVyeVNlbGVjdG9yKCcuYW50LXRpbWVsaW5lLWl0ZW0taGVhZCcpO1xuICAgIGlmIChkZWZhdWx0Q29sb3JzLmluZGV4T2YodGhpcy5fY29sb3IpID09PSAtMSkge1xuICAgICAgdGhpcy5yZW5kZXJlci5zZXRTdHlsZShjaXJjbGUsICdib3JkZXItY29sb3InLCB0aGlzLl9jb2xvcik7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMucmVuZGVyZXIucmVtb3ZlU3R5bGUoY2lyY2xlLCAnYm9yZGVyLWNvbG9yJyk7XG4gICAgfVxuXG4gICAgdGhpcy5jbGFzc01hcCA9IHtcbiAgICAgIFsgJ2FudC10aW1lbGluZS1pdGVtLWhlYWQtZ3JlZW4nIF06IHRoaXMubnpDb2xvciA9PT0gJ2dyZWVuJyxcbiAgICAgIFsgJ2FudC10aW1lbGluZS1pdGVtLWhlYWQtcmVkJyBdICA6IHRoaXMubnpDb2xvciA9PT0gJ3JlZCcsXG4gICAgICBbICdhbnQtdGltZWxpbmUtaXRlbS1oZWFkLWJsdWUnIF0gOiB0aGlzLm56Q29sb3IgPT09ICdibHVlJ1xuICAgIH07XG4gIH1cblxuICBjb25zdHJ1Y3Rvcihwcml2YXRlIHJlbmRlcmVyOiBSZW5kZXJlcjIpIHtcbiAgfVxuXG4gIG5nT25Jbml0KCk6IHZvaWQge1xuICAgIHRoaXMudXBkYXRlQ2xhc3NNYXAoKTtcbiAgfVxuXG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotdGltZWxpbmUtaXRlbS5jb21wb25lbnQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZy16b3Jyby1hbnRkLyIsInNvdXJjZXMiOlsidGltZWxpbmUvbnotdGltZWxpbmUtaXRlbS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFDTCx1QkFBdUIsRUFDdkIsaUJBQWlCLEVBQ2pCLFNBQVMsRUFDVCxVQUFVLEVBQ1YsS0FBSyxFQUVMLFNBQVMsRUFHVCxTQUFTLEVBQ1QsaUJBQWlCLEVBQ2xCLE1BQU0sZUFBZSxDQUFDO0FBV3ZCLE1BQU0sT0FBTyx1QkFBdUI7Ozs7O0lBUWxDLFlBQW9CLFFBQW1CLEVBQVUsR0FBc0I7UUFBbkQsYUFBUSxHQUFSLFFBQVEsQ0FBVztRQUFVLFFBQUcsR0FBSCxHQUFHLENBQW1CO1FBTnZFLGVBQTJCLE1BQU0sQ0FBQztRQUdsQyxjQUFTLEtBQUssQ0FBQztLQUc0RDs7OztJQUUzRSxRQUFRO1FBQ04sSUFBSSxDQUFDLG9CQUFvQixFQUFFLENBQUM7S0FDN0I7Ozs7O0lBRUQsV0FBVyxDQUFDLE9BQXNCO1FBQ2hDLElBQUksT0FBTyxhQUFVO1lBQ25CLElBQUksQ0FBQyxvQkFBb0IsRUFBRSxDQUFDO1NBQzdCO0tBQ0Y7Ozs7SUFFRCxhQUFhO1FBQ1gsSUFBSSxDQUFDLEdBQUcsQ0FBQyxhQUFhLEVBQUUsQ0FBQztLQUMxQjs7OztJQUVPLG9CQUFvQjs7UUFDMUIsTUFBTSxhQUFhLEdBQUcsQ0FBRSxNQUFNLEVBQUUsS0FBSyxFQUFFLE9BQU8sQ0FBRSxDQUFDOztRQUNqRCxNQUFNLE1BQU0sR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLGFBQWEsQ0FBQyxhQUFhLENBQUMseUJBQXlCLENBQUMsQ0FBQztRQUN0RixJQUFJLGFBQWEsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQyxFQUFFO1lBQzlDLElBQUksQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLE1BQU0sRUFBRSxjQUFjLEVBQUUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDO1NBQzlEO2FBQU07WUFDTCxJQUFJLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxNQUFNLEVBQUUsY0FBYyxDQUFDLENBQUM7U0FDbkQ7Ozs7WUF0Q0osU0FBUyxTQUFDO2dCQUNULGVBQWUsRUFBTSx1QkFBdUIsQ0FBQyxNQUFNO2dCQUNuRCxhQUFhLEVBQVEsaUJBQWlCLENBQUMsSUFBSTtnQkFDM0MsbUJBQW1CLEVBQUUsS0FBSztnQkFDMUIsUUFBUSxFQUFhLHNDQUFzQztnQkFDM0Qsa3hCQUF3RDthQUN6RDs7OztZQWZDLFNBQVM7WUFMVCxpQkFBaUI7Ozt5QkFzQmhCLFNBQVMsU0FBQyxZQUFZO3NCQUN0QixLQUFLO29CQUNMLEtBQUsiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xyXG4gIENoYW5nZURldGVjdGlvblN0cmF0ZWd5LFxyXG4gIENoYW5nZURldGVjdG9yUmVmLFxyXG4gIENvbXBvbmVudCxcclxuICBFbGVtZW50UmVmLFxyXG4gIElucHV0LCBPbkNoYW5nZXMsXHJcbiAgT25Jbml0LFxyXG4gIFJlbmRlcmVyMixcclxuICBTaW1wbGVDaGFuZ2VzLFxyXG4gIFRlbXBsYXRlUmVmLFxyXG4gIFZpZXdDaGlsZCxcclxuICBWaWV3RW5jYXBzdWxhdGlvblxyXG59IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5cclxuaW1wb3J0IHsgTnpUaW1lbGluZU1vZGUgfSBmcm9tICcuL256LXRpbWVsaW5lLmNvbXBvbmVudCc7XHJcblxyXG5AQ29tcG9uZW50KHtcclxuICBjaGFuZ2VEZXRlY3Rpb24gICAgOiBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneS5PblB1c2gsXHJcbiAgZW5jYXBzdWxhdGlvbiAgICAgIDogVmlld0VuY2Fwc3VsYXRpb24uTm9uZSxcclxuICBwcmVzZXJ2ZVdoaXRlc3BhY2VzOiBmYWxzZSxcclxuICBzZWxlY3RvciAgICAgICAgICAgOiAnbnotdGltZWxpbmUtaXRlbSwgW256LXRpbWVsaW5lLWl0ZW1dJyxcclxuICB0ZW1wbGF0ZVVybCAgICAgICAgOiAnLi9uei10aW1lbGluZS1pdGVtLmNvbXBvbmVudC5odG1sJ1xyXG59KVxyXG5leHBvcnQgY2xhc3MgTnpUaW1lbGluZUl0ZW1Db21wb25lbnQgaW1wbGVtZW50cyBPbkluaXQsIE9uQ2hhbmdlcyB7XHJcbiAgQFZpZXdDaGlsZCgnbGlUZW1wbGF0ZScpIGxpVGVtcGxhdGU6IEVsZW1lbnRSZWY7XHJcbiAgQElucHV0KCkgbnpDb2xvcjogc3RyaW5nID0gJ2JsdWUnO1xyXG4gIEBJbnB1dCgpIG56RG90OiBzdHJpbmcgfCBUZW1wbGF0ZVJlZjx2b2lkPjtcclxuXHJcbiAgaXNMYXN0ID0gZmFsc2U7XHJcbiAgcG9zaXRpb246IE56VGltZWxpbmVNb2RlIHwgdW5kZWZpbmVkO1xyXG5cclxuICBjb25zdHJ1Y3Rvcihwcml2YXRlIHJlbmRlcmVyOiBSZW5kZXJlcjIsIHByaXZhdGUgY2RyOiBDaGFuZ2VEZXRlY3RvclJlZikge31cclxuXHJcbiAgbmdPbkluaXQoKTogdm9pZCB7XHJcbiAgICB0aGlzLnRyeVVwZGF0ZUN1c3RvbUNvbG9yKCk7XHJcbiAgfVxyXG5cclxuICBuZ09uQ2hhbmdlcyhjaGFuZ2VzOiBTaW1wbGVDaGFuZ2VzKTogdm9pZCB7XHJcbiAgICBpZiAoY2hhbmdlcy5uekNvbG9yKSB7XHJcbiAgICAgIHRoaXMudHJ5VXBkYXRlQ3VzdG9tQ29sb3IoKTtcclxuICAgIH1cclxuICB9XHJcblxyXG4gIGRldGVjdENoYW5nZXMoKTogdm9pZCB7XHJcbiAgICB0aGlzLmNkci5kZXRlY3RDaGFuZ2VzKCk7XHJcbiAgfVxyXG5cclxuICBwcml2YXRlIHRyeVVwZGF0ZUN1c3RvbUNvbG9yKCk6IHZvaWQge1xyXG4gICAgY29uc3QgZGVmYXVsdENvbG9ycyA9IFsgJ2JsdWUnLCAncmVkJywgJ2dyZWVuJyBdO1xyXG4gICAgY29uc3QgY2lyY2xlID0gdGhpcy5saVRlbXBsYXRlLm5hdGl2ZUVsZW1lbnQucXVlcnlTZWxlY3RvcignLmFudC10aW1lbGluZS1pdGVtLWhlYWQnKTtcclxuICAgIGlmIChkZWZhdWx0Q29sb3JzLmluZGV4T2YodGhpcy5uekNvbG9yKSA9PT0gLTEpIHtcclxuICAgICAgdGhpcy5yZW5kZXJlci5zZXRTdHlsZShjaXJjbGUsICdib3JkZXItY29sb3InLCB0aGlzLm56Q29sb3IpO1xyXG4gICAgfSBlbHNlIHtcclxuICAgICAgdGhpcy5yZW5kZXJlci5yZW1vdmVTdHlsZShjaXJjbGUsICdib3JkZXItY29sb3InKTtcclxuICAgIH1cclxuICB9XHJcbn1cclxuIl19

@@ -37,13 +37,13 @@ export declare class NzThComponent {
     nzSortKey: string;
     nzFilterMultiple: boolean;
     nzWidth: string;
-    nzCheckedChange: EventEmitter<boolean>;
-    nzSortChange: EventEmitter<string>;
-    nzSortChangeWithKey: EventEmitter<{
+    readonly nzCheckedChange: EventEmitter<boolean>;
+    readonly nzSortChange: EventEmitter<string>;
+    readonly nzSortChangeWithKey: EventEmitter<{
         key: string;
         value: string;
     }>;
-    nzFilterChange: EventEmitter<any>;
+    readonly nzFilterChange: EventEmitter<any>;
     readonly hasActionsClass: boolean;
     readonly hasFiltersClass: boolean;
     readonly hasSortersClass: boolean;

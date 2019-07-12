@@ -1,28 +1,25 @@
 import { AnimationEvent } from '@angular/animations';
-import { AfterViewInit, ElementRef, EventEmitter, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, EventEmitter, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 export declare type TagType = 'default' | 'closeable' | 'checkable';
-export declare class NzTagComponent implements OnInit, AfterViewInit {
+export declare class NzTagComponent implements OnInit, OnChanges, AfterViewInit {
     private renderer;
-    private _color;
-    private _checked;
-    private isPreset;
-    private _mode;
     classMap: any;
     closed: boolean;
-    wrapperElement: ElementRef;
-    nzAfterClose: EventEmitter<void>;
-    nzOnClose: EventEmitter<MouseEvent>;
-    nzCheckedChange: EventEmitter<boolean>;
+    private wrapperElement;
     nzMode: TagType;
     nzColor: string;
     nzChecked: boolean;
-    isPresetColor(color?: string): boolean;
+    readonly nzAfterClose: EventEmitter<void>;
+    readonly nzOnClose: EventEmitter<MouseEvent>;
+    readonly nzCheckedChange: EventEmitter<boolean>;
+    constructor(renderer: Renderer2);
+    private isPresetColor;
+    private updateClassMap;
+    private updateColorStatus;
     updateCheckedStatus(): void;
     closeTag(e: MouseEvent): void;
     afterAnimation(e: AnimationEvent): void;
-    updateClassMap(): void;
-    updateColorStatus(): void;
-    constructor(renderer: Renderer2);
     ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngAfterViewInit(): void;
 }

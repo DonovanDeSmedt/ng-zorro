@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { NzBreadCrumbComponent } from './nz-breadcrumb.component';
 export class NzBreadCrumbItemComponent {
     /**
@@ -14,28 +14,20 @@ export class NzBreadCrumbItemComponent {
 }
 NzBreadCrumbItemComponent.decorators = [
     { type: Component, args: [{
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
                 selector: 'nz-breadcrumb-item',
                 preserveWhitespaces: false,
-                template: `
-    <span class="ant-breadcrumb-link">
-      <ng-content></ng-content>
-    </span>
-    <span class="ant-breadcrumb-separator">
-      <ng-container *ngIf="nzBreadCrumbComponent.isTemplateRef; else stringTemplate">
-        <ng-template [ngTemplateOutlet]="nzBreadCrumbComponent.nzSeparator"></ng-template>
-      </ng-container>
-      <ng-template #stringTemplate>
-         {{ nzBreadCrumbComponent.nzSeparator }}
-      </ng-template>
-    </span>`,
-                styles: [`:host:last-child {
+                template: "<span class=\"ant-breadcrumb-link\">\r\n  <ng-content></ng-content>\r\n</span>\r\n<span class=\"ant-breadcrumb-separator\">\r\n  <ng-container *nzStringTemplateOutlet=\"nzBreadCrumbComponent.nzSeparator\">\r\n    {{ nzBreadCrumbComponent.nzSeparator }}\r\n  </ng-container>\r\n</span>",
+                styles: [`
+    nz-breadcrumb-item:last-child {
       color: rgba(0, 0, 0, 0.65);
     }
 
-    :host:last-child .ant-breadcrumb-separator{
+    nz-breadcrumb-item:last-child .ant-breadcrumb-separator {
       display: none;
     }
-    `]
+  `]
             }] }
 ];
 /** @nocollapse */
@@ -47,4 +39,4 @@ function NzBreadCrumbItemComponent_tsickle_Closure_declarations() {
     NzBreadCrumbItemComponent.prototype.nzBreadCrumbComponent;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotYnJlYWRjcnVtYi1pdGVtLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJicmVhZGNydW1iL256LWJyZWFkY3J1bWItaXRlbS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSxTQUFTLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFFMUMsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sMkJBQTJCLENBQUM7QUE0QmxFLE1BQU07Ozs7SUFDSixZQUFtQixxQkFBNEM7UUFBNUMsMEJBQXFCLEdBQXJCLHFCQUFxQixDQUF1QjtLQUM5RDs7O1lBNUJGLFNBQVMsU0FBQztnQkFDVCxRQUFRLEVBQWEsb0JBQW9CO2dCQUN6QyxtQkFBbUIsRUFBRSxLQUFLO2dCQUMxQixRQUFRLEVBQWE7Ozs7Ozs7Ozs7O1lBV1g7eUJBRU47Ozs7Ozs7S0FPRDthQUVKOzs7O1lBM0JRLHFCQUFxQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5pbXBvcnQgeyBOekJyZWFkQ3J1bWJDb21wb25lbnQgfSBmcm9tICcuL256LWJyZWFkY3J1bWIuY29tcG9uZW50JztcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yICAgICAgICAgICA6ICduei1icmVhZGNydW1iLWl0ZW0nLFxuICBwcmVzZXJ2ZVdoaXRlc3BhY2VzOiBmYWxzZSxcbiAgdGVtcGxhdGUgICAgICAgICAgIDogYFxuICAgIDxzcGFuIGNsYXNzPVwiYW50LWJyZWFkY3J1bWItbGlua1wiPlxuICAgICAgPG5nLWNvbnRlbnQ+PC9uZy1jb250ZW50PlxuICAgIDwvc3Bhbj5cbiAgICA8c3BhbiBjbGFzcz1cImFudC1icmVhZGNydW1iLXNlcGFyYXRvclwiPlxuICAgICAgPG5nLWNvbnRhaW5lciAqbmdJZj1cIm56QnJlYWRDcnVtYkNvbXBvbmVudC5pc1RlbXBsYXRlUmVmOyBlbHNlIHN0cmluZ1RlbXBsYXRlXCI+XG4gICAgICAgIDxuZy10ZW1wbGF0ZSBbbmdUZW1wbGF0ZU91dGxldF09XCJuekJyZWFkQ3J1bWJDb21wb25lbnQubnpTZXBhcmF0b3JcIj48L25nLXRlbXBsYXRlPlxuICAgICAgPC9uZy1jb250YWluZXI+XG4gICAgICA8bmctdGVtcGxhdGUgI3N0cmluZ1RlbXBsYXRlPlxuICAgICAgICAge3sgbnpCcmVhZENydW1iQ29tcG9uZW50Lm56U2VwYXJhdG9yIH19XG4gICAgICA8L25nLXRlbXBsYXRlPlxuICAgIDwvc3Bhbj5gLFxuICBzdHlsZXMgICAgICAgICAgICAgOiBbXG4gICAgICBgOmhvc3Q6bGFzdC1jaGlsZCB7XG4gICAgICBjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjY1KTtcbiAgICB9XG5cbiAgICA6aG9zdDpsYXN0LWNoaWxkIC5hbnQtYnJlYWRjcnVtYi1zZXBhcmF0b3J7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbiAgICBgXG4gIF1cbn0pXG5leHBvcnQgY2xhc3MgTnpCcmVhZENydW1iSXRlbUNvbXBvbmVudCB7XG4gIGNvbnN0cnVjdG9yKHB1YmxpYyBuekJyZWFkQ3J1bWJDb21wb25lbnQ6IE56QnJlYWRDcnVtYkNvbXBvbmVudCkge1xuICB9XG5cbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotYnJlYWRjcnVtYi1pdGVtLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJicmVhZGNydW1iL256LWJyZWFkY3J1bWItaXRlbS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLE9BQU8sRUFBRSx1QkFBdUIsRUFBRSxTQUFTLEVBQWUsaUJBQWlCLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFFbkcsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sMkJBQTJCLENBQUM7QUFrQmxFLE1BQU0sT0FBTyx5QkFBeUI7Ozs7SUFDcEMsWUFBbUIscUJBQTRDO1FBQTVDLDBCQUFxQixHQUFyQixxQkFBcUIsQ0FBdUI7S0FBSzs7O1lBakJyRSxTQUFTLFNBQUM7Z0JBQ1QsZUFBZSxFQUFNLHVCQUF1QixDQUFDLE1BQU07Z0JBQ25ELGFBQWEsRUFBUSxpQkFBaUIsQ0FBQyxJQUFJO2dCQUMzQyxRQUFRLEVBQWEsb0JBQW9CO2dCQUN6QyxtQkFBbUIsRUFBRSxLQUFLO2dCQUMxQix3U0FBd0Q7eUJBQ2pDOzs7Ozs7OztHQVF0QjthQUNGOzs7O1lBakJRLHFCQUFxQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENoYW5nZURldGVjdGlvblN0cmF0ZWd5LCBDb21wb25lbnQsIFRlbXBsYXRlUmVmLCBWaWV3RW5jYXBzdWxhdGlvbiB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5cclxuaW1wb3J0IHsgTnpCcmVhZENydW1iQ29tcG9uZW50IH0gZnJvbSAnLi9uei1icmVhZGNydW1iLmNvbXBvbmVudCc7XHJcblxyXG5AQ29tcG9uZW50KHtcclxuICBjaGFuZ2VEZXRlY3Rpb24gICAgOiBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneS5PblB1c2gsXHJcbiAgZW5jYXBzdWxhdGlvbiAgICAgIDogVmlld0VuY2Fwc3VsYXRpb24uTm9uZSxcclxuICBzZWxlY3RvciAgICAgICAgICAgOiAnbnotYnJlYWRjcnVtYi1pdGVtJyxcclxuICBwcmVzZXJ2ZVdoaXRlc3BhY2VzOiBmYWxzZSxcclxuICB0ZW1wbGF0ZVVybCAgICAgICAgOiAnbnotYnJlYWRjcnVtYi1pdGVtLmNvbXBvbmVudC5odG1sJyxcclxuICBzdHlsZXMgICAgICAgICAgICAgOiBbIGBcclxuICAgIG56LWJyZWFkY3J1bWItaXRlbTpsYXN0LWNoaWxkIHtcclxuICAgICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC42NSk7XHJcbiAgICB9XHJcblxyXG4gICAgbnotYnJlYWRjcnVtYi1pdGVtOmxhc3QtY2hpbGQgLmFudC1icmVhZGNydW1iLXNlcGFyYXRvciB7XHJcbiAgICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgICB9XHJcbiAgYCBdXHJcbn0pXHJcbmV4cG9ydCBjbGFzcyBOekJyZWFkQ3J1bWJJdGVtQ29tcG9uZW50IHtcclxuICBjb25zdHJ1Y3RvcihwdWJsaWMgbnpCcmVhZENydW1iQ29tcG9uZW50OiBOekJyZWFkQ3J1bWJDb21wb25lbnQpIHsgfVxyXG59XHJcbiJdfQ==

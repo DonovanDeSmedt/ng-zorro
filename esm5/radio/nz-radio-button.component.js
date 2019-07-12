@@ -4,41 +4,51 @@
  */
 import * as tslib_1 from "tslib";
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Optional, Renderer2 } from '@angular/core';
-import { NzRadioGroupComponent } from './nz-radio-group.component';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Renderer2, ViewEncapsulation } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NzRadioComponent } from './nz-radio.component';
 var NzRadioButtonComponent = /** @class */ (function (_super) {
     tslib_1.__extends(NzRadioButtonComponent, _super);
     /* tslint:disable-next-line:no-any */
-    function NzRadioButtonComponent(nzRadioGroup, renderer, document) {
-        var _this = _super.call(this, nzRadioGroup, renderer, document) || this;
-        _this.prefixCls = 'ant-radio-button';
-        return _this;
+    function NzRadioButtonComponent(elementRef, renderer, document, cdr, focusMonitor) {
+        return _super.call(this, elementRef, renderer, document, cdr, focusMonitor) || this;
     }
     NzRadioButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: '[nz-radio-button]',
+                    providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(function () { return NzRadioComponent; }),
+                            multi: true
+                        },
+                        {
+                            provide: NzRadioComponent,
+                            useExisting: forwardRef(function () { return NzRadioButtonComponent; })
+                        }
+                    ],
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     preserveWhitespaces: false,
-                    template: "<span [ngClass]=\"classMap\">\n  <input type=\"radio\" #inputElement class=\"ant-radio-button-input\" [disabled]=\"nzDisabled\" [(ngModel)]=\"nzChecked\" (blur)=\"onBlur()\" [attr.name]=\"name\">\n  <span class=\"ant-radio-button-inner\"></span>\n</span>\n<span><ng-content></ng-content></span>",
+                    template: "<span class=\"ant-radio-button\" [class.ant-radio-button-checked]=\"checked\" [class.ant-radio-button-disabled]=\"nzDisabled\">\r\n  <input type=\"radio\" #inputElement class=\"ant-radio-button-input\" [disabled]=\"nzDisabled\" [checked]=\"checked\" [attr.name]=\"name\">\r\n  <span class=\"ant-radio-button-inner\"></span>\r\n</span>\r\n<span><ng-content></ng-content></span>",
                     host: {
                         '[class.ant-radio-button-wrapper]': 'true',
-                        '[class.ant-radio-button-wrapper-checked]': 'nzChecked',
+                        '[class.ant-radio-button-wrapper-checked]': 'checked',
                         '[class.ant-radio-button-wrapper-disabled]': 'nzDisabled'
                     }
                 }] }
     ];
     /** @nocollapse */
     NzRadioButtonComponent.ctorParameters = function () { return [
-        { type: NzRadioGroupComponent, decorators: [{ type: Optional }] },
+        { type: ElementRef },
         { type: Renderer2 },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
     ]; };
     return NzRadioButtonComponent;
 }(NzRadioComponent));
 export { NzRadioButtonComponent };
-function NzRadioButtonComponent_tsickle_Closure_declarations() {
-    /** @type {?} */
-    NzRadioButtonComponent.prototype.prefixCls;
-}
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotcmFkaW8tYnV0dG9uLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJyYWRpby9uei1yYWRpby1idXR0b24uY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBQzNDLE9BQU8sRUFDTCxTQUFTLEVBQ1QsTUFBTSxFQUVOLFFBQVEsRUFDUixTQUFTLEVBQ1YsTUFBTSxlQUFlLENBQUM7QUFFdkIsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sNEJBQTRCLENBQUM7QUFDbkUsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0sc0JBQXNCLENBQUM7O0lBWVosa0RBQWdCO0lBRTFELHFDQUFxQztJQUNyQyxnQ0FBd0IsWUFBbUMsRUFBRSxRQUFtQixFQUFvQixRQUFhO1FBQWpILFlBQ0Usa0JBQU0sWUFBWSxFQUFFLFFBQVEsRUFBRSxRQUFRLENBQUMsU0FDeEM7MEJBSlcsa0JBQWtCOztLQUk3Qjs7Z0JBZkYsU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBYSxtQkFBbUI7b0JBQ3hDLG1CQUFtQixFQUFFLEtBQUs7b0JBQzFCLGtUQUF1RDtvQkFDdkQsSUFBSSxFQUFpQjt3QkFDbkIsa0NBQWtDLEVBQVcsTUFBTTt3QkFDbkQsMENBQTBDLEVBQUcsV0FBVzt3QkFDeEQsMkNBQTJDLEVBQUUsWUFBWTtxQkFDMUQ7aUJBQ0Y7Ozs7Z0JBWlEscUJBQXFCLHVCQWdCZixRQUFRO2dCQW5CckIsU0FBUztnREFtQjBFLE1BQU0sU0FBQyxRQUFROztpQ0F6QnBHO0VBc0I0QyxnQkFBZ0I7U0FBL0Msc0JBQXNCIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRE9DVU1FTlQgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHtcbiAgQ29tcG9uZW50LFxuICBJbmplY3QsXG4gIE9uSW5pdCxcbiAgT3B0aW9uYWwsXG4gIFJlbmRlcmVyMlxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuaW1wb3J0IHsgTnpSYWRpb0dyb3VwQ29tcG9uZW50IH0gZnJvbSAnLi9uei1yYWRpby1ncm91cC5jb21wb25lbnQnO1xuaW1wb3J0IHsgTnpSYWRpb0NvbXBvbmVudCB9IGZyb20gJy4vbnotcmFkaW8uY29tcG9uZW50JztcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yICAgICAgICAgICA6ICdbbnotcmFkaW8tYnV0dG9uXScsXG4gIHByZXNlcnZlV2hpdGVzcGFjZXM6IGZhbHNlLFxuICB0ZW1wbGF0ZVVybCAgICAgICAgOiAnLi9uei1yYWRpby1idXR0b24uY29tcG9uZW50Lmh0bWwnLFxuICBob3N0ICAgICAgICAgICAgICAgOiB7XG4gICAgJ1tjbGFzcy5hbnQtcmFkaW8tYnV0dG9uLXdyYXBwZXJdJyAgICAgICAgIDogJ3RydWUnLFxuICAgICdbY2xhc3MuYW50LXJhZGlvLWJ1dHRvbi13cmFwcGVyLWNoZWNrZWRdJyA6ICduekNoZWNrZWQnLFxuICAgICdbY2xhc3MuYW50LXJhZGlvLWJ1dHRvbi13cmFwcGVyLWRpc2FibGVkXSc6ICduekRpc2FibGVkJ1xuICB9XG59KVxuZXhwb3J0IGNsYXNzIE56UmFkaW9CdXR0b25Db21wb25lbnQgZXh0ZW5kcyBOelJhZGlvQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcbiAgcHJlZml4Q2xzID0gJ2FudC1yYWRpby1idXR0b24nO1xuICAvKiB0c2xpbnQ6ZGlzYWJsZS1uZXh0LWxpbmU6bm8tYW55ICovXG4gIGNvbnN0cnVjdG9yKEBPcHRpb25hbCgpIG56UmFkaW9Hcm91cDogTnpSYWRpb0dyb3VwQ29tcG9uZW50LCByZW5kZXJlcjogUmVuZGVyZXIyLCBASW5qZWN0KERPQ1VNRU5UKSBkb2N1bWVudDogYW55KSB7XG4gICAgc3VwZXIobnpSYWRpb0dyb3VwLCByZW5kZXJlciwgZG9jdW1lbnQpO1xuICB9XG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnotcmFkaW8tYnV0dG9uLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLXpvcnJvLWFudGQvIiwic291cmNlcyI6WyJyYWRpby9uei1yYWRpby1idXR0b24uY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBQzNDLE9BQU8sRUFDTCxVQUFVLEVBQ1YsdUJBQXVCLEVBQ3ZCLGlCQUFpQixFQUNqQixTQUFTLEVBQ1QsVUFBVSxFQUNWLE1BQU0sRUFDTixTQUFTLEVBQ1QsaUJBQWlCLEVBQ2xCLE1BQU0sZUFBZSxDQUFDO0FBRXZCLE9BQU8sRUFBRSxZQUFZLEVBQUUsTUFBTSxtQkFBbUIsQ0FBQztBQUNqRCxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsTUFBTSxnQkFBZ0IsQ0FBQztBQUNuRCxPQUFPLEVBQUUsZ0JBQWdCLEVBQUUsTUFBTSxzQkFBc0IsQ0FBQzs7SUF5Qlosa0RBQWdCO0lBQzFELHFDQUFxQztJQUNyQyxnQ0FBWSxVQUFzQixFQUFFLFFBQW1CLEVBQW9CLFFBQWEsRUFBRSxHQUFzQixFQUFFLFlBQTBCO2VBQzFJLGtCQUFNLFVBQVUsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLEdBQUcsRUFBRSxZQUFZLENBQUM7S0FDekQ7O2dCQTNCRixTQUFTLFNBQUM7b0JBQ1QsUUFBUSxFQUFhLG1CQUFtQjtvQkFDeEMsU0FBUyxFQUFZO3dCQUNuQjs0QkFDRSxPQUFPLEVBQU0saUJBQWlCOzRCQUM5QixXQUFXLEVBQUUsVUFBVSxDQUFDLGNBQU0sT0FBQSxnQkFBZ0IsRUFBaEIsQ0FBZ0IsQ0FBQzs0QkFDL0MsS0FBSyxFQUFRLElBQUk7eUJBQ2xCO3dCQUNEOzRCQUNFLE9BQU8sRUFBTSxnQkFBZ0I7NEJBQzdCLFdBQVcsRUFBRSxVQUFVLENBQUMsY0FBTSxPQUFBLHNCQUFzQixFQUF0QixDQUFzQixDQUFDO3lCQUN0RDtxQkFDRjtvQkFDRCxhQUFhLEVBQVEsaUJBQWlCLENBQUMsSUFBSTtvQkFDM0MsZUFBZSxFQUFNLHVCQUF1QixDQUFDLE1BQU07b0JBQ25ELG1CQUFtQixFQUFFLEtBQUs7b0JBQzFCLG9ZQUF1RDtvQkFDdkQsSUFBSSxFQUFpQjt3QkFDbkIsa0NBQWtDLEVBQVcsTUFBTTt3QkFDbkQsMENBQTBDLEVBQUcsU0FBUzt3QkFDdEQsMkNBQTJDLEVBQUUsWUFBWTtxQkFDMUQ7aUJBQ0Y7Ozs7Z0JBaENDLFVBQVU7Z0JBRVYsU0FBUztnREFpQ2lELE1BQU0sU0FBQyxRQUFRO2dCQXJDekUsaUJBQWlCO2dCQVFWLFlBQVk7O2lDQVpyQjtFQXVDNEMsZ0JBQWdCO1NBQS9DLHNCQUFzQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IERPQ1VNRU5UIH0gZnJvbSAnQGFuZ3VsYXIvY29tbW9uJztcclxuaW1wb3J0IHtcclxuICBmb3J3YXJkUmVmLFxyXG4gIENoYW5nZURldGVjdGlvblN0cmF0ZWd5LFxyXG4gIENoYW5nZURldGVjdG9yUmVmLFxyXG4gIENvbXBvbmVudCxcclxuICBFbGVtZW50UmVmLFxyXG4gIEluamVjdCxcclxuICBSZW5kZXJlcjIsXHJcbiAgVmlld0VuY2Fwc3VsYXRpb25cclxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuXHJcbmltcG9ydCB7IEZvY3VzTW9uaXRvciB9IGZyb20gJ0Bhbmd1bGFyL2Nkay9hMTF5JztcclxuaW1wb3J0IHsgTkdfVkFMVUVfQUNDRVNTT1IgfSBmcm9tICdAYW5ndWxhci9mb3Jtcyc7XHJcbmltcG9ydCB7IE56UmFkaW9Db21wb25lbnQgfSBmcm9tICcuL256LXJhZGlvLmNvbXBvbmVudCc7XHJcblxyXG5AQ29tcG9uZW50KHtcclxuICBzZWxlY3RvciAgICAgICAgICAgOiAnW256LXJhZGlvLWJ1dHRvbl0nLFxyXG4gIHByb3ZpZGVycyAgICAgICAgICA6IFtcclxuICAgIHtcclxuICAgICAgcHJvdmlkZSAgICA6IE5HX1ZBTFVFX0FDQ0VTU09SLFxyXG4gICAgICB1c2VFeGlzdGluZzogZm9yd2FyZFJlZigoKSA9PiBOelJhZGlvQ29tcG9uZW50KSxcclxuICAgICAgbXVsdGkgICAgICA6IHRydWVcclxuICAgIH0sXHJcbiAgICB7XHJcbiAgICAgIHByb3ZpZGUgICAgOiBOelJhZGlvQ29tcG9uZW50LFxyXG4gICAgICB1c2VFeGlzdGluZzogZm9yd2FyZFJlZigoKSA9PiBOelJhZGlvQnV0dG9uQ29tcG9uZW50KVxyXG4gICAgfVxyXG4gIF0sXHJcbiAgZW5jYXBzdWxhdGlvbiAgICAgIDogVmlld0VuY2Fwc3VsYXRpb24uTm9uZSxcclxuICBjaGFuZ2VEZXRlY3Rpb24gICAgOiBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneS5PblB1c2gsXHJcbiAgcHJlc2VydmVXaGl0ZXNwYWNlczogZmFsc2UsXHJcbiAgdGVtcGxhdGVVcmwgICAgICAgIDogJy4vbnotcmFkaW8tYnV0dG9uLmNvbXBvbmVudC5odG1sJyxcclxuICBob3N0ICAgICAgICAgICAgICAgOiB7XHJcbiAgICAnW2NsYXNzLmFudC1yYWRpby1idXR0b24td3JhcHBlcl0nICAgICAgICAgOiAndHJ1ZScsXHJcbiAgICAnW2NsYXNzLmFudC1yYWRpby1idXR0b24td3JhcHBlci1jaGVja2VkXScgOiAnY2hlY2tlZCcsXHJcbiAgICAnW2NsYXNzLmFudC1yYWRpby1idXR0b24td3JhcHBlci1kaXNhYmxlZF0nOiAnbnpEaXNhYmxlZCdcclxuICB9XHJcbn0pXHJcbmV4cG9ydCBjbGFzcyBOelJhZGlvQnV0dG9uQ29tcG9uZW50IGV4dGVuZHMgTnpSYWRpb0NvbXBvbmVudCB7XHJcbiAgLyogdHNsaW50OmRpc2FibGUtbmV4dC1saW5lOm5vLWFueSAqL1xyXG4gIGNvbnN0cnVjdG9yKGVsZW1lbnRSZWY6IEVsZW1lbnRSZWYsIHJlbmRlcmVyOiBSZW5kZXJlcjIsIEBJbmplY3QoRE9DVU1FTlQpIGRvY3VtZW50OiBhbnksIGNkcjogQ2hhbmdlRGV0ZWN0b3JSZWYsIGZvY3VzTW9uaXRvcjogRm9jdXNNb25pdG9yKSB7XHJcbiAgICBzdXBlcihlbGVtZW50UmVmLCByZW5kZXJlciwgZG9jdW1lbnQsIGNkciwgZm9jdXNNb25pdG9yKTtcclxuICB9XHJcbn1cclxuIl19

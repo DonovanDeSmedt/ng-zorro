@@ -1,7 +1,7 @@
 /** get some code from https://github.com/angular/material2 */
-import { AfterContentChecked, AfterViewInit, ElementRef, EventEmitter, OnInit, Renderer2, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzSizeLDSType } from '../core/types/size';
 import { NzTabComponent } from './nz-tab.component';
 import { NzTabsNavComponent } from './nz-tabs-nav.component';
 export interface NzAnimatedInterface {
@@ -15,51 +15,53 @@ export declare class NzTabChangeEvent {
 export declare type NzTabPosition = 'top' | 'bottom' | 'left' | 'right';
 export declare type NzTabPositionMode = 'horizontal' | 'vertical';
 export declare type NzTabType = 'line' | 'card';
-export declare class NzTabSetComponent implements AfterContentChecked, OnInit, AfterViewInit {
+export declare class NzTabSetComponent implements AfterContentChecked, OnInit, AfterViewInit, OnChanges, AfterContentInit, OnDestroy {
     private renderer;
     private nzUpdateHostClassService;
     private elementRef;
+    private cdr;
     private document;
-    private _tabPosition;
-    private _indexToSelect;
+    private indexToSelect;
+    private el;
     private _selectedIndex;
-    private _type;
-    private _size;
-    private _animated;
-    el: HTMLElement;
-    prefixCls: string;
+    /** Subscription to tabs being added/removed. */
+    private tabsSubscription;
+    /** Subscription to changes in the tab labels. */
+    private tabLabelSubscription;
     tabPositionMode: NzTabPositionMode;
-    inkBarAnimated: boolean;
-    tabPaneAnimated: boolean;
-    isViewInit: boolean;
-    listOfNzTabComponent: NzTabComponent[];
-    nzTabBarExtraContent: TemplateRef<void>;
+    listOfNzTabComponent: QueryList<NzTabComponent>;
     nzTabsNavComponent: NzTabsNavComponent;
     tabContent: ElementRef;
+    nzTabBarExtraContent: TemplateRef<void>;
     nzShowPagination: boolean;
+    nzAnimated: NzAnimatedInterface | boolean;
     nzHideAll: boolean;
+    nzTabPosition: NzTabPosition;
+    nzSize: NzSizeLDSType;
     nzTabBarGutter: number;
     nzTabBarStyle: {
         [key: string]: string;
     };
-    nzOnNextClick: EventEmitter<void>;
-    nzOnPrevClick: EventEmitter<void>;
-    nzAnimated: NzAnimatedInterface | boolean;
-    nzSelectedIndex: number | null;
-    readonly nzSelectedIndexChange: Observable<number>;
-    nzSelectChange: EventEmitter<NzTabChangeEvent>;
-    nzSize: string;
-    nzTabPosition: NzTabPosition;
     nzType: NzTabType;
+    readonly nzOnNextClick: EventEmitter<void>;
+    readonly nzOnPrevClick: EventEmitter<void>;
+    readonly nzSelectChange: EventEmitter<NzTabChangeEvent>;
+    readonly nzSelectedIndexChange: EventEmitter<number>;
+    nzSelectedIndex: number | null;
+    readonly inkBarAnimated: boolean;
+    readonly tabPaneAnimated: boolean;
     setPosition(value: NzTabPosition): void;
     setClassMap(): void;
     clickLabel(index: number, disabled: boolean): void;
+    createChangeEvent(index: number): NzTabChangeEvent;
+    /** Clamps the given index to the bounds of 0 and the tabs length. */
+    private clampTabIndex;
+    private subscribeToTabLabels;
+    constructor(renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, cdr: ChangeDetectorRef, document: any);
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
     ngAfterContentChecked(): void;
-    createChangeEvent(index: number): NzTabChangeEvent;
-    addTab(value: NzTabComponent): void;
-    removeTab(value: NzTabComponent): void;
-    onScroll($event: Event): void;
-    constructor(renderer: Renderer2, nzUpdateHostClassService: NzUpdateHostClassService, elementRef: ElementRef, document: any);
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     ngAfterViewInit(): void;
 }

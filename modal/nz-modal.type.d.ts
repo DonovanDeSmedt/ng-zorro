@@ -16,6 +16,7 @@ export interface ModalOptions<T = any, R = any> {
     nzContent?: string | TemplateRef<{}> | Type<T>;
     nzComponentParams?: Partial<T>;
     nzClosable?: boolean;
+    nzKeyboard?: boolean;
     nzMask?: boolean;
     nzMaskClosable?: boolean;
     nzMaskStyle?: object;

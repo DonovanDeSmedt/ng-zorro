@@ -42,6 +42,7 @@ export interface ZipButtonOptions {
     accept?: string | string[];
     action?: string;
     directory?: boolean;
+    openFileDialogOnClick?: boolean;
     beforeUpload?: (file: UploadFile, fileList: UploadFile[]) => boolean | Observable<any>;
     customRequest?: (item: any) => Subscription;
     data?: {} | ((file: UploadFile) => {});
@@ -57,7 +58,7 @@ export interface ZipButtonOptions {
 }
 export interface UploadFilter {
     name: string;
-    fn: (fileList: UploadFile[]) => UploadFile[];
+    fn: (fileList: UploadFile[]) => UploadFile[] | Observable<UploadFile[]>;
 }
 export interface UploadXHRArgs {
     action?: string;

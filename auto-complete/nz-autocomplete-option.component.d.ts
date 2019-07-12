@@ -7,25 +7,22 @@ export declare class NzOptionSelectionChange {
 export declare class NzAutocompleteOptionComponent {
     private changeDetectorRef;
     private element;
-    private disabled;
-    active: boolean;
-    selected: boolean;
     nzValue: any;
     nzLabel: string;
     nzDisabled: boolean;
-    selectionChange: EventEmitter<NzOptionSelectionChange>;
+    readonly selectionChange: EventEmitter<NzOptionSelectionChange>;
+    active: boolean;
+    selected: boolean;
     constructor(changeDetectorRef: ChangeDetectorRef, element: ElementRef);
-    /** 选择 */
     select(): void;
-    /** 取消选择 */
     deselect(): void;
-    /** 获取用于显示的 label */
+    /** Git display label */
     getLabel(): string;
-    /** 设置激活样式 (仅限样式) */
+    /** Set active (only styles) */
     setActiveStyles(): void;
-    /** 设置非激活样式 (仅限样式) */
+    /** Unset active (only styles) */
     setInactiveStyles(): void;
     scrollIntoViewIfNeeded(): void;
-    private emitSelectionChangeEvent;
     selectViaInteraction(): void;
+    private emitSelectionChangeEvent;
 }
