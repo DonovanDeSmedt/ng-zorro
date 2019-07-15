@@ -5055,6 +5055,12 @@ class NzOptionContainerComponent {
     /**
      * @return {?}
      */
+    formatIdUl() {
+        return `${this.idClass}-list`;
+    }
+    /**
+     * @return {?}
+     */
     get nzListOfSelectedValue() {
         return this._listOfSelectedValue;
     }

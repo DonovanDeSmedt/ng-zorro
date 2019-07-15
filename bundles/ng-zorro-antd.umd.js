@@ -6090,6 +6090,15 @@
         /**
          * @return {?}
          */
+        NzOptionContainerComponent.prototype.formatIdUl = /**
+         * @return {?}
+         */
+            function () {
+                return this.idClass + "-list";
+            };
+        /**
+         * @return {?}
+         */
         NzOptionContainerComponent.prototype.addTagOption = /**
          * @return {?}
          */

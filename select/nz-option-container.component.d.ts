@@ -34,6 +34,7 @@ export declare class NzOptionContainerComponent implements AfterContentInit, OnD
     nzListOfSelectedValue: any[];
     formatId(option: string): string;
     formatIdLi(option: NzOptionComponent): string;
+    formatIdUl(): string;
     addTagOption(): void;
     clickOption(option: NzOptionComponent, isPressEnter: boolean): void;
     onKeyDownUl(e: KeyboardEvent): void;
