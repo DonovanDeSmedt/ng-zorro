@@ -5,6 +5,7 @@ export declare class NzOptionComponent {
     template: TemplateRef<void>;
     nzLabel: string;
     nzValue: any;
+    idClass: string;
     nzDisabled: boolean;
     nzCustomContent: boolean;
 }

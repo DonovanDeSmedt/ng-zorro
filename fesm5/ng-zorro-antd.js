@@ -1,7 +1,6 @@
 import { IconService, IconDirective } from '@ant-design/icons-angular';
-import { CalendarOutline, CheckCircleFill, CheckCircleOutline, CheckOutline, ClockCircleOutline, CloseCircleFill, CloseCircleOutline, CloseOutline, DoubleLeftOutline, DoubleRightOutline, DownOutline, ExclamationCircleFill, ExclamationCircleOutline, FilterFill, InfoCircleFill, InfoCircleOutline, LeftOutline, LoadingOutline, PaperClipOutline, QuestionCircleOutline, RightOutline, UploadOutline, UpOutline } from '@ant-design/icons-angular/icons';
+import { BarsOutline, CalendarOutline, CaretDownFill, CaretDownOutline, CheckCircleFill, CheckCircleOutline, CheckOutline, ClockCircleOutline, CloseCircleFill, CloseCircleOutline, CloseOutline, DoubleLeftOutline, DoubleRightOutline, DownOutline, EllipsisOutline, ExclamationCircleFill, ExclamationCircleOutline, EyeOutline, FileFill, FileOutline, FilterFill, InfoCircleFill, InfoCircleOutline, LeftOutline, LoadingOutline, PaperClipOutline, QuestionCircleOutline, RightOutline, SearchOutline, UploadOutline, UpOutline } from '@ant-design/icons-angular/icons';
 import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import parse from 'date-fns/parse';
 import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberProperty } from '@angular/cdk/coercion';
 import addDays from 'date-fns/add_days';
@@ -17,26 +16,29 @@ import setYear from 'date-fns/set_year';
 import startOfMonth from 'date-fns/start_of_month';
 import startOfWeek from 'date-fns/start_of_week';
 import startOfYear from 'date-fns/start_of_year';
+import { DomSanitizer } from '@angular/platform-browser';
 import addMonths from 'date-fns/add_months';
 import addYears from 'date-fns/add_years';
 import endOfMonth from 'date-fns/end_of_month';
 import setDay from 'date-fns/set_day';
 import setMonth from 'date-fns/set_month';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { MediaMatcher, LayoutModule } from '@angular/cdk/layout';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
 import { Directionality } from '@angular/cdk/bidi';
-import { NG_VALUE_ACCESSOR, FormsModule, NgControl, NgModel, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule, NgControl, FormControl, FormControlName } from '@angular/forms';
+import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW, SPACE, LEFT_ARROW, RIGHT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
+export { MAC_ENTER, BACKSPACE, TAB, NUM_CENTER, ENTER, SHIFT, CONTROL, ALT, PAUSE, CAPS_LOCK, ESCAPE, SPACE, PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, PLUS_SIGN, PRINT_SCREEN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, FF_SEMICOLON, FF_EQUALS, QUESTION_MARK, AT_SIGN, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, META, MAC_WK_CMD_LEFT, MAC_WK_CMD_RIGHT, CONTEXT_MENU, NUMPAD_ZERO, NUMPAD_ONE, NUMPAD_TWO, NUMPAD_THREE, NUMPAD_FOUR, NUMPAD_FIVE, NUMPAD_SIX, NUMPAD_SEVEN, NUMPAD_EIGHT, NUMPAD_NINE, NUMPAD_MULTIPLY, NUMPAD_PLUS, NUMPAD_MINUS, NUMPAD_PERIOD, NUMPAD_DIVIDE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, NUM_LOCK, SCROLL_LOCK, FIRST_MEDIA, FF_MINUS, MUTE, VOLUME_DOWN, VOLUME_UP, FF_MUTE, FF_VOLUME_DOWN, LAST_MEDIA, FF_VOLUME_UP, SEMICOLON, EQUALS, COMMA, DASH, SLASH, APOSTROPHE, TILDE, OPEN_SQUARE_BRACKET, BACKSLASH, CLOSE_SQUARE_BRACKET, SINGLE_QUOTE, MAC_META, hasModifierKey } from '@angular/cdk/keycodes';
 import { HttpBackend, HttpRequest, HttpHeaders, HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { fromEvent, defer, merge, Subject, BehaviorSubject, combineLatest, of, Observable, ReplaySubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, throttleTime, filter, switchMap, take, delay, distinct, map, takeUntil, debounceTime, mapTo, auditTime, pluck, tap, startWith } from 'rxjs/operators';
+import { fromEvent, defer, merge, Subscription, Subject, BehaviorSubject, combineLatest, of, ReplaySubject, Observable } from 'rxjs';
+import { distinctUntilChanged, throttleTime, filter, switchMap, take, delay, distinct, map, takeUntil, startWith, auditTime, debounceTime, mapTo, pluck, tap } from 'rxjs/operators';
 import { ConnectionPositionPair, Overlay, OverlayConfig, OverlayModule, CdkConnectedOverlay, CdkOverlayOrigin, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule, DatePipe } from '@angular/common';
 import { __assign, __decorate, __metadata, __spread, __values, __extends, __read } from 'tslib';
-import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW, SPACE, LEFT_ARROW, RIGHT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
-export { MAC_ENTER, BACKSPACE, TAB, NUM_CENTER, ENTER, SHIFT, CONTROL, ALT, PAUSE, CAPS_LOCK, ESCAPE, SPACE, PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW, PLUS_SIGN, PRINT_SCREEN, INSERT, DELETE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, FF_SEMICOLON, FF_EQUALS, QUESTION_MARK, AT_SIGN, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, META, MAC_WK_CMD_LEFT, MAC_WK_CMD_RIGHT, CONTEXT_MENU, NUMPAD_ZERO, NUMPAD_ONE, NUMPAD_TWO, NUMPAD_THREE, NUMPAD_FOUR, NUMPAD_FIVE, NUMPAD_SIX, NUMPAD_SEVEN, NUMPAD_EIGHT, NUMPAD_NINE, NUMPAD_MULTIPLY, NUMPAD_PLUS, NUMPAD_MINUS, NUMPAD_PERIOD, NUMPAD_DIVIDE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, NUM_LOCK, SCROLL_LOCK, FIRST_MEDIA, FF_MINUS, MUTE, VOLUME_DOWN, VOLUME_UP, FF_MUTE, FF_VOLUME_DOWN, LAST_MEDIA, FF_VOLUME_UP, SEMICOLON, EQUALS, COMMA, DASH, SLASH, APOSTROPHE, TILDE, OPEN_SQUARE_BRACKET, BACKSLASH, CLOSE_SQUARE_BRACKET, SINGLE_QUOTE, MAC_META } from '@angular/cdk/keycodes';
-import { Inject, Injectable, Optional, SkipSelf, TemplateRef, Type, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild, NgModule, isDevMode, InjectionToken, RendererFactory2, ContentChild, HostBinding, NgZone, Renderer2, ContentChildren, Directive, forwardRef, HostListener, Pipe, Self, Host, ComponentFactoryResolver, ViewContainerRef, IterableDiffers, Version, ViewChildren, Injector, defineInjectable, inject, ApplicationRef, INJECTOR, SimpleChange } from '@angular/core';
+import { Inject, Injectable, Optional, SkipSelf, TemplateRef, Type, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation, NgModule, Directive, ViewContainerRef, InjectionToken, RendererFactory2, ContentChild, HostBinding, Renderer2, ContentChildren, NgZone, SecurityContext, HostListener, Pipe, Self, forwardRef, Host, ComponentFactoryResolver, Version, ViewChildren, Injector, defineInjectable, inject, ApplicationRef, INJECTOR, SimpleChange } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -56,7 +58,9 @@ function requestAnimationFramePolyfill() {
         /** @type {?} */
         var timeToCall = Math.max(0, 16 - (currTime - lastTime));
         /** @type {?} */
-        var id = window.setTimeout(function () { callback(currTime + timeToCall); }, timeToCall);
+        var id = window.setTimeout(function () {
+            callback(currTime + timeToCall);
+        }, timeToCall);
         lastTime = currTime + timeToCall;
         return id;
     };
@@ -445,6 +449,46 @@ function valueFunctionProp(prop) {
     return typeof prop === 'function' ? prop.apply(void 0, __spread(args)) : prop;
 }
 /**
+ * @template T, D
+ * @param {?} name
+ * @param {?} fallback
+ * @return {?}
+ */
+function propDecoratorFactory(name, fallback) {
+    /**
+     * @param {?} target
+     * @param {?} propName
+     * @return {?}
+     */
+    function propDecorator(target, propName) {
+        /** @type {?} */
+        var privatePropName = "$$__" + propName;
+        if (Object.prototype.hasOwnProperty.call(target, privatePropName)) {
+            console.warn("The prop \"" + privatePropName + "\" is already exist, it will be overrided by " + name + " decorator.");
+        }
+        Object.defineProperty(target, privatePropName, {
+            configurable: true,
+            writable: true
+        });
+        Object.defineProperty(target, propName, {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this[privatePropName]; // tslint:disable-line:no-invalid-this
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this[privatePropName] = fallback(value); // tslint:disable-line:no-invalid-this
+            }
+        });
+    }
+    return propDecorator;
+}
+/**
  * Input decorator that handle a prop to do get/set automatically with toBoolean
  *
  * Why not using \@InputBoolean alone without \@Input? AOT needs \@Input to be visible
@@ -462,36 +506,15 @@ function valueFunctionProp(prop) {
  * @return {?}
  */
 function InputBoolean() {
-    // tslint:disable-line:no-any
-    return function InputBooleanPropDecorator(target, name) {
-        /** @type {?} */
-        var privatePropName = "$$__" + name;
-        if (Object.prototype.hasOwnProperty.call(target, privatePropName)) {
-            console.warn("The prop \"" + privatePropName + "\" is already exist, it will be overrided by InputBoolean decorator.");
-        }
-        Object.defineProperty(target, privatePropName, {
-            configurable: true,
-            writable: true
-        });
-        Object.defineProperty(target, name, {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this[privatePropName]; // tslint:disable-line:no-invalid-this
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this[privatePropName] = toBoolean(value); // tslint:disable-line:no-invalid-this
-            }
-        });
-        // // Do rest things for input decorator
-        // const inputDecorator = Input();
-        // inputDecorator(target, name);
-    };
+    // tslint:disable-line: no-any
+    return propDecoratorFactory('InputBoolean', toBoolean);
+}
+/**
+ * @return {?}
+ */
+function InputCssPixel() {
+    // tslint:disable-line: no-any
+    return propDecoratorFactory('InputCssPixel', toCssPixel);
 }
 
 /**
@@ -548,11 +571,11 @@ function throttleByAnimationFrameDecorator() {
                 Object.defineProperty(this, key, {
                     value: boundFn,
                     configurable: true,
-                    writable: true,
+                    writable: true
                 });
                 definingProperty = false;
                 return boundFn;
-            },
+            }
         };
     };
 }
@@ -562,10 +585,13 @@ function throttleByAnimationFrameDecorator() {
  * @suppress {checkTypes} checked by tsc
  */
 var NzAffixComponent = /** @class */ (function () {
-    function NzAffixComponent(scrollSrv, _el, cd) {
+    // tslint:disable-next-line:no-any
+    function NzAffixComponent(scrollSrv, _el, doc, cd) {
         this.scrollSrv = scrollSrv;
         this._el = _el;
+        this.doc = doc;
         this.cd = cd;
+        this.nzChange = new EventEmitter();
         this.events = [
             'resize',
             'scroll',
@@ -576,7 +602,6 @@ var NzAffixComponent = /** @class */ (function () {
             'load'
         ];
         this._target = window;
-        this.nzChange = new EventEmitter();
     }
     Object.defineProperty(NzAffixComponent.prototype, "nzTarget", {
         set: /**
@@ -585,7 +610,7 @@ var NzAffixComponent = /** @class */ (function () {
          */
         function (value) {
             this.clearEventListeners();
-            this._target = value || window;
+            this._target = typeof value === 'string' ? this.doc.querySelector(value) : value || window;
             this.setTargetEventListeners();
             this.updatePosition({});
         },
@@ -642,6 +667,50 @@ var NzAffixComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    NzAffixComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.clearEventListeners();
+        clearTimeout(this.timeout);
+        // tslint:disable-next-line:no-any
+        (/** @type {?} */ (this.updatePosition)).cancel();
+    };
+    /**
+     * @param {?} element
+     * @param {?} target
+     * @return {?}
+     */
+    NzAffixComponent.prototype.getOffset = /**
+     * @param {?} element
+     * @param {?} target
+     * @return {?}
+     */
+    function (element, target) {
+        /** @type {?} */
+        var elemRect = element.getBoundingClientRect();
+        /** @type {?} */
+        var targetRect = this.getTargetRect(target);
+        /** @type {?} */
+        var scrollTop = this.scrollSrv.getScroll(target, true);
+        /** @type {?} */
+        var scrollLeft = this.scrollSrv.getScroll(target, false);
+        /** @type {?} */
+        var docElem = this.doc.body;
+        /** @type {?} */
+        var clientTop = docElem.clientTop || 0;
+        /** @type {?} */
+        var clientLeft = docElem.clientLeft || 0;
+        return {
+            top: elemRect.top - targetRect.top + scrollTop - clientTop,
+            left: elemRect.left - targetRect.left + scrollLeft - clientLeft,
+            width: elemRect.width,
+            height: elemRect.height
+        };
+    };
+    /**
+     * @return {?}
+     */
     NzAffixComponent.prototype.setTargetEventListeners = /**
      * @return {?}
      */
@@ -665,17 +734,6 @@ var NzAffixComponent = /** @class */ (function () {
         });
     };
     /**
-     * @return {?}
-     */
-    NzAffixComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.clearEventListeners();
-        clearTimeout(this.timeout);
-        (/** @type {?} */ (this.updatePosition)).cancel();
-    };
-    /**
      * @param {?} target
      * @return {?}
      */
@@ -686,38 +744,6 @@ var NzAffixComponent = /** @class */ (function () {
     function (target) {
         return target !== window ?
             (/** @type {?} */ (target)).getBoundingClientRect() : /** @type {?} */ ({ top: 0, left: 0, bottom: 0 });
-    };
-    /**
-     * @param {?} element
-     * @param {?} target
-     * @return {?}
-     */
-    NzAffixComponent.prototype.getOffset = /**
-     * @param {?} element
-     * @param {?} target
-     * @return {?}
-     */
-    function (element, target) {
-        /** @type {?} */
-        var elemRect = element.getBoundingClientRect();
-        /** @type {?} */
-        var targetRect = this.getTargetRect(target);
-        /** @type {?} */
-        var scrollTop = this.scrollSrv.getScroll(target, true);
-        /** @type {?} */
-        var scrollLeft = this.scrollSrv.getScroll(target, false);
-        /** @type {?} */
-        var docElem = window.document.body;
-        /** @type {?} */
-        var clientTop = docElem.clientTop || 0;
-        /** @type {?} */
-        var clientLeft = docElem.clientLeft || 0;
-        return {
-            top: elemRect.top - targetRect.top + scrollTop - clientTop,
-            left: elemRect.left - targetRect.left + scrollLeft - clientLeft,
-            width: elemRect.width,
-            height: elemRect.height
-        };
     };
     /**
      * @param {?} affixStyle
@@ -797,6 +823,7 @@ var NzAffixComponent = /** @class */ (function () {
      * @param {?} e
      * @return {?}
      */
+    // tslint:disable-next-line:no-any
     NzAffixComponent.prototype.updatePosition = /**
      * @param {?} e
      * @return {?}
@@ -884,24 +911,28 @@ var NzAffixComponent = /** @class */ (function () {
                     selector: 'nz-affix',
                     template: "<div #wrap>\n  <ng-content></ng-content>\n</div>",
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    styles: [":host {\n      display: block;\n    }"]
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["\n    nz-affix {\n      display: block;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
     NzAffixComponent.ctorParameters = function () { return [
         { type: NzScrollService },
         { type: ElementRef },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: ChangeDetectorRef }
     ]; };
     NzAffixComponent.propDecorators = {
-        wrap: [{ type: ViewChild, args: ['wrap',] }],
         nzTarget: [{ type: Input }],
         nzOffsetTop: [{ type: Input }],
         nzOffsetBottom: [{ type: Input }],
-        nzChange: [{ type: Output }]
+        nzChange: [{ type: Output }],
+        wrap: [{ type: ViewChild, args: ['wrap',] }]
     };
     __decorate([
-        throttleByAnimationFrameDecorator(),
+        throttleByAnimationFrameDecorator()
+        // tslint:disable-next-line:no-any
+        ,
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
@@ -931,6 +962,97 @@ var NzAffixModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var NzStringTemplateOutletDirective = /** @class */ (function () {
+    function NzStringTemplateOutletDirective(viewContainer, defaultTemplate) {
+        this.viewContainer = viewContainer;
+        this.defaultTemplate = defaultTemplate;
+        this.inputTemplate = null;
+        this.inputViewRef = null;
+        this.defaultViewRef = null;
+    }
+    Object.defineProperty(NzStringTemplateOutletDirective.prototype, "nzStringTemplateOutlet", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value instanceof TemplateRef) {
+                this.isTemplate = true;
+                this.inputTemplate = value;
+            }
+            else {
+                this.isTemplate = false;
+            }
+            this.updateView();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    NzStringTemplateOutletDirective.prototype.updateView = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.isTemplate) {
+            /** use default template when input is string **/
+            if (!this.defaultViewRef) {
+                this.viewContainer.clear();
+                this.inputViewRef = null;
+                if (this.defaultTemplate) {
+                    this.defaultViewRef = this.viewContainer.createEmbeddedView(this.defaultTemplate);
+                }
+            }
+        }
+        else {
+            /** use input template when input is templateRef **/
+            if (!this.inputViewRef) {
+                this.viewContainer.clear();
+                this.defaultViewRef = null;
+                if (this.inputTemplate) {
+                    this.inputViewRef = this.viewContainer.createEmbeddedView(this.inputTemplate);
+                }
+            }
+        }
+    };
+    NzStringTemplateOutletDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[nzStringTemplateOutlet]'
+                },] }
+    ];
+    /** @nocollapse */
+    NzStringTemplateOutletDirective.ctorParameters = function () { return [
+        { type: ViewContainerRef },
+        { type: TemplateRef }
+    ]; };
+    NzStringTemplateOutletDirective.propDecorators = {
+        nzStringTemplateOutlet: [{ type: Input }]
+    };
+    return NzStringTemplateOutletDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzAddOnModule = /** @class */ (function () {
+    function NzAddOnModule() {
+    }
+    NzAddOnModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    exports: [NzStringTemplateOutletDirective],
+                    declarations: [NzStringTemplateOutletDirective]
+                },] }
+    ];
+    return NzAddOnModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -942,68 +1064,94 @@ var NZ_ICONS$$1 = new InjectionToken('nz_icons');
 var NZ_ICON_DEFAULT_TWOTONE_COLOR$$1 = new InjectionToken('nz_icon_default_twotone_color');
 /** @type {?} */
 var DEFAULT_TWOTONE_COLOR$$1 = '#1890ff';
+/** @type {?} */
+var NZ_ICONS_USED_BY_ZORRO$$1 = [
+    BarsOutline,
+    CalendarOutline,
+    CaretDownFill,
+    CaretDownOutline,
+    CheckCircleFill,
+    CheckCircleOutline,
+    CheckOutline,
+    ClockCircleOutline,
+    CloseCircleOutline,
+    CloseCircleFill,
+    CloseOutline,
+    DoubleLeftOutline,
+    DoubleRightOutline,
+    DownOutline,
+    EllipsisOutline,
+    ExclamationCircleFill,
+    ExclamationCircleOutline,
+    EyeOutline,
+    FileFill,
+    FileOutline,
+    FilterFill,
+    InfoCircleFill,
+    InfoCircleOutline,
+    LeftOutline,
+    LoadingOutline,
+    PaperClipOutline,
+    QuestionCircleOutline,
+    RightOutline,
+    SearchOutline,
+    UploadOutline,
+    UpOutline
+];
 /**
  * It should be a global singleton, otherwise registered icons could not be found.
  */
 var NzIconService$$1 = /** @class */ (function (_super) {
     __extends(NzIconService$$1, _super);
-    // tslint:disable:no-any
-    function NzIconService$$1(_rendererFactory, _handler, _document, _icons, _defaultColor) {
-        var _this = _super.call(this, _rendererFactory, _handler, _document) || this;
-        _this._rendererFactory = _rendererFactory;
-        _this._handler = _handler;
-        _this._document = _document;
-        _this._icons = _icons;
-        _this._defaultColor = _defaultColor;
-        _this._iconfontCache = new Set();
+    function NzIconService$$1(rendererFactory, handler, 
+    // tslint:disable-next-line:no-any
+    document, icons, defaultColor) {
+        var _this = _super.call(this, rendererFactory, handler, document) || this;
+        _this.rendererFactory = rendererFactory;
+        _this.handler = handler;
+        _this.document = document;
+        _this.icons = icons;
+        _this.defaultColor = defaultColor;
+        _this.iconfontCache = new Set();
         _this.warnedAboutAPI = false;
         _this.warnedAboutCross = false;
         _this.warnedAboutVertical = false;
-        /** @type {?} */
-        var iconsUsedByZorro = [
-            CalendarOutline,
-            CheckCircleFill,
-            CheckCircleOutline,
-            CheckOutline,
-            ClockCircleOutline,
-            CloseCircleOutline,
-            CloseCircleFill,
-            CloseOutline,
-            DoubleLeftOutline,
-            DoubleRightOutline,
-            DownOutline,
-            ExclamationCircleFill,
-            ExclamationCircleOutline,
-            FilterFill,
-            InfoCircleFill,
-            InfoCircleOutline,
-            LeftOutline,
-            LoadingOutline,
-            PaperClipOutline,
-            QuestionCircleOutline,
-            RightOutline,
-            UploadOutline,
-            UpOutline
-        ];
-        _this.addIcon.apply(_this, __spread(iconsUsedByZorro));
-        if (_this._icons) {
-            _this.addIcon.apply(_this, __spread(_this._icons));
-        }
+        _this.addIcon.apply(_this, __spread(NZ_ICONS_USED_BY_ZORRO$$1, (_this.icons || [])));
         /** @type {?} */
         var primaryColor = DEFAULT_TWOTONE_COLOR$$1;
-        if (_this._defaultColor) {
-            if (_this._defaultColor.startsWith('#')) {
-                primaryColor = _this._defaultColor;
+        if (_this.defaultColor) {
+            if (_this.defaultColor.startsWith('#')) {
+                primaryColor = _this.defaultColor;
             }
             else {
-                if (isDevMode()) {
-                    console.error('[NG-ZORRO] twotone color must be a hex color!');
-                }
+                console.warn('[NG-ZORRO]: twotone color must be a hex color!');
             }
         }
         _this.twoToneColor = { primaryColor: primaryColor };
         return _this;
     }
+    /**
+     * @param {?} type
+     * @return {?}
+     */
+    NzIconService$$1.prototype.warnAPI = /**
+     * @param {?} type
+     * @return {?}
+     */
+    function (type) {
+        if (type === 'old' && !this.warnedAboutAPI) {
+            console.warn("<i class=\"anticon\"></i> would be deprecated soon. Please use <i nz-icon type=\"\"></i> API.");
+            this.warnedAboutAPI = true;
+        }
+        if (type === 'cross' && !this.warnedAboutCross) {
+            console.warn("'cross' icon is replaced by 'close' icon.");
+            this.warnedAboutCross = true;
+        }
+        if (type === 'vertical' && !this.warnedAboutVertical) {
+            console.warn("'verticle' is misspelled, would be corrected in the next major version.");
+            this.warnedAboutVertical = true;
+        }
+    };
     /**
      * @param {?} svg
      * @return {?}
@@ -1034,13 +1182,13 @@ var NzIconService$$1 = /** @class */ (function (_super) {
      */
     function (opt) {
         var scriptUrl = opt.scriptUrl;
-        if (this._document && !this._iconfontCache.has(scriptUrl)) {
+        if (this.document && !this.iconfontCache.has(scriptUrl)) {
             /** @type {?} */
             var script = this._renderer.createElement('script');
             this._renderer.setAttribute(script, 'src', scriptUrl);
             this._renderer.setAttribute(script, 'data-namespace', scriptUrl.replace(/^(https?|http):/g, ''));
-            this._iconfontCache.add(scriptUrl);
-            this._renderer.appendChild(this._document.body, script);
+            this._renderer.appendChild(this.document.body, script);
+            this.iconfontCache.add(scriptUrl);
         }
     };
     /**
@@ -1077,6 +1225,19 @@ var NzIconService$$1 = /** @class */ (function (_super) {
  */
 /** @type {?} */
 var iconTypeRE = /^anticon\-\w/;
+/** @type {?} */
+var getIconTypeClass = function (className) {
+    if (!className) {
+        return undefined;
+    }
+    else {
+        /** @type {?} */
+        var classArr = className.split(/\s/);
+        /** @type {?} */
+        var index = classArr.findIndex((function (cls) { return cls !== 'anticon' && cls !== 'anticon-spin' && !!cls.match(iconTypeRE); }));
+        return index === -1 ? undefined : { name: classArr[index], index: index };
+    }
+};
 /**
  * This directive extends IconDirective to provide:
  *
@@ -1086,79 +1247,68 @@ var iconTypeRE = /^anticon\-\w/;
  */
 var NzIconDirective = /** @class */ (function (_super) {
     __extends(NzIconDirective, _super);
-    function NzIconDirective(_iconService, _elementRef, _renderer) {
-        var _this = _super.call(this, _iconService, _elementRef, _renderer) || this;
-        _this._iconService = _iconService;
-        _this._elementRef = _elementRef;
-        _this._renderer = _renderer;
+    function NzIconDirective(iconService, elementRef, renderer) {
+        var _this = _super.call(this, iconService, elementRef, renderer) || this;
+        _this.iconService = iconService;
+        _this.elementRef = elementRef;
+        _this.renderer = renderer;
         _this.spin = false;
+        _this.el = _this.elementRef.nativeElement;
         return _this;
     }
     /**
-     * In order to make this directive compatible to old API, we had do some ugly stuff here.
-     * TODO: Should be removed in next major version.
+     * Replacement of `changeIcon` for more modifications.
+     * @param {?=} oldAPI
+     * @return {?}
+     */
+    NzIconDirective.prototype.changeIcon2 = /**
+     * Replacement of `changeIcon` for more modifications.
+     * @param {?=} oldAPI
+     * @return {?}
+     */
+    function (oldAPI) {
+        var _this = this;
+        if (oldAPI === void 0) { oldAPI = false; }
+        if (!oldAPI) {
+            this.setClassName();
+        }
+        this._changeIcon().then(function (svg) {
+            _this.setSVGData(svg);
+            if (!oldAPI) {
+                _this.toggleSpin(svg);
+            }
+        }).catch(function (err) {
+            if (err) {
+                console.error(err);
+                console.warn('[NG-ZORRO]', "You can find more about this error on http://ng.ant.design/components/icon/en");
+            }
+        });
+    };
+    /**
      * @param {?} className
      * @return {?}
      */
-    NzIconDirective.prototype._classChangeHandler = /**
-     * In order to make this directive compatible to old API, we had do some ugly stuff here.
-     * TODO: Should be removed in next major version.
+    NzIconDirective.prototype.classChangeHandler = /**
      * @param {?} className
      * @return {?}
      */
     function (className) {
-        if (className) {
+        /** @type {?} */
+        var ret = getIconTypeClass(className);
+        if (ret) {
             /** @type {?} */
-            var iconType = className
-                .split(/\s/)
-                .filter(function (cls) { return cls !== 'anticon' && cls !== 'anticon-spin' && !!cls.match(iconTypeRE); })[0];
-            if (!iconType) {
-                return;
+            var type = ret.name.replace('anticon-', '');
+            if (type.includes('verticle')) {
+                type = type.replace('verticle', 'vertical');
+                this.iconService.warnAPI('cross');
             }
-            /** @type {?} */
-            var parsedIconType = iconType.replace('anticon-', '');
-            if (parsedIconType.includes('verticle')) {
-                parsedIconType = parsedIconType.replace('verticle', 'vertical');
-                this._warnAPI('cross');
+            if (type.startsWith('cross')) {
+                type = type.replace('cross', 'close');
+                this.iconService.warnAPI('vertical');
             }
-            if (parsedIconType.startsWith('cross')) {
-                parsedIconType = parsedIconType.replace('cross', 'close');
-                this._warnAPI('vertical');
-            }
-            // Only change icon when icon type does change.
-            if (this.type !== parsedIconType) {
-                this.type = parsedIconType;
-                this._changeIcon().catch(function (err) {
-                    console.warn('[NG-ZORRO]', "You can find more about this error on http://ng.ant.design/components/icon/en\n", err);
-                });
-            }
-        }
-    };
-    /**
-     * In order to make this directive compatible to old API, we had do some ugly stuff here.
-     * TODO: Should be removed in next major version.
-     * @param {?} type
-     * @return {?}
-     */
-    NzIconDirective.prototype._warnAPI = /**
-     * In order to make this directive compatible to old API, we had do some ugly stuff here.
-     * TODO: Should be removed in next major version.
-     * @param {?} type
-     * @return {?}
-     */
-    function (type) {
-        if (isDevMode()) {
-            if (type === 'old' && !this._iconService.warnedAboutAPI) {
-                console.warn('[NG-ZORRO]', "<i class=\"anticon\"></i> would be deprecated soon. Please use <i nz-icon type=\"\"></i> API.");
-                this._iconService.warnedAboutAPI = true;
-            }
-            if (type === 'cross' && !this._iconService.warnedAboutCross) {
-                console.warn('[NG-ZORRO]', "'cross' icon is replaced by 'close' icon.");
-                this._iconService.warnedAboutCross = true;
-            }
-            if (type === 'vertical' && !this._iconService.warnedAboutVertical) {
-                console.warn('[NG-ZORRO]', "'verticle' is misspelled, would be corrected in the next major version.");
-                this._iconService.warnedAboutVertical = true;
+            if (this.type !== type) {
+                this.type = type;
+                this.changeIcon2(true);
             }
         }
     };
@@ -1166,38 +1316,36 @@ var NzIconDirective = /** @class */ (function (_super) {
      * @param {?} svg
      * @return {?}
      */
-    NzIconDirective.prototype._toggleSpin = /**
+    NzIconDirective.prototype.toggleSpin = /**
      * @param {?} svg
      * @return {?}
      */
     function (svg) {
-        if ((this.spin || this.type === 'loading') && !this._el.classList.contains('anticon-spin')) {
-            this._renderer.addClass(svg, 'anticon-spin');
+        if ((this.spin || this.type === 'loading') && !this.elementRef.nativeElement.classList.contains('anticon-spin')) {
+            this.renderer.addClass(svg, 'anticon-spin');
         }
         else {
-            this._renderer.removeClass(svg, 'anticon-spin');
+            this.renderer.removeClass(svg, 'anticon-spin');
         }
     };
     /**
      * @return {?}
      */
-    NzIconDirective.prototype._setClassName = /**
+    NzIconDirective.prototype.setClassName = /**
      * @return {?}
      */
     function () {
-        // If there's not an anticon class, usually a new API icon, get the icon class name back.
-        // anticon should be added before other class names.
-        if (this._el && typeof this.type === 'string') {
+        if (typeof this.type === 'string') {
             /** @type {?} */
-            var iconClassNameArr = this._el.className.split(/\s/);
+            var iconClassNameArr = this.el.className.split(/\s/);
             /** @type {?} */
-            var oldTypeNameIndex = iconClassNameArr.findIndex(function (cls) { return cls !== 'anticon' && cls !== 'anticon-spin' && !!cls.match(iconTypeRE); });
-            if (oldTypeNameIndex !== -1) {
-                iconClassNameArr.splice(oldTypeNameIndex, 1, "anticon-" + this.type);
-                this._renderer.setAttribute(this._el, 'class', iconClassNameArr.join(' '));
+            var ret = getIconTypeClass(this.el.className);
+            if (ret) {
+                iconClassNameArr.splice(ret.index, 1, "anticon-" + this.type);
+                this.renderer.setAttribute(this.el, 'class', iconClassNameArr.join(' '));
             }
             else {
-                this._renderer.addClass(this._el, "anticon-" + this.type);
+                this.renderer.addClass(this.el, "anticon-" + this.type);
             }
         }
     };
@@ -1205,27 +1353,15 @@ var NzIconDirective = /** @class */ (function (_super) {
      * @param {?} svg
      * @return {?}
      */
-    NzIconDirective.prototype._setSVGData = /**
+    NzIconDirective.prototype.setSVGData = /**
      * @param {?} svg
      * @return {?}
      */
     function (svg) {
         if (typeof this.type === 'string') {
-            this._renderer.setAttribute(svg, 'data-icon', this.type);
-            this._renderer.setAttribute(svg, 'aria-hidden', 'true');
+            this.renderer.setAttribute(svg, 'data-icon', this.type);
+            this.renderer.setAttribute(svg, 'aria-hidden', 'true');
         }
-    };
-    /**
-     * @param {?} svg
-     * @return {?}
-     */
-    NzIconDirective.prototype._addExtraModifications = /**
-     * @param {?} svg
-     * @return {?}
-     */
-    function (svg) {
-        this._toggleSpin(svg);
-        this._setSVGData(svg);
     };
     /**
      * @return {?}
@@ -1234,54 +1370,37 @@ var NzIconDirective = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         if (!this.iconfont) {
-            // For ant design icons.
-            this._setClassName();
-            this._changeIcon().then(function (svg) {
-                _this._addExtraModifications(svg);
-            }).catch(function (err) {
-                if (err) {
-                    console.error(err);
-                    console.warn('[NG-ZORRO]', "You can find more about this error on http://ng.ant.design/components/icon/en");
-                }
-            });
+            this.changeIcon2();
         }
         else {
-            // For iconfont icons.
-            this._setSVGElement(this._iconService.createIconfontIcon("#" + this.iconfont));
+            this._setSVGElement(this.iconService.createIconfontIcon("#" + this.iconfont));
         }
     };
     /**
-     * Subscribe to DOM element attribute change events, so when user use ngClass or something the icon changes with it.
-     */
-    /**
-     * Subscribe to DOM element attribute change events, so when user use ngClass or something the icon changes with it.
      * @return {?}
      */
     NzIconDirective.prototype.ngOnInit = /**
-     * Subscribe to DOM element attribute change events, so when user use ngClass or something the icon changes with it.
      * @return {?}
      */
     function () {
         var _this = this;
-        this._el = this._elementRef.nativeElement;
-        // Make the component compatible to old class="anticon" API.
-        if (this._el && !this.type) {
-            this._warnAPI('old');
-            this._classChangeHandler(this._el.className);
-            this._classNameObserver = new MutationObserver(function (mutations) {
+        // If `this.type` is not specified and `classList` contains `anticon`, it should be an icon using old API.
+        if (!this.type && this.el.classList.contains('anticon')) {
+            this.iconService.warnAPI('old');
+            // Get `type` from `className`. If not, initial rendering would be missed.
+            this.classChangeHandler(this.el.className);
+            // Add `class` mutation observer.
+            this.classNameObserver = new MutationObserver(function (mutations) {
                 mutations
                     .filter(function (mutation) { return mutation.attributeName === 'class'; })
-                    .forEach(function (mutation) { return _this._classChangeHandler((/** @type {?} */ (mutation.target)).className); });
+                    .forEach(function (mutation) { return _this.classChangeHandler((/** @type {?} */ (mutation.target)).className); });
             });
-            this._classNameObserver.observe(this._elementRef.nativeElement, { attributes: true });
+            this.classNameObserver.observe(this.el, { attributes: true });
         }
-        if (!this._el.classList.contains('anticon')) {
-            this._renderer.setAttribute(this._el, 'class', "anticon " + this._el.className);
-        }
-        if (this.type) {
-            this._setClassName();
+        // If `classList` does not contain `anticon`, add it before other class names.
+        if (!this.el.classList.contains('anticon')) {
+            this.renderer.setAttribute(this.el, 'class', ("anticon " + this.el.className).trim());
         }
     };
     /**
@@ -1291,26 +1410,34 @@ var NzIconDirective = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._classNameObserver) {
-            this._classNameObserver.disconnect();
+        if (this.classNameObserver) {
+            this.classNameObserver.disconnect();
         }
     };
     /**
-     * If custom content is provided, should try to normalize the svg element.
+     * If custom content is provided, try to normalize SVG elements.
      */
     /**
-     * If custom content is provided, should try to normalize the svg element.
+     * If custom content is provided, try to normalize SVG elements.
      * @return {?}
      */
     NzIconDirective.prototype.ngAfterContentChecked = /**
-     * If custom content is provided, should try to normalize the svg element.
+     * If custom content is provided, try to normalize SVG elements.
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var children = (/** @type {?} */ (this._elementRef.nativeElement)).children;
-        if (children && children.length && !this.type) {
-            this._iconService.normalizeSvgElement(/** @type {?} */ (children[0]));
+        var children = this.el.children;
+        /** @type {?} */
+        var length = children.length;
+        if (!this.type && children.length) {
+            while (length--) {
+                /** @type {?} */
+                var child = children[length];
+                if (child.tagName.toLowerCase() === 'svg') {
+                    this.iconService.normalizeSvgElement(/** @type {?} */ (child));
+                }
+            }
         }
     };
     NzIconDirective.decorators = [
@@ -1366,152 +1493,17 @@ var fadeAnimation = trigger('fadeAnimation', [
  */
 var NzAlertComponent = /** @class */ (function () {
     function NzAlertComponent() {
-        this._banner = false;
-        this._closeable = false;
-        this._showIcon = false;
-        this._type = 'info';
         this.display = true;
         this.isTypeSet = false;
         this.isShowIconSet = false;
-        this.prefixClass = 'ant-alert';
+        this.iconType = 'info-circle';
+        this.iconTheme = 'fill';
         this.nzOnClose = new EventEmitter();
+        this.nzCloseable = false;
+        this.nzShowIcon = false;
+        this.nzBanner = false;
+        this.nzType = 'info';
     }
-    Object.defineProperty(NzAlertComponent.prototype, "nzDescription", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._description;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isDescriptionString = !(value instanceof TemplateRef);
-            this._description = value;
-            this.updateOuterClassMap();
-            this.updateIconClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzCloseText", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._closeText;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isCloseTextString = !(value instanceof TemplateRef);
-            this._closeText = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzMessage", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._message;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isMessageString = !(value instanceof TemplateRef);
-            this._message = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzType", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._type;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._type = value;
-            this.isTypeSet = true;
-            this.updateOuterClassMap();
-            this.updateIconClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzBanner", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._banner;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._banner = toBoolean(value);
-            if (!this.isTypeSet) {
-                this.nzType = 'warning';
-            }
-            if (!this.isShowIconSet) {
-                this.nzShowIcon = true;
-            }
-            this.updateOuterClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzCloseable", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._closeable;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._closeable = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAlertComponent.prototype, "nzShowIcon", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showIcon;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showIcon = toBoolean(value);
-            this.isShowIconSet = true;
-            this.updateOuterClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -1535,74 +1527,92 @@ var NzAlertComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzAlertComponent.prototype.updateOuterClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this.outerClassMap = (_a = {},
-            _a["" + this.prefixClass] = true,
-            _a[this.prefixClass + "-" + this.nzType] = true,
-            _a[this.prefixClass + "-no-icon"] = !this.nzShowIcon,
-            _a[this.prefixClass + "-banner"] = this.nzBanner,
-            _a[this.prefixClass + "-with-description"] = !!this.nzDescription,
-            _a);
-    };
-    /**
-     * @return {?}
-     */
     NzAlertComponent.prototype.updateIconClassMap = /**
      * @return {?}
      */
     function () {
-        var _this = this;
-        /** @type {?} */
-        var iconType = {
-            'close-circle-o': this.nzDescription && this.nzType === 'error',
-            'check-circle-o': this.nzDescription && this.nzType === 'success',
-            'info-circle-o': this.nzDescription && this.nzType === 'info',
-            'exclamation-circle-o': this.nzDescription && this.nzType === 'warning',
-            'close-circle-fill': (!this.nzDescription) && this.nzType === 'error',
-            'check-circle-fill': (!this.nzDescription) && this.nzType === 'success',
-            'info-circle-fill': (!this.nzDescription) && this.nzType === 'info',
-            'exclamation-circle-fill': (!this.nzDescription) && this.nzType === 'warning'
-        };
-        Object.keys(iconType).forEach(function (key) {
-            if (iconType[key]) {
-                _this.iconType = key;
-            }
-        });
+        switch (this.nzType) {
+            case 'error':
+                this.iconType = 'close-circle';
+                break;
+            case 'success':
+                this.iconType = 'check-circle';
+                break;
+            case 'info':
+                this.iconType = 'info-circle';
+                break;
+            case 'warning':
+                this.iconType = 'exclamation-circle';
+                break;
+        }
+        if (this.nzDescription) {
+            this.iconTheme = 'outline';
+        }
+        else {
+            this.iconTheme = "fill";
+        }
     };
     /**
+     * @param {?} changes
      * @return {?}
      */
-    NzAlertComponent.prototype.ngOnInit = /**
+    NzAlertComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function () {
-        this.updateIconClassMap();
-        this.updateOuterClassMap();
+    function (changes) {
+        if (changes["nzShowIcon"]) {
+            this.isShowIconSet = true;
+        }
+        if (changes["nzDescription"] || changes["nzType"]) {
+            this.updateIconClassMap();
+        }
+        if (changes["nzType"]) {
+            this.isTypeSet = true;
+        }
+        if (changes["nzBanner"]) {
+            if (!this.isTypeSet) {
+                this.nzType = 'warning';
+            }
+            if (!this.isShowIconSet) {
+                this.nzShowIcon = true;
+            }
+        }
     };
     NzAlertComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-alert',
                     animations: [fadeAnimation],
+                    template: "<div *ngIf=\"display\"\n  class=\"ant-alert\"\n  [class.ant-alert-success]=\"nzType === 'success'\"\n  [class.ant-alert-info]=\"nzType === 'info'\"\n  [class.ant-alert-warning]=\"nzType === 'warning'\"\n  [class.ant-alert-error]=\"nzType === 'error'\"\n  [class.ant-alert-no-icon]=\"!nzShowIcon\"\n  [class.ant-alert-banner]=\"nzBanner\"\n  [class.ant-alert-with-description]=\"!!nzDescription\"\n  [@fadeAnimation]\n  (@fadeAnimation.done)=\"onFadeAnimationDone()\">\n  <ng-container *ngIf=\"nzShowIcon\">\n    <i class=\"ant-alert-icon\" [ngClass]=\"nzIconType\" *ngIf=\"nzIconType; else iconTemplate\"></i>\n    <ng-template #iconTemplate>\n      <i nz-icon class=\"ant-alert-icon\" [type]=\"iconType\" [theme]=\"iconTheme\"></i>\n    </ng-template>\n  </ng-container>\n  <span class=\"ant-alert-message\" *ngIf=\"nzMessage\">\n    <ng-container *nzStringTemplateOutlet=\"nzMessage\">{{ nzMessage }}</ng-container>\n  </span>\n  <span class=\"ant-alert-description\" *ngIf=\"nzDescription\">\n    <ng-container *nzStringTemplateOutlet=\"nzDescription\">{{ nzDescription }}</ng-container>\n  </span>\n  <a *ngIf=\"nzCloseable || nzCloseText\"\n    class=\"ant-alert-close-icon\"\n    (click)=\"closeAlert()\">\n    <ng-template #closeDefaultTemplate>\n      <i nz-icon type=\"close\" class=\"anticon-close\"></i>\n    </ng-template>\n    <ng-container *ngIf=\"nzCloseText; else closeDefaultTemplate\">\n      <ng-container *nzStringTemplateOutlet=\"nzCloseText\">{{ nzCloseText }}</ng-container>\n    </ng-container>\n  </a>\n</div>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    template: "<div [ngClass]=\"outerClassMap\" *ngIf=\"display\" [@fadeAnimation] (@fadeAnimation.done)=\"onFadeAnimationDone()\">\n  <ng-container *ngIf=\"nzShowIcon\">\n    <i class=\"ant-alert-icon\" [ngClass]=\"nzIconType\" *ngIf=\"nzIconType; else iconTemplate\"></i>\n    <ng-template #iconTemplate>\n      <i nz-icon class=\"ant-alert-icon\" [type]=\"iconType\"></i>\n    </ng-template>\n  </ng-container>\n  <span class=\"ant-alert-message\" *ngIf=\"nzMessage\">\n    <ng-container *ngIf=\"isMessageString; else messageTemplate\">{{ nzMessage }}</ng-container>\n    <ng-template #messageTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzMessage\"></ng-template>\n    </ng-template>\n  </span>\n  <span class=\"ant-alert-description\" *ngIf=\"nzDescription\">\n    <ng-container *ngIf=\"isDescriptionString; else descriptionTemplate\">{{ nzDescription }}</ng-container>\n    <ng-template #descriptionTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzDescription\"></ng-template>\n    </ng-template>\n  </span>\n  <a\n    *ngIf=\"nzCloseable || nzCloseText\"\n    (click)=\"closeAlert()\"\n    class=\"ant-alert-close-icon\">\n    <ng-template #closeDefaultTemplate>\n      <i nz-icon type=\"close\" class=\"anticon-close\"></i>\n    </ng-template>\n    <ng-container *ngIf=\"nzCloseText; else closeDefaultTemplate\">\n      <ng-container *ngIf=\"isCloseTextString; else closeTextTemplate\">{{ nzCloseText }}</ng-container>\n      <ng-template #closeTextTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzCloseText\"></ng-template>\n      </ng-template>\n    </ng-container>\n  </a>\n</div>",
-                    styles: [":host {\n      display: block;\n    }"]
+                    styles: ["nz-alert {\n      display: block;\n    }"]
                 }] }
     ];
     NzAlertComponent.propDecorators = {
         nzOnClose: [{ type: Output }],
-        nzIconType: [{ type: Input }],
-        nzDescription: [{ type: Input }],
-        nzCloseText: [{ type: Input }],
-        nzMessage: [{ type: Input }],
-        nzType: [{ type: Input }],
-        nzBanner: [{ type: Input }],
         nzCloseable: [{ type: Input }],
-        nzShowIcon: [{ type: Input }]
+        nzShowIcon: [{ type: Input }],
+        nzBanner: [{ type: Input }],
+        nzCloseText: [{ type: Input }],
+        nzIconType: [{ type: Input }],
+        nzMessage: [{ type: Input }],
+        nzDescription: [{ type: Input }],
+        nzType: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAlertComponent.prototype, "nzCloseable", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAlertComponent.prototype, "nzShowIcon", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAlertComponent.prototype, "nzBanner", void 0);
     return NzAlertComponent;
 }());
 
@@ -1617,7 +1627,7 @@ var NzAlertModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzAlertComponent],
                     exports: [NzAlertComponent],
-                    imports: [CommonModule, NzIconModule]
+                    imports: [CommonModule, NzIconModule, NzAddOnModule]
                 },] }
     ];
     return NzAlertModule;
@@ -1725,7 +1735,7 @@ var NzAnchorComponent = /** @class */ (function () {
          * @return {?}
          */
         function (el) {
-            this.target = el;
+            this.target = typeof el === 'string' ? this.doc.querySelector(el) : el;
             this.registerScrollEvent();
         },
         enumerable: true,
@@ -1789,8 +1799,9 @@ var NzAnchorComponent = /** @class */ (function () {
     function () {
         var _this = this;
         this.removeListen();
-        this.scroll$ = fromEvent(this.getTarget(), 'scroll').pipe(throttleTime(50), distinctUntilChanged())
-            .subscribe(function (e) { return _this.handleScroll(); });
+        this.scroll$ = fromEvent(this.getTarget(), 'scroll')
+            .pipe(throttleTime(50), distinctUntilChanged())
+            .subscribe(function () { return _this.handleScroll(); });
         // 由于页面刷新时滚动条位置的记忆
         // 倒置在dom未渲染完成，导致计算不正确
         setTimeout(function () { return _this.handleScroll(); });
@@ -1875,7 +1886,10 @@ var NzAnchorComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.links.forEach(function (i) { return i.active = false; });
+        this.links.forEach(function (i) {
+            i.active = false;
+            i.markForCheck();
+        });
     };
     /**
      * @param {?} comp
@@ -1888,10 +1902,11 @@ var NzAnchorComponent = /** @class */ (function () {
     function (comp) {
         this.clearActive();
         comp.active = true;
-        this.cd.detectChanges();
+        comp.markForCheck();
         /** @type {?} */
         var linkNode = /** @type {?} */ ((/** @type {?} */ (comp.el.nativeElement)).querySelector('.ant-anchor-link-title'));
         this.ink.nativeElement.style.top = linkNode.offsetTop + linkNode.clientHeight / 2 - 4.5 + "px";
+        this.cd.detectChanges();
         this.nzScroll.emit(comp);
     };
     /**
@@ -1926,7 +1941,8 @@ var NzAnchorComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-anchor',
                     preserveWhitespaces: false,
-                    template: "<nz-affix *ngIf=\"nzAffix;else content\" [nzOffsetTop]=\"nzOffsetTop\">\n  <ng-template [ngTemplateOutlet]=\"content\"></ng-template>\n</nz-affix>\n<ng-template #content>\n  <div class=\"ant-anchor-wrapper\" #wrap [ngStyle]=\"wrapperStyle\">\n    <div class=\"ant-anchor\" [ngClass]=\"{'fixed': !nzAffix && !nzShowInkInFixed}\">\n      <div class=\"ant-anchor-ink\">\n        <div class=\"ant-anchor-ink-ball\" [class.visible]=\"visible\" #ink></div>\n      </div>\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>",
+                    template: "<nz-affix *ngIf=\"nzAffix;else content\" [nzOffsetTop]=\"nzOffsetTop\">\n  <ng-template [ngTemplateOutlet]=\"content\"></ng-template>\n</nz-affix>\n<ng-template #content>\n  <div class=\"ant-anchor-wrapper\" [ngStyle]=\"wrapperStyle\">\n    <div class=\"ant-anchor\" [ngClass]=\"{'fixed': !nzAffix && !nzShowInkInFixed}\">\n      <div class=\"ant-anchor-ink\">\n        <div class=\"ant-anchor-ink-ball\" [class.visible]=\"visible\" #ink></div>\n      </div>\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>",
+                    encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
@@ -1937,7 +1953,6 @@ var NzAnchorComponent = /** @class */ (function () {
         { type: ChangeDetectorRef }
     ]; };
     NzAnchorComponent.propDecorators = {
-        wrap: [{ type: ViewChild, args: ['wrap',] }],
         ink: [{ type: ViewChild, args: ['ink',] }],
         nzAffix: [{ type: Input }],
         nzBounds: [{ type: Input }],
@@ -1955,9 +1970,10 @@ var NzAnchorComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzAnchorLinkComponent = /** @class */ (function () {
-    function NzAnchorLinkComponent(el, anchorComp) {
+    function NzAnchorLinkComponent(el, anchorComp, cdr) {
         this.el = el;
         this.anchorComp = anchorComp;
+        this.cdr = cdr;
         this.nzHref = '#';
         this.titleStr = '';
         this.active = false;
@@ -1969,6 +1985,7 @@ var NzAnchorLinkComponent = /** @class */ (function () {
          */
         function (value) {
             if (value instanceof TemplateRef) {
+                this.titleStr = null;
                 this.titleTpl = value;
             }
             else {
@@ -2003,6 +2020,15 @@ var NzAnchorLinkComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    NzAnchorLinkComponent.prototype.markForCheck = /**
+     * @return {?}
+     */
+    function () {
+        this.cdr.markForCheck();
+    };
+    /**
+     * @return {?}
+     */
     NzAnchorLinkComponent.prototype.ngOnDestroy = /**
      * @return {?}
      */
@@ -2015,15 +2041,18 @@ var NzAnchorLinkComponent = /** @class */ (function () {
                     preserveWhitespaces: false,
                     template: "<a (click)=\"goToClick($event)\" href=\"{{nzHref}}\" class=\"ant-anchor-link-title\" title=\"{{titleStr}}\">\n  <span *ngIf=\"titleStr; else (titleTpl || nzTemplate)\">{{ titleStr }}</span>\n</a>\n<ng-content></ng-content>",
                     host: {
-                        '[class.ant-anchor-link]': 'true',
-                        'style': 'display:block'
-                    }
+                        '[class.ant-anchor-link]': 'true'
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    styles: ["\n    nz-link {\n      display: block;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
     NzAnchorLinkComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: NzAnchorComponent }
+        { type: NzAnchorComponent },
+        { type: ChangeDetectorRef }
     ]; };
     NzAnchorLinkComponent.propDecorators = {
         nzHref: [{ type: Input }],
@@ -2059,32 +2088,13 @@ var NzAnchorModule = /** @class */ (function () {
 var NzAutocompleteOptgroupComponent = /** @class */ (function () {
     function NzAutocompleteOptgroupComponent() {
     }
-    Object.defineProperty(NzAutocompleteOptgroupComponent.prototype, "nzLabel", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._label;
-        },
-        /** group 的 label，支持 'string' 和 `TemplateRef` */
-        set: /**
-         * group 的 label，支持 'string' 和 `TemplateRef`
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isLabelString = !(value instanceof TemplateRef);
-            this._label = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzAutocompleteOptgroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-auto-optgroup',
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    template: "<div class=\"ant-select-dropdown-menu-item-group-title\">\n  <ng-container *ngIf=\"isLabelString; else labelTemplate\">{{nzLabel}}</ng-container>\n  <ng-template #labelTemplate>\n    <ng-template [ngTemplateOutlet]=\"nzLabel\"></ng-template>\n  </ng-template>\n</div>\n<ul class=\"ant-select-dropdown-menu-item-group-list\">\n  <ng-content select=\"nz-auto-option\"></ng-content>\n</ul>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<div class=\"ant-select-dropdown-menu-item-group-title\">\n  <ng-container *nzStringTemplateOutlet=\"nzLabel\">{{nzLabel}}</ng-container>\n</div>\n<ul class=\"ant-select-dropdown-menu-item-group-list\">\n  <ng-content select=\"nz-auto-option\"></ng-content>\n</ul>\n",
                     host: {
                         'role': 'group',
                         'class': 'ant-select-dropdown-menu-item-group'
@@ -2103,6 +2113,28 @@ var NzAutocompleteOptgroupComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function scrollIntoView(node) {
+    // Non-standard
+    /* tslint:disable-next-line:no-string-literal */
+    if (node['scrollIntoViewIfNeeded']) {
+        /* tslint:disable-next-line:no-string-literal */
+        node['scrollIntoViewIfNeeded'](false);
+        return;
+    }
+    if (node.scrollIntoView) {
+        node.scrollIntoView(false);
+        return;
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NzOptionSelectionChange = /** @class */ (function () {
     function NzOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
@@ -2115,35 +2147,15 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
     function NzAutocompleteOptionComponent(changeDetectorRef, element) {
         this.changeDetectorRef = changeDetectorRef;
         this.element = element;
-        this.disabled = false;
+        this.nzDisabled = false;
+        this.selectionChange = new EventEmitter();
         this.active = false;
         this.selected = false;
-        this.selectionChange = new EventEmitter();
     }
-    Object.defineProperty(NzAutocompleteOptionComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /** 选择 */
     /**
-     * 选择
      * @return {?}
      */
     NzAutocompleteOptionComponent.prototype.select = /**
-     * 选择
      * @return {?}
      */
     function () {
@@ -2151,13 +2163,10 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
         this.changeDetectorRef.markForCheck();
         this.emitSelectionChangeEvent();
     };
-    /** 取消选择 */
     /**
-     * 取消选择
      * @return {?}
      */
     NzAutocompleteOptionComponent.prototype.deselect = /**
-     * 取消选择
      * @return {?}
      */
     function () {
@@ -2165,25 +2174,25 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
         this.changeDetectorRef.markForCheck();
         this.emitSelectionChangeEvent();
     };
-    /** 获取用于显示的 label */
+    /** Git display label */
     /**
-     * 获取用于显示的 label
+     * Git display label
      * @return {?}
      */
     NzAutocompleteOptionComponent.prototype.getLabel = /**
-     * 获取用于显示的 label
+     * Git display label
      * @return {?}
      */
     function () {
         return this.nzLabel || this.nzValue.toString();
     };
-    /** 设置激活样式 (仅限样式) */
+    /** Set active (only styles) */
     /**
-     * 设置激活样式 (仅限样式)
+     * Set active (only styles)
      * @return {?}
      */
     NzAutocompleteOptionComponent.prototype.setActiveStyles = /**
-     * 设置激活样式 (仅限样式)
+     * Set active (only styles)
      * @return {?}
      */
     function () {
@@ -2192,13 +2201,13 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
             this.changeDetectorRef.markForCheck();
         }
     };
-    /** 设置非激活样式 (仅限样式) */
+    /** Unset active (only styles) */
     /**
-     * 设置非激活样式 (仅限样式)
+     * Unset active (only styles)
      * @return {?}
      */
     NzAutocompleteOptionComponent.prototype.setInactiveStyles = /**
-     * 设置非激活样式 (仅限样式)
+     * Unset active (only styles)
      * @return {?}
      */
     function () {
@@ -2214,11 +2223,25 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
-        /* tslint:disable-next-line:no-string-literal */
-        if (this.element.nativeElement && this.element.nativeElement['scrollIntoViewIfNeeded']) {
-            /* tslint:disable-next-line:no-string-literal */
-            setTimeout(function () { return _this.element.nativeElement['scrollIntoViewIfNeeded'](false); }, 150);
+        scrollIntoView(this.element.nativeElement);
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteOptionComponent.prototype.selectViaInteraction = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.nzDisabled) {
+            this.selected = !this.selected;
+            if (this.selected) {
+                this.setActiveStyles();
+            }
+            else {
+                this.setInactiveStyles();
+            }
+            this.emitSelectionChangeEvent(true);
+            this.changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -2233,30 +2256,12 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
         if (isUserInput === void 0) { isUserInput = false; }
         this.selectionChange.emit(new NzOptionSelectionChange(this, isUserInput));
     };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteOptionComponent.prototype.selectViaInteraction = /**
-     * @return {?}
-     */
-    function () {
-        if (!this.disabled) {
-            this.selected = !this.selected;
-            if (this.selected) {
-                this.setActiveStyles();
-            }
-            else {
-                this.setInactiveStyles();
-            }
-            this.emitSelectionChangeEvent(true);
-            this.changeDetectorRef.markForCheck();
-        }
-    };
     NzAutocompleteOptionComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-auto-option',
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     template: "<ng-content></ng-content>",
                     host: {
                         'role': 'menuitem',
@@ -2281,6 +2286,10 @@ var NzAutocompleteOptionComponent = /** @class */ (function () {
         nzDisabled: [{ type: Input }],
         selectionChange: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAutocompleteOptionComponent.prototype, "nzDisabled", void 0);
     return NzAutocompleteOptionComponent;
 }());
 
@@ -2337,105 +2346,49 @@ var dropDownAnimation = trigger('dropDownAnimation', [
  * @suppress {checkTypes} checked by tsc
  */
 var NzAutocompleteComponent = /** @class */ (function () {
-    function NzAutocompleteComponent(changeDetectorRef, _ngZone) {
+    function NzAutocompleteComponent(changeDetectorRef, ngZone) {
         var _this = this;
         this.changeDetectorRef = changeDetectorRef;
-        this._ngZone = _ngZone;
-        this.activeItemIndex = -1;
+        this.ngZone = ngZone;
+        this.nzOverlayClassName = '';
+        this.nzOverlayStyle = {};
+        this.nzDefaultActiveFirstOption = true;
+        this.nzBackfill = false;
+        this.selectionChange = new EventEmitter();
         this.showPanel = false;
         this.isOpen = false;
         this.dropDownPosition = 'bottom';
-        this._defaultActiveFirstOption = true;
-        this._backfill = false;
+        this.activeItemIndex = -1;
+        this.selectionChangeSubscription = Subscription.EMPTY;
+        this.dataSourceChangeSubscription = Subscription.EMPTY;
         /**
-         * 选择时发出的事件
-         */
-        this.selectionChange = new EventEmitter();
-        /**
-         * 用于组件内部监听 options 的选择变化
+         * Options changes listener
          */
         this.optionSelectionChanges = defer(function () {
             if (_this.options) {
                 return merge.apply(void 0, __spread(_this.options.map(function (option) { return option.selectionChange; })));
             }
-            return _this._ngZone.onStable
+            return _this.ngZone.onStable
                 .asObservable()
                 .pipe(take(1), switchMap(function () { return _this.optionSelectionChanges; }));
         });
     }
     Object.defineProperty(NzAutocompleteComponent.prototype, "options", {
-        /** 组件支持设置 dataSource 和 content 设置 options
-         *  这个属性为其提供方便的访问方式 */
+        /**
+         * Options accessor, its source may be content or dataSource
+         */
         get: /**
-         * 组件支持设置 dataSource 和 content 设置 options
-         *  这个属性为其提供方便的访问方式
+         * Options accessor, its source may be content or dataSource
          * @return {?}
          */
         function () {
-            // 优先使用 dataSource
+            // first dataSource
             if (this.nzDataSource) {
                 return this.fromDataSourceOptions;
             }
             else {
                 return this.fromContentOptions;
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAutocompleteComponent.prototype, "nzDefaultActiveFirstOption", {
-        /** 是否默认高亮第一个选项，默认 `true` */
-        get: /**
-         * 是否默认高亮第一个选项，默认 `true`
-         * @return {?}
-         */
-        function () {
-            return this._defaultActiveFirstOption;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._defaultActiveFirstOption = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAutocompleteComponent.prototype, "nzBackfill", {
-        /** 使用键盘选择选项的时候把选中项回填到输入框中，默认 `false` */
-        get: /**
-         * 使用键盘选择选项的时候把选中项回填到输入框中，默认 `false`
-         * @return {?}
-         */
-        function () {
-            return this._backfill;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._backfill = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzAutocompleteComponent.prototype, "nzDataSource", {
-        /** 自动完成的数据源 */
-        get: /**
-         * 自动完成的数据源
-         * @return {?}
-         */
-        function () {
-            return this._dataSource;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._dataSource = value;
         },
         enumerable: true,
         configurable: true
@@ -2448,6 +2401,16 @@ var NzAutocompleteComponent = /** @class */ (function () {
      */
     function () {
         this.optionsInit();
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.dataSourceChangeSubscription.unsubscribe();
+        this.selectionChangeSubscription.unsubscribe();
     };
     /**
      * @return {?}
@@ -2525,22 +2488,22 @@ var NzAutocompleteComponent = /** @class */ (function () {
         this.subscribeOptionChanges();
         /** @type {?} */
         var changes = this.nzDataSource ? this.fromDataSourceOptions.changes : this.fromContentOptions.changes;
-        // 用于处理动态/异步的 options
-        changes.subscribe(function (e) {
+        // async
+        this.dataSourceChangeSubscription = changes.subscribe(function (e) {
             if (!e.dirty && _this.isOpen) {
-                setTimeout(function (_) { return _this.setVisibility(); });
+                setTimeout(function () { return _this.setVisibility(); });
             }
             _this.subscribeOptionChanges();
         });
     };
     /**
-     * 清除 Options 的激活状态
+     * Clear the status of options
      * @param {?=} skip
      * @param {?=} deselect
      * @return {?}
      */
     NzAutocompleteComponent.prototype.clearSelectedOptions = /**
-     * 清除 Options 的激活状态
+     * Clear the status of options
      * @param {?=} skip
      * @param {?=} deselect
      * @return {?}
@@ -2564,6 +2527,7 @@ var NzAutocompleteComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        this.selectionChangeSubscription.unsubscribe();
         this.selectionChangeSubscription = this.optionSelectionChanges
             .pipe(filter(function (event) { return event.isUserInput; }))
             .subscribe(function (event) {
@@ -2580,11 +2544,12 @@ var NzAutocompleteComponent = /** @class */ (function () {
                     selector: 'nz-autocomplete',
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<ng-template>\n  <div class=\"ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft\"\n    #panel\n    [@dropDownAnimation]=\"dropDownPosition\"\n    [class.ant-select-dropdown-hidden]=\"!showPanel\" [ngClass]=\"nzOverlayClassName\" [ngStyle]=\"nzOverlayStyle\">\n    <div style=\"overflow: auto;\">\n      <ul class=\"ant-select-dropdown-menu  ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical\"\n        role=\"menu\"\n        aria-activedescendant>\n        <ng-template *ngTemplateOutlet=\"nzDataSource ? optionsTemplate : contentTemplate\"></ng-template>\n      </ul>\n    </div>\n  </div>\n  <ng-template #contentTemplate>\n    <ng-content></ng-content>\n  </ng-template>\n  <ng-template #optionsTemplate>\n    <nz-auto-option *ngFor=\"let option of nzDataSource\" [nzValue]=\"option\">{{option}}</nz-auto-option>\n  </ng-template>\n</ng-template>",
                     animations: [
                         dropDownAnimation
                     ],
-                    template: "<ng-template>\n  <div class=\"ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft\"\n    #panel\n    [@dropDownAnimation]=\"dropDownPosition\"\n    [class.ant-select-dropdown-hidden]=\"!showPanel\">\n    <div style=\"overflow: auto;\">\n      <ul class=\"ant-select-dropdown-menu  ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical\"\n        role=\"menu\"\n        aria-activedescendant>\n        <ng-template *ngTemplateOutlet=\"nzDataSource ? optionsTemplate : contentTemplate\"></ng-template>\n      </ul>\n    </div>\n  </div>\n  <ng-template #contentTemplate>\n    <ng-content></ng-content>\n  </ng-template>\n  <ng-template #optionsTemplate>\n    <nz-auto-option *ngFor=\"let option of nzDataSource\" [nzValue]=\"option\">{{option}}</nz-auto-option>\n  </ng-template>\n</ng-template>",
-                    styles: ["\n    .ant-select-dropdown {\n      top: 100%;\n      left: 0;\n      position: relative;\n      width: 100%;\n      margin-top: 4px;\n      margin-bottom: 4px;\n    }\n    "]
+                    styles: ["\n      .ant-select-dropdown {\n        top: 100%;\n        left: 0;\n        position: relative;\n        width: 100%;\n        margin-top: 4px;\n        margin-bottom: 4px;\n      }\n    "]
                 }] }
     ];
     /** @nocollapse */
@@ -2593,17 +2558,27 @@ var NzAutocompleteComponent = /** @class */ (function () {
         { type: NgZone }
     ]; };
     NzAutocompleteComponent.propDecorators = {
-        template: [{ type: ViewChild, args: [TemplateRef,] }],
-        panel: [{ type: ViewChild, args: ['panel',] }],
-        content: [{ type: ViewChild, args: ['content',] }],
-        fromContentOptions: [{ type: ContentChildren, args: [NzAutocompleteOptionComponent, { descendants: true },] }],
-        fromDataSourceOptions: [{ type: ViewChildren, args: [NzAutocompleteOptionComponent,] }],
         nzWidth: [{ type: Input }],
+        nzOverlayClassName: [{ type: Input }],
+        nzOverlayStyle: [{ type: Input }],
         nzDefaultActiveFirstOption: [{ type: Input }],
         nzBackfill: [{ type: Input }],
         nzDataSource: [{ type: Input }],
-        selectionChange: [{ type: Output }]
+        selectionChange: [{ type: Output }],
+        fromContentOptions: [{ type: ContentChildren, args: [NzAutocompleteOptionComponent, { descendants: true },] }],
+        fromDataSourceOptions: [{ type: ViewChildren, args: [NzAutocompleteOptionComponent,] }],
+        template: [{ type: ViewChild, args: [TemplateRef,] }],
+        panel: [{ type: ViewChild, args: ['panel',] }],
+        content: [{ type: ViewChild, args: ['content',] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAutocompleteComponent.prototype, "nzDefaultActiveFirstOption", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzAutocompleteComponent.prototype, "nzBackfill", void 0);
     return NzAutocompleteComponent;
 }());
 
@@ -2626,23 +2601,21 @@ function getNzAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var NzAutocompleteTriggerDirective = /** @class */ (function () {
-    function NzAutocompleteTriggerDirective(_element, _overlay, _viewContainerRef, 
+    function NzAutocompleteTriggerDirective(elementRef, _overlay, viewContainerRef, 
     // tslint:disable-next-line:no-any
-    _document) {
-        this._element = _element;
+    document) {
+        this.elementRef = elementRef;
         this._overlay = _overlay;
-        this._viewContainerRef = _viewContainerRef;
-        this._document = _document;
+        this.viewContainerRef = viewContainerRef;
+        this.document = document;
         this._onChange = function () { };
         this._onTouched = function () { };
         this.panelOpen = false;
     }
     Object.defineProperty(NzAutocompleteTriggerDirective.prototype, "activeOption", {
-        /**
-         * 当前被激活的 Option
-         */
+        /** Current active option */
         get: /**
-         * 当前被激活的 Option
+         * Current active option
          * @return {?}
          */
         function () {
@@ -2656,350 +2629,11 @@ var NzAutocompleteTriggerDirective = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzAutocompleteTriggerDirective.prototype.openPanel = /**
+    NzAutocompleteTriggerDirective.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
-        this.attachOverlay();
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.closePanel = /**
-     * @return {?}
-     */
-    function () {
-        if (this.panelOpen) {
-            this.nzAutocomplete.isOpen = this.panelOpen = false;
-            if (this.overlayRef && this.overlayRef.hasAttached()) {
-                this.overlayRef.detach();
-                this.selectionChangeSubscription.unsubscribe();
-                this.overlayBackdropClickSubscription.unsubscribe();
-                this.overlayPositionChangeSubscription.unsubscribe();
-                this.optionsChangeSubscription.unsubscribe();
-            }
-        }
-    };
-    /**
-     * 订阅数据源改变事件
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.subscribeOptionsChange = /**
-     * 订阅数据源改变事件
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        return this.nzAutocomplete.options.changes.pipe(delay(0)).subscribe(function () {
-            _this.resetActiveItem();
-        });
-    };
-    /**
-     * 订阅 option 选择事件
-     * 并设置值
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.subscribeSelectionChange = /**
-     * 订阅 option 选择事件
-     * 并设置值
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        return this.nzAutocomplete.selectionChange
-            .subscribe(function (option) {
-            _this.setValueAndClose(option);
-        });
-    };
-    /**
-     * 订阅组件外部的单击事件
-     * 并关闭弹窗
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.subscribeOverlayBackdropClick = /**
-     * 订阅组件外部的单击事件
-     * 并关闭弹窗
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
-            .subscribe(function (event) {
-            /** @type {?} */
-            var clickTarget = /** @type {?} */ (event.target);
-            // 确保不是点击组件自身
-            if (clickTarget !== _this._element.nativeElement && !_this.overlayRef.overlayElement.contains(clickTarget) && _this.panelOpen) {
-                _this.closePanel();
-            }
-        });
-    };
-    /**
-     * 订阅 Overlay 位置改变事件
-     * 并重新设置动画方向
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.subscribeOverlayPositionChange = /**
-     * 订阅 Overlay 位置改变事件
-     * 并重新设置动画方向
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        return this.positionStrategy.positionChanges
-            .pipe(map(function (position) { return position.connectionPair.originY; }), distinct())
-            .subscribe(function (position) {
-            _this.nzAutocomplete.dropDownPosition = position;
-        });
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.attachOverlay = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (!this.nzAutocomplete) {
-            throw getNzAutocompleteMissingPanelError();
-        }
-        if (!this.overlayRef) {
-            this.portal = new TemplatePortal(this.nzAutocomplete.template, this._viewContainerRef);
-            this.overlayRef = this._overlay.create(this.getOverlayConfig());
-        }
-        if (this.overlayRef && !this.overlayRef.hasAttached()) {
-            this.overlayRef.attach(this.portal);
-            this.overlayPositionChangeSubscription = this.subscribeOverlayPositionChange();
-            this.selectionChangeSubscription = this.subscribeSelectionChange();
-            this.overlayBackdropClickSubscription = this.subscribeOverlayBackdropClick();
-            this.optionsChangeSubscription = this.subscribeOptionsChange();
-        }
-        this.nzAutocomplete.isOpen = this.panelOpen = true;
-        this.nzAutocomplete.setVisibility();
-        this.overlayRef.updateSize({ width: this.nzAutocomplete.nzWidth || this.getHostWidth() });
-        setTimeout(function () {
-            if (_this.overlayRef) {
-                _this.overlayRef.updatePosition();
-            }
-        }, 150);
-        this.resetActiveItem();
-        if (this.activeOption) {
-            this.activeOption.scrollIntoViewIfNeeded();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.destroyPanel = /**
-     * @return {?}
-     */
-    function () {
-        if (this.overlayRef) {
-            this.closePanel();
-            this.overlayRef.dispose();
-            this.overlayRef = null;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.getOverlayConfig = /**
-     * @return {?}
-     */
-    function () {
-        return new OverlayConfig({
-            positionStrategy: this.getOverlayPosition(),
-            scrollStrategy: this._overlay.scrollStrategies.reposition(),
-            // 如果没有设置 nzWidth 则使用 Host 元素的宽度
-            width: this.nzAutocomplete.nzWidth || this.getHostWidth()
-        });
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.getConnectedElement = /**
-     * @return {?}
-     */
-    function () {
-        return this._element;
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.getHostWidth = /**
-     * @return {?}
-     */
-    function () {
-        return this.getConnectedElement().nativeElement.getBoundingClientRect().width;
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.getOverlayPosition = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var positions = [
-            new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
-            new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
-        ];
-        this.positionStrategy = this._overlay.position()
-            .flexibleConnectedTo(this.getConnectedElement())
-            .withPositions(positions)
-            .withFlexibleDimensions(false)
-            .withPush(false);
-        return this.positionStrategy;
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.resetActiveItem = /**
-     * @return {?}
-     */
-    function () {
-        if (this.nzAutocomplete.activeItem && this.nzAutocomplete.getOptionIndex(this.nzAutocomplete.activeItem)) {
-            this.nzAutocomplete.setActiveItem(this.nzAutocomplete.getOptionIndex(this.nzAutocomplete.activeItem));
-        }
-        else {
-            this.nzAutocomplete.setActiveItem(this.nzAutocomplete.nzDefaultActiveFirstOption ? 0 : -1);
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.handleKeydown = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /** @type {?} */
-        var keyCode = event.keyCode;
-        /** @type {?} */
-        var isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
-        if (keyCode === ESCAPE) {
-            event.preventDefault();
-        }
-        if (this.panelOpen && (keyCode === ESCAPE || keyCode === TAB)) {
-            // 通过 tab / ESC 关闭，重置输入标签 value
-            if (this.activeOption.getLabel() !== this.previousValue) {
-                this.setTriggerValue(this.previousValue);
-            }
-            this.closePanel();
-        }
-        else if (this.panelOpen && keyCode === ENTER) {
-            event.preventDefault();
-            if (this.nzAutocomplete.showPanel && this.activeOption) {
-                this.activeOption.selectViaInteraction();
-            }
-        }
-        else if (this.panelOpen && isArrowKey && this.nzAutocomplete.showPanel) {
-            event.stopPropagation();
-            if (keyCode === UP_ARROW) {
-                this.nzAutocomplete.setPreviousItemActive();
-            }
-            else {
-                this.nzAutocomplete.setNextItemActive();
-            }
-            if (this.activeOption) {
-                this.activeOption.scrollIntoViewIfNeeded();
-            }
-            this.doBackfill();
-        }
-    };
-    /**
-     * @param {?} option
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.setValueAndClose = /**
-     * @param {?} option
-     * @return {?}
-     */
-    function (option) {
-        /** @type {?} */
-        var value = option.nzValue;
-        this.setTriggerValue(option.getLabel());
-        this._onChange(value);
-        this._element.nativeElement.focus();
-        this.closePanel();
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.setTriggerValue = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this._element.nativeElement.value = value || '';
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.doBackfill = /**
-     * @return {?}
-     */
-    function () {
-        if (this.nzAutocomplete.nzBackfill) {
-            // 只设置标签显示值
-            this.setTriggerValue(this.nzAutocomplete.activeItem.getLabel());
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.handleInput = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /** @type {?} */
-        var target = /** @type {?} */ (event.target);
-        /** @type {?} */
-        var value = target.value;
-        if (target.type === 'number') {
-            value = value === '' ? null : parseFloat(value);
-        }
-        if (this.canOpen() && document.activeElement === event.target &&
-            this.previousValue !== value) {
-            this.previousValue = value;
-            this._onChange(value);
-            this.openPanel();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.handleFocus = /**
-     * @return {?}
-     */
-    function () {
-        if (this.canOpen()) {
-            this.previousValue = this._element.nativeElement.value;
-            this.openPanel();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.handleBlur = /**
-     * @return {?}
-     */
-    function () {
-        this._onTouched();
-    };
-    /**
-     * @return {?}
-     */
-    NzAutocompleteTriggerDirective.prototype.canOpen = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var element = this._element.nativeElement;
-        return !element.readOnly && !element.disabled;
+        this.destroyPanel();
     };
     // tslint:disable-next-line:no-any
     /**
@@ -3045,18 +2679,352 @@ var NzAutocompleteTriggerDirective = /** @class */ (function () {
      */
     function (isDisabled) {
         /** @type {?} */
-        var element = this._element.nativeElement;
+        var element = this.elementRef.nativeElement;
         element.disabled = isDisabled;
         this.closePanel();
     };
     /**
      * @return {?}
      */
-    NzAutocompleteTriggerDirective.prototype.ngOnDestroy = /**
+    NzAutocompleteTriggerDirective.prototype.openPanel = /**
      * @return {?}
      */
     function () {
-        this.destroyPanel();
+        this.attachOverlay();
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.closePanel = /**
+     * @return {?}
+     */
+    function () {
+        if (this.panelOpen) {
+            this.nzAutocomplete.isOpen = this.panelOpen = false;
+            if (this.overlayRef && this.overlayRef.hasAttached()) {
+                this.selectionChangeSubscription.unsubscribe();
+                this.overlayBackdropClickSubscription.unsubscribe();
+                this.overlayPositionChangeSubscription.unsubscribe();
+                this.optionsChangeSubscription.unsubscribe();
+                this.overlayRef.detach();
+                this.overlayRef = null;
+                this.portal = null;
+            }
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.handleKeydown = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
+        if (keyCode === ESCAPE) {
+            event.preventDefault();
+        }
+        if (this.panelOpen && (keyCode === ESCAPE || keyCode === TAB)) {
+            // Reset value when tab / ESC close
+            if (this.activeOption && this.activeOption.getLabel() !== this.previousValue) {
+                this.setTriggerValue(this.previousValue);
+            }
+            this.closePanel();
+        }
+        else if (this.panelOpen && keyCode === ENTER) {
+            event.preventDefault();
+            if (this.nzAutocomplete.showPanel && this.activeOption) {
+                this.activeOption.selectViaInteraction();
+            }
+        }
+        else if (this.panelOpen && isArrowKey && this.nzAutocomplete.showPanel) {
+            event.stopPropagation();
+            if (keyCode === UP_ARROW) {
+                this.nzAutocomplete.setPreviousItemActive();
+            }
+            else {
+                this.nzAutocomplete.setNextItemActive();
+            }
+            if (this.activeOption) {
+                this.activeOption.scrollIntoViewIfNeeded();
+            }
+            this.doBackfill();
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.handleInput = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        var value = target.value;
+        if (target.type === 'number') {
+            value = value === '' ? null : parseFloat(value);
+        }
+        if (this.canOpen() && document.activeElement === event.target &&
+            this.previousValue !== value) {
+            this.previousValue = value;
+            this._onChange(value);
+            this.openPanel();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.handleFocus = /**
+     * @return {?}
+     */
+    function () {
+        if (this.canOpen()) {
+            this.previousValue = this.elementRef.nativeElement.value;
+            this.openPanel();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.handleBlur = /**
+     * @return {?}
+     */
+    function () {
+        this._onTouched();
+    };
+    /**
+     * Subscription data source changes event
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.subscribeOptionsChange = /**
+     * Subscription data source changes event
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.nzAutocomplete.options.changes.pipe(delay(0)).subscribe(function () {
+            _this.resetActiveItem();
+        });
+    };
+    /**
+     * Subscription option changes event and set the value
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.subscribeSelectionChange = /**
+     * Subscription option changes event and set the value
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.nzAutocomplete.selectionChange
+            .subscribe(function (option) {
+            _this.setValueAndClose(option);
+        });
+    };
+    /**
+     * Subscription external click and close panel
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.subscribeOverlayBackdropClick = /**
+     * Subscription external click and close panel
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return merge(fromEvent(this.document, 'click'), fromEvent(this.document, 'touchend'))
+            .subscribe(function (event) {
+            /** @type {?} */
+            var clickTarget = /** @type {?} */ (event.target);
+            // Make sure is not self
+            if (clickTarget !== _this.elementRef.nativeElement && !_this.overlayRef.overlayElement.contains(clickTarget) && _this.panelOpen) {
+                _this.closePanel();
+            }
+        });
+    };
+    /**
+     * Subscription overlay position changes and reset dropdown position
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.subscribeOverlayPositionChange = /**
+     * Subscription overlay position changes and reset dropdown position
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.positionStrategy.positionChanges
+            .pipe(map(function (position) { return position.connectionPair.originY; }), distinct())
+            .subscribe(function (position) {
+            _this.nzAutocomplete.dropDownPosition = position;
+        });
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.attachOverlay = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this.nzAutocomplete) {
+            throw getNzAutocompleteMissingPanelError();
+        }
+        if (!this.portal) {
+            this.portal = new TemplatePortal(this.nzAutocomplete.template, this.viewContainerRef);
+        }
+        if (!this.overlayRef) {
+            this.overlayRef = this._overlay.create(this.getOverlayConfig());
+        }
+        if (this.overlayRef && !this.overlayRef.hasAttached()) {
+            this.overlayRef.attach(this.portal);
+            this.overlayPositionChangeSubscription = this.subscribeOverlayPositionChange();
+            this.selectionChangeSubscription = this.subscribeSelectionChange();
+            this.overlayBackdropClickSubscription = this.subscribeOverlayBackdropClick();
+            this.optionsChangeSubscription = this.subscribeOptionsChange();
+        }
+        this.nzAutocomplete.isOpen = this.panelOpen = true;
+        this.nzAutocomplete.setVisibility();
+        this.overlayRef.updateSize({ width: this.nzAutocomplete.nzWidth || this.getHostWidth() });
+        setTimeout(function () {
+            if (_this.overlayRef) {
+                _this.overlayRef.updatePosition();
+            }
+        }, 150);
+        this.resetActiveItem();
+        if (this.activeOption) {
+            this.activeOption.scrollIntoViewIfNeeded();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.destroyPanel = /**
+     * @return {?}
+     */
+    function () {
+        if (this.overlayRef) {
+            this.closePanel();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.getOverlayConfig = /**
+     * @return {?}
+     */
+    function () {
+        return new OverlayConfig({
+            positionStrategy: this.getOverlayPosition(),
+            scrollStrategy: this._overlay.scrollStrategies.reposition(),
+            // default host element width
+            width: this.nzAutocomplete.nzWidth || this.getHostWidth()
+        });
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.getConnectedElement = /**
+     * @return {?}
+     */
+    function () {
+        return this.elementRef;
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.getHostWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.getConnectedElement().nativeElement.getBoundingClientRect().width;
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.getOverlayPosition = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var positions = [
+            new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
+            new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
+        ];
+        this.positionStrategy = this._overlay.position()
+            .flexibleConnectedTo(this.getConnectedElement())
+            .withPositions(positions)
+            .withFlexibleDimensions(false)
+            .withPush(false);
+        return this.positionStrategy;
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.resetActiveItem = /**
+     * @return {?}
+     */
+    function () {
+        if (this.nzAutocomplete.activeItem && this.nzAutocomplete.getOptionIndex(this.nzAutocomplete.activeItem)) {
+            this.nzAutocomplete.setActiveItem(this.nzAutocomplete.getOptionIndex(this.nzAutocomplete.activeItem));
+        }
+        else {
+            this.nzAutocomplete.setActiveItem(this.nzAutocomplete.nzDefaultActiveFirstOption ? 0 : -1);
+        }
+    };
+    /**
+     * @param {?} option
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.setValueAndClose = /**
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
+        /** @type {?} */
+        var value = option.nzValue;
+        this.setTriggerValue(option.getLabel());
+        this._onChange(value);
+        this.elementRef.nativeElement.focus();
+        this.closePanel();
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.setTriggerValue = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.elementRef.nativeElement.value = value || '';
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.doBackfill = /**
+     * @return {?}
+     */
+    function () {
+        if (this.nzAutocomplete.nzBackfill && this.nzAutocomplete.activeItem) {
+            this.setTriggerValue(this.nzAutocomplete.activeItem.getLabel());
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutocompleteTriggerDirective.prototype.canOpen = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var element = this.elementRef.nativeElement;
+        return !element.readOnly && !element.disabled;
     };
     NzAutocompleteTriggerDirective.decorators = [
         { type: Directive, args: [{
@@ -3096,7 +3064,7 @@ var NzAutocompleteModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzAutocompleteComponent, NzAutocompleteOptionComponent, NzAutocompleteTriggerDirective, NzAutocompleteOptgroupComponent],
                     exports: [NzAutocompleteComponent, NzAutocompleteOptionComponent, NzAutocompleteTriggerDirective, NzAutocompleteOptgroupComponent],
-                    imports: [CommonModule, OverlayModule, FormsModule]
+                    imports: [CommonModule, OverlayModule, FormsModule, NzAddOnModule]
                 },] }
     ];
     return NzAutocompleteModule;
@@ -3181,40 +3149,21 @@ var NzUpdateHostClassService = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzAvatarComponent = /** @class */ (function () {
-    function NzAvatarComponent(elementRef, cd, updateHostClassService) {
+    function NzAvatarComponent(elementRef, cd, updateHostClassService, renderer) {
         this.elementRef = elementRef;
         this.cd = cd;
         this.updateHostClassService = updateHostClassService;
-        this.el = this.elementRef.nativeElement;
-        this.prefixCls = 'ant-avatar';
-        this.sizeMap = { large: 'lg', small: 'sm' };
-        this.oldAPIIcon = true;
+        this.renderer = renderer;
+        this.nzShape = 'circle';
+        this.nzSize = 'default';
+        this.oldAPIIcon = true; // Make the user defined icon compatible to old API. Should be removed in 2.0.
         this.hasText = false;
         this.hasSrc = true;
         this.hasIcon = false;
-        this.nzShape = 'circle';
-        this.nzSize = 'default';
+        this.el = this.elementRef.nativeElement;
+        this.prefixCls = 'ant-avatar';
+        this.sizeMap = { large: 'lg', small: 'sm' };
     }
-    Object.defineProperty(NzAvatarComponent.prototype, "nzIcon", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._icon;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value) {
-                this.oldAPIIcon = value.indexOf('anticon') > -1;
-            }
-            this._icon = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -3229,7 +3178,8 @@ var NzAvatarComponent = /** @class */ (function () {
             _a[this.prefixCls + "-" + this.sizeMap[this.nzSize]] = this.sizeMap[this.nzSize],
             _a[this.prefixCls + "-" + this.nzShape] = this.nzShape,
             _a[this.prefixCls + "-icon"] = this.nzIcon,
-            _a[this.prefixCls + "-image"] = this.nzSrc,
+            _a[this.prefixCls + "-image"] = this.hasSrc // downgrade after image error
+        ,
             _a);
         this.updateHostClassService.updateHostClass(this.el, classMap);
         this.cd.detectChanges();
@@ -3252,6 +3202,25 @@ var NzAvatarComponent = /** @class */ (function () {
             this.hasText = true;
         }
         this.setClass().notifyCalc();
+        this.setSizeStyle();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzAvatarComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes.hasOwnProperty('nzIcon') && changes["nzIcon"].currentValue) {
+            this.oldAPIIcon = changes["nzIcon"].currentValue.indexOf('anticon') > -1;
+        }
+        this.hasText = !this.nzSrc && !!this.nzText;
+        this.hasIcon = !this.nzSrc && !!this.nzIcon;
+        this.hasSrc = !!this.nzSrc;
+        this.setClass().notifyCalc();
+        this.setSizeStyle();
     };
     /**
      * @return {?}
@@ -3269,16 +3238,13 @@ var NzAvatarComponent = /** @class */ (function () {
         var avatarWidth = this.el.getBoundingClientRect().width;
         /** @type {?} */
         var scale = avatarWidth - 8 < childrenWidth ? (avatarWidth - 8) / childrenWidth : 1;
-        if (scale === 1) {
-            this.textStyles = {};
-        }
-        else {
-            this.textStyles = {
-                transform: "scale(" + scale + ")",
-                position: 'absolute',
-                display: 'inline-block',
-                left: "calc(50% - " + Math.round(childrenWidth / 2) + "px)"
-            };
+        this.textStyles = {
+            transform: "scale(" + scale + ") translateX(-50%)"
+        };
+        if (typeof this.nzSize === 'number') {
+            Object.assign(this.textStyles, {
+                lineHeight: this.nzSize + "px"
+            });
         }
         this.cd.detectChanges();
     };
@@ -3297,18 +3263,21 @@ var NzAvatarComponent = /** @class */ (function () {
         return this;
     };
     /**
-     * @param {?} changes
      * @return {?}
      */
-    NzAvatarComponent.prototype.ngOnChanges = /**
-     * @param {?} changes
+    NzAvatarComponent.prototype.setSizeStyle = /**
      * @return {?}
      */
-    function (changes) {
-        this.hasText = !this.nzSrc && !!this.nzText;
-        this.hasIcon = !this.nzSrc && !!this.nzIcon;
-        this.hasSrc = !!this.nzSrc;
-        this.setClass().notifyCalc();
+    function () {
+        if (typeof this.nzSize === 'string') {
+            return;
+        }
+        this.renderer.setStyle(this.el, 'width', this.nzSize + "px");
+        this.renderer.setStyle(this.el, 'height', this.nzSize + "px");
+        this.renderer.setStyle(this.el, 'line-height', this.nzSize + "px");
+        if (this.hasIcon) {
+            this.renderer.setStyle(this.el, 'font-size', this.nzSize / 2 + "px");
+        }
     };
     NzAvatarComponent.decorators = [
         { type: Component, args: [{
@@ -3316,22 +3285,24 @@ var NzAvatarComponent = /** @class */ (function () {
                     template: "<i nz-icon *ngIf=\"nzIcon && hasIcon\" [type]=\"!oldAPIIcon && nzIcon\" [ngClass]=\"oldAPIIcon && nzIcon\"></i>\n<img [src]=\"nzSrc\" *ngIf=\"nzSrc && hasSrc\" (error)=\"imgError()\"/>\n<span class=\"ant-avatar-string\" #textEl [ngStyle]=\"textStyles\" *ngIf=\"nzText && hasText\">{{ nzText }}</span>",
                     providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
-                    changeDetection: ChangeDetectionStrategy.OnPush
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
                 }] }
     ];
     /** @nocollapse */
     NzAvatarComponent.ctorParameters = function () { return [
         { type: ElementRef },
         { type: ChangeDetectorRef },
-        { type: NzUpdateHostClassService }
+        { type: NzUpdateHostClassService },
+        { type: Renderer2 }
     ]; };
     NzAvatarComponent.propDecorators = {
-        textEl: [{ type: ViewChild, args: ['textEl',] }],
         nzShape: [{ type: Input }],
         nzSize: [{ type: Input }],
         nzText: [{ type: Input }],
         nzSrc: [{ type: Input }],
-        nzIcon: [{ type: Input }]
+        nzIcon: [{ type: Input }],
+        textEl: [{ type: ViewChild, args: ['textEl',] }]
     };
     return NzAvatarComponent;
 }());
@@ -3358,8 +3329,10 @@ var NzAvatarModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzBackTopComponent = /** @class */ (function () {
-    function NzBackTopComponent(scrollSrv, cd) {
+    // tslint:disable-next-line:no-any
+    function NzBackTopComponent(scrollSrv, doc, cd) {
         this.scrollSrv = scrollSrv;
+        this.doc = doc;
         this.cd = cd;
         this.scroll$ = null;
         this.target = null;
@@ -3390,7 +3363,7 @@ var NzBackTopComponent = /** @class */ (function () {
          * @return {?}
          */
         function (el) {
-            this.target = el;
+            this.target = typeof el === 'string' ? this.doc.querySelector(el) : el;
             this.registerScrollEvent();
         },
         enumerable: true,
@@ -3437,7 +3410,7 @@ var NzBackTopComponent = /** @class */ (function () {
             return;
         }
         this.visible = !this.visible;
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     };
     /**
      * @return {?}
@@ -3461,7 +3434,7 @@ var NzBackTopComponent = /** @class */ (function () {
         this.removeListen();
         this.handleScroll();
         this.scroll$ = fromEvent(this.getTarget(), 'scroll').pipe(throttleTime(50), distinctUntilChanged())
-            .subscribe(function (e) { return _this.handleScroll(); });
+            .subscribe(function () { return _this.handleScroll(); });
     };
     /**
      * @return {?}
@@ -3489,12 +3462,14 @@ var NzBackTopComponent = /** @class */ (function () {
                     ],
                     template: "<div class=\"ant-back-top\" (click)=\"clickBackTop()\" [@enterLeave] *ngIf=\"visible\">\n  <ng-template #defaultContent>\n    <div class=\"ant-back-top-content\">\n      <div class=\"ant-back-top-icon\"></div>\n    </div>\n  </ng-template>\n  <ng-template [ngTemplateOutlet]=\"nzTemplate || defaultContent\"></ng-template>\n</div>",
                     changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false
                 }] }
     ];
     /** @nocollapse */
     NzBackTopComponent.ctorParameters = function () { return [
         { type: NzScrollService },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: ChangeDetectorRef }
     ]; };
     NzBackTopComponent.propDecorators = {
@@ -3528,52 +3503,46 @@ var NzBackTopModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var AnimationCurves = /** @class */ (function () {
+    function AnimationCurves() {
+    }
+    AnimationCurves.EASE_BASE_OUT = 'cubic-bezier(0.7, 0.3, 0.1, 1)';
+    AnimationCurves.EASE_BASE_IN = 'cubic-bezier(0.9, 0, 0.3, 0.7)';
+    AnimationCurves.EASE_OUT = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+    AnimationCurves.EASE_IN = 'cubic-bezier(0.55, 0.055, 0.675, 0.19)';
+    AnimationCurves.EASE_IN_OUT = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+    AnimationCurves.EASE_OUT_BACK = 'cubic-bezier(0.12, 0.4, 0.29, 1.46)';
+    AnimationCurves.EASE_IN_BACK = 'cubic-bezier(0.71, -0.46, 0.88, 0.6)';
+    AnimationCurves.EASE_IN_OUT_BACK = 'cubic-bezier(0.71, -0.46, 0.29, 1.46)';
+    AnimationCurves.EASE_OUT_CIRC = 'cubic-bezier(0.08, 0.82, 0.17, 1)';
+    AnimationCurves.EASE_IN_CIRC = 'cubic-bezier(0.6, 0.04, 0.98, 0.34)';
+    AnimationCurves.EASE_IN_OUT_CIRC = 'cubic-bezier(0.78, 0.14, 0.15, 0.86)';
+    AnimationCurves.EASE_OUT_QUINT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+    AnimationCurves.EASE_IN_QUINT = 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
+    AnimationCurves.EASE_IN_OUT_QUINT = 'cubic-bezier(0.86, 0, 0.07, 1)';
+    return AnimationCurves;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @type {?} */
+var ANIMATION_TRANSITION_IN = "0.3s " + AnimationCurves.EASE_IN_BACK;
+/** @type {?} */
+var ANIMATION_TRANSITION_OUT = "0.3s " + AnimationCurves.EASE_IN_BACK;
 var NzBadgeComponent = /** @class */ (function () {
-    function NzBadgeComponent(zone, renderer, elementRef) {
-        this.zone = zone;
+    function NzBadgeComponent(renderer, elementRef) {
         this.renderer = renderer;
         this.elementRef = elementRef;
-        this._showDot = false;
-        this._showZero = false;
         this.maxNumberArray = [];
         this.countArray = [];
         this.countSingleArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        this.nzShowZero = false;
+        this.nzShowDot = true;
+        this.nzDot = false;
         this.nzOverflowCount = 99;
     }
-    Object.defineProperty(NzBadgeComponent.prototype, "nzShowZero", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showZero;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showZero = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzBadgeComponent.prototype, "nzDot", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showDot;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showDot = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzBadgeComponent.prototype, "nzCount", {
         get: /**
          * @return {?}
@@ -3602,7 +3571,7 @@ var NzBadgeComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.nzDot || this.nzCount > 0 || ((this.nzCount === 0) && this.nzShowZero);
+            return (this.nzShowDot && this.nzDot) || this.nzCount > 0 || ((this.nzCount === 0) && this.nzShowZero);
         },
         enumerable: true,
         configurable: true
@@ -3643,42 +3612,61 @@ var NzBadgeComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-badge',
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     animations: [
-                        trigger('enterLeave', [
-                            transition('void => *', [
-                                style({ opacity: 0 }),
-                                animate('0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46)')
+                        trigger('zoomAnimation', [
+                            transition(':enter', [
+                                style({ opacity: 0, transform: 'scale(0) translateX(50%)' }),
+                                animate(ANIMATION_TRANSITION_IN, style({
+                                    opacity: 1,
+                                    transform: 'scale(1) translateX(50%)'
+                                }))
                             ]),
-                            transition('* => void', [
-                                style({ opacity: 1 }),
-                                animate('0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46)')
+                            transition(':leave', [
+                                style({ opacity: 1, transform: 'scale(1) translateX(50%)' }),
+                                animate(ANIMATION_TRANSITION_OUT, style({
+                                    opacity: 0,
+                                    transform: 'scale(0) translateX(50%)'
+                                }))
                             ])
                         ])
                     ],
-                    template: "<span (cdkObserveContent)=\"checkContent()\" #contentElement><ng-content></ng-content></span>\n<span class=\"ant-badge-status-dot ant-badge-status-{{nzStatus}}\" *ngIf=\"nzStatus\" [ngStyle]=\"nzStyle\"></span>\n<span class=\"ant-badge-status-text\" *ngIf=\"nzStatus\">{{ nzText }}</span>\n<sup\n  *ngIf=\"showSup\"\n  [@enterLeave]\n  [ngStyle]=\"nzStyle\"\n  class=\"ant-scroll-number\"\n  [class.ant-badge-count]=\"!nzDot\"\n  [class.ant-badge-dot]=\"nzDot\"\n  [class.ant-badge-multiple-words]=\"countArray.length>=2\">\n  <ng-template\n    ngFor\n    [ngForOf]=\"maxNumberArray\"\n    let-number\n    let-i=\"index\">\n      <span\n        *ngIf=\"nzCount<=nzOverflowCount\"\n        class=\"ant-scroll-number-only\"\n        [style.transform]=\"'translateY('+((-countArray[i]*100))+'%)'\">\n          <ng-template [ngIf]=\"(!nzDot)&&(countArray[i]!=null)\">\n            <p *ngFor=\"let p of countSingleArray\" [class.current]=\"p==countArray[i]\">{{ p }}</p>\n          </ng-template>\n      </span>\n  </ng-template>\n  <ng-template [ngIf]=\"nzCount>nzOverflowCount\">{{ nzOverflowCount }}+</ng-template>\n</sup>",
+                    template: "<span (cdkObserveContent)=\"checkContent()\" #contentElement><ng-content></ng-content></span>\n<span class=\"ant-badge-status-dot ant-badge-status-{{nzStatus}}\" *ngIf=\"nzStatus\" [ngStyle]=\"nzStyle\"></span>\n<span class=\"ant-badge-status-text\" *ngIf=\"nzStatus\">{{ nzText }}</span>\n<sup class=\"ant-scroll-number\"\n  *ngIf=\"showSup\"\n  @zoomAnimation\n  [ngStyle]=\"nzStyle\"\n  [class.ant-badge-count]=\"!nzDot\"\n  [class.ant-badge-dot]=\"nzDot\"\n  [class.ant-badge-multiple-words]=\"countArray.length>=2\">\n  <ng-container *ngFor=\"let number of maxNumberArray;let i= index;\">\n    <span class=\"ant-scroll-number-only\"\n      *ngIf=\"nzCount <= nzOverflowCount\"\n      [style.transform]=\"'translateY('+((-countArray[i]*100))+'%)'\">\n        <ng-container *ngIf=\"(!nzDot)&&(countArray[i]!=null)\">\n          <p *ngFor=\"let p of countSingleArray\" [class.current]=\"p==countArray[i]\">{{ p }}</p>\n        </ng-container>\n    </span>\n  </ng-container>\n  <ng-container *ngIf=\"nzCount > nzOverflowCount\">{{ nzOverflowCount }}+</ng-container>\n</sup>",
                     host: {
                         '[class.ant-badge]': 'true',
                         '[class.ant-badge-status]': 'nzStatus'
-                    },
-                    styles: ["\n      :host:not(.ant-badge-not-a-wrapper) .ant-badge-count {\n        position: absolute;\n        transform: translateX(50%);\n        right: 0;\n      }\n\n      :host .ant-badge-dot {\n        position: absolute;\n        transform: translateX(50%);\n        right: 0;\n      }\n    "]
+                    }
                 }] }
     ];
     /** @nocollapse */
     NzBadgeComponent.ctorParameters = function () { return [
-        { type: NgZone },
         { type: Renderer2 },
         { type: ElementRef }
     ]; };
     NzBadgeComponent.propDecorators = {
         contentElement: [{ type: ViewChild, args: ['contentElement',] }],
+        nzShowZero: [{ type: Input }],
+        nzShowDot: [{ type: Input }],
+        nzDot: [{ type: Input }],
         nzOverflowCount: [{ type: Input }],
         nzText: [{ type: Input }],
         nzStyle: [{ type: Input }],
         nzStatus: [{ type: Input }],
-        nzShowZero: [{ type: Input }],
-        nzDot: [{ type: Input }],
         nzCount: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzBadgeComponent.prototype, "nzShowZero", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzBadgeComponent.prototype, "nzShowDot", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzBadgeComponent.prototype, "nzDot", void 0);
     return NzBadgeComponent;
 }());
 
@@ -3704,34 +3692,66 @@ var NzBadgeModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var ROUTE_DATA_BREADCRUMB = 'breadcrumb';
+var NZ_ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 var NzBreadCrumbComponent = /** @class */ (function () {
-    function NzBreadCrumbComponent(_injector) {
-        this._injector = _injector;
-        this._separator = '/';
-        this.$destroy = new Subject();
-        this.isTemplateRef = false;
+    function NzBreadCrumbComponent(injector, ngZone, cd) {
+        this.injector = injector;
+        this.ngZone = ngZone;
+        this.cd = cd;
         this.nzAutoGenerate = false;
+        this.nzSeparator = '/';
         this.breadcrumbs = [];
+        this.destroy$ = new Subject();
     }
-    Object.defineProperty(NzBreadCrumbComponent.prototype, "nzSeparator", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._separator;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._separator = value;
-            this.isTemplateRef = value instanceof TemplateRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @return {?}
+     */
+    NzBreadCrumbComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.nzAutoGenerate) {
+            try {
+                /** @type {?} */
+                var activatedRoute_1 = this.injector.get(ActivatedRoute);
+                /** @type {?} */
+                var router = this.injector.get(Router);
+                router.events.pipe(filter(function (e) { return e instanceof NavigationEnd; }), takeUntil(this.destroy$)).subscribe(function () {
+                    _this.breadcrumbs = _this.getBreadcrumbs(activatedRoute_1.root);
+                    _this.cd.markForCheck();
+                });
+            }
+            catch (e) {
+                throw new Error('[NG-ZORRO] You should import RouterModule if you want to use NzAutoGenerate');
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzBreadCrumbComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+    };
+    /**
+     * @param {?} url
+     * @param {?} e
+     * @return {?}
+     */
+    NzBreadCrumbComponent.prototype.navigate = /**
+     * @param {?} url
+     * @param {?} e
+     * @return {?}
+     */
+    function (url, e) {
+        var _this = this;
+        e.preventDefault();
+        this.ngZone.run(function () { return _this.injector.get(Router).navigateByUrl(url).then(); }).then();
+    };
     /**
      * @param {?} route
      * @param {?=} url
@@ -3750,8 +3770,9 @@ var NzBreadCrumbComponent = /** @class */ (function () {
         var e_1, _a;
         /** @type {?} */
         var children = route.children;
+        // If there's no sub root, then stop the recurse and returns the generated breadcrumbs.
         if (children.length === 0) {
-            return breadcrumbs; // If there's no sub root, then stop the recurse and returns the generated breadcrumbs.
+            return breadcrumbs;
         }
         try {
             for (var children_1 = __values(children), children_1_1 = children_1.next(); !children_1_1.done; children_1_1 = children_1.next()) {
@@ -3762,10 +3783,10 @@ var NzBreadCrumbComponent = /** @class */ (function () {
                     /** @type {?} */
                     var nextUrl = url + ("/" + routeURL);
                     // If have data, go to generate a breadcrumb for it.
-                    if (child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
+                    if (child.snapshot.data.hasOwnProperty(NZ_ROUTE_DATA_BREADCRUMB)) {
                         /** @type {?} */
                         var breadcrumb = {
-                            label: child.snapshot.data[ROUTE_DATA_BREADCRUMB] || 'Breadcrumb',
+                            label: child.snapshot.data[NZ_ROUTE_DATA_BREADCRUMB] || 'Breadcrumb',
                             params: child.snapshot.params,
                             url: nextUrl
                         };
@@ -3783,74 +3804,24 @@ var NzBreadCrumbComponent = /** @class */ (function () {
             finally { if (e_1) throw e_1.error; }
         }
     };
-    /**
-     * @param {?} url
-     * @param {?} e
-     * @return {?}
-     */
-    NzBreadCrumbComponent.prototype.navigate = /**
-     * @param {?} url
-     * @param {?} e
-     * @return {?}
-     */
-    function (url, e) {
-        e.preventDefault(); // Stop browsers' default navigation behavior.
-        try {
-            /** @type {?} */
-            var router = this._injector.get(Router);
-            router.navigateByUrl(url);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzBreadCrumbComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this.nzAutoGenerate) {
-            try {
-                /** @type {?} */
-                var activatedRoute_1 = this._injector.get(ActivatedRoute);
-                /** @type {?} */
-                var router = this._injector.get(Router);
-                router.events.pipe(filter(function (e) { return e instanceof NavigationEnd; }), takeUntil(this.$destroy)).subscribe(function () {
-                    _this.breadcrumbs = _this.getBreadcrumbs(activatedRoute_1.root); // Build the breadcrumb tree from root route.
-                });
-            }
-            catch (e) {
-                throw new Error('You should import RouterModule if you want to use NzAutoGenerate');
-            }
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzBreadCrumbComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.$destroy.next();
-        this.$destroy.complete();
-    };
     NzBreadCrumbComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-breadcrumb',
                     preserveWhitespaces: false,
-                    template: "<ng-content></ng-content>\n<ng-container *ngIf=\"nzAutoGenerate\">\n  <nz-breadcrumb-item *ngFor=\"let breadcrumb of breadcrumbs\">\n    <!-- We do not simply use routerLink here to avoid importing RouterModule to BreadcrumbModule. -->\n    <a [attr.href]=\"breadcrumb.url\" (click)=\"navigate(breadcrumb.url, $event)\">{{ breadcrumb.label }}</a>\n  </nz-breadcrumb-item>\n</ng-container>\n",
+                    template: "<ng-content></ng-content>\n<ng-container *ngIf=\"nzAutoGenerate\">\n  <nz-breadcrumb-item *ngFor=\"let breadcrumb of breadcrumbs\">\n    <a [attr.href]=\"breadcrumb.url\" (click)=\"navigate(breadcrumb.url, $event)\">{{ breadcrumb.label }}</a>\n  </nz-breadcrumb-item>\n</ng-container>",
                     host: {
                         '[class.ant-breadcrumb]': 'true'
                     },
-                    styles: ["\n    :host {\n      display: block;\n    }\n  "]
+                    styles: ["\n    nz-breadcrumb {\n      display: block;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
     NzBreadCrumbComponent.ctorParameters = function () { return [
-        { type: Injector }
+        { type: Injector },
+        { type: NgZone },
+        { type: ChangeDetectorRef }
     ]; };
     NzBreadCrumbComponent.propDecorators = {
         nzAutoGenerate: [{ type: Input }],
@@ -3869,10 +3840,12 @@ var NzBreadCrumbItemComponent = /** @class */ (function () {
     }
     NzBreadCrumbItemComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-breadcrumb-item',
                     preserveWhitespaces: false,
-                    template: "\n    <span class=\"ant-breadcrumb-link\">\n      <ng-content></ng-content>\n    </span>\n    <span class=\"ant-breadcrumb-separator\">\n      <ng-container *ngIf=\"nzBreadCrumbComponent.isTemplateRef; else stringTemplate\">\n        <ng-template [ngTemplateOutlet]=\"nzBreadCrumbComponent.nzSeparator\"></ng-template>\n      </ng-container>\n      <ng-template #stringTemplate>\n         {{ nzBreadCrumbComponent.nzSeparator }}\n      </ng-template>\n    </span>",
-                    styles: [":host:last-child {\n      color: rgba(0, 0, 0, 0.65);\n    }\n\n    :host:last-child .ant-breadcrumb-separator{\n      display: none;\n    }\n    "]
+                    template: "<span class=\"ant-breadcrumb-link\">\n  <ng-content></ng-content>\n</span>\n<span class=\"ant-breadcrumb-separator\">\n  <ng-container *nzStringTemplateOutlet=\"nzBreadCrumbComponent.nzSeparator\">\n    {{ nzBreadCrumbComponent.nzSeparator }}\n  </ng-container>\n</span>",
+                    styles: ["\n    nz-breadcrumb-item:last-child {\n      color: rgba(0, 0, 0, 0.65);\n    }\n\n    nz-breadcrumb-item:last-child .ant-breadcrumb-separator {\n      display: none;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
@@ -3891,7 +3864,7 @@ var NzBreadCrumbModule = /** @class */ (function () {
     }
     NzBreadCrumbModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule],
+                    imports: [CommonModule, NzAddOnModule],
                     declarations: [NzBreadCrumbComponent, NzBreadCrumbItemComponent],
                     exports: [NzBreadCrumbComponent, NzBreadCrumbItemComponent]
                 },] }
@@ -4092,11 +4065,30 @@ var NzWaveRenderer = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/** @type {?} */
+var NZ_WAVE_GLOBAL_DEFAULT_CONFIG = {
+    disabled: false
+};
+/** @type {?} */
+var NZ_WAVE_GLOBAL_CONFIG = new InjectionToken('nz-wave-global-options', {
+    providedIn: 'root',
+    factory: NZ_WAVE_GLOBAL_CONFIG_FACTORY
+});
+/**
+ * @return {?}
+ */
+function NZ_WAVE_GLOBAL_CONFIG_FACTORY() {
+    return NZ_WAVE_GLOBAL_DEFAULT_CONFIG;
+}
 var NzWaveDirective = /** @class */ (function () {
-    function NzWaveDirective(ngZone, elementRef) {
+    function NzWaveDirective(ngZone, elementRef, config) {
         this.ngZone = ngZone;
         this.elementRef = elementRef;
         this.nzWaveExtraNode = false;
+        this.waveDisabled = false;
+        if (config && typeof config.disabled === 'boolean') {
+            this.waveDisabled = config.disabled;
+        }
     }
     /**
      * @return {?}
@@ -4116,7 +4108,16 @@ var NzWaveDirective = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this.elementRef.nativeElement) {
+        this.renderWaveIfEnabled();
+    };
+    /**
+     * @return {?}
+     */
+    NzWaveDirective.prototype.renderWaveIfEnabled = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.waveDisabled && this.elementRef.nativeElement) {
             this.waveRenderer = new NzWaveRenderer(this.elementRef.nativeElement, this.ngZone, this.nzWaveExtraNode);
         }
     };
@@ -4128,7 +4129,8 @@ var NzWaveDirective = /** @class */ (function () {
     /** @nocollapse */
     NzWaveDirective.ctorParameters = function () { return [
         { type: NgZone },
-        { type: ElementRef }
+        { type: ElementRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_WAVE_GLOBAL_CONFIG,] }] }
     ]; };
     NzWaveDirective.propDecorators = {
         nzWaveExtraNode: [{ type: Input }]
@@ -4158,14 +4160,10 @@ var NzWaveModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzButtonGroupComponent = /** @class */ (function () {
-    function NzButtonGroupComponent() {
-        var _a;
+    function NzButtonGroupComponent(nzUpdateHostClassService, elementRef) {
+        this.nzUpdateHostClassService = nzUpdateHostClassService;
+        this.elementRef = elementRef;
         this.prefixCls = 'ant-btn-group';
-        this.sizeMap = { large: 'lg', small: 'sm' };
-        this.classMap = (_a = {},
-            _a[this.prefixCls] = true,
-            _a[this.prefixCls + "-" + this.sizeMap[this.nzSize]] = this.sizeMap[this.nzSize],
-            _a);
     }
     Object.defineProperty(NzButtonGroupComponent.prototype, "nzSize", {
         get: /**
@@ -4179,25 +4177,53 @@ var NzButtonGroupComponent = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var _a;
             this._size = value;
-            this.classMap = (_a = {},
-                _a[this.prefixCls] = true,
-                _a[this.prefixCls + "-" + this.sizeMap[this.nzSize]] = this.sizeMap[this.nzSize],
-                _a);
+            this.setClassMap();
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    NzButtonGroupComponent.prototype.setClassMap = /**
+     * @return {?}
+     */
+    function () {
+        var _a;
+        /** @type {?} */
+        var classMap = (_a = {},
+            _a[this.prefixCls] = true,
+            _a[this.prefixCls + "-lg"] = this.nzSize === 'large',
+            _a[this.prefixCls + "-sm"] = this.nzSize === 'small',
+            _a);
+        this.nzUpdateHostClassService.updateHostClass(this.elementRef.nativeElement, classMap);
+    };
+    /**
+     * @return {?}
+     */
+    NzButtonGroupComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.setClassMap();
+    };
     NzButtonGroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-button-group',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    template: "<div [ngClass]=\"classMap\" #groupWrapper>\n  <ng-content></ng-content>\n</div>"
+                    providers: [NzUpdateHostClassService],
+                    template: "<ng-content></ng-content>\n"
                 }] }
     ];
+    /** @nocollapse */
+    NzButtonGroupComponent.ctorParameters = function () { return [
+        { type: NzUpdateHostClassService },
+        { type: ElementRef }
+    ]; };
     NzButtonGroupComponent.propDecorators = {
-        groupWrapper: [{ type: ViewChild, args: ['groupWrapper',] }],
         nzSize: [{ type: Input }]
     };
     return NzButtonGroupComponent;
@@ -4207,22 +4233,60 @@ var NzButtonGroupComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function findFirstNotEmptyNode(element) {
+    /** @type {?} */
+    var children = element.childNodes;
+    for (var i = 0; i < children.length; i++) {
+        /** @type {?} */
+        var node = children.item(i);
+        if (filterNotEmptyNode(node)) {
+            return node;
+        }
+    }
+    return null;
+}
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function findLastNotEmptyNode(element) {
+    /** @type {?} */
+    var children = element.childNodes;
+    for (var i = children.length - 1; i >= 0; i--) {
+        /** @type {?} */
+        var node = children.item(i);
+        if (filterNotEmptyNode(node)) {
+            return node;
+        }
+    }
+    return null;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NzButtonComponent = /** @class */ (function () {
-    function NzButtonComponent(elementRef, cdr, renderer, nzUpdateHostClassService, ngZone) {
+    function NzButtonComponent(elementRef, cdr, renderer, nzUpdateHostClassService, ngZone, waveConfig) {
         this.elementRef = elementRef;
         this.cdr = cdr;
         this.renderer = renderer;
         this.nzUpdateHostClassService = nzUpdateHostClassService;
         this.ngZone = ngZone;
+        this.waveConfig = waveConfig;
+        this.el = this.elementRef.nativeElement;
+        this.nzWave = new NzWaveDirective(this.ngZone, this.elementRef, this.waveConfig);
         this._ghost = false;
         this._search = false;
         this._loading = false;
         this._block = false;
-        this.el = this.elementRef.nativeElement;
         this.iconOnly = false;
         this.prefixCls = 'ant-btn';
         this.sizeMap = { large: 'lg', small: 'sm' };
-        this.nzWave = new NzWaveDirective(this.ngZone, this.elementRef);
     }
     Object.defineProperty(NzButtonComponent.prototype, "nzBlock", {
         get: /**
@@ -4377,6 +4441,7 @@ var NzButtonComponent = /** @class */ (function () {
         var _a;
         /** @type {?} */
         var classMap = (_a = {},
+            _a["" + this.prefixCls] = true,
             _a[this.prefixCls + "-" + this.nzType] = this.nzType,
             _a[this.prefixCls + "-" + this.nzShape] = this.nzShape,
             _a[this.prefixCls + "-" + this.sizeMap[this.nzSize]] = this.sizeMap[this.nzSize],
@@ -4423,9 +4488,9 @@ var NzButtonComponent = /** @class */ (function () {
     function () {
         if (this.listOfIconElement && this.listOfIconElement.length) {
             /** @type {?} */
-            var firstChildElement = this.findFirstNotEmptyNode(this.contentElement.nativeElement);
+            var firstChildElement = findFirstNotEmptyNode(this.contentElement.nativeElement);
             /** @type {?} */
-            var lastChildElement = this.findLastNotEmptyNode(this.contentElement.nativeElement);
+            var lastChildElement = findLastNotEmptyNode(this.contentElement.nativeElement);
             if (firstChildElement && (firstChildElement === this.listOfIconElement.first.nativeElement)) {
                 this.renderer.insertBefore(this.el, firstChildElement, this.contentElement.nativeElement);
                 this.iconElement = /** @type {?} */ (firstChildElement);
@@ -4434,46 +4499,6 @@ var NzButtonComponent = /** @class */ (function () {
                 this.renderer.appendChild(this.el, lastChildElement);
             }
         }
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    NzButtonComponent.prototype.findFirstNotEmptyNode = /**
-     * @param {?} element
-     * @return {?}
-     */
-    function (element) {
-        /** @type {?} */
-        var children = element.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            /** @type {?} */
-            var node = children.item(i);
-            if (filterNotEmptyNode(node)) {
-                return node;
-            }
-        }
-        return null;
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    NzButtonComponent.prototype.findLastNotEmptyNode = /**
-     * @param {?} element
-     * @return {?}
-     */
-    function (element) {
-        /** @type {?} */
-        var children = element.childNodes;
-        for (var i = children.length - 1; i >= 0; i--) {
-            /** @type {?} */
-            var node = children.item(i);
-            if (filterNotEmptyNode(node)) {
-                return node;
-            }
-        }
-        return null;
     };
     /**
      * @return {?}
@@ -4491,7 +4516,7 @@ var NzButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.renderer.addClass(this.el, this.prefixCls);
+        this.setClassMap();
         this.nzWave.ngOnInit();
     };
     /**
@@ -4508,6 +4533,8 @@ var NzButtonComponent = /** @class */ (function () {
                     selector: '[nz-button]',
                     providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     template: "<i nz-icon type=\"loading\" *ngIf=\"nzLoading\"></i>\n<span (cdkObserveContent)=\"checkContent()\" #contentElement><ng-content></ng-content></span>"
                 }] }
     ];
@@ -4517,19 +4544,20 @@ var NzButtonComponent = /** @class */ (function () {
         { type: ChangeDetectorRef },
         { type: Renderer2 },
         { type: NzUpdateHostClassService },
-        { type: NgZone }
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_WAVE_GLOBAL_CONFIG,] }] }
     ]; };
     NzButtonComponent.propDecorators = {
         contentElement: [{ type: ViewChild, args: ['contentElement',] }],
         listOfIconElement: [{ type: ContentChildren, args: [NzIconDirective, { read: ElementRef },] }],
+        nzWave: [{ type: HostBinding, args: ['attr.nz-wave',] }],
         nzBlock: [{ type: Input }],
         nzGhost: [{ type: Input }],
         nzSearch: [{ type: Input }],
         nzType: [{ type: Input }],
         nzShape: [{ type: Input }],
         nzSize: [{ type: Input }],
-        nzLoading: [{ type: Input }],
-        nzWave: [{ type: HostBinding, args: ['attr.nz-wave',] }]
+        nzLoading: [{ type: Input }]
     };
     return NzButtonComponent;
 }());
@@ -4685,8 +4713,8 @@ var LoggerModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     providers: [
                         { provide: NZ_LOGGER_STATE, useValue: false },
-                        LOGGER_SERVICE_PROVIDER,
-                    ],
+                        LOGGER_SERVICE_PROVIDER
+                    ]
                 },] }
     ];
     return LoggerModule;
@@ -5105,7 +5133,7 @@ var NzI18nPipe = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0 = zh_CN;
+var ɵ0$1 = zh_CN;
 var NzI18nModule = /** @class */ (function () {
     function NzI18nModule() {
     }
@@ -5115,7 +5143,7 @@ var NzI18nModule = /** @class */ (function () {
                     declarations: [NzI18nPipe],
                     exports: [NzI18nPipe],
                     providers: [
-                        { provide: NZ_I18N, useValue: ɵ0 },
+                        { provide: NZ_I18N, useValue: ɵ0$1 },
                         DatePipe,
                         NZ_I18N_SERVICE_PROVIDER
                     ]
@@ -5128,178 +5156,285 @@ var NzI18nModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var NzRadioGroupComponent = /** @class */ (function () {
-    function NzRadioGroupComponent(elementRef) {
+var NzRadioComponent = /** @class */ (function () {
+    /* tslint:disable-next-line:no-any */
+    function NzRadioComponent(elementRef, renderer, document, cdr, focusMonitor) {
         this.elementRef = elementRef;
-        this._size = 'default';
-        this.el = this.elementRef.nativeElement;
-        // ngModel Access
+        this.renderer = renderer;
+        this.document = document;
+        this.cdr = cdr;
+        this.focusMonitor = focusMonitor;
+        this.select$ = new Subject();
+        this.touched$ = new Subject();
+        this.checked = false;
+        this.isNgModel = false;
         this.onChange = function () { return null; };
         this.onTouched = function () { return null; };
-        this.radios = [];
-        this.nzButtonStyle = 'outline';
+        this.nzDisabled = false;
+        this.nzAutoFocus = false;
     }
-    Object.defineProperty(NzRadioGroupComponent.prototype, "nzSize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._size;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._size = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioGroupComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-            this.updateDisabledState();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioGroupComponent.prototype, "nzName", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._name;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._name = value;
-            this.updateChildrenName();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
-    NzRadioGroupComponent.prototype.updateDisabledState = /**
+    NzRadioComponent.prototype.updateAutoFocus = /**
      * @return {?}
      */
     function () {
-        var _this = this;
-        if (isNotNil(this.nzDisabled)) {
-            this.radios.forEach(function (radio) {
-                radio.nzDisabled = _this.nzDisabled;
-            });
+        if (this.inputElement) {
+            if (this.nzAutoFocus) {
+                this.renderer.setAttribute(this.inputElement.nativeElement, 'autofocus', 'autofocus');
+            }
+            else {
+                this.renderer.removeAttribute(this.inputElement.nativeElement, 'autofocus');
+            }
         }
     };
     /**
      * @return {?}
      */
-    NzRadioGroupComponent.prototype.updateChildrenName = /**
+    NzRadioComponent.prototype.onClick = /**
      * @return {?}
      */
     function () {
-        var _this = this;
-        if (this.nzName) {
-            this.radios.forEach(function (item) {
-                item.name = _this.nzName;
-            });
+        this.focus();
+        if (!this.nzDisabled && !this.checked) {
+            this.select$.next(this);
+            if (this.isNgModel) {
+                this.checked = true;
+                this.onChange(true);
+            }
         }
     };
     /**
      * @return {?}
      */
-    NzRadioGroupComponent.prototype.syncCheckedValue = /**
+    NzRadioComponent.prototype.focus = /**
+     * @return {?}
+     */
+    function () {
+        this.focusMonitor.focusVia(this.inputElement, 'keyboard');
+    };
+    /**
+     * @return {?}
+     */
+    NzRadioComponent.prototype.blur = /**
+     * @return {?}
+     */
+    function () {
+        this.inputElement.nativeElement.blur();
+    };
+    /**
+     * @return {?}
+     */
+    NzRadioComponent.prototype.markForCheck = /**
+     * @return {?}
+     */
+    function () {
+        this.cdr.markForCheck();
+    };
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    NzRadioComponent.prototype.setDisabledState = /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        this.nzDisabled = isDisabled;
+        this.cdr.markForCheck();
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzRadioComponent.prototype.writeValue = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.checked = value;
+        this.cdr.markForCheck();
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzRadioComponent.prototype.registerOnChange = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.isNgModel = true;
+        this.onChange = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzRadioComponent.prototype.registerOnTouched = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.onTouched = fn;
+    };
+    /**
+     * @return {?}
+     */
+    NzRadioComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
         var _this = this;
-        this.radios.forEach(function (item) {
-            item.nzChecked = item.nzValue === _this.value;
+        this.focusMonitor.monitor(this.elementRef, true).subscribe(function (focusOrigin) {
+            if (!focusOrigin) {
+                Promise.resolve().then(function () { return _this.onTouched(); });
+                _this.touched$.next();
+            }
         });
-    };
-    Object.defineProperty(NzRadioGroupComponent.prototype, "isLarge", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'large';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioGroupComponent.prototype, "isSmall", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'small';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioGroupComponent.prototype, "isSolid", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzButtonStyle === 'solid';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} radio
-     * @return {?}
-     */
-    NzRadioGroupComponent.prototype.addRadio = /**
-     * @param {?} radio
-     * @return {?}
-     */
-    function (radio) {
-        this.radios.push(radio);
-        radio.nzChecked = radio.nzValue === this.value;
+        this.updateAutoFocus();
     };
     /**
-     * @param {?} radio
+     * @param {?} changes
      * @return {?}
      */
-    NzRadioGroupComponent.prototype.selectRadio = /**
-     * @param {?} radio
+    NzRadioComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function (radio) {
-        this.updateValue(radio.nzValue, true);
+    function (changes) {
+        if (changes["nzAutoFocus"]) {
+            this.updateAutoFocus();
+        }
     };
+    NzRadioComponent.decorators = [
+        { type: Component, args: [{
+                    selector: '[nz-radio]',
+                    preserveWhitespaces: false,
+                    template: "<span class=\"ant-radio\" [class.ant-radio-checked]=\"checked\" [class.ant-radio-disabled]=\"nzDisabled\">\n  <input #inputElement type=\"radio\" class=\"ant-radio-input\" [disabled]=\"nzDisabled\" [checked]=\"checked\" [attr.name]=\"name\">\n  <span class=\"ant-radio-inner\"></span>\n</span>\n<span><ng-content></ng-content></span>",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(function () { return NzRadioComponent; }),
+                            multi: true
+                        }
+                    ],
+                    host: {
+                        '[class.ant-radio-wrapper]': 'true',
+                        '[class.ant-radio-wrapper-checked]': 'checked',
+                        '[class.ant-radio-wrapper-disabled]': 'nzDisabled'
+                    }
+                }] }
+    ];
+    /** @nocollapse */
+    NzRadioComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
+    ]; };
+    NzRadioComponent.propDecorators = {
+        inputElement: [{ type: ViewChild, args: ['inputElement',] }],
+        nzValue: [{ type: Input }],
+        nzDisabled: [{ type: Input }],
+        nzAutoFocus: [{ type: Input }],
+        onClick: [{ type: HostListener, args: ['click',] }]
+    };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzRadioComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzRadioComponent.prototype, "nzAutoFocus", void 0);
+    return NzRadioComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzRadioButtonComponent = /** @class */ (function (_super) {
+    __extends(NzRadioButtonComponent, _super);
+    /* tslint:disable-next-line:no-any */
+    function NzRadioButtonComponent(elementRef, renderer, document, cdr, focusMonitor) {
+        return _super.call(this, elementRef, renderer, document, cdr, focusMonitor) || this;
+    }
+    NzRadioButtonComponent.decorators = [
+        { type: Component, args: [{
+                    selector: '[nz-radio-button]',
+                    providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(function () { return NzRadioComponent; }),
+                            multi: true
+                        },
+                        {
+                            provide: NzRadioComponent,
+                            useExisting: forwardRef(function () { return NzRadioButtonComponent; })
+                        }
+                    ],
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    preserveWhitespaces: false,
+                    template: "<span class=\"ant-radio-button\" [class.ant-radio-button-checked]=\"checked\" [class.ant-radio-button-disabled]=\"nzDisabled\">\n  <input type=\"radio\" #inputElement class=\"ant-radio-button-input\" [disabled]=\"nzDisabled\" [checked]=\"checked\" [attr.name]=\"name\">\n  <span class=\"ant-radio-button-inner\"></span>\n</span>\n<span><ng-content></ng-content></span>",
+                    host: {
+                        '[class.ant-radio-button-wrapper]': 'true',
+                        '[class.ant-radio-button-wrapper-checked]': 'checked',
+                        '[class.ant-radio-button-wrapper-disabled]': 'nzDisabled'
+                    }
+                }] }
+    ];
+    /** @nocollapse */
+    NzRadioButtonComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
+    ]; };
+    return NzRadioButtonComponent;
+}(NzRadioComponent));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzRadioGroupComponent = /** @class */ (function () {
+    function NzRadioGroupComponent(cdr) {
+        this.cdr = cdr;
+        this.destroy$ = new Subject();
+        this.onChange = function () { return null; };
+        this.onTouched = function () { return null; };
+        this.nzButtonStyle = 'outline';
+        this.nzSize = 'default';
+    }
     /**
-     * @param {?} value
-     * @param {?} emit
      * @return {?}
      */
-    NzRadioGroupComponent.prototype.updateValue = /**
-     * @param {?} value
-     * @param {?} emit
+    NzRadioGroupComponent.prototype.updateChildrenStatus = /**
      * @return {?}
      */
-    function (value, emit) {
-        this.value = value;
-        this.syncCheckedValue();
-        if (emit) {
-            this.onChange(value);
+    function () {
+        var _this = this;
+        if (this.radios) {
+            Promise.resolve().then(function () {
+                _this.radios.forEach(function (radio) {
+                    radio.checked = radio.nzValue === _this.value;
+                    if (isNotNil(_this.nzDisabled)) {
+                        radio.nzDisabled = _this.nzDisabled;
+                    }
+                    if (_this.nzName) {
+                        radio.name = _this.nzName;
+                    }
+                    radio.markForCheck();
+                });
+            });
         }
     };
     /**
@@ -5310,12 +5445,50 @@ var NzRadioGroupComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this.syncCheckedValue();
-        this.updateChildrenName();
-        Promise.resolve().then(function () {
-            _this.updateDisabledState();
+        this.radios.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(function () {
+            _this.updateChildrenStatus();
+            if (_this.selectSubscription) {
+                _this.selectSubscription.unsubscribe();
+            }
+            _this.selectSubscription = merge.apply(void 0, __spread(_this.radios.map(function (radio) { return radio.select$; }))).pipe(takeUntil(_this.destroy$)).subscribe(function (radio) {
+                if (_this.value !== radio.nzValue) {
+                    _this.value = radio.nzValue;
+                    _this.updateChildrenStatus();
+                    _this.onChange(_this.value);
+                }
+            });
+            if (_this.touchedSubscription) {
+                _this.touchedSubscription.unsubscribe();
+            }
+            _this.touchedSubscription = merge.apply(void 0, __spread(_this.radios.map(function (radio) { return radio.touched$; }))).pipe(takeUntil(_this.destroy$)).subscribe(function () {
+                Promise.resolve().then(function () { return _this.onTouched(); });
+            });
         });
     };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzRadioGroupComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzDisabled"] || changes["nzName"]) {
+            this.updateChildrenStatus();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzRadioGroupComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+    };
+    /* tslint:disable-next-line:no-any */
     /**
      * @param {?} value
      * @return {?}
@@ -5325,7 +5498,9 @@ var NzRadioGroupComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        this.updateValue(value, false);
+        this.value = value;
+        this.updateChildrenStatus();
+        this.cdr.markForCheck();
     };
     /**
      * @param {?} fn
@@ -5359,364 +5534,47 @@ var NzRadioGroupComponent = /** @class */ (function () {
      */
     function (isDisabled) {
         this.nzDisabled = isDisabled;
+        this.cdr.markForCheck();
     };
     NzRadioGroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-radio-group',
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content>",
-                    host: {
-                        '[class.ant-radio-group]': 'true'
-                    },
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef(function () { return NzRadioGroupComponent; }),
                             multi: true
                         }
-                    ]
-                }] }
-    ];
-    /** @nocollapse */
-    NzRadioGroupComponent.ctorParameters = function () { return [
-        { type: ElementRef }
-    ]; };
-    NzRadioGroupComponent.propDecorators = {
-        nzSize: [{ type: Input }],
-        nzDisabled: [{ type: Input }],
-        nzName: [{ type: Input }],
-        nzButtonStyle: [{ type: Input }],
-        isLarge: [{ type: HostBinding, args: ['class.ant-radio-group-large',] }],
-        isSmall: [{ type: HostBinding, args: ['class.ant-radio-group-small',] }],
-        isSolid: [{ type: HostBinding, args: ['class.ant-radio-group-solid',] }]
-    };
-    return NzRadioGroupComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzRadioComponent = /** @class */ (function () {
-    /* tslint:disable-next-line:no-any */
-    function NzRadioComponent(nzRadioGroup, renderer, document) {
-        this.nzRadioGroup = nzRadioGroup;
-        this.renderer = renderer;
-        this.document = document;
-        this._checked = false;
-        this._disabled = false;
-        this._autoFocus = false;
-        this.isInit = false;
-        this.prefixCls = 'ant-radio';
-        this.onChange = function () { return null; };
-        this.onTouched = function () { return null; };
-    }
-    Object.defineProperty(NzRadioComponent.prototype, "nzChecked", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._checked;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._checked = toBoolean(value);
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRadioComponent.prototype, "nzAutoFocus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._autoFocus;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._autoFocus = toBoolean(value);
-            this.updateAutoFocus();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.updateAutoFocus = /**
-     * @return {?}
-     */
-    function () {
-        if (this.isInit) {
-            if (this.nzAutoFocus) {
-                this.renderer.setAttribute(this.inputElement.nativeElement, 'autofocus', 'autofocus');
-            }
-            else {
-                this.renderer.removeAttribute(this.inputElement.nativeElement, 'autofocus');
-            }
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.updateInputFocus = /**
-     * @return {?}
-     */
-    function () {
-        if (this.inputElement) {
-            if (this.nzChecked) {
-                if (this.document.activeElement.nodeName === 'BODY') {
-                    this.inputElement.nativeElement.focus();
-                }
-            }
-            else {
-                this.inputElement.nativeElement.blur();
-            }
-        }
-    };
-    /**
-     * @param {?} e
-     * @return {?}
-     */
-    NzRadioComponent.prototype.onClick = /**
-     * @param {?} e
-     * @return {?}
-     */
-    function (e) {
-        e.preventDefault();
-        this.setClassMap();
-        if (this.nzDisabled || this.nzChecked) {
-            this.updateInputFocus();
-            return;
-        }
-        else {
-            if (this.nzRadioGroup) {
-                this.nzRadioGroup.selectRadio(this);
-            }
-            else {
-                this.updateValue(true);
-            }
-            this.updateInputFocus();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.onBlur = /**
-     * @return {?}
-     */
-    function () {
-        this.onTouched();
-        if (this.nzRadioGroup) {
-            this.nzRadioGroup.onTouched();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.setClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this.classMap = (_a = {},
-            _a[this.prefixCls] = true,
-            _a[this.prefixCls + "-checked"] = this.nzChecked,
-            _a[this.prefixCls + "-disabled"] = this.nzDisabled,
-            _a);
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.focus = /**
-     * @return {?}
-     */
-    function () {
-        this.inputElement.nativeElement.focus();
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.blur = /**
-     * @return {?}
-     */
-    function () {
-        this.inputElement.nativeElement.blur();
-        this.onBlur();
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        if (this.nzRadioGroup) {
-            this.nzRadioGroup.addRadio(this);
-        }
-        this.setClassMap();
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzRadioComponent.prototype.updateValue = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.onChange(value);
-        this.nzChecked = value;
-        this.setClassMap();
-    };
-    /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    NzRadioComponent.prototype.setDisabledState = /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    function (isDisabled) {
-        this.nzDisabled = isDisabled;
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzRadioComponent.prototype.writeValue = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.nzChecked = value;
-        this.setClassMap();
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzRadioComponent.prototype.registerOnChange = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        this.onChange = fn;
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzRadioComponent.prototype.registerOnTouched = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        this.onTouched = fn;
-    };
-    /**
-     * @return {?}
-     */
-    NzRadioComponent.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        this.isInit = true;
-        this.updateAutoFocus();
-        this.updateInputFocus();
-    };
-    NzRadioComponent.decorators = [
-        { type: Component, args: [{
-                    selector: '[nz-radio]',
-                    preserveWhitespaces: false,
-                    template: "<span [ngClass]=\"classMap\">\n  <input #inputElement type=\"radio\" class=\"ant-radio-input\" [disabled]=\"nzDisabled\" [(ngModel)]=\"nzChecked\" (blur)=\"onBlur()\" [attr.name]=\"name\">\n  <span class=\"ant-radio-inner\"></span>\n</span>\n<span><ng-content></ng-content></span>",
+                    ],
                     host: {
-                        '[class.ant-radio-wrapper]': 'true',
-                        '[class.ant-radio-wrapper-checked]': 'nzChecked',
-                        '[class.ant-radio-wrapper-disabled]': 'nzDisabled'
-                    },
-                    providers: [
-                        {
-                            provide: NG_VALUE_ACCESSOR,
-                            useExisting: forwardRef(function () { return NzRadioComponent; }),
-                            multi: true
-                        }
-                    ]
-                }] }
-    ];
-    /** @nocollapse */
-    NzRadioComponent.ctorParameters = function () { return [
-        { type: NzRadioGroupComponent, decorators: [{ type: Optional }] },
-        { type: Renderer2 },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-    ]; };
-    NzRadioComponent.propDecorators = {
-        inputElement: [{ type: ViewChild, args: ['inputElement',] }],
-        nzValue: [{ type: Input }],
-        nzDisabled: [{ type: Input }],
-        nzAutoFocus: [{ type: Input }],
-        onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
-    };
-    return NzRadioComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzRadioButtonComponent = /** @class */ (function (_super) {
-    __extends(NzRadioButtonComponent, _super);
-    /* tslint:disable-next-line:no-any */
-    function NzRadioButtonComponent(nzRadioGroup, renderer, document) {
-        var _this = _super.call(this, nzRadioGroup, renderer, document) || this;
-        _this.prefixCls = 'ant-radio-button';
-        return _this;
-    }
-    NzRadioButtonComponent.decorators = [
-        { type: Component, args: [{
-                    selector: '[nz-radio-button]',
-                    preserveWhitespaces: false,
-                    template: "<span [ngClass]=\"classMap\">\n  <input type=\"radio\" #inputElement class=\"ant-radio-button-input\" [disabled]=\"nzDisabled\" [(ngModel)]=\"nzChecked\" (blur)=\"onBlur()\" [attr.name]=\"name\">\n  <span class=\"ant-radio-button-inner\"></span>\n</span>\n<span><ng-content></ng-content></span>",
-                    host: {
-                        '[class.ant-radio-button-wrapper]': 'true',
-                        '[class.ant-radio-button-wrapper-checked]': 'nzChecked',
-                        '[class.ant-radio-button-wrapper-disabled]': 'nzDisabled'
+                        '[class.ant-radio-group]': 'true',
+                        '[class.ant-radio-group-large]': "nzSize === 'large'",
+                        '[class.ant-radio-group-small]': "nzSize === 'small'",
+                        '[class.ant-radio-group-solid]': "nzButtonStyle === 'solid'"
                     }
                 }] }
     ];
     /** @nocollapse */
-    NzRadioButtonComponent.ctorParameters = function () { return [
-        { type: NzRadioGroupComponent, decorators: [{ type: Optional }] },
-        { type: Renderer2 },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    NzRadioGroupComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef }
     ]; };
-    return NzRadioButtonComponent;
-}(NzRadioComponent));
+    NzRadioGroupComponent.propDecorators = {
+        radios: [{ type: ContentChildren, args: [forwardRef(function () { return NzRadioComponent; }), { descendants: true },] }],
+        nzDisabled: [{ type: Input }],
+        nzButtonStyle: [{ type: Input }],
+        nzSize: [{ type: Input }],
+        nzName: [{ type: Input }]
+    };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Boolean)
+    ], NzRadioGroupComponent.prototype, "nzDisabled", void 0);
+    return NzRadioGroupComponent;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -5788,6 +5646,7 @@ var NzOptionComponent = /** @class */ (function () {
         template: [{ type: ViewChild, args: [TemplateRef,] }],
         nzLabel: [{ type: Input }],
         nzValue: [{ type: Input }],
+        idClass: [{ type: Input }],
         nzDisabled: [{ type: Input }],
         nzCustomContent: [{ type: Input }]
     };
@@ -6023,6 +5882,17 @@ var NzOptionContainerComponent = /** @class */ (function () {
     };
     /**
      * @param {?} option
+     * @return {?}
+     */
+    NzOptionContainerComponent.prototype.formatId = /**
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
+        return this.idClass + "-" + option;
+    };
+    /**
+     * @param {?} option
      * @param {?} isPressEnter
      * @return {?}
      */
@@ -6051,12 +5921,12 @@ var NzOptionContainerComponent = /** @class */ (function () {
             var activeIndex = this.listOfFilterOption.findIndex(function (item) { return item === _this.activatedOption; });
             if (e.keyCode === UP_ARROW) {
                 /** @type {?} */
-                var preIndex = activeIndex > 0 ? (activeIndex - 1) : (this.listOfFilterOption.length - 1);
+                var preIndex = activeIndex > 0 ? activeIndex - 1 : this.listOfFilterOption.length - 1;
                 this.setActiveOption(this.listOfFilterOption[preIndex]);
             }
             else if (e.keyCode === DOWN_ARROW) {
                 /** @type {?} */
-                var nextIndex = activeIndex < this.listOfFilterOption.length - 1 ? (activeIndex + 1) : 0;
+                var nextIndex = activeIndex < this.listOfFilterOption.length - 1 ? activeIndex + 1 : 0;
                 this.setActiveOption(this.listOfFilterOption[nextIndex]);
             }
             else if (e.keyCode === ENTER) {
@@ -6085,7 +5955,9 @@ var NzOptionContainerComponent = /** @class */ (function () {
     function () {
         var _this = this;
         /** @type {?} */
-        var firstActiveOption = this.listOfAllTemplateOption.concat(this.listOfTagOption).find(function (item) { return _this.compareWith(item.nzValue, _this.nzListOfSelectedValue[0]); });
+        var firstActiveOption = this.listOfAllTemplateOption
+            .concat(this.listOfTagOption)
+            .find(function (item) { return _this.compareWith(item.nzValue, _this.nzListOfSelectedValue[0]); });
         this.setActiveOption(firstActiveOption);
     };
     /**
@@ -6215,7 +6087,11 @@ var NzOptionContainerComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this.listOfAllTemplateOption = this.listOfNzOptionComponent.toArray().concat(this.listOfNzOptionGroupComponent.toArray().reduce(function (pre, cur) { return __spread(pre, cur.listOfNzOptionComponent.toArray()); }, []));
+        this.listOfAllTemplateOption = this.listOfNzOptionComponent
+            .toArray()
+            .concat(this.listOfNzOptionGroupComponent
+            .toArray()
+            .reduce(function (pre, cur) { return __spread(pre, cur.listOfNzOptionComponent.toArray()); }, []));
         Promise.resolve().then(function () { return _this.nzListOfTemplateOptionChange.emit(_this.listOfAllTemplateOption); });
     };
     /**
@@ -6264,7 +6140,11 @@ var NzOptionContainerComponent = /** @class */ (function () {
         /** @type {?} */
         var optionChanges$ = merge(new Subject().asObservable(), this.listOfNzOptionGroupComponent.changes, this.listOfNzOptionComponent.changes);
         if (this.listOfNzOptionGroupComponent.length) {
-            this.listOfNzOptionGroupComponent.forEach(function (group) { return optionChanges$ = group.listOfNzOptionComponent ? merge(group.listOfNzOptionComponent.changes, optionChanges$) : optionChanges$; });
+            this.listOfNzOptionGroupComponent.forEach(function (group) {
+                return (optionChanges$ = group.listOfNzOptionComponent
+                    ? merge(group.listOfNzOptionComponent.changes, optionChanges$)
+                    : optionChanges$);
+            });
         }
         this.optionSubscription = optionChanges$.subscribe(function () { return _this.refreshAllOptionStatus(true); });
     };
@@ -6317,7 +6197,7 @@ var NzOptionContainerComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return (!this.isTagsMode) && (!this.listOfFilterOption.length);
+            return !this.isTagsMode && !this.listOfFilterOption.length;
         },
         enumerable: true,
         configurable: true
@@ -6333,7 +6213,7 @@ var NzOptionContainerComponent = /** @class */ (function () {
         var listOfAllOption = this.listOfAllTemplateOption.concat(this.listOfTagOption).map(function (item) { return item.nzLabel; });
         /** @type {?} */
         var isMatch = listOfAllOption.indexOf(this.nzSearchValue) > -1;
-        this.isAddTagOptionDisplay = this.isTagsMode && this.nzSearchValue && (!isMatch);
+        this.isAddTagOptionDisplay = this.isTagsMode && this.nzSearchValue && !isMatch;
     };
     /**
      * @param {?} e
@@ -6348,7 +6228,7 @@ var NzOptionContainerComponent = /** @class */ (function () {
     function (e, ul) {
         e.preventDefault();
         e.stopPropagation();
-        if (ul && (ul.scrollHeight - ul.scrollTop === ul.clientHeight)) {
+        if (ul && ul.scrollHeight - ul.scrollTop === ul.clientHeight) {
             this.nzScrollToBottom.emit();
         }
     };
@@ -6379,7 +6259,7 @@ var NzOptionContainerComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: '[nz-option-container]',
                     preserveWhitespaces: false,
-                    template: "<ul\n  #dropdownUl\n  class=\"ant-select-dropdown-menu ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical\"\n  role=\"menu\"\n  (keydown)=\"onKeyDownUl($event)\"\n  (scroll)=\"dropDownScroll($event,dropdownUl)\"\n  tabindex=\"0\">\n  <li\n    *ngIf=\"isNotFoundDisplay\"\n    nz-select-unselectable\n    class=\"ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled\">\n    {{ nzNotFoundContent ? nzNotFoundContent : ('Select.notFoundContent' | nzI18n) }}\n  </li>\n  <li\n    *ngIf=\"isAddTagOptionDisplay\"\n    nz-select-unselectable\n    (click)=\"addTagOption()\"\n    class=\"ant-select-dropdown-menu-item ant-select-dropdown-menu-item-active\">\n    {{ nzSearchValue }}\n  </li>\n  <li\n    nz-option-li\n    [nzMode]=\"nzMode\"\n    [compareWith]=\"compareWith\"\n    *ngFor=\"let option of listOfNzOptionComponent | nzFilterOptionPipe : nzSearchValue : nzFilterOption : nzServerSearch \"\n    (click)=\"clickOption(option,false)\"\n    [nzActiveOption]=\"activatedOption\"\n    [nzOption]=\"option\"\n    [nzListOfSelectedValue]=\"nzListOfSelectedValue\">\n  </li>\n  <li\n    *ngFor=\"let group of listOfNzOptionGroupComponent | nzSubFilterOptionPipe : nzSearchValue : nzFilterOption : nzServerSearch\"\n    class=\"ant-select-dropdown-menu-item-group\">\n    <div\n      class=\"ant-select-dropdown-menu-item-group-title\"\n      [attr.title]=\"group.isLabelString ? group.nzLabel : ''\">\n      <ng-container *ngIf=\"group.isLabelString; else labelTemplate\">{{ group.nzLabel }}</ng-container>\n      <ng-template #labelTemplate>\n        <ng-template [ngTemplateOutlet]=\"group.nzLabel\"></ng-template>\n      </ng-template>\n    </div>\n    <ul class=\"ant-select-dropdown-menu-item-group-list\">\n      <li\n        nz-option-li\n        [nzMode]=\"nzMode\"\n        [compareWith]=\"compareWith\"\n        *ngFor=\"let option of group.listOfNzOptionComponent | nzFilterOptionPipe : nzSearchValue : nzFilterOption : nzServerSearch\"\n        (click)=\"clickOption(option,false)\"\n        [nzActiveOption]=\"activatedOption\"\n        [nzShowActive]=\"!isAddTagOptionDisplay\"\n        [nzOption]=\"option\"\n        [nzListOfSelectedValue]=\"nzListOfSelectedValue\">\n      </li>\n    </ul>\n  </li>\n  <li\n    nz-option-li\n    [nzMode]=\"nzMode\"\n    [compareWith]=\"compareWith\"\n    *ngFor=\"let option of listOfTagOption | nzFilterOptionPipe : nzSearchValue : nzFilterOption : nzServerSearch \"\n    (click)=\"clickOption(option,false)\"\n    [nzActiveOption]=\"activatedOption\"\n    [nzShowActive]=\"!isAddTagOptionDisplay\"\n    [nzOption]=\"option\"\n    [nzListOfSelectedValue]=\"nzListOfSelectedValue\">\n  </li>\n</ul>"
+                    template: "<ul\n  #dropdownUl\n  class=\"ant-select-dropdown-menu ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical\"\n  role=\"menu\"\n  (keydown)=\"onKeyDownUl($event)\"\n  (scroll)=\"dropDownScroll($event, dropdownUl)\"\n  tabindex=\"0\"\n>\n  <li\n    *ngIf=\"isNotFoundDisplay\"\n    nz-select-unselectable\n    class=\"ant-select-dropdown-menu-item ant-select-dropdown-menu-item-disabled\"\n  >\n    {{ nzNotFoundContent ? nzNotFoundContent : ('Select.notFoundContent' | nzI18n) }}\n  </li>\n  <li\n    *ngIf=\"isAddTagOptionDisplay\"\n    nz-select-unselectable\n    (click)=\"addTagOption()\"\n    class=\"ant-select-dropdown-menu-item ant-select-dropdown-menu-item-active\"\n  >\n    {{ nzSearchValue }}\n  </li>\n  <li\n    nz-option-li\n    [nzMode]=\"nzMode\"\n    [id]=\"formatId(option)\"\n    [compareWith]=\"compareWith\"\n    *ngFor=\"let option of listOfNzOptionComponent | nzFilterOptionPipe: nzSearchValue:nzFilterOption:nzServerSearch\"\n    (click)=\"clickOption(option, false)\"\n    [nzActiveOption]=\"activatedOption\"\n    [nzOption]=\"option\"\n    [nzListOfSelectedValue]=\"nzListOfSelectedValue\"\n  ></li>\n  <li\n    *ngFor=\"\n      let group of listOfNzOptionGroupComponent | nzSubFilterOptionPipe: nzSearchValue:nzFilterOption:nzServerSearch\n    \"\n    class=\"ant-select-dropdown-menu-item-group\"\n  >\n    <div class=\"ant-select-dropdown-menu-item-group-title\" [attr.title]=\"group.isLabelString ? group.nzLabel : ''\">\n      <ng-container *ngIf=\"group.isLabelString; else labelTemplate\">{{ group.nzLabel }}</ng-container>\n      <ng-template #labelTemplate>\n        <ng-template [ngTemplateOutlet]=\"group.nzLabel\"></ng-template>\n      </ng-template>\n    </div>\n    <ul class=\"ant-select-dropdown-menu-item-group-list\">\n      <li\n        nz-option-li\n        [nzMode]=\"nzMode\"\n        [compareWith]=\"compareWith\"\n        *ngFor=\"\n          let option of group.listOfNzOptionComponent | nzFilterOptionPipe: nzSearchValue:nzFilterOption:nzServerSearch\n        \"\n        (click)=\"clickOption(option, false)\"\n        [nzActiveOption]=\"activatedOption\"\n        [nzShowActive]=\"!isAddTagOptionDisplay\"\n        [nzOption]=\"option\"\n        [nzListOfSelectedValue]=\"nzListOfSelectedValue\"\n      ></li>\n    </ul>\n  </li>\n  <li\n    nz-option-li\n    [nzMode]=\"nzMode\"\n    [compareWith]=\"compareWith\"\n    *ngFor=\"let option of listOfTagOption | nzFilterOptionPipe: nzSearchValue:nzFilterOption:nzServerSearch\"\n    (click)=\"clickOption(option, false)\"\n    [nzActiveOption]=\"activatedOption\"\n    [nzShowActive]=\"!isAddTagOptionDisplay\"\n    [nzOption]=\"option\"\n    [nzListOfSelectedValue]=\"nzListOfSelectedValue\"\n  ></li>\n</ul>\n"
                 }] }
     ];
     NzOptionContainerComponent.propDecorators = {
@@ -6394,6 +6274,7 @@ var NzOptionContainerComponent = /** @class */ (function () {
         nzServerSearch: [{ type: Input }],
         nzFilterOption: [{ type: Input }],
         nzMaxMultipleCount: [{ type: Input }],
+        idClass: [{ type: Input }],
         nzNotFoundContent: [{ type: Input }],
         compareWith: [{ type: Input }],
         nzSearchValue: [{ type: Input }],
@@ -6731,7 +6612,7 @@ var NzSelectTopControlComponent = /** @class */ (function () {
                             ])
                         ])
                     ],
-                    template: "<ng-template #inputTemplate>\n  <input\n    #inputElement\n    autocomplete=\"something-new\"\n    class=\"ant-select-search__field\"\n    (compositionstart)=\"isComposing = true\"\n    (compositionend)=\"isComposing = false\"\n    (input)=\"updateWidth()\"\n    (keydown)=\"onKeyDownInput($event)\"\n    [ngModel]=\"inputValue\"\n    (ngModelChange)=\"setInputValue($event,true)\"\n    [disabled]=\"nzDisabled\">\n</ng-template>\n<div\n  *ngIf=\"nzPlaceHolder\"\n  nz-select-unselectable\n  [style.display]=\"placeHolderDisplay\"\n  (click)=\"focusOnInput()\"\n  class=\"ant-select-selection__placeholder\">{{ nzPlaceHolder }}</div>\n<!--single mode-->\n<ng-container *ngIf=\"isSingleMode\">\n  <!--selected label-->\n  <div\n    *ngIf=\"nzListOfSelectedValue.length\"\n    class=\"ant-select-selection-selected-value\"\n    [attr.title]=\"nzListOfSelectedValue[0].nzLabel\"\n    [ngStyle]=\"selectedValueDisplay\">\n    {{ singleValueLabel }}\n  </div>\n  <!--show search-->\n  <div\n    *ngIf=\"nzShowSearch\"\n    class=\"ant-select-search ant-select-search--inline\">\n    <div class=\"ant-select-search__field__wrap\">\n      <ng-template [ngTemplateOutlet]=\"inputTemplate\"></ng-template>\n      <span class=\"ant-select-search__field__mirror\">{{inputValue}}&nbsp;</span>\n    </div>\n  </div>\n</ng-container>\n<!--multiple or tags mode-->\n<ul *ngIf=\"isMultipleOrTags\">\n  <ng-container *ngFor=\"let value of nzListOfSelectedValue\">\n    <li\n      *ngIf=\"isOptionDisplay(value)\"\n      [@tagAnimation]\n      [attr.title]=\"getPropertyFromValue(value,'nzLabel')\"\n      [class.ant-select-selection__choice__disabled]=\"getPropertyFromValue(value,'nzDisabled')\"\n      class=\"ant-select-selection__choice\">\n      <div class=\"ant-select-selection__choice__content\">{{ getPropertyFromValue(value, 'nzLabel') || value }}</div>\n      <span *ngIf=\"!getPropertyFromValue(value,'nzDisabled')\" class=\"ant-select-selection__choice__remove\" (click)=\"removeValueFormSelected(value, $event)\">\n        <i nz-icon type=\"close\" class=\"ant-select-remove-icon\"></i>\n      </span>\n    </li>\n  </ng-container>\n\n  <li class=\"ant-select-search ant-select-search--inline\">\n    <ng-template [ngTemplateOutlet]=\"inputTemplate\"></ng-template>\n  </li>\n</ul>",
+                    template: "<ng-template #inputTemplate>\n  <input\n    #inputElement\n    autocomplete=\"something-new\"\n    class=\"ant-select-search__field\"\n    (compositionstart)=\"isComposing = true\"\n    (compositionend)=\"isComposing = false\"\n    (input)=\"updateWidth()\"\n    (keydown)=\"onKeyDownInput($event)\"\n    [ngModel]=\"inputValue\"\n    (ngModelChange)=\"setInputValue($event,true)\"\n    [disabled]=\"nzDisabled\">\n</ng-template>\n<div\n  *ngIf=\"nzPlaceHolder\"\n  nz-select-unselectable\n  [style.display]=\"placeHolderDisplay\"\n  (click)=\"focusOnInput()\"\n  class=\"ant-select-selection__placeholder\">{{ nzPlaceHolder }}</div>\n<!--single mode-->\n<ng-container *ngIf=\"isSingleMode\">\n  <!--selected label-->\n  <div\n    *ngIf=\"nzListOfSelectedValue.length\"\n    class=\"ant-select-selection-selected-value\"\n    [attr.title]=\"singleValueLabel\"\n    [ngStyle]=\"selectedValueDisplay\">\n    {{ singleValueLabel }}\n  </div>\n  <!--show search-->\n  <div\n    *ngIf=\"nzShowSearch\"\n    class=\"ant-select-search ant-select-search--inline\">\n    <div class=\"ant-select-search__field__wrap\">\n      <ng-template [ngTemplateOutlet]=\"inputTemplate\"></ng-template>\n      <span class=\"ant-select-search__field__mirror\">{{inputValue}}&nbsp;</span>\n    </div>\n  </div>\n</ng-container>\n<!--multiple or tags mode-->\n<ul *ngIf=\"isMultipleOrTags\">\n  <ng-container *ngFor=\"let value of nzListOfSelectedValue\">\n    <li\n      *ngIf=\"isOptionDisplay(value)\"\n      [@tagAnimation]\n      [attr.title]=\"getPropertyFromValue(value,'nzLabel')\"\n      [class.ant-select-selection__choice__disabled]=\"getPropertyFromValue(value,'nzDisabled')\"\n      class=\"ant-select-selection__choice\">\n      <div class=\"ant-select-selection__choice__content\">{{ getPropertyFromValue(value, 'nzLabel') || value }}</div>\n      <span *ngIf=\"!getPropertyFromValue(value,'nzDisabled')\" class=\"ant-select-selection__choice__remove\" (click)=\"removeValueFormSelected(value, $event)\">\n        <i nz-icon type=\"close\" class=\"ant-select-remove-icon\"></i>\n      </span>\n    </li>\n  </ng-container>\n\n  <li class=\"ant-select-search ant-select-search--inline\">\n    <ng-template [ngTemplateOutlet]=\"inputTemplate\"></ng-template>\n  </li>\n</ul>",
                     host: {
                         '[class.ant-select-selection__rendered]': 'true'
                     }
@@ -7478,7 +7359,7 @@ var NzSelectComponent = /** @class */ (function () {
                             ])
                         ])
                     ],
-                    template: "<div\n  cdkOverlayOrigin\n  class=\"ant-select-selection\"\n  [class.ant-select-selection--single]=\"isSingleMode\"\n  [class.ant-select-selection--multiple]=\"isMultipleOrTags\"\n  (keydown)=\"onKeyDownCdkOverlayOrigin($event)\"\n  tabindex=\"0\">\n  <div\n    nz-select-top-control\n    [nzOpen]=\"nzOpen\"\n    [compareWith]=\"compareWith\"\n    [nzPlaceHolder]=\"nzPlaceHolder\"\n    [nzShowSearch]=\"nzShowSearch\"\n    [nzDisabled]=\"nzDisabled\"\n    [nzMode]=\"nzMode\"\n    [nzListTemplateOfOption]=\"listOfTemplateOption\"\n    [nzListOfSelectedValue]=\"listOfSelectedValue\"\n    (nzOnSearch)=\"onSearch($event.value,$event.emit)\"\n    (nzListOfSelectedValueChange)=\"updateListOfSelectedValueFromTopControl($event)\">\n  </div>\n  <span *ngIf=\"nzAllowClear\" class=\"ant-select-selection__clear\" nz-select-unselectable (click)=\"onClearSelection($event)\">\n    <i nz-icon type=\"close-circle\" theme=\"fill\" class=\"ant-select-close-icon\"></i>\n  </span>\n  <span class=\"ant-select-arrow\" nz-select-unselectable>\n    <i nz-icon type=\"down\" class=\"ant-select-arrow-icon\"></i>\n    <b></b>\n  </span>\n</div>\n<ng-template\n  cdkConnectedOverlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  [cdkConnectedOverlayOrigin]=\"cdkOverlayOrigin\"\n  (backdropClick)=\"closeDropDown()\"\n  (detach)=\"closeDropDown();\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayWidth]=\"overlayWidth\"\n  [cdkConnectedOverlayMinWidth]=\"overlayMinWidth\"\n  [cdkConnectedOverlayOpen]=\"!isDestroy\">\n  <div [ngClass]=\"dropDownClassMap\" [@dropDownAnimation]=\"nzOpen ? dropDownPosition : 'hidden' \" [ngStyle]=\"nzDropdownStyle\">\n    <div\n      style=\"overflow: auto\"\n      nz-option-container\n      [listOfNzOptionComponent]=\"listOfNzOptionComponent\"\n      [listOfNzOptionGroupComponent]=\"listOfNzOptionGroupComponent\"\n      [nzSearchValue]=\"searchValue\"\n      [nzFilterOption]=\"nzFilterOption\"\n      [nzServerSearch]=\"nzServerSearch\"\n      [compareWith]=\"compareWith\"\n      [nzNotFoundContent]=\"nzNotFoundContent\"\n      [nzMaxMultipleCount]=\"nzMaxMultipleCount\"\n      [nzMode]=\"nzMode\"\n      (nzScrollToBottom)=\"nzScrollToBottom.emit()\"\n      (nzClickOption)=\"onClickOptionFromOptionContainer()\"\n      (nzListOfTemplateOptionChange)=\"listOfTemplateOptionChange($event)\"\n      (nzListOfSelectedValueChange)=\"updateListOfSelectedValueFromOptionContainer($event)\"\n      [nzListOfSelectedValue]=\"listOfSelectedValue\">\n    </div>\n  </div>\n</ng-template>\n<!--can not use ViewChild since it will match sub options in option group -->\n<ng-template>\n  <ng-content></ng-content>\n</ng-template>",
+                    template: "<div\n  cdkOverlayOrigin\n  class=\"ant-select-selection\"\n  [class.ant-select-selection--single]=\"isSingleMode\"\n  [class.ant-select-selection--multiple]=\"isMultipleOrTags\"\n  (keydown)=\"onKeyDownCdkOverlayOrigin($event)\"\n  tabindex=\"0\"\n>\n  <div\n    nz-select-top-control\n    [nzOpen]=\"nzOpen\"\n    [compareWith]=\"compareWith\"\n    [nzPlaceHolder]=\"nzPlaceHolder\"\n    [nzShowSearch]=\"nzShowSearch\"\n    [nzDisabled]=\"nzDisabled\"\n    [nzMode]=\"nzMode\"\n    [nzListTemplateOfOption]=\"listOfTemplateOption\"\n    [nzListOfSelectedValue]=\"listOfSelectedValue\"\n    (nzOnSearch)=\"onSearch($event.value, $event.emit)\"\n    (nzListOfSelectedValueChange)=\"updateListOfSelectedValueFromTopControl($event)\"\n  ></div>\n  <span\n    *ngIf=\"nzAllowClear\"\n    class=\"ant-select-selection__clear\"\n    nz-select-unselectable\n    (click)=\"onClearSelection($event)\"\n  >\n    <i nz-icon type=\"close-circle\" theme=\"fill\" class=\"ant-select-close-icon\"></i>\n  </span>\n  <span class=\"ant-select-arrow\" nz-select-unselectable>\n    <i nz-icon type=\"down\" class=\"ant-select-arrow-icon\"></i>\n    <b></b>\n  </span>\n</div>\n<ng-template\n  cdkConnectedOverlay\n  [cdkConnectedOverlayHasBackdrop]=\"true\"\n  [cdkConnectedOverlayOrigin]=\"cdkOverlayOrigin\"\n  (backdropClick)=\"closeDropDown()\"\n  (detach)=\"closeDropDown()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayWidth]=\"overlayWidth\"\n  [cdkConnectedOverlayMinWidth]=\"overlayMinWidth\"\n  [cdkConnectedOverlayOpen]=\"!isDestroy\"\n>\n  <div\n    [ngClass]=\"dropDownClassMap\"\n    [@dropDownAnimation]=\"nzOpen ? dropDownPosition : 'hidden'\"\n    [ngStyle]=\"nzDropdownStyle\"\n  >\n    <div\n      style=\"overflow: auto\"\n      [id]=\"idClass\"\n      nz-option-container\n      [listOfNzOptionComponent]=\"listOfNzOptionComponent\"\n      [listOfNzOptionGroupComponent]=\"listOfNzOptionGroupComponent\"\n      [nzSearchValue]=\"searchValue\"\n      [nzFilterOption]=\"nzFilterOption\"\n      [nzServerSearch]=\"nzServerSearch\"\n      [compareWith]=\"compareWith\"\n      [nzNotFoundContent]=\"nzNotFoundContent\"\n      [nzMaxMultipleCount]=\"nzMaxMultipleCount\"\n      [nzMode]=\"nzMode\"\n      (nzScrollToBottom)=\"nzScrollToBottom.emit()\"\n      (nzClickOption)=\"onClickOptionFromOptionContainer()\"\n      (nzListOfTemplateOptionChange)=\"listOfTemplateOptionChange($event)\"\n      (nzListOfSelectedValueChange)=\"updateListOfSelectedValueFromOptionContainer($event)\"\n      [nzListOfSelectedValue]=\"listOfSelectedValue\"\n    ></div>\n  </div>\n</ng-template>\n<!--can not use ViewChild since it will match sub options in option group -->\n<ng-template>\n  <ng-content></ng-content>\n</ng-template>\n",
                     host: {
                         '[class.ant-select]': 'true',
                         '[class.ant-select-lg]': 'nzSize==="large"',
@@ -7513,6 +7394,7 @@ var NzSelectComponent = /** @class */ (function () {
         nzMaxMultipleCount: [{ type: Input }],
         nzDropdownStyle: [{ type: Input }],
         nzNotFoundContent: [{ type: Input }],
+        idClass: [{ type: Input }],
         compareWith: [{ type: Input }],
         nzDropdownClassName: [{ type: Input }],
         nzAutoFocus: [{ type: Input }],
@@ -8267,10 +8149,13 @@ var NzCardLoadingComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-card-loading',
                     template: "<div class=\"ant-card-loading-content\">\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-22\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-8\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-15\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-6\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-18\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-13\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-9\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-4\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-3\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-16\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n  <div class=\"ant-row\" style=\"margin-left: -4px; margin-right: -4px;\">\n    <div class=\"ant-col-8\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-6\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n    <div class=\"ant-col-8\" style=\"padding-left: 4px; padding-right: 4px;\">\n      <div class=\"ant-card-loading-block\"></div>\n    </div>\n  </div>\n</div>",
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     host: {
                         '[class.ant-card-loading-content]': 'true'
                     },
-                    styles: ["\n    :host {\n      display: block;\n    }\n  "]
+                    styles: ["\n    nz-card-loading {\n      display: block;\n    }\n  "]
                 }] }
     ];
     return NzCardLoadingComponent;
@@ -8283,57 +8168,23 @@ var NzCardLoadingComponent = /** @class */ (function () {
 var NzCardMetaComponent = /** @class */ (function () {
     function NzCardMetaComponent() {
     }
-    Object.defineProperty(NzCardMetaComponent.prototype, "nzTitle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._title;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isTitleString = !(value instanceof TemplateRef);
-            this._title = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardMetaComponent.prototype, "nzDescription", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._description;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isDescriptionString = !(value instanceof TemplateRef);
-            this._description = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzCardMetaComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-card-meta',
                     preserveWhitespaces: false,
-                    template: "<div class=\"ant-card-meta-avatar\" *ngIf=\"nzAvatar\">\n  <ng-template [ngTemplateOutlet]=\"nzAvatar\"></ng-template>\n</div>\n<div class=\"ant-card-meta-detail\" *ngIf=\"nzTitle || nzDescription\">\n  <div class=\"ant-card-meta-title\" *ngIf=\"nzTitle\">\n    <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n    <ng-template #titleTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n    </ng-template>\n  </div>\n  <div class=\"ant-card-meta-description\" *ngIf=\"nzDescription\">\n    <ng-container *ngIf=\"isDescriptionString; else descriptionTemplate\">{{ nzDescription }}</ng-container>\n    <ng-template #descriptionTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzDescription\"></ng-template>\n    </ng-template>\n  </div>\n</div>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<div class=\"ant-card-meta-avatar\" *ngIf=\"nzAvatar\">\n  <ng-template [ngTemplateOutlet]=\"nzAvatar\"></ng-template>\n</div>\n<div class=\"ant-card-meta-detail\" *ngIf=\"nzTitle || nzDescription\">\n  <div class=\"ant-card-meta-title\" *ngIf=\"nzTitle\">\n    <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n  </div>\n  <div class=\"ant-card-meta-description\" *ngIf=\"nzDescription\">\n    <ng-container *nzStringTemplateOutlet=\"nzDescription\">{{ nzDescription }}</ng-container>\n  </div>\n</div>",
                     host: {
                         '[class.ant-card-meta]': 'true'
                     },
-                    styles: ["\n    :host {\n      display: block;\n    }\n  "]
+                    styles: ["\n    nz-card-meta {\n      display: block;\n    }\n  "]
                 }] }
     ];
     NzCardMetaComponent.propDecorators = {
-        nzAvatar: [{ type: Input }],
         nzTitle: [{ type: Input }],
-        nzDescription: [{ type: Input }]
+        nzDescription: [{ type: Input }],
+        nzAvatar: [{ type: Input }]
     };
     return NzCardMetaComponent;
 }());
@@ -8348,6 +8199,8 @@ var NzCardTabComponent = /** @class */ (function () {
     NzCardTabComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-card-tab',
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     template: "<ng-template>\n  <ng-content></ng-content>\n</ng-template>"
                 }] }
     ];
@@ -8363,144 +8216,53 @@ var NzCardTabComponent = /** @class */ (function () {
  */
 var NzCardComponent = /** @class */ (function () {
     function NzCardComponent() {
-        this._bordered = true;
-        this._loading = false;
-        this._hoverable = false;
+        this.nzBordered = true;
+        this.nzLoading = false;
+        this.nzHoverable = false;
         this.nzActions = [];
     }
-    Object.defineProperty(NzCardComponent.prototype, "nzTitle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._title;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isTitleString = !(value instanceof TemplateRef);
-            this._title = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "nzExtra", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._extra;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isExtraString = !(value instanceof TemplateRef);
-            this._extra = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "isInner", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzType === 'inner';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "isTabs", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return !!this.tab;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "nzBordered", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._bordered;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._bordered = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "nzLoading", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._loading;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._loading = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCardComponent.prototype, "nzHoverable", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._hoverable;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._hoverable = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzCardComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-card',
                     preserveWhitespaces: false,
-                    template: "<ng-template #titleTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n</ng-template>\n<ng-template #extraTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzExtra\"></ng-template>\n</ng-template>\n<div class=\"ant-card-head\" *ngIf=\"nzTitle||nzExtra||tab\">\n  <div class=\"ant-card-head-wrapper\">\n    <div class=\"ant-card-head-title\" *ngIf=\"nzTitle\">\n      <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n    </div>\n    <div class=\"ant-card-extra\" *ngIf=\"nzExtra\">\n      <ng-container *ngIf=\"isExtraString; else extraTemplate\">{{ nzExtra }}</ng-container>\n    </div>\n  </div>\n  <ng-container *ngIf=\"tab\">\n    <ng-template [ngTemplateOutlet]=\"tab.template\"></ng-template>\n  </ng-container>\n</div>\n<div class=\"ant-card-cover\" *ngIf=\"nzCover\">\n  <ng-template [ngTemplateOutlet]=\"nzCover\"></ng-template>\n</div>\n<div class=\"ant-card-body\" [ngStyle]=\"nzBodyStyle\">\n  <ng-container *ngIf=\"!nzLoading\">\n    <ng-content></ng-content>\n  </ng-container>\n  <nz-card-loading *ngIf=\"nzLoading\"></nz-card-loading>\n</div>\n<ul class=\"ant-card-actions\" *ngIf=\"nzActions.length\">\n  <li *ngFor=\"let action of nzActions\" [style.width.%]=\"100/nzActions.length\">\n    <span><ng-template [ngTemplateOutlet]=\"action\"></ng-template></span>\n  </li>\n</ul>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<div class=\"ant-card-head\" *ngIf=\"nzTitle || nzExtra || tab\">\n  <div class=\"ant-card-head-wrapper\">\n    <div class=\"ant-card-head-title\" *ngIf=\"nzTitle\">\n      <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n    </div>\n    <div class=\"ant-card-extra\" *ngIf=\"nzExtra\">\n      <ng-container *nzStringTemplateOutlet=\"nzExtra\">{{ nzExtra }}</ng-container>\n    </div>\n  </div>\n  <ng-container *ngIf=\"tab\">\n    <ng-template [ngTemplateOutlet]=\"tab.template\"></ng-template>\n  </ng-container>\n</div>\n<div class=\"ant-card-cover\" *ngIf=\"nzCover\">\n  <ng-template [ngTemplateOutlet]=\"nzCover\"></ng-template>\n</div>\n<div class=\"ant-card-body\" [ngStyle]=\"nzBodyStyle\">\n  <ng-container *ngIf=\"!nzLoading\">\n    <ng-content></ng-content>\n  </ng-container>\n  <nz-card-loading *ngIf=\"nzLoading\"></nz-card-loading>\n</div>\n<ul class=\"ant-card-actions\" *ngIf=\"nzActions.length\">\n  <li *ngFor=\"let action of nzActions\" [style.width.%]=\"100 / nzActions.length\">\n    <span><ng-template [ngTemplateOutlet]=\"action\"></ng-template></span>\n  </li>\n</ul>",
                     host: {
                         '[class.ant-card]': 'true',
-                        '[class.ant-card-loading]': 'nzLoading'
+                        '[class.ant-card-loading]': 'nzLoading',
+                        '[class.ant-card-bordered]': 'nzBordered',
+                        '[class.ant-card-hoverable]': 'nzHoverable',
+                        '[class.ant-card-type-inner]': "nzType === 'inner'",
+                        '[class.ant-card-contain-tabs]': '!!tab'
                     },
-                    styles: ["\n    :host {\n      display: block;\n      position: relative;\n    }\n  "]
+                    styles: ["\n    nz-card {\n      display: block;\n    }\n  "]
                 }] }
     ];
     NzCardComponent.propDecorators = {
-        tab: [{ type: ContentChild, args: [NzCardTabComponent,] }],
+        nzBordered: [{ type: Input }],
+        nzLoading: [{ type: Input }],
+        nzHoverable: [{ type: Input }],
         nzBodyStyle: [{ type: Input }],
         nzCover: [{ type: Input }],
         nzActions: [{ type: Input }],
         nzType: [{ type: Input }],
         nzTitle: [{ type: Input }],
         nzExtra: [{ type: Input }],
-        isInner: [{ type: HostBinding, args: ['class.ant-card-type-inner',] }],
-        isTabs: [{ type: HostBinding, args: ['class.ant-card-contain-tabs',] }],
-        nzBordered: [{ type: Input }, { type: HostBinding, args: ['class.ant-card-bordered',] }],
-        nzLoading: [{ type: Input }],
-        nzHoverable: [{ type: Input }, { type: HostBinding, args: ['class.ant-card-hoverable',] }]
+        tab: [{ type: ContentChild, args: [NzCardTabComponent,] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCardComponent.prototype, "nzBordered", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCardComponent.prototype, "nzLoading", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCardComponent.prototype, "nzHoverable", void 0);
     return NzCardComponent;
 }());
 
@@ -8513,7 +8275,7 @@ var NzCardModule = /** @class */ (function () {
     }
     NzCardModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule],
+                    imports: [CommonModule, NzAddOnModule],
                     declarations: [NzCardComponent, NzCardGridDirective, NzCardMetaComponent, NzCardLoadingComponent, NzCardTabComponent],
                     exports: [NzCardComponent, NzCardGridDirective, NzCardMetaComponent, NzCardLoadingComponent, NzCardTabComponent]
                 },] }
@@ -9136,182 +8898,232 @@ var NzCarouselModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Thanks to https://github.com/andreypopp/react-textarea-autosize/
-/**
- * calculateNodeHeight(uiTextNode, useCache = false)
- */
-/** @type {?} */
-var HIDDEN_TEXTAREA_STYLE = "\n  min-height:0 !important;\n  max-height:none !important;\n  height:0 !important;\n  visibility:hidden !important;\n  overflow:hidden !important;\n  position:absolute !important;\n  z-index:-1000 !important;\n  top:0 !important;\n  right:0 !important\n";
-/** @type {?} */
-var SIZING_STYLE = [
-    'letter-spacing',
-    'line-height',
-    'padding-top',
-    'padding-bottom',
-    'font-family',
-    'font-weight',
-    'font-size',
-    'text-rendering',
-    'text-transform',
-    'width',
-    'text-indent',
-    'padding-left',
-    'padding-right',
-    'border-width',
-    'box-sizing'
-];
-/** @type {?} */
-var computedStyleCache = {};
-/** @type {?} */
-var hiddenTextarea;
-/**
- * @param {?} node
- * @param {?=} useCache
- * @return {?}
- */
-function calculateNodeStyling(node, useCache) {
-    if (useCache === void 0) { useCache = false; }
-    /** @type {?} */
-    var nodeRef = /** @type {?} */ ((node.getAttribute('id') ||
-        node.getAttribute('data-reactid') ||
-        node.getAttribute('name')));
-    if (useCache && computedStyleCache[nodeRef]) {
-        return computedStyleCache[nodeRef];
-    }
-    /** @type {?} */
-    var style$$1 = window.getComputedStyle(node);
-    /** @type {?} */
-    var boxSizing = (style$$1.getPropertyValue('box-sizing') ||
-        style$$1.getPropertyValue('-moz-box-sizing') ||
-        style$$1.getPropertyValue('-webkit-box-sizing'));
-    /** @type {?} */
-    var paddingSize = (parseFloat(style$$1.getPropertyValue('padding-bottom')) +
-        parseFloat(style$$1.getPropertyValue('padding-top')));
-    /** @type {?} */
-    var borderSize = (parseFloat(style$$1.getPropertyValue('border-bottom-width')) +
-        parseFloat(style$$1.getPropertyValue('border-top-width')));
-    /** @type {?} */
-    var sizingStyle = SIZING_STYLE
-        .map(function (name) { return name + ":" + style$$1.getPropertyValue(name); })
-        .join(';');
-    /** @type {?} */
-    var nodeInfo = {
-        sizingStyle: sizingStyle,
-        paddingSize: paddingSize,
-        borderSize: borderSize,
-        boxSizing: boxSizing
-    };
-    if (useCache && nodeRef) {
-        computedStyleCache[nodeRef] = nodeInfo;
-    }
-    return nodeInfo;
-}
-/**
- * @param {?} uiTextNode
- * @param {?=} useCache
- * @param {?=} minRows
- * @param {?=} maxRows
- * @return {?}
- */
-function calculateNodeHeight(uiTextNode, useCache, minRows, maxRows) {
-    if (useCache === void 0) { useCache = false; }
-    if (minRows === void 0) { minRows = null; }
-    if (maxRows === void 0) { maxRows = null; }
-    if (!hiddenTextarea) {
-        hiddenTextarea = document.createElement('textarea');
-        document.body.appendChild(hiddenTextarea);
-    }
-    // Fix wrap="off" issue
-    // https://github.com/ant-design/ant-design/issues/6577
-    if (uiTextNode.getAttribute('wrap')) {
-        hiddenTextarea.setAttribute('wrap', /** @type {?} */ (uiTextNode.getAttribute('wrap')));
-    }
-    else {
-        hiddenTextarea.removeAttribute('wrap');
-    }
-    var _a = calculateNodeStyling(uiTextNode, useCache), paddingSize = _a.paddingSize, borderSize = _a.borderSize, boxSizing = _a.boxSizing, sizingStyle = _a.sizingStyle;
-    // Need to have the overflow attribute to hide the scrollbar otherwise
-    // text-lines will not calculated properly as the shadow will technically be
-    // narrower for content
-    hiddenTextarea.setAttribute('style', sizingStyle + ";" + HIDDEN_TEXTAREA_STYLE);
-    hiddenTextarea.value = uiTextNode.value || uiTextNode.placeholder || '';
-    /** @type {?} */
-    var minHeight = Number.MIN_SAFE_INTEGER;
-    /** @type {?} */
-    var maxHeight = Number.MAX_SAFE_INTEGER;
-    /** @type {?} */
-    var height = hiddenTextarea.scrollHeight;
-    /** @type {?} */
-    var overflowY;
-    if (boxSizing === 'border-box') {
-        // border-box: add border, since height = content + padding + border
-        height = height + borderSize;
-    }
-    else if (boxSizing === 'content-box') {
-        // remove padding, since height = content
-        height = height - paddingSize;
-    }
-    if (minRows !== null || maxRows !== null) {
-        // measure height of a textarea with a single row
-        hiddenTextarea.value = '';
-        /** @type {?} */
-        var singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
-        if (minRows !== null) {
-            minHeight = singleRowHeight * minRows;
-            if (boxSizing === 'border-box') {
-                minHeight = minHeight + paddingSize + borderSize;
-            }
-            height = Math.max(minHeight, height);
-        }
-        if (maxRows !== null) {
-            maxHeight = singleRowHeight * maxRows;
-            if (boxSizing === 'border-box') {
-                maxHeight = maxHeight + paddingSize + borderSize;
-            }
-            overflowY = height > maxHeight ? '' : 'hidden';
-            height = Math.min(maxHeight, height);
-        }
-    }
-    // Remove scroll bar flash when autosize without maxRows
-    if (!maxRows) {
-        overflowY = 'hidden';
-    }
-    return { height: height, minHeight: minHeight, maxHeight: maxHeight, overflowY: overflowY };
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzInputDirective = /** @class */ (function () {
-    function NzInputDirective(elementRef, renderer, ngModel, ngControl) {
+var NzAutoResizeDirective = /** @class */ (function () {
+    function NzAutoResizeDirective(elementRef, ngZone, ngControl, platform) {
         this.elementRef = elementRef;
-        this.renderer = renderer;
-        this.ngModel = ngModel;
+        this.ngZone = ngZone;
         this.ngControl = ngControl;
-        this._size = 'default';
-        this._disabled = false;
+        this.platform = platform;
         this._autosize = false;
         this.el = this.elementRef.nativeElement;
-        this.isInit = false;
+        this.destroy$ = new Subject();
+        this.inputGap = 10;
     }
-    Object.defineProperty(NzInputDirective.prototype, "nzSize", {
+    Object.defineProperty(NzAutoResizeDirective.prototype, "nzAutosize", {
         get: /**
          * @return {?}
          */
         function () {
-            return this._size;
+            return this._autosize;
         },
         set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
-            this._size = value;
+            if (typeof value === 'string') {
+                this._autosize = true;
+            }
+            else if (typeof value !== 'boolean') {
+                this._autosize = value;
+                this.minRows = value.minRows;
+                this.maxRows = value.maxRows;
+                this.setMaxHeight();
+                this.setMinHeight();
+            }
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?=} force
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.resizeToFitContent = /**
+     * @param {?=} force
+     * @return {?}
+     */
+    function (force) {
+        var _this = this;
+        if (force === void 0) { force = false; }
+        this.cacheTextareaLineHeight();
+        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
+        // in checking the height of the textarea.
+        if (!this.cachedLineHeight) {
+            return;
+        }
+        /** @type {?} */
+        var textarea = /** @type {?} */ (this.el);
+        /** @type {?} */
+        var value = textarea.value;
+        // Only resize if the value or minRows have changed since these calculations can be expensive.
+        if (!force && this.minRows === this.previousMinRows && value === this.previousValue) {
+            return;
+        }
+        /** @type {?} */
+        var placeholderText = textarea.placeholder;
+        // Reset the textarea height to auto in order to shrink back to its default size.
+        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
+        // Long placeholders that are wider than the textarea width may lead to a bigger scrollHeight
+        // value. To ensure that the scrollHeight is not bigger than the content, the placeholders
+        // need to be removed temporarily.
+        textarea.classList.add('cdk-textarea-autosize-measuring');
+        textarea.placeholder = '';
+        /** @type {?} */
+        var height = Math.round((textarea.scrollHeight - this.inputGap) / this.cachedLineHeight) * this.cachedLineHeight + this.inputGap;
+        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
+        textarea.style.height = height + "px";
+        textarea.classList.remove('cdk-textarea-autosize-measuring');
+        textarea.placeholder = placeholderText;
+        // On Firefox resizing the textarea will prevent it from scrolling to the caret position.
+        // We need to re-set the selection in order for it to scroll to the proper position.
+        if (typeof requestAnimationFrame !== 'undefined') {
+            this.ngZone.runOutsideAngular(function () { return requestAnimationFrame(function () {
+                var selectionStart = textarea.selectionStart, selectionEnd = textarea.selectionEnd;
+                // IE will throw an "Unspecified error" if we try to set the selection range after the
+                // element has been removed from the DOM. Assert that the directive hasn't been destroyed
+                // between the time we requested the animation frame and when it was executed.
+                // Also note that we have to assert that the textarea is focused before we set the
+                // selection range. Setting the selection range on a non-focused textarea will cause
+                // it to receive focus on IE and Edge.
+                if (!_this.destroy$.isStopped && document.activeElement === textarea) {
+                    textarea.setSelectionRange(selectionStart, selectionEnd);
+                }
+            }); });
+        }
+        this.previousValue = value;
+        this.previousMinRows = this.minRows;
+    };
+    /**
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.cacheTextareaLineHeight = /**
+     * @return {?}
+     */
+    function () {
+        if (this.cachedLineHeight) {
+            return;
+        }
+        /** @type {?} */
+        var textareaClone = /** @type {?} */ (this.el.cloneNode(false));
+        textareaClone.rows = 1;
+        // Use `position: absolute` so that this doesn't cause a browser layout and use
+        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
+        // would affect the height.
+        textareaClone.style.position = 'absolute';
+        textareaClone.style.visibility = 'hidden';
+        textareaClone.style.border = 'none';
+        textareaClone.style.padding = '0';
+        textareaClone.style.height = '';
+        textareaClone.style.minHeight = '';
+        textareaClone.style.maxHeight = '';
+        // In Firefox it happens that textarea elements are always bigger than the specified amount
+        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
+        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
+        // to hidden. This ensures that there is no invalid calculation of the line height.
+        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
+        textareaClone.style.overflow = 'hidden';
+        this.el.parentNode.appendChild(textareaClone);
+        this.cachedLineHeight = textareaClone.clientHeight - this.inputGap - 1;
+        this.el.parentNode.removeChild(textareaClone);
+        // Min and max heights have to be re-calculated if the cached line height changes
+        this.setMinHeight();
+        this.setMaxHeight();
+    };
+    /**
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.setMinHeight = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var minHeight = this.minRows && this.cachedLineHeight ?
+            this.minRows * this.cachedLineHeight + this.inputGap + "px" : null;
+        if (minHeight) {
+            this.el.style.minHeight = minHeight;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.setMaxHeight = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var maxHeight = this.maxRows && this.cachedLineHeight ?
+            this.maxRows * this.cachedLineHeight + this.inputGap + "px" : null;
+        if (maxHeight) {
+            this.el.style.maxHeight = maxHeight;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.nzAutosize && this.platform.isBrowser) {
+            if (this.ngControl) {
+                this.resizeToFitContent();
+                this.ngZone.runOutsideAngular(function () {
+                    fromEvent(window, 'resize')
+                        .pipe(auditTime(16), takeUntil(_this.destroy$))
+                        .subscribe(function () { return _this.resizeToFitContent(true); });
+                });
+                this.ngControl.control.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(function () { return _this.resizeToFitContent(); });
+            }
+            else {
+                console.warn('nzAutosize must work with ngModel or ReactiveForm');
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzAutoResizeDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+    };
+    NzAutoResizeDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: 'textarea[nzAutosize]',
+                    host: {
+                        // Textarea elements that have the directive applied should have a single row by default.
+                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                        rows: '1'
+                    }
+                },] }
+    ];
+    /** @nocollapse */
+    NzAutoResizeDirective.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: NgZone },
+        { type: NgControl, decorators: [{ type: Optional }, { type: Self }] },
+        { type: Platform }
+    ]; };
+    NzAutoResizeDirective.propDecorators = {
+        nzAutosize: [{ type: Input }]
+    };
+    return NzAutoResizeDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzInputDirective = /** @class */ (function () {
+    function NzInputDirective(ngControl) {
+        this.ngControl = ngControl;
+        this._disabled = false;
+        this.nzSize = 'default';
+    }
     Object.defineProperty(NzInputDirective.prototype, "disabled", {
         get: /**
          * @return {?}
@@ -9332,132 +9144,24 @@ var NzInputDirective = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzInputDirective.prototype, "nzAutosize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._autosize;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (typeof value === 'string') {
-                this._autosize = true;
-            }
-            else {
-                this._autosize = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputDirective.prototype, "setLgClass", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'large';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputDirective.prototype, "setSmClass", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'small';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzInputDirective.prototype.textAreaOnChange = /**
-     * @return {?}
-     */
-    function () {
-        if (this.nzAutosize) {
-            this.resizeTextArea();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzInputDirective.prototype.resizeTextArea = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var textAreaRef = /** @type {?} */ (this.el);
-        /** @type {?} */
-        var maxRows = this.nzAutosize ? (/** @type {?} */ (this.nzAutosize)).maxRows || null : null;
-        /** @type {?} */
-        var minRows = this.nzAutosize ? (/** @type {?} */ (this.nzAutosize)).minRows || null : null;
-        if ((this.previousValue === textAreaRef.value) && (this.previewsMaxRows === maxRows) && (this.previewsMinRows === minRows)) {
-            return;
-        }
-        this.previousValue = textAreaRef.value;
-        this.previewsMinRows = minRows;
-        this.previewsMaxRows = maxRows;
-        // eliminate jitter
-        this.renderer.setStyle(textAreaRef, 'height', 'auto');
-        /** @type {?} */
-        var textAreaStyles = calculateNodeHeight(textAreaRef, false, minRows, maxRows);
-        this.renderer.setStyle(textAreaRef, 'height', textAreaStyles.height + "px");
-        this.renderer.setStyle(textAreaRef, 'overflowY', textAreaStyles.overflowY);
-        this.renderer.setStyle(textAreaRef, 'minHeight', textAreaStyles.minHeight + "px");
-        this.renderer.setStyle(textAreaRef, 'maxHeight', textAreaStyles.maxHeight + "px");
-    };
-    /**
-     * @return {?}
-     */
-    NzInputDirective.prototype.ngDoCheck = /**
-     * @return {?}
-     */
-    function () {
-        if (this.nzAutosize && this.isInit) {
-            this.resizeTextArea();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzInputDirective.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        this.isInit = true;
-        if (this.nzAutosize) {
-            this.resizeTextArea();
-        }
-    };
     NzInputDirective.decorators = [
         { type: Directive, args: [{
                     selector: '[nz-input]',
                     host: {
-                        '[class.ant-input]': 'true'
+                        '[class.ant-input]': 'true',
+                        '[class.ant-input-disabled]': 'disabled',
+                        '[class.ant-input-lg]': "nzSize === 'large'",
+                        '[class.ant-input-sm]': "nzSize === 'small'"
                     }
                 },] }
     ];
     /** @nocollapse */
     NzInputDirective.ctorParameters = function () { return [
-        { type: ElementRef },
-        { type: Renderer2 },
-        { type: NgModel, decorators: [{ type: Optional }] },
         { type: NgControl, decorators: [{ type: Optional }, { type: Self }] }
     ]; };
     NzInputDirective.propDecorators = {
         nzSize: [{ type: Input }],
-        disabled: [{ type: Input }, { type: HostBinding, args: ["class.ant-input-disabled",] }],
-        nzAutosize: [{ type: Input }],
-        setLgClass: [{ type: HostBinding, args: ["class.ant-input-lg",] }],
-        setSmClass: [{ type: HostBinding, args: ["class.ant-input-sm",] }],
-        textAreaOnChange: [{ type: HostListener, args: ['input',] }]
+        disabled: [{ type: Input }]
     };
     return NzInputDirective;
 }());
@@ -9467,15 +9171,10 @@ var NzInputDirective = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzInputGroupComponent = /** @class */ (function () {
-    function NzInputGroupComponent(el) {
-        this.el = el;
-        this._addOnBefore = '';
-        this._addOnAfter = '';
-        this._prefix = '';
-        this._suffix = '';
+    function NzInputGroupComponent() {
         this._size = 'default';
-        this._compact = false;
-        this._search = false;
+        this.nzSearch = false;
+        this.nzCompact = false;
     }
     Object.defineProperty(NzInputGroupComponent.prototype, "nzSize", {
         get: /**
@@ -9491,112 +9190,6 @@ var NzInputGroupComponent = /** @class */ (function () {
         function (value) {
             this._size = value;
             this.updateChildrenInputSize();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzCompact", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._compact;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._compact = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzAddOnBefore", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._addOnBefore;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isAddOnBeforeString = !(value instanceof TemplateRef);
-            this._addOnBefore = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzAddOnAfter", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._addOnAfter;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isAddOnAfterString = !(value instanceof TemplateRef);
-            this._addOnAfter = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzPrefix", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._prefix;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isPrefixString = !(value instanceof TemplateRef);
-            this._prefix = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzSuffix", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._suffix;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isSuffixString = !(value instanceof TemplateRef);
-            this._suffix = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputGroupComponent.prototype, "nzSearch", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._search;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._search = toBoolean(value);
         },
         enumerable: true,
         configurable: true
@@ -9631,22 +9224,22 @@ var NzInputGroupComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzInputGroupComponent.prototype, "isAffixWrapper", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return (!!(this.nzSuffix || this.nzPrefix || this.nzPrefixIcon || this.nzSuffixIcon)) && !this.isAddOn;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzInputGroupComponent.prototype, "isAddOn", {
         get: /**
          * @return {?}
          */
         function () {
             return !!(this.nzAddOnAfter || this.nzAddOnBefore || this.nzAddOnAfterIcon || this.nzAddOnBeforeIcon);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzInputGroupComponent.prototype, "isAffixWrapper", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.isAffix && !this.isAddOn;
         },
         enumerable: true,
         configurable: true
@@ -9749,8 +9342,8 @@ var NzInputGroupComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this.nzInputDirectiveQueryList) {
-            this.nzInputDirectiveQueryList.forEach(function (item) { return item.nzSize = _this.nzSize; });
+        if (this.listOfNzInputDirective) {
+            this.listOfNzInputDirective.forEach(function (item) { return item.nzSize = _this.nzSize; });
         }
     };
     /**
@@ -9766,38 +9359,51 @@ var NzInputGroupComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-input-group',
                     preserveWhitespaces: false,
-                    template: "<span class=\"ant-input-wrapper ant-input-group\" *ngIf=\"isAddOn\">\n  <span class=\"ant-input-group-addon\" *ngIf=\"nzAddOnBefore || nzAddOnBeforeIcon\">\n    <i nz-icon [ngClass]=\"nzAddOnBeforeIcon\" *ngIf=\"nzAddOnBeforeIcon\"></i>\n    <ng-container *ngIf=\"isAddOnBeforeString; else addOnBeforeTemplate\">{{ nzAddOnBefore }}</ng-container>\n    <ng-template #addOnBeforeTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzAddOnBefore\"></ng-template>\n    </ng-template>\n  </span>\n  <ng-template [ngIf]=\"!isAffix\" *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n  <span class=\"ant-input-affix-wrapper\" [class.ant-input-affix-wrapper-sm]=\"isSmall\" [class.ant-input-affix-wrapper-lg]=\"isLarge\" *ngIf=\"isAffix\">\n    <ng-template *ngTemplateOutlet=\"affixTemplate\"></ng-template>\n  </span>\n  <span class=\"ant-input-group-addon\" *ngIf=\"nzAddOnAfter || nzAddOnAfterIcon\">\n    <i nz-icon [ngClass]=\"nzAddOnAfterIcon\" *ngIf=\"nzAddOnAfterIcon\"></i>\n    <ng-container *ngIf=\"isAddOnAfterString; else addOnAfterTemplate\">{{ nzAddOnAfter }}</ng-container>\n    <ng-template #addOnAfterTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzAddOnAfter\"></ng-template>\n    </ng-template>\n  </span>\n</span>\n<ng-container *ngIf=\"isAffix && !isAddOn\">\n  <ng-template *ngTemplateOutlet=\"affixTemplate\"></ng-template>\n</ng-container>\n<ng-template #affixTemplate>\n  <span class=\"ant-input-prefix\" *ngIf=\"nzPrefix || nzPrefixIcon\">\n    <!-- TODO: should have a class to set its color, cc: antd-->\n    <i nz-icon [ngClass]=\"nzPrefixIcon\" *ngIf=\"nzPrefixIcon\" style=\"color: rgba(0, 0, 0, 0.25)\"></i>\n    <ng-container *ngIf=\"isPrefixString; else prefixTemplate\">{{ nzPrefix }}</ng-container>\n    <ng-template #prefixTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzPrefix\"></ng-template>\n    </ng-template>\n  </span>\n  <ng-template *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n  <span class=\"ant-input-suffix\" *ngIf=\"nzSuffix || nzSuffixIcon\">\n    <i nz-icon [ngClass]=\"nzSuffixIcon\" *ngIf=\"nzSuffixIcon\"></i>\n    <ng-container *ngIf=\"isSuffixString; else suffixTemplate\">{{ nzSuffix }}</ng-container>\n    <ng-template #suffixTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzSuffix\"></ng-template>\n    </ng-template>\n  </span>\n</ng-template>\n<ng-template [ngIf]=\"isGroup\" *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n<ng-template #contentTemplate>\n  <ng-content></ng-content>\n</ng-template>"
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    template: "<span class=\"ant-input-wrapper ant-input-group\" *ngIf=\"isAddOn\">\n  <span class=\"ant-input-group-addon\" *ngIf=\"nzAddOnBefore || nzAddOnBeforeIcon\">\n    <i nz-icon [ngClass]=\"nzAddOnBeforeIcon\" *ngIf=\"nzAddOnBeforeIcon\"></i>\n    <ng-container *nzStringTemplateOutlet=\"nzAddOnBefore\">{{ nzAddOnBefore }}</ng-container>\n  </span>\n  <ng-template [ngIf]=\"!isAffix\" *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n  <span class=\"ant-input-affix-wrapper\" [class.ant-input-affix-wrapper-sm]=\"isSmall\" [class.ant-input-affix-wrapper-lg]=\"isLarge\" *ngIf=\"isAffix\">\n    <ng-template *ngTemplateOutlet=\"affixTemplate\"></ng-template>\n  </span>\n  <span class=\"ant-input-group-addon\" *ngIf=\"nzAddOnAfter || nzAddOnAfterIcon\">\n    <i nz-icon [ngClass]=\"nzAddOnAfterIcon\" *ngIf=\"nzAddOnAfterIcon\"></i>\n    <ng-container *nzStringTemplateOutlet=\"nzAddOnAfter\">{{ nzAddOnAfter }}</ng-container>\n  </span>\n</span>\n<ng-container *ngIf=\"isAffix && !isAddOn\">\n  <ng-template *ngTemplateOutlet=\"affixTemplate\"></ng-template>\n</ng-container>\n<ng-template #affixTemplate>\n  <span class=\"ant-input-prefix\" *ngIf=\"nzPrefix || nzPrefixIcon\">\n    <!-- TODO: should have a class to set its color, cc: antd-->\n    <i nz-icon [ngClass]=\"nzPrefixIcon\" *ngIf=\"nzPrefixIcon\" style=\"color: rgba(0, 0, 0, 0.25)\"></i>\n    <ng-container *nzStringTemplateOutlet=\"nzPrefix\">{{ nzPrefix }}</ng-container>\n  </span>\n  <ng-template *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n  <span class=\"ant-input-suffix\" *ngIf=\"nzSuffix || nzSuffixIcon\">\n    <i nz-icon [ngClass]=\"nzSuffixIcon\" *ngIf=\"nzSuffixIcon\"></i>\n    <ng-container *nzStringTemplateOutlet=\"nzSuffix\">{{ nzSuffix }}</ng-container>\n  </span>\n</ng-template>\n<ng-template [ngIf]=\"isGroup\" *ngTemplateOutlet=\"contentTemplate\"></ng-template>\n<ng-template #contentTemplate>\n  <ng-content></ng-content>\n</ng-template>",
+                    host: {
+                        '[class.ant-input-group-compact]': 'nzCompact',
+                        '[class.ant-input-search-enter-button]': 'nzSearch',
+                        '[class.ant-input-search]': 'nzSearch',
+                        '[class.ant-input-search-sm]': 'isSmallSearch',
+                        '[class.ant-input-affix-wrapper]': 'isAffixWrapper',
+                        '[class.ant-input-group-wrapper]': 'isAddOn',
+                        '[class.ant-input-group]': 'isGroup',
+                        '[class.ant-input-group-lg]': 'isLargeGroup',
+                        '[class.ant-input-group-wrapper-lg]': 'isLargeGroupWrapper',
+                        '[class.ant-input-affix-wrapper-lg]': 'isLargeAffix',
+                        '[class.ant-input-search-lg]': 'isLargeSearch',
+                        '[class.ant-input-group-sm]': 'isSmallGroup',
+                        '[class.ant-input-affix-wrapper-sm]': 'isSmallAffix',
+                        '[class.ant-input-group-wrapper-sm]': 'isSmallGroupWrapper'
+                    }
                 }] }
     ];
     /** @nocollapse */
-    NzInputGroupComponent.ctorParameters = function () { return [
-        { type: ElementRef }
-    ]; };
+    NzInputGroupComponent.ctorParameters = function () { return []; };
     NzInputGroupComponent.propDecorators = {
-        nzInputDirectiveQueryList: [{ type: ContentChildren, args: [NzInputDirective,] }],
+        listOfNzInputDirective: [{ type: ContentChildren, args: [NzInputDirective,] }],
         nzAddOnBeforeIcon: [{ type: Input }],
         nzAddOnAfterIcon: [{ type: Input }],
         nzPrefixIcon: [{ type: Input }],
         nzSuffixIcon: [{ type: Input }],
-        nzSize: [{ type: Input }],
-        nzCompact: [{ type: Input }, { type: HostBinding, args: ["class.ant-input-group-compact",] }],
         nzAddOnBefore: [{ type: Input }],
         nzAddOnAfter: [{ type: Input }],
         nzPrefix: [{ type: Input }],
         nzSuffix: [{ type: Input }],
-        nzSearch: [{ type: Input }, { type: HostBinding, args: ["class.ant-input-search-enter-button",] }, { type: HostBinding, args: ["class.ant-input-search",] }],
-        isAffixWrapper: [{ type: HostBinding, args: ['class.ant-input-affix-wrapper',] }],
-        isAddOn: [{ type: HostBinding, args: ['class.ant-input-group-wrapper',] }],
-        isGroup: [{ type: HostBinding, args: ['class.ant-input-group',] }],
-        isLargeGroup: [{ type: HostBinding, args: ["class.ant-input-group-lg",] }],
-        isLargeGroupWrapper: [{ type: HostBinding, args: ["class.ant-input-group-wrapper-lg",] }],
-        isLargeAffix: [{ type: HostBinding, args: ["class.ant-input-affix-wrapper-lg",] }],
-        isLargeSearch: [{ type: HostBinding, args: ["class.ant-input-search-lg",] }],
-        isSmallGroup: [{ type: HostBinding, args: ["class.ant-input-group-sm",] }],
-        isSmallAffix: [{ type: HostBinding, args: ["class.ant-input-affix-wrapper-sm",] }],
-        isSmallGroupWrapper: [{ type: HostBinding, args: ["class.ant-input-group-wrapper-sm",] }],
-        isSmallSearch: [{ type: HostBinding, args: ["class.ant-input-search-sm",] }]
+        nzSearch: [{ type: Input }],
+        nzCompact: [{ type: Input }],
+        nzSize: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzInputGroupComponent.prototype, "nzSearch", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzInputGroupComponent.prototype, "nzCompact", void 0);
     return NzInputGroupComponent;
 }());
 
@@ -9810,12 +9416,75 @@ var NzInputModule = /** @class */ (function () {
     }
     NzInputModule.decorators = [
         { type: NgModule, args: [{
-                    declarations: [NzInputDirective, NzInputGroupComponent],
-                    exports: [NzInputDirective, NzInputGroupComponent],
-                    imports: [CommonModule, FormsModule, NzIconModule]
+                    declarations: [NzInputDirective, NzInputGroupComponent, NzAutoResizeDirective],
+                    exports: [NzInputDirective, NzInputGroupComponent, NzAutoResizeDirective],
+                    imports: [CommonModule, FormsModule, NzIconModule, PlatformModule, NzAddOnModule]
                 },] }
     ];
     return NzInputModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzCascaderOptionComponent = /** @class */ (function () {
+    function NzCascaderOptionComponent(sanitizer) {
+        this.sanitizer = sanitizer;
+        this.activated = false;
+        this.nzLabelProperty = 'label';
+    }
+    /**
+     * @return {?}
+     */
+    NzCascaderOptionComponent.prototype.getOptionLabel = /**
+     * @return {?}
+     */
+    function () {
+        return this.option ? this.option[this.nzLabelProperty] : '';
+    };
+    /**
+     * @param {?} str
+     * @return {?}
+     */
+    NzCascaderOptionComponent.prototype.renderHighlightString = /**
+     * @param {?} str
+     * @return {?}
+     */
+    function (str) {
+        /** @type {?} */
+        var safeHtml = this.sanitizer.sanitize(SecurityContext.HTML, "<span class=\"ant-cascader-menu-item-keyword\">" + this.highlightText + "</span>");
+        if (!safeHtml) {
+            throw new Error("[NG-ZORRO] Input value \"" + this.highlightText + "\" is not considered security.");
+        }
+        return str.replace(new RegExp(this.highlightText, 'g'), safeHtml);
+    };
+    NzCascaderOptionComponent.decorators = [
+        { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    selector: '[nz-cascader-option]',
+                    template: "<ng-container *ngIf=\"highlightText\"><span [innerHTML]=\"renderHighlightString(getOptionLabel())\"></span></ng-container>\n<ng-container *ngIf=\"!highlightText\">{{ getOptionLabel() }}</ng-container>\n<span *ngIf=\"!option.isLeaf || option.children && option.children.length || option.loading\" class=\"ant-cascader-menu-item-expand-icon\">\n  <i nz-icon [type]=\"option.loading ? 'loading' : 'right'\"></i>\n</span>",
+                    host: {
+                        '[attr.title]': 'option.title || getOptionLabel()',
+                        '[class.ant-cascader-menu-item]': 'true',
+                        '[class.ant-cascader-menu-item-active]': 'activated',
+                        '[class.ant-cascader-menu-item-expand]': '!option.isLeaf',
+                        '[class.ant-cascader-menu-item-disabled]': 'option.disabled'
+                    }
+                }] }
+    ];
+    /** @nocollapse */
+    NzCascaderOptionComponent.ctorParameters = function () { return [
+        { type: DomSanitizer }
+    ]; };
+    NzCascaderOptionComponent.propDecorators = {
+        option: [{ type: Input }],
+        activated: [{ type: Input }],
+        highlightText: [{ type: Input }],
+        nzLabelProperty: [{ type: Input }]
+    };
+    return NzCascaderOptionComponent;
 }());
 
 /**
@@ -9914,6 +9583,8 @@ var DEFAULT_4_POSITIONS = _objectValues([POSITION_MAP["top"], POSITION_MAP["righ
 /** @type {?} */
 var DEFAULT_DROPDOWN_POSITIONS = _objectValues([POSITION_MAP["bottomLeft"], POSITION_MAP["topLeft"]]);
 /** @type {?} */
+var EXPANDED_DROPDOWN_POSITIONS = _objectValues([POSITION_MAP["bottomLeft"], POSITION_MAP["bottomRight"], POSITION_MAP["topLeft"], POSITION_MAP["topRight"]]);
+/** @type {?} */
 var DEFAULT_MENTION_POSITIONS = /** @type {?} */ ([
     POSITION_MAP["bottomLeft"],
     {
@@ -10003,385 +9674,65 @@ function arrayEquals(array1, array2) {
     }
     return true;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /** @type {?} */
 var defaultDisplayRender = function (label) { return label.join(' / '); };
 var NzCascaderComponent = /** @class */ (function () {
-    function NzCascaderComponent(elementRef, cdr, nzUpdateHostClassService) {
+    function NzCascaderComponent(elementRef, cdr) {
         this.elementRef = elementRef;
         this.cdr = cdr;
-        this.nzUpdateHostClassService = nzUpdateHostClassService;
-        this.allowClear = true;
-        this.autoFocus = false;
-        this.disabled = false;
-        this.enableCache = true;
-        this.showArrow = true;
-        this.showInput = true;
-        this.size = 'default';
-        this.prefixCls = 'ant-cascader';
-        this.inputPrefixCls = 'ant-input';
-        this.changeOnSelect = false;
+        this.nzShowInput = true;
+        this.nzShowArrow = true;
+        this.nzAllowClear = true;
+        this.nzAutoFocus = false;
+        this.nzChangeOnSelect = false;
+        this.nzDisabled = false;
+        this.nzExpandTrigger = 'click';
+        this.nzValueProperty = 'value';
+        this.nzLabelProperty = 'label';
+        this.nzSize = 'default';
+        this.nzPlaceHolder = 'Please select';
+        this.nzMouseEnterDelay = 150; // ms
+        this.nzMouseLeaveDelay = 150; // ms
+        this.nzTriggerAction = /** @type {?} */ (['click']);
+        this.nzSelectionChange = new EventEmitter();
+        this.nzSelect = new EventEmitter();
+        this.nzClear = new EventEmitter();
+        this.nzVisibleChange = new EventEmitter(); // Not exposed, only for test
+        this.nzChange = new EventEmitter(); // Not exposed, only for test
+        this.el = this.elementRef.nativeElement;
         this.dropDownPosition = 'bottom';
         this.menuVisible = false;
         this.isLoading = false;
-        this.isOpening = false;
-        this.el = this.elementRef.nativeElement;
-        this.isFocused = false;
-        this.isLabelRenderTemplate = false;
         this.labelRenderContext = {};
-        this.selectedOptions = [];
-        this.activatedOptions = [];
-        this.nzColumns = [];
-        /**
-         * 搜索相关的输入值
-         */
-        this._inputValue = '';
-        // ngModel Access
+        this.columns = [];
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
-        this.positions = __spread(DEFAULT_DROPDOWN_POSITIONS);
-        /**
-         * If cascader is in search mode.
-         */
-        this.inSearch = false;
-        /**
-         * Hover text for the clear icon
-         */
-        this.nzClearText = 'Clear';
-        /**
-         * Expand column item when click or hover, one of 'click' 'hover'
-         */
-        this.nzExpandTrigger = 'click';
-        /**
-         * Specify content to show when no result matches.
-         */
-        this.nzNotFoundContent = 'Not Found';
-        /**
-         * Input placeholder
-         */
-        this.nzPlaceHolder = 'Please select';
-        /**
-         * Delay time to show when mouse enter, when `nzExpandTrigger` is `hover`.
-         */
-        this.nzMouseEnterDelay = 150;
-        /**
-         * Delay time to hide when mouse enter, when `nzExpandTrigger` is `hover`.
-         */
-        this.nzMouseLeaveDelay = 150;
-        /**
-         * Triggering mode: can be Array<'click'|'hover'>
-         */
-        this.nzTriggerAction = ['click'];
-        /**
-         * Property name for getting `value` in the option
-         */
-        this.nzValueProperty = 'value';
-        /**
-         * Property name for getting `label` in the option
-         */
-        this.nzLabelProperty = 'label';
-        /**
-         * Event: emit on popup show or hide
-         */
-        this.nzVisibleChange = new EventEmitter();
-        /**
-         * Event: emit on values changed
-         */
-        this.nzChange = new EventEmitter();
-        /**
-         * Event: emit on values and selection changed
-         */
-        this.nzSelectionChange = new EventEmitter();
-        /**
-         * Event: emit on option selected, event data：{option: any, index: number}
-         */
-        this.nzSelect = new EventEmitter();
-        /**
-         * Event: emit on the clear button clicked
-         */
-        this.nzClear = new EventEmitter();
+        this.positions = __spread(EXPANDED_DROPDOWN_POSITIONS);
+        this.isSearching = false;
+        this.isFocused = false;
+        this.isOpening = false;
+        this.selectedOptions = [];
+        this.activatedOptions = [];
+        this._inputValue = '';
     }
-    Object.defineProperty(NzCascaderComponent.prototype, "inputValue", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._inputValue;
-        },
-        set: /**
-         * @param {?} inputValue
-         * @return {?}
-         */
-        function (inputValue) {
-            this._inputValue = inputValue;
-            /** @type {?} */
-            var willBeInSearch = !!inputValue;
-            // 搜索状态变动之前，如要进入则要保留之前激活选项的快照，退出搜索状态要还原该快照
-            if (!this.inSearch && willBeInSearch) {
-                this.oldActivatedOptions = this.activatedOptions;
-                this.activatedOptions = [];
-            }
-            else if (this.inSearch && !willBeInSearch) {
-                this.activatedOptions = this.oldActivatedOptions;
-            }
-            // 搜索状态变更之后
-            this.inSearch = !!willBeInSearch;
-            if (this.inSearch) {
-                this.labelRenderText = '';
-                this.prepareSearchValue();
-            }
-            else {
-                if (this.showSearch) {
-                    this.nzColumns = this.oldColumnsHolder;
-                }
-                this.buildDisplayLabel();
-                this.searchWidthStyle = '';
-            }
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzLabelRender", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.labelRenderTpl;
-        },
-        /** Display Render ngTemplate */
-        set: /**
-         * Display Render ngTemplate
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.labelRenderTpl = value;
-            this.isLabelRenderTemplate = (value instanceof TemplateRef);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzPrefixCls", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.prefixCls;
-        },
-        /** prefixCls */
-        set: /**
-         * prefixCls
-         * @param {?} prefixCls
-         * @return {?}
-         */
-        function (prefixCls) {
-            this.prefixCls = prefixCls;
-            this.setClassMap();
-            this.setLabelClass();
-            this.setArrowClass();
-            this.setLoadingClass();
-            this.setClearClass();
-            this.setInputClass();
-            this.setMenuClass();
-            this.setMenuColumnClass();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.disabled;
-        },
-        /** Whether is disabled */
-        set: /**
-         * Whether is disabled
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.disabled = toBoolean(value);
-            this.setClassMap();
-            this.setInputClass();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzSize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.size;
-        },
-        /** Input size, one of `large` `default` `small` */
-        set: /**
-         * Input size, one of `large` `default` `small`
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.size = value;
-            this.setClassMap();
-            this.setInputClass();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzShowInput", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.showInput;
-        },
-        /** Whether show input box. Defaults to `true`. */
-        set: /**
-         * Whether show input box. Defaults to `true`.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.showInput = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzShowSearch", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.showSearch;
-        },
-        /** Whether can search. Defaults to `false`. */
-        set: /**
-         * Whether can search. Defaults to `false`.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.showSearch = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzAllowClear", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.allowClear;
-        },
-        /** Whether allow clear. Defaults to `true`. */
-        set: /**
-         * Whether allow clear. Defaults to `true`.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.allowClear = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzAutoFocus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.autoFocus;
-        },
-        /** Whether auto focus. */
-        set: /**
-         * Whether auto focus.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.autoFocus = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzShowArrow", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.showArrow;
-        },
-        /** Whether to show arrow */
-        set: /**
-         * Whether to show arrow
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.showArrow = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzMenuClassName", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.menuClassName;
-        },
-        /** Additional className of popup overlay */
-        set: /**
-         * Additional className of popup overlay
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.menuClassName = value;
-            this.setMenuClass();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzColumnClassName", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.columnClassName;
-        },
-        /** Additional className of popup overlay column */
-        set: /**
-         * Additional className of popup overlay column
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.columnClassName = value;
-            this.setMenuColumnClass();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzCascaderComponent.prototype, "nzOptions", {
         get: /**
          * @return {?}
          */
-        function () {
-            return this.nzColumns[0];
-        },
-        /** Options for first column, sub column will be load async */
+        function () { return this.columns[0]; },
         set: /**
-         * Options for first column, sub column will be load async
          * @param {?} options
          * @return {?}
          */
         function (options) {
-            this.oldColumnsHolder = this.nzColumns = options && options.length ? [options] : [];
-            if (!this.inSearch) {
-                if (this.defaultValue && this.nzColumns.length) {
+            this.columnsSnapshot = this.columns = options && options.length ? [options] : [];
+            if (!this.isSearching) {
+                if (this.defaultValue && this.columns.length) {
                     this.initOptions(0);
                 }
             }
@@ -10392,636 +9743,73 @@ var NzCascaderComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzCascaderComponent.prototype, "nzChangeOnSelect", {
+    Object.defineProperty(NzCascaderComponent.prototype, "inputValue", {
         get: /**
          * @return {?}
          */
-        function () {
-            return this.changeOnSelect;
-        },
-        /** Change value on each selection if set to true */
+        function () { return this._inputValue; },
         set: /**
-         * Change value on each selection if set to true
-         * @param {?} value
+         * @param {?} inputValue
          * @return {?}
          */
-        function (value) {
-            this.changeOnSelect = toBoolean(value);
+        function (inputValue) {
+            this._inputValue = inputValue;
+            this.toggleSearchMode();
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @param {?} position
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onPositionChange = /**
-     * @param {?} position
-     * @return {?}
-     */
-    function (position) {
-        /** @type {?} */
-        var newValue = position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
-        if (this.dropDownPosition !== newValue) {
-            this.dropDownPosition = newValue;
-            this.cdr.detectChanges();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.focus = /**
-     * @return {?}
-     */
-    function () {
-        if (!this.isFocused) {
-            /** @type {?} */
-            var input = /** @type {?} */ (this.el.querySelector("." + this.prefixCls + "-input"));
-            if (input && input.focus) {
-                input.focus();
-            }
-            else {
-                this.el.focus();
-            }
-            this.isFocused = true;
-            this.setClassMap();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.blur = /**
-     * @return {?}
-     */
-    function () {
-        if (this.isFocused) {
-            /** @type {?} */
-            var input = /** @type {?} */ (this.el.querySelector("." + this.prefixCls + "-input"));
-            if (input && input.blur) {
-                input.blur();
-            }
-            else {
-                this.el.blur();
-            }
-            this.isFocused = false;
-            this.setClassMap();
-            this.setLabelClass();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        /** @type {?} */
-        var classMap = (_a = {},
-            _a["" + this.prefixCls] = 1,
-            _a[this.prefixCls + "-picker"] = 1,
-            _a[this.prefixCls + "-lg"] = this.nzSize === 'large',
-            _a[this.prefixCls + "-sm"] = this.nzSize === 'small',
-            _a[this.prefixCls + "-picker-disabled"] = this.disabled,
-            _a[this.prefixCls + "-focused"] = this.isFocused,
-            _a[this.prefixCls + "-picker-open"] = this.menuVisible,
-            _a[this.prefixCls + "-picker-with-value"] = this.inputValue && this.inputValue.length,
-            _a);
-        this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "labelCls", {
-        get: /**
-         * 标签 样式
-         * @return {?}
-         */
-        function () {
-            return this._labelCls;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setLabelClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._labelCls = (_a = {},
-            _a[this.prefixCls + "-picker-label"] = true,
-            _a[this.prefixCls + "-show-search"] = !!this.nzShowSearch,
-            _a[this.prefixCls + "-focused"] = !!this.nzShowSearch && this.isFocused && !this._inputValue,
-            _a);
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "arrowCls", {
-        get: /**
-         * 箭头 样式
-         * @return {?}
-         */
-        function () {
-            return this._arrowCls;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setArrowClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._arrowCls = (_a = {},
-            _a[this.prefixCls + "-picker-arrow"] = true,
-            _a[this.prefixCls + "-picker-arrow-expand"] = this.menuVisible,
-            _a);
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "loadingCls", {
-        get: /**
-         * 加载中图标 样式
-         * @return {?}
-         */
-        function () {
-            return this._loadingCls;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setLoadingClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._loadingCls = (_a = {},
-            _a[this.prefixCls + "-picker-arrow"] = true,
-            _a);
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "clearCls", {
-        get: /**
-         * 清除图标 样式
-         * @return {?}
-         */
-        function () {
-            return this._clearCls;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setClearClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._clearCls = (_a = {},
-            _a[this.prefixCls + "-picker-clear"] = true,
-            _a);
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "inputCls", {
-        get: /**
-         * 输入框 样式
-         * @return {?}
-         */
-        function () {
-            return this._inputCls;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setInputClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._inputCls = (_a = {},
-            _a[this.prefixCls + "-input"] = 1,
-            _a[this.inputPrefixCls + "-disabled"] = this.nzDisabled,
-            _a[this.inputPrefixCls + "-lg"] = this.nzSize === 'large',
-            _a[this.inputPrefixCls + "-sm"] = this.nzSize === 'small',
-            _a);
-    };
     Object.defineProperty(NzCascaderComponent.prototype, "menuCls", {
         get: /**
-         * 浮层 样式
          * @return {?}
          */
         function () {
-            return this._menuCls;
+            var _a;
+            return _a = {},
+                _a["" + this.nzMenuClassName] = !!this.nzMenuClassName,
+                _a;
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setMenuClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._menuCls = (_a = {},
-            _a[this.prefixCls + "-menus"] = true,
-            _a[this.prefixCls + "-menus-hidden"] = !this.menuVisible,
-            _a["" + this.nzMenuClassName] = this.nzMenuClassName,
-            _a);
-    };
     Object.defineProperty(NzCascaderComponent.prototype, "menuColumnCls", {
         get: /**
-         * 浮层列 样式
          * @return {?}
          */
         function () {
-            return this._menuColumnCls;
+            var _a;
+            return _a = {},
+                _a["" + this.nzColumnClassName] = !!this.nzColumnClassName,
+                _a;
         },
         enumerable: true,
         configurable: true
     });
+    //#region Menu
     /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setMenuColumnClass = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this._menuColumnCls = (_a = {},
-            _a[this.prefixCls + "-menu"] = true,
-            _a["" + this.nzColumnClassName] = this.nzColumnClassName,
-            _a);
-    };
-    /**
-     * 获取列中Option的样式
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.getOptionCls = /**
-     * 获取列中Option的样式
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    function (option, index) {
-        var _a;
-        return _a = {},
-            _a[this.prefixCls + "-menu-item"] = true,
-            _a[this.prefixCls + "-menu-item-expand"] = !option.isLeaf,
-            _a[this.prefixCls + "-menu-item-active"] = this.isActivedOption(option, index),
-            _a[this.prefixCls + "-menu-item-disabled"] = option.disabled,
-            _a;
-    };
-    /**
-     * prevent input change event
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.handlerInputChange = /**
-     * prevent input change event
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-    };
-    /**
-     * input element blur
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.handleInputBlur = /**
-     * input element blur
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /*
-            if (!this.nzShowSearch) {
-              return;
-            }
-            */
-        if (this.menuVisible) {
-            this.focus(); // keep input has focus when menu opened
-        }
-        else {
-            this.blur();
-        }
-    };
-    /**
-     * input element focus
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.handleInputFocus = /**
-     * input element focus
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /*
-            if (!this.nzShowSearch) {
-              return;
-            }
-            */
-        this.focus();
-        this.setLabelClass();
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.hasInput = /**
-     * @return {?}
-     */
-    function () {
-        return this.inputValue.length > 0;
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.hasValue = /**
-     * @return {?}
-     */
-    function () {
-        return this.value && this.value.length > 0;
-    };
-    Object.defineProperty(NzCascaderComponent.prototype, "showPlaceholder", {
-        get: /**
-         * Whether to show input element placeholder
-         * @return {?}
-         */
-        function () {
-            return !(this.hasInput() || this.hasValue());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCascaderComponent.prototype, "showClearIcon", {
-        get: /**
-         * Whether the clear button is visible
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var isHasValue = this.hasValue();
-            /** @type {?} */
-            var isHasInput = this.hasInput();
-            return this.nzAllowClear && !this.nzDisabled && (isHasValue || isHasInput);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * clear the input box and selected options
-     * @param {?=} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.clearSelection = /**
-     * clear the input box and selected options
-     * @param {?=} event
-     * @return {?}
-     */
-    function (event) {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        this.labelRenderText = '';
-        // this.isLabelRenderTemplate = false;
-        // clear custom context
-        this.labelRenderContext = {};
-        this.selectedOptions = [];
-        this.activatedOptions = [];
-        this.inputValue = '';
-        this.setMenuVisible(false);
-        // trigger change event
-        this.onValueChange();
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.buildDisplayLabel = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        /** @type {?} */
-        var selectedOptions = this.selectedOptions;
-        /** @type {?} */
-        var labels = selectedOptions.map(function (o) { return _this.getOptionLabel(o); });
-        // 设置当前控件的显示值
-        if (this.isLabelRenderTemplate) {
-            this.labelRenderContext = { labels: labels, selectedOptions: selectedOptions };
-        }
-        else {
-            this.labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onKeyDown = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /** @type {?} */
-        var keyCode = event.keyCode;
-        if (keyCode !== DOWN_ARROW &&
-            keyCode !== UP_ARROW &&
-            keyCode !== LEFT_ARROW &&
-            keyCode !== RIGHT_ARROW &&
-            keyCode !== ENTER &&
-            keyCode !== BACKSPACE &&
-            keyCode !== ESCAPE) {
-            return;
-        }
-        if (this.inSearch && (keyCode === BACKSPACE ||
-            keyCode === LEFT_ARROW ||
-            keyCode === RIGHT_ARROW)) {
-            return;
-        }
-        // Press any keys above to reopen menu
-        if (!this.isMenuVisible() &&
-            keyCode !== BACKSPACE &&
-            keyCode !== ESCAPE) {
-            this.setMenuVisible(true);
-            return;
-        }
-        // Press ESC to close menu
-        if (keyCode === ESCAPE) {
-            // this.setMenuVisible(false); // already call by cdk-overlay detach
-            return;
-        }
-        if (this.isMenuVisible()) {
-            event.preventDefault();
-            if (keyCode === DOWN_ARROW) {
-                this.moveDown();
-            }
-            else if (keyCode === UP_ARROW) {
-                this.moveUp();
-            }
-            else if (keyCode === LEFT_ARROW) {
-                this.moveLeft();
-            }
-            else if (keyCode === RIGHT_ARROW) {
-                this.moveRight();
-            }
-            else if (keyCode === ENTER) {
-                this.onEnter();
-            }
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onTriggerClick = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (this.nzDisabled) {
-            return;
-        }
-        this.onTouched(); // set your control to 'touched'
-        if (this.nzShowSearch) {
-            this.focus();
-        }
-        if (this.isClickTiggerAction()) {
-            this.delaySetMenuVisible(!this.menuVisible, 100);
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onTriggerMouseEnter = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (this.nzDisabled) {
-            return;
-        }
-        if (this.isPointerTiggerAction()) {
-            this.delaySetMenuVisible(true, this.nzMouseEnterDelay, true);
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onTriggerMouseLeave = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (this.nzDisabled) {
-            return;
-        }
-        if (!this.isMenuVisible() || this.isOpening) {
-            event.preventDefault();
-            return;
-        }
-        if (this.isPointerTiggerAction()) {
-            /** @type {?} */
-            var mouseTarget = /** @type {?} */ (event.relatedTarget);
-            /** @type {?} */
-            var hostEl = this.el;
-            /** @type {?} */
-            var menuEl = this.menu && /** @type {?} */ (this.menu.nativeElement);
-            if (hostEl.contains(mouseTarget) || (menuEl && menuEl.contains(mouseTarget))
-            /*|| mouseTarget.parentElement.contains(menuEl)*/ ) {
-                // 因为浮层的backdrop出现，暂时没有办法自动消失
-                return;
-            }
-            this.delaySetMenuVisible(false, this.nzMouseLeaveDelay);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.isClickTiggerAction = /**
-     * @return {?}
-     */
-    function () {
-        if (typeof this.nzTriggerAction === 'string') {
-            return this.nzTriggerAction === 'click';
-        }
-        return this.nzTriggerAction.indexOf('click') !== -1;
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.isPointerTiggerAction = /**
-     * @return {?}
-     */
-    function () {
-        if (typeof this.nzTriggerAction === 'string') {
-            return this.nzTriggerAction === 'hover';
-        }
-        return this.nzTriggerAction.indexOf('hover') !== -1;
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.closeMenu = /**
-     * @return {?}
-     */
-    function () {
-        this.blur();
-        this.clearDelayTimer();
-        this.setMenuVisible(false);
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.clearDelayTimer = /**
-     * @return {?}
-     */
-    function () {
-        if (this.delayTimer) {
-            clearTimeout(this.delayTimer);
-            this.delayTimer = null;
-        }
-    };
-    /**
-     * 显示或者隐藏菜单
-     *
-     * @param {?} visible true-显示，false-隐藏
-     * @param {?} delay 延迟时间
+     * @param {?} visible
+     * @param {?} delay
      * @param {?=} setOpening
      * @return {?}
      */
     NzCascaderComponent.prototype.delaySetMenuVisible = /**
-     * 显示或者隐藏菜单
-     *
-     * @param {?} visible true-显示，false-隐藏
-     * @param {?} delay 延迟时间
+     * @param {?} visible
+     * @param {?} delay
      * @param {?=} setOpening
      * @return {?}
      */
     function (visible, delay$$1, setOpening) {
         var _this = this;
         if (setOpening === void 0) { setOpening = false; }
-        this.clearDelayTimer();
+        this.clearDelayMenuTimer();
         if (delay$$1) {
             if (visible && setOpening) {
                 this.isOpening = true;
             }
-            this.delayTimer = setTimeout(function () {
+            this.delayMenuTimer = setTimeout(function () {
                 _this.setMenuVisible(visible);
-                _this.clearDelayTimer();
+                _this.cdr.detectChanges();
+                _this.clearDelayMenuTimer();
                 if (visible) {
                     setTimeout(function () {
                         _this.isOpening = false;
@@ -11034,48 +9822,37 @@ var NzCascaderComponent = /** @class */ (function () {
         }
     };
     /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.isMenuVisible = /**
-     * @return {?}
-     */
-    function () {
-        return this.menuVisible;
-    };
-    /**
-     * @param {?} menuVisible
+     * @param {?} visible
      * @return {?}
      */
     NzCascaderComponent.prototype.setMenuVisible = /**
-     * @param {?} menuVisible
+     * @param {?} visible
      * @return {?}
      */
-    function (menuVisible) {
+    function (visible) {
         if (this.nzDisabled) {
             return;
         }
-        if (this.menuVisible !== menuVisible) {
-            this.menuVisible = menuVisible;
-            // update class
-            this.setClassMap();
-            this.setArrowClass();
-            this.setMenuClass();
-            if (menuVisible) {
-                this.beforeVisible();
+        if (this.menuVisible !== visible) {
+            this.menuVisible = visible;
+            this.cdr.detectChanges();
+            if (visible) {
+                this.loadRootOptions();
             }
-            this.nzVisibleChange.emit(menuVisible);
+            this.nzVisibleChange.emit(visible);
         }
     };
     /**
-     * load init data if necessary
      * @return {?}
      */
-    NzCascaderComponent.prototype.beforeVisible = /**
-     * load init data if necessary
+    NzCascaderComponent.prototype.clearDelayMenuTimer = /**
      * @return {?}
      */
     function () {
-        this.loadRootOptions();
+        if (this.delayMenuTimer) {
+            clearTimeout(this.delayMenuTimer);
+            this.delayMenuTimer = null;
+        }
     };
     /**
      * @return {?}
@@ -11084,132 +9861,168 @@ var NzCascaderComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.nzColumns.length) {
+        if (!this.columns.length) {
             /** @type {?} */
             var root = {};
-            this.loadChildren(root, -1);
+            this.loadChildrenAsync(root, -1);
         }
     };
     /**
-     * 获取Option的值，例如，可以指定labelProperty="name"来取Name
-     * @param {?} option
+     * @param {?} index
      * @return {?}
      */
-    NzCascaderComponent.prototype.getOptionLabel = /**
-     * 获取Option的值，例如，可以指定labelProperty="name"来取Name
-     * @param {?} option
+    NzCascaderComponent.prototype.isLoaded = /**
+     * @param {?} index
      * @return {?}
      */
-    function (option) {
-        return option[this.nzLabelProperty || 'label'];
-    };
-    /**
-     * 获取Option的值，例如，可以指定valueProperty="id"来取ID
-     * @param {?} option
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.getOptionValue = /**
-     * 获取Option的值，例如，可以指定valueProperty="id"来取ID
-     * @param {?} option
-     * @return {?}
-     */
-    function (option) {
-        return option[this.nzValueProperty || 'value'];
+    function (index) {
+        return this.columns[index] && this.columns[index].length > 0;
     };
     /**
      * @param {?} option
      * @param {?} index
      * @return {?}
      */
-    NzCascaderComponent.prototype.isActivedOption = /**
+    NzCascaderComponent.prototype.findOption = /**
      * @param {?} option
      * @param {?} index
      * @return {?}
      */
     function (option, index) {
+        var _this = this;
         /** @type {?} */
-        var activeOpt = this.activatedOptions[index];
-        return activeOpt === option;
+        var options = this.columns[index];
+        if (options) {
+            /** @type {?} */
+            var value_1 = typeof option === 'object' ? this.getOptionValue(option) : option;
+            return options.find(function (o) { return value_1 === _this.getOptionValue(o); });
+        }
+        return null;
     };
     /**
-     * 设置某列的激活的菜单选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index  选项所在的列组的索引
-     * @param {?=} select 是否触发选择结点
+     * @param {?} index
+     * @param {?} value
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.activateOnInit = /**
+     * @param {?} index
+     * @param {?} value
+     * @return {?}
+     */
+    function (index, value) {
+        var _a;
+        /** @type {?} */
+        var option = this.findOption(value, index);
+        if (!option) {
+            option = typeof value === 'object' ? value : (_a = {},
+                _a["" + this.nzValueProperty] = value,
+                _a["" + this.nzLabelProperty] = value,
+                _a);
+        }
+        this.setOptionActivated(option, index, false, false);
+    };
+    /**
+     * @param {?} index
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.initOptions = /**
+     * @param {?} index
+     * @return {?}
+     */
+    function (index) {
+        var _this = this;
+        /** @type {?} */
+        var vs = this.defaultValue;
+        /** @type {?} */
+        var lastIndex = vs.length - 1;
+        /** @type {?} */
+        var load = function () {
+            _this.activateOnInit(index, vs[index]);
+            if (index < lastIndex) {
+                _this.initOptions(index + 1);
+            }
+            if (index === lastIndex) {
+                _this.afterWriteValue();
+            }
+        };
+        if (this.isLoaded(index) || !this.nzLoadData) {
+            load();
+        }
+        else {
+            /** @type {?} */
+            var node = this.activatedOptions[index - 1] || {};
+            this.loadChildrenAsync(node, index - 1, load, this.afterWriteValue);
+        }
+    };
+    /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?=} select
      * @param {?=} loadChildren
      * @return {?}
      */
-    NzCascaderComponent.prototype.setActiveOption = /**
-     * 设置某列的激活的菜单选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index  选项所在的列组的索引
-     * @param {?=} select 是否触发选择结点
+    NzCascaderComponent.prototype.setOptionActivated = /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?=} select
      * @param {?=} loadChildren
      * @return {?}
      */
-    function (option, index, select, loadChildren) {
+    function (option, columnIndex, select, loadChildren) {
         if (select === void 0) { select = false; }
         if (loadChildren === void 0) { loadChildren = true; }
         if (!option || option.disabled) {
             return;
         }
-        this.activatedOptions[index] = option;
-        // 当直接选择最后一级时，前面的选项要补全。例如，选择“城市”，则自动补全“国家”、“省份”
-        for (var i = index - 1; i >= 0; i--) {
+        this.activatedOptions[columnIndex] = option;
+        // Set parent option and all ancestor options as active.
+        for (var i = columnIndex - 1; i >= 0; i--) {
             if (!this.activatedOptions[i]) {
                 this.activatedOptions[i] = this.activatedOptions[i + 1].parent;
             }
         }
-        // 截断多余的选项，如选择“省份”，则只会有“国家”、“省份”，去掉“城市”、“区县”
-        if (index < this.activatedOptions.length - 1) {
-            this.activatedOptions = this.activatedOptions.slice(0, index + 1);
+        // Set child options and all success options as inactive.
+        if (columnIndex < this.activatedOptions.length - 1) {
+            this.activatedOptions = this.activatedOptions.slice(0, columnIndex + 1);
         }
-        // load children
-        if (option.children && option.children.length) {
-            option.isLeaf = false;
+        // Load child options.
+        if (option.children && option.children.length && !option.isLeaf) {
             option.children.forEach(function (child) { return child.parent = option; });
-            this.setColumnData(option.children, index + 1);
+            this.setColumnData(option.children, columnIndex + 1);
         }
         else if (!option.isLeaf && loadChildren) {
-            this.loadChildren(option, index);
+            this.loadChildrenAsync(option, columnIndex);
         }
-        else {
-            // clicking leaf node will remove any children columns
-            if (index < this.nzColumns.length - 1) {
-                this.nzColumns = this.nzColumns.slice(0, index + 1);
-            }
-        }
-        // trigger select event, and display label
         if (select) {
-            this.onSelectOption(option, index);
+            this.setOptionSelected(option, columnIndex);
         }
+        this.cdr.detectChanges();
     };
     /**
      * @param {?} option
-     * @param {?} index
+     * @param {?} columnIndex
      * @param {?=} success
      * @param {?=} failure
      * @return {?}
      */
-    NzCascaderComponent.prototype.loadChildren = /**
+    NzCascaderComponent.prototype.loadChildrenAsync = /**
      * @param {?} option
-     * @param {?} index
+     * @param {?} columnIndex
      * @param {?=} success
      * @param {?=} failure
      * @return {?}
      */
-    function (option, index, success, failure) {
+    function (option, columnIndex, success, failure) {
         var _this = this;
         if (this.nzLoadData) {
-            this.isLoading = index < 0;
+            this.isLoading = columnIndex < 0;
             option.loading = true;
-            this.nzLoadData(option, index).then(function () {
+            this.nzLoadData(option, columnIndex).then(function () {
                 option.loading = _this.isLoading = false;
                 if (option.children) {
-                    option.children.forEach(function (child) { return child.parent = index < 0 ? undefined : option; });
-                    _this.setColumnData(option.children, index + 1);
+                    option.children.forEach(function (child) { return child.parent = columnIndex < 0 ? undefined : option; });
+                    _this.setColumnData(option.children, columnIndex + 1);
+                    _this.cdr.detectChanges();
                 }
                 if (success) {
                     success();
@@ -11217,6 +10030,7 @@ var NzCascaderComponent = /** @class */ (function () {
             }, function () {
                 option.loading = _this.isLoading = false;
                 option.isLeaf = true;
+                _this.cdr.detectChanges();
                 if (failure) {
                     failure();
                 }
@@ -11225,317 +10039,70 @@ var NzCascaderComponent = /** @class */ (function () {
     };
     /**
      * @param {?} option
-     * @param {?} index
+     * @param {?} columnIndex
      * @return {?}
      */
-    NzCascaderComponent.prototype.onSelectOption = /**
+    NzCascaderComponent.prototype.setOptionSelected = /**
      * @param {?} option
-     * @param {?} index
+     * @param {?} columnIndex
      * @return {?}
      */
-    function (option, index) {
-        // trigger `nzSelect` event
-        this.nzSelect.emit({ option: option, index: index });
-        // 生成显示
-        if (option.isLeaf || this.nzChangeOnSelect || this.isChangeOn(option, index)) {
+    function (option, columnIndex) {
+        var _this = this;
+        /** @type {?} */
+        var shouldPerformSelection = function (o, i) {
+            return typeof _this.nzChangeOn === 'function' ? _this.nzChangeOn(o, i) === true : false;
+        };
+        this.nzSelect.emit({ option: option, index: columnIndex });
+        if (option.isLeaf || this.nzChangeOnSelect || shouldPerformSelection(option, columnIndex)) {
             this.selectedOptions = this.activatedOptions;
-            // 设置当前控件的显示值
             this.buildDisplayLabel();
-            // 触发变更事件
             this.onValueChange();
         }
-        // close menu if click on leaf
         if (option.isLeaf) {
             this.delaySetMenuVisible(false, this.nzMouseLeaveDelay);
         }
     };
     /**
-     * 由用户来定义点击后是否变更
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.isChangeOn = /**
-     * 由用户来定义点击后是否变更
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    function (option, index) {
-        if (typeof this.nzChangeOn === 'function') {
-            return this.nzChangeOn(option, index) === true;
-        }
-        return false;
-    };
-    /**
      * @param {?} options
-     * @param {?} index
+     * @param {?} columnIndex
      * @return {?}
      */
     NzCascaderComponent.prototype.setColumnData = /**
      * @param {?} options
-     * @param {?} index
+     * @param {?} columnIndex
      * @return {?}
      */
-    function (options, index) {
-        if (!arrayEquals(this.nzColumns[index], options)) {
-            this.nzColumns[index] = options;
-            if (index < this.nzColumns.length - 1) {
-                this.nzColumns = this.nzColumns.slice(0, index + 1);
+    function (options, columnIndex) {
+        if (!arrayEquals(this.columns[columnIndex], options)) {
+            this.columns[columnIndex] = options;
+            if (columnIndex < this.columns.length - 1) {
+                this.columns = this.columns.slice(0, columnIndex + 1);
             }
         }
     };
     /**
-     * 鼠标点击选项
-     *
-     * @param option 菜单选项
-     * @param index 选项所在的列组的索引
-     * @param event 鼠标事件
-     */
-    /**
-     * 鼠标点击选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
+     * @param {?=} event
      * @return {?}
      */
-    NzCascaderComponent.prototype.onOptionClick = /**
-     * 鼠标点击选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
+    NzCascaderComponent.prototype.clearSelection = /**
+     * @param {?=} event
      * @return {?}
      */
-    function (option, index, event) {
+    function (event) {
         if (event) {
             event.preventDefault();
+            event.stopPropagation();
         }
-        // Keep focused state for keyboard support
-        this.el.focus();
-        if (option && option.disabled) {
-            return;
-        }
-        if (this.inSearch) {
-            this.setSearchActiveOption(/** @type {?} */ (option), event);
-        }
-        else {
-            this.setActiveOption(option, index, true);
-        }
+        this.labelRenderText = '';
+        this.labelRenderContext = {};
+        this.selectedOptions = [];
+        this.activatedOptions = [];
+        this.inputValue = '';
+        this.setMenuVisible(false);
+        this.onValueChange();
     };
-    /**
-     * 按下回车键时选择
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onEnter = /**
-     * 按下回车键时选择
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var columnIndex = Math.max(this.activatedOptions.length - 1, 0);
-        /** @type {?} */
-        var activeOption = this.activatedOptions[columnIndex];
-        if (activeOption && !activeOption.disabled) {
-            if (this.inSearch) {
-                this.setSearchActiveOption(/** @type {?} */ (activeOption), null);
-            }
-            else {
-                this.onSelectOption(activeOption, columnIndex);
-            }
-        }
-    };
-    /**
-     * press `up` or `down` arrow to activate the sibling option.
-     * @param {?} isUp
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.moveUpOrDown = /**
-     * press `up` or `down` arrow to activate the sibling option.
-     * @param {?} isUp
-     * @return {?}
-     */
-    function (isUp) {
-        /** @type {?} */
-        var columnIndex = Math.max(this.activatedOptions.length - 1, 0);
-        /** @type {?} */
-        var activeOption = this.activatedOptions[columnIndex];
-        /** @type {?} */
-        var options = this.nzColumns[columnIndex] || [];
-        /** @type {?} */
-        var length = options.length;
-        /** @type {?} */
-        var nextIndex = -1;
-        if (!activeOption) { // 该列还没有选中的选项
-            // 该列还没有选中的选项
-            nextIndex = isUp ? length : -1;
-        }
-        else {
-            nextIndex = options.indexOf(activeOption);
-        }
-        while (true) {
-            nextIndex = isUp ? nextIndex - 1 : nextIndex + 1;
-            if (nextIndex < 0 || nextIndex >= length) {
-                break;
-            }
-            /** @type {?} */
-            var nextOption = options[nextIndex];
-            if (!nextOption || nextOption.disabled) {
-                continue;
-            }
-            this.setActiveOption(nextOption, columnIndex);
-            break;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.moveUp = /**
-     * @return {?}
-     */
-    function () {
-        this.moveUpOrDown(true);
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.moveDown = /**
-     * @return {?}
-     */
-    function () {
-        this.moveUpOrDown(false);
-    };
-    /**
-     * press `left` arrow to remove the last selected option.
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.moveLeft = /**
-     * press `left` arrow to remove the last selected option.
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var options = this.activatedOptions;
-        if (options.length) {
-            options.pop(); // Remove the last one
-        }
-    };
-    /**
-     * press `right` arrow to select the next column option.
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.moveRight = /**
-     * press `right` arrow to select the next column option.
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var length = this.activatedOptions.length;
-        /** @type {?} */
-        var options = this.nzColumns[length];
-        if (options && options.length) {
-            /** @type {?} */
-            var nextOpt = options.find(function (o) { return !o.disabled; });
-            if (nextOpt) {
-                this.setActiveOption(nextOpt, length);
-            }
-        }
-    };
-    /**
-     * 鼠标划入选项
-     *
-     * @param option 菜单选项
-     * @param index 选项所在的列组的索引
-     * @param event 鼠标事件
-     */
-    /**
-     * 鼠标划入选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onOptionMouseEnter = /**
-     * 鼠标划入选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
-     * @return {?}
-     */
-    function (option, index, event) {
-        event.preventDefault();
-        if (this.nzExpandTrigger === 'hover' && !option.isLeaf) {
-            this.delaySelect(option, index, true);
-        }
-    };
-    /**
-     * 鼠标划出选项
-     *
-     * @param option 菜单选项
-     * @param index 选项所在的列组的索引
-     * @param event 鼠标事件
-     */
-    /**
-     * 鼠标划出选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.onOptionMouseLeave = /**
-     * 鼠标划出选项
-     *
-     * @param {?} option 菜单选项
-     * @param {?} index 选项所在的列组的索引
-     * @param {?} event 鼠标事件
-     * @return {?}
-     */
-    function (option, index, event) {
-        event.preventDefault();
-        if (this.nzExpandTrigger === 'hover' && !option.isLeaf) {
-            this.delaySelect(option, index, false);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.clearDelaySelectTimer = /**
-     * @return {?}
-     */
-    function () {
-        if (this.delaySelectTimer) {
-            clearTimeout(this.delaySelectTimer);
-            this.delaySelectTimer = null;
-        }
-    };
-    /**
-     * @param {?} option
-     * @param {?} index
-     * @param {?} doSelect
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.delaySelect = /**
-     * @param {?} option
-     * @param {?} index
-     * @param {?} doSelect
-     * @return {?}
-     */
-    function (option, index, doSelect) {
-        var _this = this;
-        this.clearDelaySelectTimer();
-        if (doSelect) {
-            this.delaySelectTimer = setTimeout(function () {
-                // 鼠标滑入只展开，不进行选中操作
-                // 鼠标滑入只展开，不进行选中操作
-                _this.setActiveOption(option, index);
-                _this.delaySelectTimer = null;
-            }, 150);
-        }
-    };
+    // tslint:disable-next-line:no-any
     /**
      * @return {?}
      */
@@ -11561,99 +10128,14 @@ var NzCascaderComponent = /** @class */ (function () {
         /** @type {?} */
         var value = this.getSubmitValue();
         if (!arrayEquals(this.value, value)) {
-            this.defaultValue = null; // clear the init-value
+            this.defaultValue = null;
             this.value = value;
-            this.onChange(value); // Angular need this
+            this.onChange(value);
             if (value.length === 0) {
-                this.nzClear.emit(); // first trigger `clear` and then `change`
+                this.nzClear.emit();
             }
             this.nzSelectionChange.emit(this.selectedOptions);
             this.nzChange.emit(value);
-        }
-    };
-    /**
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.findOption = /**
-     * @param {?} option
-     * @param {?} index
-     * @return {?}
-     */
-    function (option, index) {
-        var _this = this;
-        /** @type {?} */
-        var options = this.nzColumns[index];
-        if (options) {
-            /** @type {?} */
-            var value_1 = typeof option === 'object' ? this.getOptionValue(option) : option;
-            return options.find(function (o) { return value_1 === _this.getOptionValue(o); });
-        }
-        return null;
-    };
-    /**
-     * @param {?} index
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.isLoaded = /**
-     * @param {?} index
-     * @return {?}
-     */
-    function (index) {
-        return this.nzColumns[index] && this.nzColumns[index].length > 0;
-    };
-    /**
-     * @param {?} index
-     * @param {?} value
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.activateOnInit = /**
-     * @param {?} index
-     * @param {?} value
-     * @return {?}
-     */
-    function (index, value) {
-        var _a;
-        /** @type {?} */
-        var option = this.findOption(value, index);
-        if (!option) {
-            option = typeof value === 'object' ? value : (_a = {},
-                _a["" + (this.nzValueProperty || 'value')] = value,
-                _a["" + (this.nzLabelProperty || 'label')] = value,
-                _a);
-        }
-        this.setActiveOption(option, index, false, false);
-    };
-    /**
-     * @param {?} index
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.initOptions = /**
-     * @param {?} index
-     * @return {?}
-     */
-    function (index) {
-        var _this = this;
-        /** @type {?} */
-        var vs = this.defaultValue;
-        /** @type {?} */
-        var load = function () {
-            _this.activateOnInit(index, vs[index]);
-            if (index < vs.length - 1) {
-                _this.initOptions(index + 1);
-            }
-            if (index === vs.length - 1) {
-                _this.afterWriteValue();
-            }
-        };
-        if (this.isLoaded(index) || !this.nzLoadData) {
-            load();
-        }
-        else {
-            /** @type {?} */
-            var node = this.activatedOptions[index - 1] || {};
-            this.loadChildren(node, index - 1, load, this.afterWriteValue);
         }
     };
     /**
@@ -11667,72 +10149,397 @@ var NzCascaderComponent = /** @class */ (function () {
         this.value = this.getSubmitValue();
         this.buildDisplayLabel();
     };
+    //#endregion
+    //#region Mouse and keyboard event handlers, view children
     /**
-     * Write a new value to the element.
-     *
-     * @Override (From ControlValueAccessor interface)
-     */
-    /**
-     * Write a new value to the element.
-     *
-     * \@Override (From ControlValueAccessor interface)
-     * @param {?} value
      * @return {?}
      */
-    NzCascaderComponent.prototype.writeValue = /**
-     * Write a new value to the element.
-     *
-     * \@Override (From ControlValueAccessor interface)
-     * @param {?} value
+    NzCascaderComponent.prototype.focus = /**
      * @return {?}
      */
-    function (value) {
+    function () {
+        if (!this.isFocused) {
+            (this.input ? this.input.nativeElement : this.el).focus();
+            this.isFocused = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.blur = /**
+     * @return {?}
+     */
+    function () {
+        if (this.isFocused) {
+            (this.input ? this.input.nativeElement : this.el).blur();
+            this.isFocused = false;
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.handleInputBlur = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.menuVisible ? this.focus() : this.blur();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.handleInputFocus = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.focus();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onKeyDown = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         /** @type {?} */
-        var vs = this.defaultValue = toArray(value);
-        if (vs.length) {
-            this.initOptions(0);
+        var keyCode = event.keyCode;
+        if (keyCode !== DOWN_ARROW &&
+            keyCode !== UP_ARROW &&
+            keyCode !== LEFT_ARROW &&
+            keyCode !== RIGHT_ARROW &&
+            keyCode !== ENTER &&
+            keyCode !== BACKSPACE &&
+            keyCode !== ESCAPE) {
+            return;
+        }
+        // Press any keys above to reopen menu.
+        if (!this.menuVisible && keyCode !== BACKSPACE && keyCode !== ESCAPE) {
+            return this.setMenuVisible(true);
+        }
+        // Make these keys work as default in searching mode.
+        if (this.isSearching && (keyCode === BACKSPACE || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW)) {
+            return;
+        }
+        // Interact with the component.
+        if (this.menuVisible) {
+            event.preventDefault();
+            if (keyCode === DOWN_ARROW) {
+                this.moveUpOrDown(false);
+            }
+            else if (keyCode === UP_ARROW) {
+                this.moveUpOrDown(true);
+            }
+            else if (keyCode === LEFT_ARROW) {
+                this.moveLeft();
+            }
+            else if (keyCode === RIGHT_ARROW) {
+                this.moveRight();
+            }
+            else if (keyCode === ENTER) {
+                this.onEnter();
+            }
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onTriggerClick = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (this.nzDisabled) {
+            return;
+        }
+        if (this.nzShowSearch) {
+            this.focus();
+        }
+        if (this.isActionTrigger('click')) {
+            this.delaySetMenuVisible(!this.menuVisible, 100);
+        }
+        this.onTouched();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onTriggerMouseEnter = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (this.nzDisabled) {
+            return;
+        }
+        if (this.isActionTrigger('hover')) {
+            this.delaySetMenuVisible(true, this.nzMouseEnterDelay, true);
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onTriggerMouseLeave = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (this.nzDisabled) {
+            return;
+        }
+        if (!this.menuVisible || this.isOpening) {
+            event.preventDefault();
+            return;
+        }
+        if (this.isActionTrigger('hover')) {
+            /** @type {?} */
+            var mouseTarget = /** @type {?} */ (event.relatedTarget);
+            /** @type {?} */
+            var hostEl = this.el;
+            /** @type {?} */
+            var menuEl = this.menu && /** @type {?} */ (this.menu.nativeElement);
+            if (hostEl.contains(mouseTarget) || (menuEl && menuEl.contains(mouseTarget))) {
+                return;
+            }
+            this.delaySetMenuVisible(false, this.nzMouseLeaveDelay);
+        }
+    };
+    /**
+     * @param {?} action
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.isActionTrigger = /**
+     * @param {?} action
+     * @return {?}
+     */
+    function (action) {
+        return typeof this.nzTriggerAction === 'string'
+            ? this.nzTriggerAction === action
+            : this.nzTriggerAction.indexOf(action) !== -1;
+    };
+    /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onOptionClick = /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    function (option, columnIndex, event) {
+        if (event) {
+            event.preventDefault();
+        }
+        if (option && option.disabled) {
+            return;
+        }
+        this.el.focus();
+        this.isSearching
+            ? this.setSearchOptionActivated(/** @type {?} */ (option), event)
+            : this.setOptionActivated(option, columnIndex, true);
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onEnter = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var columnIndex = Math.max(this.activatedOptions.length - 1, 0);
+        /** @type {?} */
+        var option = this.activatedOptions[columnIndex];
+        if (option && !option.disabled) {
+            this.isSearching
+                ? this.setSearchOptionActivated(/** @type {?} */ (option), null)
+                : this.setOptionSelected(option, columnIndex);
+        }
+    };
+    /**
+     * @param {?} isUp
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.moveUpOrDown = /**
+     * @param {?} isUp
+     * @return {?}
+     */
+    function (isUp) {
+        /** @type {?} */
+        var columnIndex = Math.max(this.activatedOptions.length - 1, 0);
+        /** @type {?} */
+        var activeOption = this.activatedOptions[columnIndex];
+        /** @type {?} */
+        var options = this.columns[columnIndex] || [];
+        /** @type {?} */
+        var length = options.length;
+        /** @type {?} */
+        var nextIndex = -1;
+        if (!activeOption) { // Not selected options in this column
+            // Not selected options in this column
+            nextIndex = isUp ? length : -1;
         }
         else {
-            this.value = vs;
+            nextIndex = options.indexOf(activeOption);
+        }
+        while (true) {
+            nextIndex = isUp ? nextIndex - 1 : nextIndex + 1;
+            if (nextIndex < 0 || nextIndex >= length) {
+                break;
+            }
+            /** @type {?} */
+            var nextOption = options[nextIndex];
+            if (!nextOption || nextOption.disabled) {
+                continue;
+            }
+            this.setOptionActivated(nextOption, columnIndex);
+            break;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.moveLeft = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var options = this.activatedOptions;
+        if (options.length) {
+            options.pop(); // Remove the last one
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.moveRight = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var length = this.activatedOptions.length;
+        /** @type {?} */
+        var options = this.columns[length];
+        if (options && options.length) {
+            /** @type {?} */
+            var nextOpt = options.find(function (o) { return !o.disabled; });
+            if (nextOpt) {
+                this.setOptionActivated(nextOpt, length);
+            }
+        }
+    };
+    /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onOptionMouseEnter = /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    function (option, columnIndex, event) {
+        event.preventDefault();
+        if (this.nzExpandTrigger === 'hover' && !option.isLeaf) {
+            this.delaySelectOption(option, columnIndex, true);
+        }
+    };
+    /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onOptionMouseLeave = /**
+     * @param {?} option
+     * @param {?} columnIndex
+     * @param {?} event
+     * @return {?}
+     */
+    function (option, columnIndex, event) {
+        event.preventDefault();
+        if (this.nzExpandTrigger === 'hover' && !option.isLeaf) {
+            this.delaySelectOption(option, columnIndex, false);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.clearDelaySelectTimer = /**
+     * @return {?}
+     */
+    function () {
+        if (this.delaySelectTimer) {
+            clearTimeout(this.delaySelectTimer);
+            this.delaySelectTimer = null;
+        }
+    };
+    /**
+     * @param {?} option
+     * @param {?} index
+     * @param {?} doSelect
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.delaySelectOption = /**
+     * @param {?} option
+     * @param {?} index
+     * @param {?} doSelect
+     * @return {?}
+     */
+    function (option, index, doSelect) {
+        var _this = this;
+        this.clearDelaySelectTimer();
+        if (doSelect) {
+            this.delaySelectTimer = setTimeout(function () {
+                _this.setOptionActivated(option, index);
+                _this.delaySelectTimer = null;
+            }, 150);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.toggleSearchMode = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var willBeInSearch = !!this._inputValue;
+        // Take a snapshot before entering search mode.
+        if (!this.isSearching && willBeInSearch) {
+            this.isSearching = true;
+            this.activatedOptionsSnapshot = this.activatedOptions;
             this.activatedOptions = [];
-            this.afterWriteValue();
+            this.labelRenderText = '';
+            if (this.input) {
+                /** @type {?} */
+                var width = this.input.nativeElement.offsetWidth;
+                this.dropdownWidthStyle = width + "px";
+            }
         }
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.registerOnChange = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        this.onChange = fn;
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.registerOnTouched = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        this.onTouched = fn;
-    };
-    /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.setDisabledState = /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    function (isDisabled) {
-        if (isDisabled) {
-            this.closeMenu();
+        // Restore the snapshot after leaving search mode.
+        if (this.isSearching && !willBeInSearch) {
+            this.isSearching = false;
+            this.activatedOptions = this.activatedOptionsSnapshot;
+            this.columns = this.columnsSnapshot;
+            this.dropdownWidthStyle = '';
+            if (this.activatedOptions) {
+                this.buildDisplayLabel();
+            }
         }
-        this.nzDisabled = isDisabled;
+        if (this.isSearching) {
+            this.prepareSearchValue();
+        }
     };
     /**
      * @return {?}
@@ -11748,16 +10555,11 @@ var NzCascaderComponent = /** @class */ (function () {
         var path = [];
         /** @type {?} */
         var defaultFilter = function (inputValue, p) {
-            /** @type {?} */
-            var flag = false;
-            p.forEach(function (n) {
+            return p.some(function (n) {
                 /** @type {?} */
-                var labelName = _this.nzLabelProperty;
-                if (n[labelName] && n[labelName].indexOf(inputValue) > -1) {
-                    flag = true;
-                }
+                var label = _this.getOptionLabel(n);
+                return label && label.indexOf(inputValue) !== -1;
             });
-            return flag;
         };
         /** @type {?} */
         var filter$$1 = this.nzShowSearch instanceof Object && (/** @type {?} */ (this.nzShowSearch)).filter
@@ -11774,8 +10576,7 @@ var NzCascaderComponent = /** @class */ (function () {
             node.children.forEach(function (sNode) {
                 if (!sNode.parent) {
                     sNode.parent = node;
-                }
-                /** 搜索的同时建立 parent 连接，因为用户直接搜索的话是没有建立连接的，会提升从叶子节点回溯的难度 */
+                } // Build parent reference when doing searching
                 if (!sNode.isLeaf) {
                     loopParent(sNode, disabled);
                 }
@@ -11801,37 +10602,26 @@ var NzCascaderComponent = /** @class */ (function () {
                         isLeaf: true,
                         path: cPath
                     },
-                    _a[_this.nzLabelProperty] = cPath.map(function (p) { return p.label; }).join(' / '),
+                    _a[_this.nzLabelProperty] = cPath.map(function (p) { return _this.getOptionLabel(p); }).join(' / '),
                     _a);
                 results.push(option);
             }
             path.pop();
         };
-        this.oldColumnsHolder[0].forEach(function (node) { return (node.isLeaf || !node.children || !node.children.length)
+        this.columnsSnapshot[0].forEach(function (node) { return (node.isLeaf || !node.children || !node.children.length)
             ? loopChild(node)
             : loopParent(node); });
         if (sorter) {
             results.sort(function (a, b) { return sorter(a.path, b.path, _this._inputValue); });
         }
-        this.nzColumns = [results];
-    };
-    /**
-     * @param {?} str
-     * @return {?}
-     */
-    NzCascaderComponent.prototype.renderSearchString = /**
-     * @param {?} str
-     * @return {?}
-     */
-    function (str) {
-        return str.replace(new RegExp(this._inputValue, 'g'), "<span class=\"ant-cascader-menu-item-keyword\">" + this._inputValue + "</span>");
+        this.columns = [results];
     };
     /**
      * @param {?} result
      * @param {?} event
      * @return {?}
      */
-    NzCascaderComponent.prototype.setSearchActiveOption = /**
+    NzCascaderComponent.prototype.setSearchOptionActivated = /**
      * @param {?} result
      * @param {?} event
      * @return {?}
@@ -11845,33 +10635,152 @@ var NzCascaderComponent = /** @class */ (function () {
             /** @type {?} */
             var index = result.path.length - 1;
             /** @type {?} */
-            var destiNode = result.path[index];
+            var destinationNode = result.path[index];
             /** @type {?} */
-            var mockClickParent = function (node, cIndex) {
+            var mockClickParent = function (node, columnIndex) {
                 if (node && node.parent) {
-                    mockClickParent(node.parent, cIndex - 1);
+                    mockClickParent(node.parent, columnIndex - 1);
                 }
-                _this.onOptionClick(node, cIndex, event);
+                _this.onOptionClick(node, columnIndex, event);
             };
-            mockClickParent(destiNode, index);
+            mockClickParent(destinationNode, index);
         }, 300);
+    };
+    Object.defineProperty(NzCascaderComponent.prototype, "hasInput", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !!this.inputValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzCascaderComponent.prototype, "hasValue", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !!this.value && !!this.value.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzCascaderComponent.prototype, "showPlaceholder", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !(this.hasInput || this.hasValue);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzCascaderComponent.prototype, "clearIconVisible", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.nzAllowClear && !this.nzDisabled && (this.hasValue || this.hasInput);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NzCascaderComponent.prototype, "isLabelRenderTemplate", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !!this.nzLabelRender;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // tslint:disable-next-line:no-any
+    /**
+     * @param {?} option
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.getOptionLabel = /**
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
+        return option[this.nzLabelProperty || 'label'];
+    };
+    // tslint:disable-next-line:no-any
+    /**
+     * @param {?} option
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.getOptionValue = /**
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
+        return option[this.nzValueProperty || 'value'];
+    };
+    /**
+     * @param {?} option
+     * @param {?} index
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.isOptionActivated = /**
+     * @param {?} option
+     * @param {?} index
+     * @return {?}
+     */
+    function (option, index) {
+        /** @type {?} */
+        var activeOpt = this.activatedOptions[index];
+        return activeOpt === option;
     };
     /**
      * @return {?}
      */
-    NzCascaderComponent.prototype.ngOnInit = /**
+    NzCascaderComponent.prototype.buildDisplayLabel = /**
      * @return {?}
      */
     function () {
-        // 设置样式
-        this.setClassMap();
-        this.setLabelClass();
-        this.setArrowClass();
-        this.setLoadingClass();
-        this.setClearClass();
-        this.setInputClass();
-        this.setMenuClass();
-        this.setMenuColumnClass();
+        var _this = this;
+        /** @type {?} */
+        var selectedOptions = this.selectedOptions;
+        /** @type {?} */
+        var labels = selectedOptions.map(function (o) { return _this.getOptionLabel(o); });
+        if (this.isLabelRenderTemplate) {
+            this.labelRenderContext = { labels: labels, selectedOptions: selectedOptions };
+        }
+        else {
+            this.labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
+        }
+        // When components inits with default value, this would make display label appear correctly.
+        this.cdr.detectChanges();
+    };
+    //#endregion
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.setDisabledState = /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        if (isDisabled) {
+            this.closeMenu();
+        }
+        this.nzDisabled = isDisabled;
+    };
+    /**
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.closeMenu = /**
+     * @return {?}
+     */
+    function () {
+        this.blur();
+        this.clearDelayMenuTimer();
+        this.setMenuVisible(false);
     };
     /**
      * @return {?}
@@ -11880,19 +10789,77 @@ var NzCascaderComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.clearDelayTimer();
+        this.clearDelayMenuTimer();
         this.clearDelaySelectTimer();
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.registerOnChange = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.onChange = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.registerOnTouched = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.onTouched = fn;
+    };
+    // tslint:disable-next-line:no-any
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.writeValue = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        /** @type {?} */
+        var vs = this.defaultValue = toArray(value);
+        if (vs.length) {
+            this.initOptions(0);
+        }
+        else {
+            this.value = vs;
+            this.activatedOptions = [];
+            this.afterWriteValue();
+        }
+    };
+    /**
+     * @param {?} position
+     * @return {?}
+     */
+    NzCascaderComponent.prototype.onPositionChange = /**
+     * @param {?} position
+     * @return {?}
+     */
+    function (position) {
+        /** @type {?} */
+        var newValue = position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
+        if (this.dropDownPosition !== newValue) {
+            this.dropDownPosition = newValue;
+            this.cdr.detectChanges();
+        }
     };
     NzCascaderComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-cascader,[nz-cascader]',
                     preserveWhitespaces: false,
-                    animations: [
-                        dropDownAnimation
-                    ],
-                    template: "<div\n  cdkOverlayOrigin\n  #origin=\"cdkOverlayOrigin\"\n  #trigger>\n  <div *ngIf=\"nzShowInput\">\n    <input #input\n      nz-input\n      [attr.autoComplete]=\"'off'\"\n      [attr.placeholder]=\"showPlaceholder ? nzPlaceHolder : null\"\n      [attr.autofocus]=\"nzAutoFocus ? 'autofocus' : null\"\n      [readonly]=\"!nzShowSearch\"\n      [disabled]=\"nzDisabled\"\n      [nzSize]=\"nzSize\"\n      [ngClass]=\"inputCls\"\n      [(ngModel)]=\"inputValue\"\n      (blur)=\"handleInputBlur($event)\"\n      (focus)=\"handleInputFocus($event)\"\n      (change)=\"handlerInputChange($event)\">\n    <i *ngIf=\"showClearIcon\"\n      nz-icon\n      type=\"close-circle\"\n      theme=\"fill\"\n      [ngClass]=\"clearCls\"\n      [attr.title]=\"nzClearText\"\n      (click)=\"clearSelection($event)\"></i>\n    <i *ngIf=\"nzShowArrow && !isLoading\"\n      nz-icon\n      type=\"down\"\n      [ngClass]=\"arrowCls\"></i>\n    <i *ngIf=\"isLoading\"\n      nz-icon\n      type=\"loading\"\n      [ngClass]=\"loadingCls\"></i>\n    <span [ngClass]=\"labelCls\">\n      <ng-container *ngIf=\"!isLabelRenderTemplate; else labelTemplate\">{{ labelRenderText }}</ng-container>\n      <ng-template #labelTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzLabelRender\" [ngTemplateOutletContext]=\"labelRenderContext\"></ng-template>\n      </ng-template>\n    </span>\n  </div>\n  <ng-content></ng-content>\n</div>\n<ng-template\n  cdkConnectedOverlay\n  cdkConnectedOverlayHasBackdrop\n  [cdkConnectedOverlayOrigin]=\"origin\"\n  [cdkConnectedOverlayPositions]=\"positions\"\n  (backdropClick)=\"closeMenu()\"\n  (detach)=\"closeMenu()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayOpen]=\"menuVisible\">\n  <div #menu\n    [ngClass]=\"menuCls\" [ngStyle]=\"nzMenuStyle\"\n    [@dropDownAnimation]=\"dropDownPosition\"\n    (mouseleave)=\"onTriggerMouseLeave($event)\">\n    <ul *ngFor=\"let options of nzColumns; let i = index;\" [ngClass]=\"menuColumnCls\"\n      [style.height]=\"inSearch && !nzColumns[0].length ? 'auto': ''\" [style.width]=\"searchWidthStyle\">\n      <li *ngFor=\"let option of options\"\n        [attr.title]=\"option.title || getOptionLabel(option)\"\n        [ngClass]=\"getOptionCls(option, i)\"\n        (mouseenter)=\"onOptionMouseEnter(option, i, $event)\"\n        (mouseleave)=\"onOptionMouseLeave(option, i, $event)\"\n        (click)=\"onOptionClick(option, i, $event)\">\n        <ng-container *ngIf=\"inSearch\">\n          <span [innerHTML]=\"renderSearchString(getOptionLabel(option))\"></span>\n        </ng-container>\n        <ng-container *ngIf=\"!inSearch\">\n          {{ getOptionLabel(option) }}\n        </ng-container>\n        <span *ngIf=\"!option.isLeaf || option.children && option.children.length || option.loading\" class=\"ant-cascader-menu-item-expand-icon\">\n          <i nz-icon [type]=\"option.loading ? 'loading' : 'right'\"></i>\n        </span>\n      </li>\n      <li *ngIf=\"inSearch && !nzColumns[0].length\" class=\"ant-cascader-menu-item ant-cascader-menu-item-expanded ant-cascader-menu-item-disabled\">\n        Not Found\n      </li>\n    </ul>\n  </div>\n</ng-template>\n",
+                    template: "<div\n  cdkOverlayOrigin\n  #origin=\"cdkOverlayOrigin\"\n  #trigger>\n  <div *ngIf=\"nzShowInput\">\n    <input\n      #input\n      nz-input\n      class=\"ant-cascader-input\"\n      [class.ant-cascader-input-disabled]=\"nzDisabled\"\n      [class.ant-cascader-input-lg]=\"nzSize === 'large'\"\n      [class.ant-cascader-input-sm]=\"nzSize === 'small'\"\n      [attr.autoComplete]=\"'off'\"\n      [attr.placeholder]=\"showPlaceholder ? nzPlaceHolder : null\"\n      [attr.autofocus]=\"nzAutoFocus ? 'autofocus' : null\"\n      [readonly]=\"!nzShowSearch\"\n      [disabled]=\"nzDisabled\"\n      [nzSize]=\"nzSize\"\n      [(ngModel)]=\"inputValue\"\n      (blur)=\"handleInputBlur($event)\"\n      (focus)=\"handleInputFocus($event)\"\n      (change)=\"$event.stopPropagation()\">\n    <i *ngIf=\"clearIconVisible\"\n       nz-icon\n       type=\"close-circle\"\n       theme=\"fill\"\n       class=\"ant-cascader-picker-clear\"\n       (click)=\"clearSelection($event)\"></i>\n    <i *ngIf=\"nzShowArrow && !isLoading\"\n       nz-icon\n       type=\"down\"\n       class=\"ant-cascader-picker-arrow\"\n       [class.ant-cascader-picker-arrow-expand]=\"menuVisible\">\n    </i>\n    <i *ngIf=\"isLoading\" nz-icon type=\"loading\" class=\"ant-cascader-picker-arrow\"></i>\n    <span\n      class=\"ant-cascader-picker-label\"\n      [class.ant-cascader-show-search]=\"!!nzShowSearch\"\n      [class.ant-focusd]=\"!!nzShowSearch && isFocused && !inputValue\">\n      <ng-container *ngIf=\"!isLabelRenderTemplate; else labelTemplate\">{{ labelRenderText }}</ng-container>\n      <ng-template #labelTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzLabelRender\" [ngTemplateOutletContext]=\"labelRenderContext\"></ng-template>\n      </ng-template>\n    </span>\n  </div>\n  <ng-content></ng-content>\n</div>\n<ng-template\n  cdkConnectedOverlay\n  cdkConnectedOverlayHasBackdrop\n  [cdkConnectedOverlayOrigin]=\"origin\"\n  [cdkConnectedOverlayPositions]=\"positions\"\n  (backdropClick)=\"closeMenu()\"\n  (detach)=\"closeMenu()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayOpen]=\"menuVisible\">\n  <div\n    #menu\n    class=\"ant-cascader-menus\"\n    [class.ant-cascader-menus-hidden]=\"!menuVisible\"\n    [ngClass]=\"menuCls\"\n    [ngStyle]=\"nzMenuStyle\"\n    [@dropDownAnimation]=\"dropDownPosition\"\n    (mouseleave)=\"onTriggerMouseLeave($event)\">\n    <ul *ngFor=\"let options of columns; let i = index;\" class=\"ant-cascader-menu\" [ngClass]=\"menuColumnCls\"\n        [style.height]=\"isSearching && !columns[0].length ? 'auto': ''\" [style.width]=\"dropdownWidthStyle\">\n      <li\n        nz-cascader-option\n        *ngFor=\"let option of options\"\n        [nzLabelProperty]=\"nzLabelProperty\"\n        [activated]=\"isOptionActivated(option, i)\"\n        [highlightText]=\"isSearching ? inputValue : ''\"\n        [option]=\"option\"\n        (mouseenter)=\"onOptionMouseEnter(option, i, $event)\"\n        (mouseleave)=\"onOptionMouseLeave(option, i, $event)\"\n        (click)=\"onOptionClick(option, i, $event)\">\n      </li>\n      <li *ngIf=\"isSearching && !columns[0].length\" class=\"ant-cascader-menu-item ant-cascader-menu-item-expanded ant-cascader-menu-item-disabled\">\n        {{ nzNotFoundContent || ('Select.notFoundContent' | nzI18n) }}\n      </li>\n    </ul>\n  </div>\n</ng-template>\n",
+                    animations: [dropDownAnimation],
                     providers: [
-                        NzUpdateHostClassService,
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef(function () { return NzCascaderComponent; }),
@@ -11900,55 +10867,84 @@ var NzCascaderComponent = /** @class */ (function () {
                         }
                     ],
                     host: {
-                        '[attr.tabIndex]': '"0"'
+                        '[attr.tabIndex]': '"0"',
+                        '[class.ant-cascader]': 'true',
+                        '[class.ant-cascader-picker]': 'true',
+                        '[class.ant-cascader-lg]': 'nzSize === "large"',
+                        '[class.ant-cascader-sm]': 'nzSize === "small"',
+                        '[class.ant-cascader-picker-disabled]': 'nzDisabled',
+                        '[class.ant-cascader-picker-open]': 'menuVisible',
+                        '[class.ant-cascader-picker-with-value]': '!!inputValue',
+                        '[class.ant-cascader-focused]': 'isFocused'
                     },
-                    styles: [".ant-cascader-menus {\n      margin-top: 4px;\n      margin-bottom: 4px;\n      top: 100%;\n      left: 0;\n      position: relative;\n      width: 100%;\n    }"]
+                    styles: ["\n    .ant-cascader-menus {\n      margin-top: 4px;\n      margin-bottom: 4px;\n      top: 100%;\n      left: 0;\n      position: relative;\n      width: 100%;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
     NzCascaderComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: ChangeDetectorRef },
-        { type: NzUpdateHostClassService }
+        { type: ChangeDetectorRef }
     ]; };
     NzCascaderComponent.propDecorators = {
-        nzLabelRender: [{ type: Input }],
-        nzPrefixCls: [{ type: Input }],
-        nzDisabled: [{ type: Input }],
-        nzSize: [{ type: Input }],
+        input: [{ type: ViewChild, args: ['input',] }],
+        menu: [{ type: ViewChild, args: ['menu',] }],
         nzShowInput: [{ type: Input }],
-        nzShowSearch: [{ type: Input }],
+        nzShowArrow: [{ type: Input }],
         nzAllowClear: [{ type: Input }],
         nzAutoFocus: [{ type: Input }],
-        nzShowArrow: [{ type: Input }],
-        nzMenuClassName: [{ type: Input }],
-        nzColumnClassName: [{ type: Input }],
-        nzOptions: [{ type: Input }],
         nzChangeOnSelect: [{ type: Input }],
-        nzClearText: [{ type: Input }],
+        nzDisabled: [{ type: Input }],
+        nzColumnClassName: [{ type: Input }],
         nzExpandTrigger: [{ type: Input }],
+        nzValueProperty: [{ type: Input }],
+        nzLabelRender: [{ type: Input }],
+        nzLabelProperty: [{ type: Input }],
         nzNotFoundContent: [{ type: Input }],
+        nzSize: [{ type: Input }],
+        nzShowSearch: [{ type: Input }],
         nzPlaceHolder: [{ type: Input }],
+        nzMenuClassName: [{ type: Input }],
         nzMenuStyle: [{ type: Input }],
-        nzChangeOn: [{ type: Input }],
         nzMouseEnterDelay: [{ type: Input }],
         nzMouseLeaveDelay: [{ type: Input }],
         nzTriggerAction: [{ type: Input }],
-        nzValueProperty: [{ type: Input }],
-        nzLabelProperty: [{ type: Input }],
+        nzChangeOn: [{ type: Input }],
         nzLoadData: [{ type: Input }],
-        nzVisibleChange: [{ type: Output }],
-        nzChange: [{ type: Output }],
+        nzOptions: [{ type: Input }],
         nzSelectionChange: [{ type: Output }],
         nzSelect: [{ type: Output }],
         nzClear: [{ type: Output }],
-        input: [{ type: ViewChild, args: ['input',] }],
-        menu: [{ type: ViewChild, args: ['menu',] }],
+        nzVisibleChange: [{ type: Output }],
+        nzChange: [{ type: Output }],
         onKeyDown: [{ type: HostListener, args: ['keydown', ['$event'],] }],
         onTriggerClick: [{ type: HostListener, args: ['click', ['$event'],] }],
         onTriggerMouseEnter: [{ type: HostListener, args: ['mouseenter', ['$event'],] }],
         onTriggerMouseLeave: [{ type: HostListener, args: ['mouseleave', ['$event'],] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzShowInput", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzShowArrow", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzAllowClear", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzAutoFocus", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzChangeOnSelect", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCascaderComponent.prototype, "nzDisabled", void 0);
     return NzCascaderComponent;
 }());
 
@@ -11961,9 +10957,10 @@ var NzCascaderModule = /** @class */ (function () {
     }
     NzCascaderModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, FormsModule, OverlayModule, NzInputModule, NzIconModule],
+                    imports: [CommonModule, FormsModule, OverlayModule, NzInputModule, NzIconModule, NzI18nModule],
                     declarations: [
-                        NzCascaderComponent
+                        NzCascaderComponent,
+                        NzCascaderOptionComponent
                     ],
                     exports: [
                         NzCascaderComponent
@@ -11978,32 +10975,15 @@ var NzCascaderModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzCheckboxGroupComponent = /** @class */ (function () {
-    function NzCheckboxGroupComponent(elementRef, renderer) {
+    function NzCheckboxGroupComponent(elementRef, focusMonitor) {
         this.elementRef = elementRef;
-        this.renderer = renderer;
-        this._disabled = false;
-        this.el = this.elementRef.nativeElement;
-        this.prefixCls = 'ant-checkbox-group';
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
+        this.focusMonitor = focusMonitor;
+        // tslint:disable-next-line:no-any
+        this.onChange = function () { return null; };
+        // tslint:disable-next-line:no-any
+        this.onTouched = function () { return null; };
+        this.nzDisabled = false;
     }
-    Object.defineProperty(NzCheckboxGroupComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -12012,6 +10992,20 @@ var NzCheckboxGroupComponent = /** @class */ (function () {
      */
     function () {
         this.onChange(this.options);
+    };
+    /**
+     * @return {?}
+     */
+    NzCheckboxGroupComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.focusMonitor.monitor(this.elementRef, true).subscribe(function (focusOrigin) {
+            if (!focusOrigin) {
+                Promise.resolve().then(function () { return _this.onTouched(); });
+            }
+        });
     };
     /**
      * @param {?} value
@@ -12057,37 +11051,36 @@ var NzCheckboxGroupComponent = /** @class */ (function () {
     function (isDisabled) {
         this.nzDisabled = isDisabled;
     };
-    /**
-     * @return {?}
-     */
-    NzCheckboxGroupComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        this.renderer.addClass(this.el, "" + this.prefixCls);
-    };
     NzCheckboxGroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-checkbox-group',
                     preserveWhitespaces: false,
-                    template: "<label\n  nz-checkbox\n  *ngFor=\"let option of options\"\n  [nzDisabled]=\"option.disabled||nzDisabled\"\n  [(nzChecked)]=\"option.checked\"\n  (nzCheckedChange)=\"onOptionChange()\">\n  <span>{{ option.label }}</span>\n</label>",
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<label nz-checkbox\n  *ngFor=\"let option of options\"\n  [nzDisabled]=\"option.disabled || nzDisabled\"\n  [(nzChecked)]=\"option.checked\"\n  (nzCheckedChange)=\"onOptionChange()\">\n  <span>{{ option.label }}</span>\n</label>",
                     providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef(function () { return NzCheckboxGroupComponent; }),
                             multi: true
                         }
-                    ]
+                    ],
+                    host: {
+                        '[class.ant-checkbox-group]': 'true'
+                    }
                 }] }
     ];
     /** @nocollapse */
     NzCheckboxGroupComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: Renderer2 }
+        { type: FocusMonitor }
     ]; };
     NzCheckboxGroupComponent.propDecorators = {
         nzDisabled: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCheckboxGroupComponent.prototype, "nzDisabled", void 0);
     return NzCheckboxGroupComponent;
 }());
 
@@ -12146,6 +11139,8 @@ var NzCheckboxWrapperComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-checkbox-wrapper',
                     preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-checkbox-group]': 'true'
@@ -12163,92 +11158,22 @@ var NzCheckboxWrapperComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzCheckboxComponent = /** @class */ (function () {
-    function NzCheckboxComponent(elementRef, renderer, nzCheckboxWrapperComponent) {
+    function NzCheckboxComponent(elementRef, renderer, nzCheckboxWrapperComponent, cdr, focusMonitor) {
         this.elementRef = elementRef;
         this.renderer = renderer;
         this.nzCheckboxWrapperComponent = nzCheckboxWrapperComponent;
-        this._disabled = false;
-        this._indeterminate = false;
-        this._autoFocus = false;
-        this._checked = false;
-        this.el = this.elementRef.nativeElement;
-        this.isInit = false;
-        this.prefixCls = 'ant-checkbox';
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
-        this.classMap = {};
+        this.cdr = cdr;
+        this.focusMonitor = focusMonitor;
+        // tslint:disable-next-line:no-any
+        this.onChange = function () { return null; };
+        // tslint:disable-next-line:no-any
+        this.onTouched = function () { return null; };
         this.nzCheckedChange = new EventEmitter();
+        this.nzAutoFocus = false;
+        this.nzDisabled = false;
+        this.nzIndeterminate = false;
+        this.nzChecked = false;
     }
-    Object.defineProperty(NzCheckboxComponent.prototype, "nzAutoFocus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._autoFocus;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._autoFocus = toBoolean(value);
-            this.updateAutoFocus();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCheckboxComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCheckboxComponent.prototype, "nzIndeterminate", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._indeterminate;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._indeterminate = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCheckboxComponent.prototype, "nzChecked", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._checked;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._checked = value;
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} e
      * @return {?}
@@ -12259,19 +11184,15 @@ var NzCheckboxComponent = /** @class */ (function () {
      */
     function (e) {
         e.preventDefault();
-        this.inputElement.nativeElement.focus();
+        this.focus();
         if (!this.nzDisabled) {
-            this.updateValue(!this.nzChecked);
+            this.nzChecked = !this.nzChecked;
+            this.onChange(this.nzChecked);
+            this.nzCheckedChange.emit(this.nzChecked);
+            if (this.nzCheckboxWrapperComponent) {
+                this.nzCheckboxWrapperComponent.onChange();
+            }
         }
-    };
-    /**
-     * @return {?}
-     */
-    NzCheckboxComponent.prototype.onBlur = /**
-     * @return {?}
-     */
-    function () {
-        this.onTouched();
     };
     /**
      * @return {?}
@@ -12280,29 +11201,11 @@ var NzCheckboxComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this.isInit) {
-            if (this.nzAutoFocus) {
-                this.renderer.setAttribute(this.inputElement.nativeElement, 'autofocus', 'autofocus');
-            }
-            else {
-                this.renderer.removeAttribute(this.inputElement.nativeElement, 'autofocus');
-            }
+        if (this.inputElement && this.nzAutoFocus) {
+            this.renderer.setAttribute(this.inputElement.nativeElement, 'autofocus', 'autofocus');
         }
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzCheckboxComponent.prototype.updateValue = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.onChange(value);
-        this.nzCheckedChange.emit(value);
-        this.nzChecked = value;
-        if (this.nzCheckboxWrapperComponent) {
-            this.nzCheckboxWrapperComponent.onChange();
+        else {
+            this.renderer.removeAttribute(this.inputElement.nativeElement, 'autofocus');
         }
     };
     /**
@@ -12315,6 +11218,7 @@ var NzCheckboxComponent = /** @class */ (function () {
      */
     function (value) {
         this.nzChecked = value;
+        this.cdr.markForCheck();
     };
     /**
      * @param {?} fn
@@ -12348,21 +11252,7 @@ var NzCheckboxComponent = /** @class */ (function () {
      */
     function (isDisabled) {
         this.nzDisabled = isDisabled;
-    };
-    /**
-     * @return {?}
-     */
-    NzCheckboxComponent.prototype.updateClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this.classMap = (_a = {},
-            _a[this.prefixCls] = true,
-            _a[this.prefixCls + "-checked"] = this.nzChecked && (!this.nzIndeterminate),
-            _a[this.prefixCls + "-disabled"] = this.nzDisabled,
-            _a[this.prefixCls + "-indeterminate"] = this.nzIndeterminate,
-            _a);
+        this.cdr.markForCheck();
     };
     /**
      * @return {?}
@@ -12371,7 +11261,7 @@ var NzCheckboxComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.inputElement.nativeElement.focus();
+        this.focusMonitor.focusVia(this.inputElement, 'keyboard');
     };
     /**
      * @return {?}
@@ -12403,20 +11293,28 @@ var NzCheckboxComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.renderer.addClass(this.el, this.prefixCls + "-wrapper");
-        this.updateClassMap();
+        var _this = this;
+        this.focusMonitor.monitor(this.elementRef, true).subscribe(function (focusOrigin) {
+            if (!focusOrigin) {
+                Promise.resolve().then(function () { return _this.onTouched(); });
+            }
+        });
         if (this.nzCheckboxWrapperComponent) {
             this.nzCheckboxWrapperComponent.addCheckbox(this);
         }
     };
     /**
+     * @param {?} changes
      * @return {?}
      */
     NzCheckboxComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function () {
-        this.updateClassMap();
+    function (changes) {
+        if (changes["nzAutoFocus"]) {
+            this.updateAutoFocus();
+        }
     };
     /**
      * @return {?}
@@ -12425,7 +11323,6 @@ var NzCheckboxComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.isInit = true;
         this.updateAutoFocus();
         this.checkContent();
     };
@@ -12436,6 +11333,7 @@ var NzCheckboxComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this.focusMonitor.stopMonitoring(this.elementRef);
         if (this.nzCheckboxWrapperComponent) {
             this.nzCheckboxWrapperComponent.removeCheckbox(this);
         }
@@ -12444,21 +11342,28 @@ var NzCheckboxComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: '[nz-checkbox]',
                     preserveWhitespaces: false,
-                    template: "<span [ngClass]=\"classMap\">\n      <input\n        #inputElement\n        [checked]=\"nzChecked\"\n        type=\"checkbox\"\n        class=\"ant-checkbox-input\"\n        (blur)=\"onBlur()\">\n      <span class=\"ant-checkbox-inner\"></span>\n    </span>\n<span #contentElement (cdkObserveContent)=\"checkContent()\"><ng-content></ng-content></span>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<span class=\"ant-checkbox\"\n  [class.ant-checkbox-checked]=\"nzChecked && !nzIndeterminate\"\n  [class.ant-checkbox-disabled]=\"nzDisabled\"\n  [class.ant-checkbox-indeterminate]=\"nzIndeterminate\">\n  <input #inputElement\n    [checked]=\"nzChecked\"\n    type=\"checkbox\"\n    class=\"ant-checkbox-input\">\n  <span class=\"ant-checkbox-inner\"></span>\n</span>\n<span #contentElement (cdkObserveContent)=\"checkContent()\"><ng-content></ng-content></span>",
                     providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef(function () { return NzCheckboxComponent; }),
                             multi: true
                         }
-                    ]
+                    ],
+                    host: {
+                        '[class.ant-checkbox-wrapper]': 'true'
+                    }
                 }] }
     ];
     /** @nocollapse */
     NzCheckboxComponent.ctorParameters = function () { return [
         { type: ElementRef },
         { type: Renderer2 },
-        { type: NzCheckboxWrapperComponent, decorators: [{ type: Optional }] }
+        { type: NzCheckboxWrapperComponent, decorators: [{ type: Optional }] },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
     ]; };
     NzCheckboxComponent.propDecorators = {
         inputElement: [{ type: ViewChild, args: ['inputElement',] }],
@@ -12471,6 +11376,22 @@ var NzCheckboxComponent = /** @class */ (function () {
         nzChecked: [{ type: Input }],
         onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCheckboxComponent.prototype, "nzAutoFocus", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCheckboxComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCheckboxComponent.prototype, "nzIndeterminate", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCheckboxComponent.prototype, "nzChecked", void 0);
     return NzCheckboxComponent;
 }());
 
@@ -12505,44 +11426,32 @@ var NzCheckboxModule = /** @class */ (function () {
  */
 var NzCollapseComponent = /** @class */ (function () {
     function NzCollapseComponent() {
-        this._accordion = false;
-        this._bordered = true;
-        this.listOfPanel = [];
+        this.listOfNzCollapsePanelComponent = [];
+        this.nzAccordion = false;
+        this.nzBordered = true;
     }
-    Object.defineProperty(NzCollapseComponent.prototype, "nzAccordion", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._accordion;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._accordion = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCollapseComponent.prototype, "nzBordered", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._bordered;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._bordered = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzCollapseComponent.prototype.addPanel = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.listOfNzCollapsePanelComponent.push(value);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzCollapseComponent.prototype.removePanel = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.listOfNzCollapsePanelComponent.splice(this.listOfNzCollapsePanelComponent.indexOf(value), 1);
+    };
     /**
      * @param {?} collapse
      * @return {?}
@@ -12552,58 +11461,39 @@ var NzCollapseComponent = /** @class */ (function () {
      * @return {?}
      */
     function (collapse) {
-        if (this.nzAccordion) {
-            this.listOfPanel.forEach(function (item) {
-                /** @type {?} */
-                var active = collapse === item;
-                if (active && item.nzActive === active) {
+        if (this.nzAccordion && !collapse.nzActive) {
+            this.listOfNzCollapsePanelComponent.filter(function (item) { return item !== collapse; }).forEach(function (item) {
+                if (item.nzActive) {
                     item.nzActive = false;
                     item.nzActiveChange.emit(item.nzActive);
-                }
-                else if (item.nzActive !== active) {
-                    item.nzActive = active;
-                    item.nzActiveChange.emit(item.nzActive);
+                    item.markForCheck();
                 }
             });
         }
-        else {
-            collapse.nzActive = !collapse.nzActive;
-            collapse.nzActiveChange.emit(collapse.nzActive);
-        }
-    };
-    /**
-     * @param {?} collapse
-     * @return {?}
-     */
-    NzCollapseComponent.prototype.addCollapse = /**
-     * @param {?} collapse
-     * @return {?}
-     */
-    function (collapse) {
-        this.listOfPanel.push(collapse);
-    };
-    /**
-     * @param {?} collapse
-     * @return {?}
-     */
-    NzCollapseComponent.prototype.removeCollapse = /**
-     * @param {?} collapse
-     * @return {?}
-     */
-    function (collapse) {
-        this.listOfPanel.splice(this.listOfPanel.indexOf(collapse), 1);
+        collapse.nzActive = !collapse.nzActive;
+        collapse.nzActiveChange.emit(collapse.nzActive);
     };
     NzCollapseComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-collapse',
                     template: "<div class=\"ant-collapse\" [class.ant-collapse-borderless]=\"!nzBordered\">\n  <ng-content></ng-content>\n</div>",
-                    styles: [":host {\n      display: block;\n    }"]
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["nz-collapse {\n      display: block;\n    }"]
                 }] }
     ];
     NzCollapseComponent.propDecorators = {
         nzAccordion: [{ type: Input }],
         nzBordered: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCollapseComponent.prototype, "nzAccordion", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCollapseComponent.prototype, "nzBordered", void 0);
     return NzCollapseComponent;
 }());
 
@@ -12612,94 +11502,14 @@ var NzCollapseComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzCollapsePanelComponent = /** @class */ (function () {
-    function NzCollapsePanelComponent(nzCollapseComponent, elementRef) {
+    function NzCollapsePanelComponent(cdr, nzCollapseComponent) {
+        this.cdr = cdr;
         this.nzCollapseComponent = nzCollapseComponent;
-        this.elementRef = elementRef;
-        this._disabled = false;
-        this._showArrow = true;
-        this._active = false;
-        this.el = this.elementRef.nativeElement;
+        this.nzActive = false;
+        this.nzDisabled = false;
+        this.nzShowArrow = true;
         this.nzActiveChange = new EventEmitter();
     }
-    Object.defineProperty(NzCollapsePanelComponent.prototype, "nzShowArrow", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showArrow;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showArrow = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCollapsePanelComponent.prototype, "isNoArrow", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return !this.nzShowArrow;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCollapsePanelComponent.prototype, "nzHeader", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._header;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isHeaderString = !(value instanceof TemplateRef);
-            this._header = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCollapsePanelComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzCollapsePanelComponent.prototype, "nzActive", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._active;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._active = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -12714,11 +11524,20 @@ var NzCollapsePanelComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    NzCollapsePanelComponent.prototype.markForCheck = /**
+     * @return {?}
+     */
+    function () {
+        this.cdr.markForCheck();
+    };
+    /**
+     * @return {?}
+     */
     NzCollapsePanelComponent.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
-        this.nzCollapseComponent.addCollapse(this);
+        this.nzCollapseComponent.addPanel(this);
     };
     /**
      * @return {?}
@@ -12727,12 +11546,14 @@ var NzCollapsePanelComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.nzCollapseComponent.removeCollapse(this);
+        this.nzCollapseComponent.removePanel(this);
     };
     NzCollapsePanelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-collapse-panel',
-                    template: "<div\n  role=\"tab\"\n  [attr.aria-expanded]=\"nzActive\"\n  class=\"ant-collapse-header\"\n  (click)=\"clickHeader()\">\n  <i nz-icon type=\"right\" class=\"arrow anticon-right\" *ngIf=\"nzShowArrow\"></i>\n  <ng-container *ngIf=\"isHeaderString; else headerTemplate\">{{ nzHeader }}</ng-container>\n  <ng-template #headerTemplate>\n    <ng-template [ngTemplateOutlet]=\"nzHeader\"></ng-template>\n  </ng-template>\n</div>\n<div\n  class=\"ant-collapse-content\"\n  [class.ant-collapse-content-active]=\"nzActive\"\n  [@collapseState]=\"nzActive?'active':'inactive'\">\n  <div class=\"ant-collapse-content-box\">\n    <ng-content></ng-content>\n  </div>\n</div>",
+                    template: "<div role=\"tab\" [attr.aria-expanded]=\"nzActive\" class=\"ant-collapse-header\" (click)=\"clickHeader()\">\n  <i nz-icon type=\"right\" class=\"arrow anticon-right\" *ngIf=\"nzShowArrow\"></i>\n  <ng-container *nzStringTemplateOutlet=\"nzHeader\">{{ nzHeader }}</ng-container>\n</div>\n<div class=\"ant-collapse-content\"\n  [class.ant-collapse-content-active]=\"nzActive\"\n  [@collapseState]=\"nzActive?'active':'inactive'\">\n  <div class=\"ant-collapse-content-box\">\n    <ng-content></ng-content>\n  </div>\n</div>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     animations: [
                         trigger('collapseState', [
                             state('inactive', style({
@@ -12749,24 +11570,35 @@ var NzCollapsePanelComponent = /** @class */ (function () {
                     ],
                     host: {
                         '[class.ant-collapse-item]': 'true',
-                        '[attr.role]': '"tablist"'
+                        '[class.ant-collapse-no-arrow]': '!nzShowArrow'
                     },
-                    styles: ["\n      :host {\n        display: block\n      }"]
+                    styles: [" nz-collapse-panel {\n      display: block\n    }"]
                 }] }
     ];
     /** @nocollapse */
     NzCollapsePanelComponent.ctorParameters = function () { return [
-        { type: NzCollapseComponent, decorators: [{ type: Host }] },
-        { type: ElementRef }
+        { type: ChangeDetectorRef },
+        { type: NzCollapseComponent, decorators: [{ type: Host }] }
     ]; };
     NzCollapsePanelComponent.propDecorators = {
-        nzActiveChange: [{ type: Output }],
-        nzShowArrow: [{ type: Input }],
-        isNoArrow: [{ type: HostBinding, args: ['class.ant-collapse-no-arrow',] }],
-        nzHeader: [{ type: Input }],
+        nzActive: [{ type: Input }, { type: HostBinding, args: ['class.ant-collapse-item-active',] }],
         nzDisabled: [{ type: Input }, { type: HostBinding, args: ['class.ant-collapse-item-disabled',] }],
-        nzActive: [{ type: Input }, { type: HostBinding, args: ['class.ant-collapse-item-active',] }]
+        nzShowArrow: [{ type: Input }],
+        nzHeader: [{ type: Input }],
+        nzActiveChange: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCollapsePanelComponent.prototype, "nzActive", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCollapsePanelComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzCollapsePanelComponent.prototype, "nzShowArrow", void 0);
     return NzCollapsePanelComponent;
 }());
 
@@ -12781,7 +11613,7 @@ var NzCollapseModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzCollapsePanelComponent, NzCollapseComponent],
                     exports: [NzCollapsePanelComponent, NzCollapseComponent],
-                    imports: [CommonModule, NzIconModule]
+                    imports: [CommonModule, NzIconModule, NzAddOnModule]
                 },] }
     ];
     return NzCollapseModule;
@@ -13257,7 +12089,7 @@ var NzTimePickerPanelComponent = /** @class */ (function () {
         this.minuteEnabled = true;
         this.secondEnabled = true;
         this.enabledColumns = 3;
-        this.nzInDatePicker = false;
+        this.nzInDatePicker = false; // If inside a date-picker, more diff works need to be done
         this.nzHideDisabledOptions = false;
         this.timeClear = new EventEmitter();
     }
@@ -15304,7 +14136,7 @@ var DateTableComponent = /** @class */ (function () {
     function DateTableComponent(i18n) {
         this.i18n = i18n;
         this.valueChange = new EventEmitter();
-        this.dayHover = new EventEmitter();
+        this.dayHover = new EventEmitter(); // Emitted when hover on a day by mouse enter
         this.prefixCls = 'ant-calendar';
         this.isTemplateRef = isTemplateRef;
         this.isNonEmptyString = isNonEmptyString;
@@ -16137,8 +14969,8 @@ var DateRangePopupComponent = /** @class */ (function () {
         var _this = this;
         this.panelModeChange = new EventEmitter();
         this.valueChange = new EventEmitter();
-        this.resultOk = new EventEmitter();
-        this.closePicker = new EventEmitter();
+        this.resultOk = new EventEmitter(); // Emitted when done with date selecting
+        this.closePicker = new EventEmitter(); // Notify outside to close the picker panel
         // @Output() selectDate = new EventEmitter<CandyDate>(); // Emitted when the date is selected by click the date panel (if isRange, the returned date is from one of the range parts)
         this.prefixCls = 'ant-calendar';
         this.showTimePicker = false;
@@ -16556,7 +15388,7 @@ var DateRangePopupComponent = /** @class */ (function () {
      */
     function (val) {
         /** @type {?} */
-        var value = valueFunctionProp(val);
+        var value = val;
         this.setValue([new CandyDate(value[0]), new CandyDate(value[1])]);
         this.resultOk.emit();
     };
@@ -16820,10 +15652,10 @@ var DateRangePopupComponent = /** @class */ (function () {
 var InnerPopupComponent = /** @class */ (function () {
     function InnerPopupComponent() {
         this.panelModeChange = new EventEmitter();
-        this.headerChange = new EventEmitter();
-        this.selectDate = new EventEmitter();
+        this.headerChange = new EventEmitter(); // Emitted when user changed the header's value
+        this.selectDate = new EventEmitter(); // Emitted when the date is selected by click the date panel
         this.selectTime = new EventEmitter();
-        this.dayHover = new EventEmitter();
+        this.dayHover = new EventEmitter(); // Emitted when hover on a day by mouse enter
         this.prefixCls = 'ant-calendar';
     }
     /**
@@ -17165,12 +15997,12 @@ var NzPickerComponent = /** @class */ (function () {
         this.i18n = i18n;
         this.changeDetector = changeDetector;
         this.isRange = false;
-        this.open = undefined;
+        this.open = undefined; // "undefined" = this value will be not used
         this.valueChange = new EventEmitter();
-        this.openChange = new EventEmitter();
+        this.openChange = new EventEmitter(); // Emitted when overlay's open state change
         this.prefixCls = 'ant-calendar';
         this.animationOpenState = false;
-        this.overlayOpen = false;
+        this.overlayOpen = false; // Available when "open"=undefined
         this.overlayOffsetY = 0;
         this.overlayOffsetX = -2;
         this.overlayPositions = /** @type {?} */ ([
@@ -17757,7 +16589,7 @@ var DateRangePickerComponent = /** @class */ (function (_super) {
     __extends(DateRangePickerComponent, _super);
     function DateRangePickerComponent(i18n) {
         var _this = _super.call(this, i18n) || this;
-        _this.showWeek = false;
+        _this.showWeek = false; // Should show as week picker
         _this.nzShowToday = true;
         _this.nzOnPanelChange = new EventEmitter();
         _this.nzOnOk = new EventEmitter();
@@ -17893,7 +16725,6 @@ var DateRangePickerComponent = /** @class */ (function (_super) {
     DateRangePickerComponent.decorators = [
         { type: Component, args: [{
                     template: "" // Just for rollup
-                    // Just for rollup
                 }] }
     ];
     /** @nocollapse */
@@ -18241,53 +17072,275 @@ var NzDatePickerModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @param {?} prefix
+ * @return {?}
+ */
+function getRegExp(prefix) {
+    /** @type {?} */
+    var prefixArray = Array.isArray(prefix) ? prefix : [prefix];
+    /** @type {?} */
+    var prefixToken = prefixArray.join('').replace(/(\$|\^)/g, '\\$1');
+    if (prefixArray.length > 1) {
+        prefixToken = "[" + prefixToken + "]";
+    }
+    return new RegExp("(\\s|^)(" + prefixToken + ")[^\\s]*", 'g');
+}
+/**
+ * @param {?} value
+ * @param {?=} prefix
+ * @return {?}
+ */
+function getMentions(value, prefix) {
+    if (prefix === void 0) { prefix = '@'; }
+    if (typeof value !== 'string') {
+        return [];
+    }
+    /** @type {?} */
+    var regex = getRegExp(prefix);
+    /** @type {?} */
+    var mentions = value.match(regex);
+    return mentions !== null ? mentions.map(function (e) { return e.trim(); }) : [];
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzGlobalMonitorService = /** @class */ (function () {
+    function NzGlobalMonitorService() {
+        this.counter = 0;
+        this.lastClickPos = {
+            x: 0,
+            y: 0
+        };
+        this._navItemSource = new EventEmitter();
+        this._observeGlobalEvents();
+    }
+    /**
+     * @return {?}
+     */
+    NzGlobalMonitorService.prototype.getGlobalCount = /**
+     * @return {?}
+     */
+    function () {
+        return ++this.counter;
+    };
+    /**
+     * @param {?} status
+     * @return {?}
+     */
+    NzGlobalMonitorService.prototype.setDocumentOverflowHidden = /**
+     * @param {?} status
+     * @return {?}
+     */
+    function (status) {
+        document.body.style.overflow = status ? 'hidden' : '';
+    };
+    /**
+     * @return {?}
+     */
+    NzGlobalMonitorService.prototype._observeGlobalEvents = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // 监听document的点击事件，记录点击坐标，并抛出 documentClick 事件
+        document.addEventListener('click', function (e) {
+            _this.lastClickPos = {
+                x: e.clientX,
+                y: e.clientY
+            };
+            _this._navItemSource.emit('documentClick');
+        });
+    };
+    return NzGlobalMonitorService;
+}());
+new NzGlobalMonitorService();
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+// from https://github.com/component/textarea-caret-position
+/** @type {?} */
+var properties = [
+    'direction',
+    'boxSizing',
+    'width',
+    'height',
+    'overflowX',
+    'overflowY',
+    'borderTopWidth',
+    'borderRightWidth',
+    'borderBottomWidth',
+    'borderLeftWidth',
+    'borderStyle',
+    'paddingTop',
+    'paddingRight',
+    'paddingBottom',
+    'paddingLeft',
+    'fontStyle',
+    'fontVariant',
+    'fontWeight',
+    'fontStretch',
+    'fontSize',
+    'fontSizeAdjust',
+    'lineHeight',
+    'fontFamily',
+    'textAlign',
+    'textTransform',
+    'textIndent',
+    'textDecoration',
+    'letterSpacing',
+    'wordSpacing',
+    'tabSize',
+    'MozTabSize'
+];
+/** @type {?} */
+var isBrowser = (typeof window !== 'undefined');
+/** @type {?} */
+var isFirefox = (isBrowser && (/** @type {?} */ (window)).mozInnerScreenX != null);
+/** @type {?} */
+var _parseInt = function (str) { return parseInt(str, 10); };
+/**
+ * @param {?} element
+ * @param {?} position
+ * @param {?=} options
+ * @return {?}
+ */
+function getCaretCoordinates(element, position, options) {
+    if (!isBrowser) {
+        throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
+    }
+    /** @type {?} */
+    var debug = options && options.debug || false;
+    if (debug) {
+        /** @type {?} */
+        var el = document.querySelector('#input-textarea-caret-position-mirror-div');
+        if (el) {
+            el.parentNode.removeChild(el);
+        }
+    }
+    /** @type {?} */
+    var div = document.createElement('div');
+    div.id = 'input-textarea-caret-position-mirror-div';
+    document.body.appendChild(div);
+    /** @type {?} */
+    var style$$1 = div.style;
+    /** @type {?} */
+    var computed = window.getComputedStyle ? window.getComputedStyle(element) : (/** @type {?} */ (element)).currentStyle;
+    /** @type {?} */
+    var isInput = element.nodeName === 'INPUT';
+    // Default textarea styles
+    style$$1.whiteSpace = 'pre-wrap';
+    if (!isInput) {
+        style$$1.wordWrap = 'break-word'; // only for textarea-s
+    }
+    // Position off-screen
+    style$$1.position = 'absolute'; // required to return coordinates properly
+    if (!debug) {
+        style$$1.visibility = 'hidden';
+    } // not 'display: none' because we want rendering
+    // Transfer the element's properties to the div
+    properties.forEach(function (prop) {
+        if (isInput && prop === 'lineHeight') {
+            // Special case for <input>s because text is rendered centered and line height may be != height
+            style$$1.lineHeight = computed.height;
+        }
+        else {
+            style$$1[prop] = computed[prop];
+        }
+    });
+    if (isFirefox) {
+        // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
+        if (element.scrollHeight > _parseInt(computed.height)) {
+            style$$1.overflowY = 'scroll';
+        }
+    }
+    else {
+        style$$1.overflow = 'hidden'; // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
+    }
+    div.textContent = element.value.substring(0, position);
+    // The second special handling for input type="text" vs textarea:
+    // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
+    if (isInput) {
+        div.textContent = div.textContent.replace(/\s/g, '\u00a0');
+    }
+    /** @type {?} */
+    var span = document.createElement('span');
+    // Wrapping must be replicated *exactly*, including when a long word gets
+    // onto the next line, with whitespace at the end of the line before (#7).
+    // The  *only* reliable way to do that is to copy the *entire* rest of the
+    // textarea's content into the <span> created at the caret position.
+    // For inputs, just '.' would be enough, but no need to bother.
+    span.textContent = element.value.substring(position) || '.'; // || because a completely empty faux span doesn't render at all
+    div.appendChild(span);
+    /** @type {?} */
+    var coordinates = {
+        top: span.offsetTop + _parseInt(computed.borderTopWidth),
+        left: span.offsetLeft + _parseInt(computed.borderLeftWidth),
+        height: _parseInt(computed.lineHeight)
+    };
+    if (debug) {
+        span.style.backgroundColor = '#eee';
+        createDebugEle(element, coordinates);
+    }
+    else {
+        document.body.removeChild(div);
+    }
+    return coordinates;
+}
+/**
+ * @param {?} element
+ * @param {?} coordinates
+ * @return {?}
+ */
+function createDebugEle(element, coordinates) {
+    /** @type {?} */
+    var fontSize = getComputedStyle(element).getPropertyValue('font-size');
+    /** @type {?} */
+    var rect = (/** @type {?} */ (document.querySelector('#DEBUG')))
+        || document.createElement('div');
+    document.body.appendChild(rect);
+    rect.id = 'DEBUG';
+    rect.style.position = 'absolute';
+    rect.style.backgroundColor = 'red';
+    rect.style.height = fontSize;
+    rect.style.width = '1px';
+    rect.style.top = element.getBoundingClientRect().top - element.scrollTop + window.pageYOffset + coordinates.top + "px";
+    rect.style.left = element.getBoundingClientRect().left - element.scrollLeft + window.pageXOffset + coordinates.left + "px";
+    console.log(rect.style.top);
+    console.log(rect.style.left);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NzDividerComponent = /** @class */ (function () {
-    function NzDividerComponent(el, cd, updateHostClassService) {
-        this.el = el;
-        this.cd = cd;
-        this.updateHostClassService = updateHostClassService;
-        // region fields
-        this.isText = false;
-        this.textStr = '';
+    function NzDividerComponent(elementRef, nzUpdateHostClassService) {
+        this.elementRef = elementRef;
+        this.nzUpdateHostClassService = nzUpdateHostClassService;
         this.nzType = 'horizontal';
         this.nzOrientation = '';
-        this._dashed = false;
+        this.nzDashed = false;
     }
-    Object.defineProperty(NzDividerComponent.prototype, "nzText", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this.textStr = null;
-                this.textTpl = value;
-            }
-            else {
-                this.textStr = value;
-            }
-            this.isText = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzDividerComponent.prototype, "nzDashed", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._dashed;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._dashed = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -18302,11 +17355,10 @@ var NzDividerComponent = /** @class */ (function () {
         var classMap = (_a = {},
             _a['ant-divider'] = true,
             _a["ant-divider-" + this.nzType] = true,
-            _a["ant-divider-with-text" + orientationPrefix] = this.isText,
+            _a["ant-divider-with-text" + orientationPrefix] = this.nzText,
             _a["ant-divider-dashed"] = this.nzDashed,
             _a);
-        this.updateHostClassService.updateHostClass(this.el.nativeElement, classMap);
-        this.cd.detectChanges();
+        this.nzUpdateHostClassService.updateHostClass(this.elementRef.nativeElement, classMap);
     };
     /**
      * @param {?} changes
@@ -18331,16 +17383,16 @@ var NzDividerComponent = /** @class */ (function () {
     NzDividerComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-divider',
-                    template: "<span *ngIf=\"isText\" class=\"ant-divider-inner-text\">\n  <ng-container *ngIf=\"textStr; else textTpl\">{{ textStr }}</ng-container>\n</span>",
-                    providers: [NzUpdateHostClassService],
+                    template: "<span *ngIf=\"nzText\" class=\"ant-divider-inner-text\">\n  <ng-container *nzStringTemplateOutlet=\"nzText\">{{ nzText }}</ng-container>\n</span>",
                     preserveWhitespaces: false,
+                    providers: [NzUpdateHostClassService],
+                    encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
     /** @nocollapse */
     NzDividerComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: ChangeDetectorRef },
         { type: NzUpdateHostClassService }
     ]; };
     NzDividerComponent.propDecorators = {
@@ -18349,6 +17401,10 @@ var NzDividerComponent = /** @class */ (function () {
         nzOrientation: [{ type: Input }],
         nzDashed: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzDividerComponent.prototype, "nzDashed", void 0);
     return NzDividerComponent;
 }());
 
@@ -18361,7 +17417,7 @@ var NzDividerModule = /** @class */ (function () {
     }
     NzDividerModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule],
+                    imports: [CommonModule, NzAddOnModule],
                     declarations: [NzDividerComponent],
                     exports: [NzDividerComponent]
                 },] }
@@ -18906,9 +17962,13 @@ var NzDrawerComponent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this.document) {
             this.previouslyFocusedElement = /** @type {?} */ (this.document.activeElement);
             this.previouslyFocusedElement.blur();
+            if (typeof this.elementRef.nativeElement.focus === 'function') {
+                Promise.resolve().then(function () { return _this.elementRef.nativeElement.focus(); });
+            }
         }
     };
     /**
@@ -18930,7 +17990,8 @@ var NzDrawerComponent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.previouslyFocusedElement) {
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
             this.previouslyFocusedElement.focus();
         }
         if (this.focusTrap) {
@@ -19017,6 +18078,8 @@ DrawerBuilderForService$$1 = /** @class */ (function () {
         this.unsubscribe$ = new Subject();
         this.createDrawer();
         this.updateOptions(options);
+        // Prevent repeatedly open drawer when tap focus element.
+        this.drawerRef.instance.savePreviouslyFocusedElement();
         this.drawerRef.instance.nzOnViewInit
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(function () {
@@ -19551,6 +18614,8 @@ var NzDropDownComponent = /** @class */ (function () {
         this.$subOpen = new BehaviorSubject(false);
         this.$visibleChange = new Subject();
         this.nzTrigger = 'hover';
+        this.nzOverlayClassName = '';
+        this.nzOverlayStyle = {};
         this.nzVisibleChange = new EventEmitter();
         this.onVisibleChange = function (visible) {
             if (visible) {
@@ -19799,7 +18864,7 @@ var NzDropDownComponent = /** @class */ (function () {
                     animations: [
                         dropDownAnimation
                     ],
-                    template: "<ng-content select=\"[nz-dropdown]\"></ng-content>\n<ng-template\n  cdkConnectedOverlay\n  [cdkConnectedOverlayHasBackdrop]=\"hasBackdrop\"\n  [cdkConnectedOverlayPositions]=\"positions\"\n  [cdkConnectedOverlayOrigin]=\"nzOrigin\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  [cdkConnectedOverlayMinWidth]=\"triggerWidth\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayOpen]=\"nzVisible\">\n  <div\n    class=\"{{'ant-dropdown ant-dropdown-placement-'+nzPlacement}}\"\n    [@dropDownAnimation]=\"dropDownPosition\"\n    (mouseenter)=\"onMouseEnterEvent()\"\n    (mouseleave)=\"onMouseLeaveEvent()\"\n    [style.minWidth.px]=\"triggerWidth\">\n    <div [class.ant-table-filter-dropdown]=\"hasFilterButton\">\n      <ng-content select=\"[nz-menu]\"></ng-content>\n      <ng-content select=\".ant-table-filter-dropdown-btns\"></ng-content>\n    </div>\n    <ng-content></ng-content>\n  </div>\n</ng-template>",
+                    template: "<ng-content select=\"[nz-dropdown]\"></ng-content>\n<ng-template\n  cdkConnectedOverlay\n  [cdkConnectedOverlayHasBackdrop]=\"hasBackdrop\"\n  [cdkConnectedOverlayPositions]=\"positions\"\n  [cdkConnectedOverlayOrigin]=\"nzOrigin\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  [cdkConnectedOverlayMinWidth]=\"triggerWidth\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayOpen]=\"nzVisible\">\n  <div\n    class=\"{{'ant-dropdown ant-dropdown-placement-'+nzPlacement}}\"\n    [ngClass]=\"nzOverlayClassName\" [ngStyle]=\"nzOverlayStyle\"\n    [@dropDownAnimation]=\"dropDownPosition\"\n    (mouseenter)=\"onMouseEnterEvent()\"\n    (mouseleave)=\"onMouseLeaveEvent()\"\n    [style.minWidth.px]=\"triggerWidth\">\n    <div [class.ant-table-filter-dropdown]=\"hasFilterButton\">\n      <ng-content select=\"[nz-menu]\"></ng-content>\n      <ng-content select=\".ant-table-filter-dropdown-btns\"></ng-content>\n    </div>\n    <ng-content></ng-content>\n  </div>\n</ng-template>",
                     styles: ["\n      .ant-dropdown {\n        top: 100%;\n        left: 0;\n        position: relative;\n        width: 100%;\n        margin-top: 4px;\n        margin-bottom: 4px;\n      }\n    "]
                 }] }
     ];
@@ -19813,6 +18878,8 @@ var NzDropDownComponent = /** @class */ (function () {
         nzOrigin: [{ type: ContentChild, args: [NzDropDownDirective,] }],
         nzMenu: [{ type: ContentChild, args: [NzMenuDirective,] }],
         nzTrigger: [{ type: Input }],
+        nzOverlayClassName: [{ type: Input }],
+        nzOverlayStyle: [{ type: Input }],
         nzVisibleChange: [{ type: Output }],
         cdkOverlay: [{ type: ViewChild, args: [CdkConnectedOverlay,] }],
         nzClickHide: [{ type: Input }],
@@ -20677,44 +19744,21 @@ var NzDropDownModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @return {?}
- */
-function matchMediaFunc() {
-    if (typeof window === 'undefined') {
-        return function () { return null; };
-    }
-    if (window.matchMedia) {
-        return window.matchMedia.bind(window);
-    }
-    else {
-        /** @type {?} */
-        var matchMediaPolyfill = function (mediaQuery) {
-            return {
-                media: mediaQuery,
-                matches: false,
-                addListener: /**
-                 * @return {?}
-                 */
-                function () {
-                },
-                removeListener: /**
-                 * @return {?}
-                 */
-                function () {
-                },
-            };
-        };
-        return matchMediaPolyfill;
-    }
-}
-/** @type {?} */
-var matchMedia = matchMediaFunc();
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
+/** @enum {number} */
+var Breakpoint = {
+    'xxl': 0,
+    'xl': 1,
+    'lg': 2,
+    'md': 3,
+    'sm': 4,
+    'xs': 5,
+};
+Breakpoint[Breakpoint['xxl']] = 'xxl';
+Breakpoint[Breakpoint['xl']] = 'xl';
+Breakpoint[Breakpoint['lg']] = 'lg';
+Breakpoint[Breakpoint['md']] = 'md';
+Breakpoint[Breakpoint['sm']] = 'sm';
+Breakpoint[Breakpoint['xs']] = 'xs';
 /** @type {?} */
 var responsiveMap = {
     xs: '(max-width: 575px)',
@@ -20725,98 +19769,19 @@ var responsiveMap = {
     xxl: '(min-width: 1600px)'
 };
 var NzRowComponent = /** @class */ (function () {
-    function NzRowComponent(elementRef, renderer, nzUpdateHostClassService) {
+    function NzRowComponent(elementRef, renderer, nzUpdateHostClassService, mediaMatcher, ngZone, platform) {
         this.elementRef = elementRef;
         this.renderer = renderer;
         this.nzUpdateHostClassService = nzUpdateHostClassService;
-        this._align = 'top';
-        this._justify = 'start';
+        this.mediaMatcher = mediaMatcher;
+        this.ngZone = ngZone;
+        this.platform = platform;
+        this.nzAlign = 'top';
+        this.nzJustify = 'start';
         this.el = this.elementRef.nativeElement;
         this.prefixCls = 'ant-row';
+        this.destroy$ = new Subject();
     }
-    Object.defineProperty(NzRowComponent.prototype, "nzType", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._type;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._type = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRowComponent.prototype, "nzAlign", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._align;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._align = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRowComponent.prototype, "nzJustify", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._justify;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._justify = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzRowComponent.prototype, "nzGutter", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._gutter;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._gutter = value;
-            this.updateGutter();
-            this.setStyle();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzRowComponent.prototype.setStyle = /**
-     * @return {?}
-     */
-    function () {
-        this.renderer.setStyle(this.el, 'margin-left', "-" + this.actualGutter / 2 + "px");
-        this.renderer.setStyle(this.el, 'margin-right', "-" + this.actualGutter / 2 + "px");
-    };
     /**
      * @return {?}
      */
@@ -20842,17 +19807,8 @@ var NzRowComponent = /** @class */ (function () {
      */
     function () {
         this.actualGutter = this.calculateGutter();
-    };
-    /**
-     * @param {?} e
-     * @return {?}
-     */
-    NzRowComponent.prototype.onWindowResize = /**
-     * @param {?} e
-     * @return {?}
-     */
-    function (e) {
-        this.watchMedia();
+        this.renderer.setStyle(this.el, 'margin-left', "-" + this.actualGutter / 2 + "px");
+        this.renderer.setStyle(this.el, 'margin-right', "-" + this.actualGutter / 2 + "px");
     };
     /**
      * @return {?}
@@ -20862,15 +19818,15 @@ var NzRowComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        // @ts-ignore
         Object.keys(responsiveMap).map(function (screen) {
             /** @type {?} */
-            var matchBelow = matchMedia(responsiveMap[screen]).matches;
+            var matchBelow = _this.mediaMatcher.matchMedia(responsiveMap[screen]).matches;
             if (matchBelow) {
                 _this.breakPoint = screen;
             }
         });
         this.updateGutter();
-        this.setStyle();
     };
     /** temp solution since no method add classMap to host https://github.com/angular/angular/issues/7289*/
     /**
@@ -20902,10 +19858,54 @@ var NzRowComponent = /** @class */ (function () {
         this.setClassMap();
         this.watchMedia();
     };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzRowComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzType"] || changes["nzAlign"] || changes["nzJustify"]) {
+            this.setClassMap();
+        }
+        if (changes["nzGutter"]) {
+            this.updateGutter();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzRowComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.platform.isBrowser) {
+            this.ngZone.runOutsideAngular(function () {
+                fromEvent(window, 'resize')
+                    .pipe(auditTime(16), takeUntil(_this.destroy$))
+                    .subscribe(function () { return _this.watchMedia(); });
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzRowComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+    };
     NzRowComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-row',
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [NzUpdateHostClassService],
                     template: "<ng-content></ng-content>"
                 }] }
@@ -20914,14 +19914,16 @@ var NzRowComponent = /** @class */ (function () {
     NzRowComponent.ctorParameters = function () { return [
         { type: ElementRef },
         { type: Renderer2 },
-        { type: NzUpdateHostClassService }
+        { type: NzUpdateHostClassService },
+        { type: MediaMatcher },
+        { type: NgZone },
+        { type: Platform }
     ]; };
     NzRowComponent.propDecorators = {
         nzType: [{ type: Input }],
         nzAlign: [{ type: Input }],
         nzJustify: [{ type: Input }],
-        nzGutter: [{ type: Input }],
-        onWindowResize: [{ type: HostListener, args: ['window:resize', ['$event'],] }]
+        nzGutter: [{ type: Input }]
     };
     return NzRowComponent;
 }());
@@ -20932,8 +19934,8 @@ var NzRowComponent = /** @class */ (function () {
  */
 var NzRowDirective = /** @class */ (function (_super) {
     __extends(NzRowDirective, _super);
-    function NzRowDirective(elementRef, renderer, nzUpdateHostClassService) {
-        return _super.call(this, elementRef, renderer, nzUpdateHostClassService) || this;
+    function NzRowDirective(elementRef, renderer, nzUpdateHostClassService, mediaMatcher, ngZone, platform) {
+        return _super.call(this, elementRef, renderer, nzUpdateHostClassService, mediaMatcher, ngZone, platform) || this;
     }
     NzRowDirective.decorators = [
         { type: Directive, args: [{
@@ -20945,7 +19947,10 @@ var NzRowDirective = /** @class */ (function (_super) {
     NzRowDirective.ctorParameters = function () { return [
         { type: ElementRef },
         { type: Renderer2 },
-        { type: NzUpdateHostClassService }
+        { type: NzUpdateHostClassService },
+        { type: MediaMatcher },
+        { type: NgZone },
+        { type: Platform }
     ]; };
     return NzRowDirective;
 }(NzRowComponent));
@@ -20955,12 +19960,11 @@ var NzRowDirective = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 var NzColComponent = /** @class */ (function () {
-    function NzColComponent(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) {
+    function NzColComponent(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective) {
         this.nzUpdateHostClassService = nzUpdateHostClassService;
         this.elementRef = elementRef;
         this.nzRowComponent = nzRowComponent;
         this.nzRowDirective = nzRowDirective;
-        this.renderer = renderer;
         this.el = this.elementRef.nativeElement;
         this.prefixCls = 'ant-col';
     }
@@ -21063,6 +20067,8 @@ var NzColComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-col',
                     providers: [NzUpdateHostClassService],
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content>"
                 }] }
@@ -21072,8 +20078,7 @@ var NzColComponent = /** @class */ (function () {
         { type: NzUpdateHostClassService },
         { type: ElementRef },
         { type: NzRowComponent, decorators: [{ type: Optional }, { type: Host }] },
-        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] },
-        { type: Renderer2 }
+        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] }
     ]; };
     NzColComponent.propDecorators = {
         paddingLeft: [{ type: HostBinding, args: ['style.padding-left.px',] }],
@@ -21099,8 +20104,8 @@ var NzColComponent = /** @class */ (function () {
  */
 var NzColDirective = /** @class */ (function (_super) {
     __extends(NzColDirective, _super);
-    function NzColDirective(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) {
-        return _super.call(this, nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) || this;
+    function NzColDirective(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective) {
+        return _super.call(this, nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective) || this;
     }
     NzColDirective.decorators = [
         { type: Directive, args: [{
@@ -21113,8 +20118,7 @@ var NzColDirective = /** @class */ (function (_super) {
         { type: NzUpdateHostClassService },
         { type: ElementRef },
         { type: NzRowComponent, decorators: [{ type: Optional }, { type: Host }] },
-        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] },
-        { type: Renderer2 }
+        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] }
     ]; };
     return NzColDirective;
 }(NzColComponent));
@@ -21130,7 +20134,7 @@ var NzGridModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzRowComponent, NzColDirective, NzColComponent, NzRowDirective],
                     exports: [NzRowComponent, NzColDirective, NzColComponent, NzRowDirective],
-                    imports: [CommonModule]
+                    imports: [CommonModule, LayoutModule, PlatformModule]
                 },] }
     ];
     return NzGridModule;
@@ -21140,11 +20144,138 @@ var NzGridModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var NzFormExplainComponent = /** @class */ (function () {
+    function NzFormExplainComponent() {
+    }
+    NzFormExplainComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'nz-form-explain',
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        trigger('formExplainAnimation', [
+                            transition('void => *', [
+                                style({
+                                    opacity: 0,
+                                    transform: 'translateY(-5px)'
+                                }),
+                                animate('0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', style({
+                                    opacity: 1,
+                                    transform: 'translateY(0)'
+                                }))
+                            ]),
+                            transition('* => void', [
+                                style({
+                                    opacity: 1,
+                                    transform: 'translateY(0)'
+                                }),
+                                animate('0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', style({
+                                    opacity: 0,
+                                    transform: 'translateY(-5px)'
+                                }))
+                            ])
+                        ])
+                    ],
+                    template: "<div [@formExplainAnimation]>\n  <ng-content></ng-content>\n</div>",
+                    host: {
+                        '[class.ant-form-explain]': 'true'
+                    },
+                    styles: ["nz-form-explain {\n      display: block;\n    }"]
+                }] }
+    ];
+    return NzFormExplainComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * should add nz-row directive to host, track https://github.com/angular/angular/issues/8785 *
+ */
+var NzFormItemComponent = /** @class */ (function (_super) {
+    __extends(NzFormItemComponent, _super);
+    function NzFormItemComponent(elementRef, renderer, nzUpdateHostClassService, mediaMatcher, ngZone, platform, cdr) {
+        var _this = _super.call(this, elementRef, renderer, nzUpdateHostClassService, mediaMatcher, ngZone, platform) || this;
+        _this.cdr = cdr;
+        _this._flex = false;
+        return _this;
+    }
+    Object.defineProperty(NzFormItemComponent.prototype, "nzFlex", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._flex = toBoolean(value);
+            if (this._flex) {
+                this.renderer.setStyle(this.elementRef.nativeElement, 'display', 'flex');
+            }
+            else {
+                this.renderer.removeStyle(this.elementRef.nativeElement, 'display');
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    NzFormItemComponent.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.listOfNzFormExplainComponent) {
+            this.listOfNzFormExplainComponent.changes.pipe(takeUntil(this.destroy$)).subscribe(function () {
+                _this.cdr.markForCheck();
+            });
+        }
+    };
+    NzFormItemComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'nz-form-item',
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    providers: [NzUpdateHostClassService],
+                    template: "<ng-content></ng-content>",
+                    host: {
+                        '[class.ant-form-item]': 'true',
+                        '[class.ant-form-item-with-help]': 'listOfNzFormExplainComponent && (listOfNzFormExplainComponent.length>0)'
+                    },
+                    styles: ["\n      nz-form-item {\n        display: block;\n      }\n    "]
+                }] }
+    ];
+    /** @nocollapse */
+    NzFormItemComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 },
+        { type: NzUpdateHostClassService },
+        { type: MediaMatcher },
+        { type: NgZone },
+        { type: Platform },
+        { type: ChangeDetectorRef }
+    ]; };
+    NzFormItemComponent.propDecorators = {
+        listOfNzFormExplainComponent: [{ type: ContentChildren, args: [NzFormExplainComponent, { descendants: true },] }],
+        nzFlex: [{ type: Input }]
+    };
+    return NzFormItemComponent;
+}(NzRowComponent));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NzFormControlComponent = /** @class */ (function (_super) {
     __extends(NzFormControlComponent, _super);
-    function NzFormControlComponent(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) {
-        var _this = _super.call(this, nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) || this;
+    function NzFormControlComponent(nzUpdateHostClassService, elementRef, nzFormItemComponent, nzRowDirective, cdr) {
+        var _this = _super.call(this, nzUpdateHostClassService, elementRef, nzFormItemComponent, nzRowDirective) || this;
+        _this.cdr = cdr;
         _this._hasFeedback = false;
+        _this.controlClassMap = {};
         return _this;
     }
     Object.defineProperty(NzFormControlComponent.prototype, "nzHasFeedback", {
@@ -21174,14 +20305,16 @@ var NzFormControlComponent = /** @class */ (function (_super) {
             if (value instanceof FormControl) {
                 this.validateControl = value;
                 this.validateString = null;
-                this.controlStatus = null;
-                this.setControlClassMap();
+                this.watchControl();
+            }
+            else if (value instanceof FormControlName) {
+                this.validateControl = value.control;
+                this.validateString = null;
                 this.watchControl();
             }
             else {
                 this.validateString = value;
                 this.validateControl = null;
-                this.removeSubscribe();
                 this.setControlClassMap();
             }
         },
@@ -21201,24 +20334,6 @@ var NzFormControlComponent = /** @class */ (function (_super) {
         }
     };
     /**
-     * @param {?} status
-     * @return {?}
-     */
-    NzFormControlComponent.prototype.updateValidateStatus = /**
-     * @param {?} status
-     * @return {?}
-     */
-    function (status) {
-        if (this.validateControl.dirty || this.validateControl.touched) {
-            this.controlStatus = status;
-            this.setControlClassMap();
-        }
-        else {
-            this.controlStatus = null;
-            this.setControlClassMap();
-        }
-    };
-    /**
      * @return {?}
      */
     NzFormControlComponent.prototype.watchControl = /**
@@ -21229,8 +20344,22 @@ var NzFormControlComponent = /** @class */ (function (_super) {
         this.removeSubscribe();
         /** miss detect https://github.com/angular/angular/issues/10887 **/
         if (this.validateControl && this.validateControl.statusChanges) {
-            this.validateChanges = this.validateControl.statusChanges.subscribe(function (data) { return _this.updateValidateStatus(data); });
+            this.validateChanges = this.validateControl.statusChanges.pipe(startWith(null)).subscribe(function () {
+                _this.setControlClassMap();
+                _this.cdr.markForCheck();
+            });
         }
+    };
+    /**
+     * @param {?} status
+     * @return {?}
+     */
+    NzFormControlComponent.prototype.validateControlStatus = /**
+     * @param {?} status
+     * @return {?}
+     */
+    function (status) {
+        return this.validateControl && (this.validateControl.dirty || this.validateControl.touched) && (this.validateControl.status === status);
     };
     /**
      * @return {?}
@@ -21242,9 +20371,9 @@ var NzFormControlComponent = /** @class */ (function (_super) {
         var _a;
         this.controlClassMap = (_a = {},
             _a["has-warning"] = this.validateString === 'warning',
-            _a["is-validating"] = this.validateString === 'validating' || this.validateString === 'pending' || this.controlStatus === 'PENDING',
-            _a["has-error"] = this.validateString === 'error' || this.controlStatus === 'INVALID',
-            _a["has-success"] = this.validateString === 'success' || this.controlStatus === 'VALID',
+            _a["is-validating"] = this.validateString === 'validating' || this.validateString === 'pending' || this.validateControlStatus('PENDING'),
+            _a["has-error"] = this.validateString === 'error' || this.validateControlStatus('INVALID'),
+            _a["has-success"] = this.validateString === 'success' || this.validateControlStatus('VALID'),
             _a["has-feedback"] = this.nzHasFeedback,
             _a);
         if (this.controlClassMap['has-warning']) {
@@ -21270,7 +20399,7 @@ var NzFormControlComponent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.setClassMap();
+        _super.prototype.ngOnInit.call(this);
         this.setControlClassMap();
     };
     /**
@@ -21289,181 +20418,39 @@ var NzFormControlComponent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.watchControl();
-        if (this.validateControl) {
-            this.updateValidateStatus(this.validateControl.status);
+        if (this.defaultValidateControl && (!this.validateControl) && (!this.validateString)) {
+            this.nzValidateStatus = this.defaultValidateControl;
         }
     };
     NzFormControlComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-form-control',
-                    providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    providers: [NzUpdateHostClassService],
                     template: "<div class=\"ant-form-item-control\" [ngClass]=\"controlClassMap\">\n  <span class=\"ant-form-item-children\">\n    <ng-content></ng-content>\n    <span class=\"ant-form-item-children-icon\">\n      <i *ngIf=\"nzHasFeedback && iconType\" nz-icon [type]=\"iconType\"></i>\n    </span>\n  </span>\n  <ng-content select=\"nz-form-explain\"></ng-content>\n</div>",
                     host: {
                         '[class.ant-form-item-control-wrapper]': 'true'
                     },
-                    styles: [":host {\n    display: block;\n  }"]
+                    styles: ["\n      nz-form-control {\n        display: block;\n      }\n    "]
                 }] }
     ];
     /** @nocollapse */
     NzFormControlComponent.ctorParameters = function () { return [
         { type: NzUpdateHostClassService },
         { type: ElementRef },
-        { type: NzRowComponent, decorators: [{ type: Optional }, { type: Host }] },
+        { type: NzFormItemComponent, decorators: [{ type: Optional }, { type: Host }] },
         { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] },
-        { type: Renderer2 }
+        { type: ChangeDetectorRef }
     ]; };
     NzFormControlComponent.propDecorators = {
-        validateControl: [{ type: ContentChild, args: [NgControl,] }],
+        defaultValidateControl: [{ type: ContentChild, args: [NgControl,] }],
         nzHasFeedback: [{ type: Input }],
         nzValidateStatus: [{ type: Input }]
     };
     return NzFormControlComponent;
 }(NzColComponent));
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * should add nz-row directive to host, track https://github.com/angular/angular/issues/8785 *
- */
-var NzFormItemComponent = /** @class */ (function (_super) {
-    __extends(NzFormItemComponent, _super);
-    function NzFormItemComponent(elementRef, renderer, nzUpdateHostClassService) {
-        var _this = _super.call(this, elementRef, renderer, nzUpdateHostClassService) || this;
-        _this._flex = false;
-        _this.withHelp = 0;
-        return _this;
-    }
-    Object.defineProperty(NzFormItemComponent.prototype, "nzFlex", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._flex = toBoolean(value);
-            if (this._flex) {
-                this.renderer.setStyle(this.elementRef.nativeElement, 'display', 'flex');
-            }
-            else {
-                this.renderer.removeStyle(this.elementRef.nativeElement, 'display');
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzFormItemComponent.prototype.enableHelp = /**
-     * @return {?}
-     */
-    function () {
-        this.withHelp++;
-    };
-    /**
-     * @return {?}
-     */
-    NzFormItemComponent.prototype.disableHelp = /**
-     * @return {?}
-     */
-    function () {
-        this.withHelp--;
-    };
-    NzFormItemComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'nz-form-item',
-                    preserveWhitespaces: false,
-                    providers: [NzUpdateHostClassService],
-                    template: "<ng-content></ng-content>",
-                    host: {
-                        '[class.ant-form-item]': 'true',
-                        '[class.ant-form-item-with-help]': 'withHelp>0'
-                    },
-                    styles: [":host {\n    display: block;\n  }"]
-                }] }
-    ];
-    /** @nocollapse */
-    NzFormItemComponent.ctorParameters = function () { return [
-        { type: ElementRef },
-        { type: Renderer2 },
-        { type: NzUpdateHostClassService }
-    ]; };
-    NzFormItemComponent.propDecorators = {
-        nzFlex: [{ type: Input }]
-    };
-    return NzFormItemComponent;
-}(NzRowComponent));
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzFormExplainComponent = /** @class */ (function () {
-    function NzFormExplainComponent(nzFormItemComponent) {
-        this.nzFormItemComponent = nzFormItemComponent;
-    }
-    /**
-     * @return {?}
-     */
-    NzFormExplainComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.nzFormItemComponent.disableHelp();
-    };
-    /**
-     * @return {?}
-     */
-    NzFormExplainComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        this.nzFormItemComponent.enableHelp();
-    };
-    NzFormExplainComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'nz-form-explain',
-                    preserveWhitespaces: false,
-                    animations: [
-                        trigger('formExplainAnimation', [
-                            transition('void => *', [
-                                style({
-                                    opacity: 0,
-                                    transform: 'translateY(-5px)'
-                                }),
-                                animate('0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', style({
-                                    opacity: 1,
-                                    transform: 'translateY(0)'
-                                }))
-                            ]),
-                            transition('* => void', [
-                                style({
-                                    opacity: 1,
-                                    transform: 'translateY(0)'
-                                }),
-                                animate('0.3s cubic-bezier(0.645, 0.045, 0.355, 1)', style({
-                                    opacity: 0,
-                                    transform: 'translateY(-5px)'
-                                }))
-                            ])
-                        ])
-                    ],
-                    template: "<div [@formExplainAnimation]>\n  <ng-content></ng-content>\n</div>",
-                    host: {
-                        '[class.ant-form-explain]': 'true'
-                    },
-                    styles: [":host{\n      display:block;\n    }"]
-                }] }
-    ];
-    /** @nocollapse */
-    NzFormExplainComponent.ctorParameters = function () { return [
-        { type: NzFormItemComponent }
-    ]; };
-    return NzFormExplainComponent;
-}());
 
 /**
  * @fileoverview added by tsickle
@@ -21476,10 +20463,13 @@ var NzFormExtraComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-form-extra',
                     template: "<ng-content></ng-content>",
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     host: {
                         '[class.ant-form-extra]': 'true'
                     },
-                    styles: [":host {\n    display: block;\n  }"]
+                    styles: ["\n      nz-form-extra {\n        display: block;\n      }\n    "]
                 }] }
     ];
     return NzFormExtraComponent;
@@ -21491,33 +20481,18 @@ var NzFormExtraComponent = /** @class */ (function () {
  */
 var NzFormLabelComponent = /** @class */ (function (_super) {
     __extends(NzFormLabelComponent, _super);
-    function NzFormLabelComponent(nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) {
-        var _this = _super.call(this, nzUpdateHostClassService, elementRef, nzRowComponent, nzRowDirective, renderer) || this;
-        _this._required = false;
+    function NzFormLabelComponent(nzUpdateHostClassService, elementRef, nzFormItemComponent, nzRowDirective) {
+        var _this = _super.call(this, nzUpdateHostClassService, elementRef, nzFormItemComponent, nzRowDirective) || this;
+        _this.nzRequired = false;
         return _this;
     }
-    Object.defineProperty(NzFormLabelComponent.prototype, "nzRequired", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._required;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._required = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzFormLabelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-form-label',
                     providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     template: "<label [attr.for]=\"nzFor\" [class.ant-form-item-required]=\"nzRequired\">\n  <ng-content></ng-content>\n</label>",
                     host: {
                         '[class.ant-form-item-label]': 'true'
@@ -21528,14 +20503,17 @@ var NzFormLabelComponent = /** @class */ (function (_super) {
     NzFormLabelComponent.ctorParameters = function () { return [
         { type: NzUpdateHostClassService },
         { type: ElementRef },
-        { type: NzRowComponent, decorators: [{ type: Optional }, { type: Host }] },
-        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] },
-        { type: Renderer2 }
+        { type: NzFormItemComponent, decorators: [{ type: Optional }, { type: Host }] },
+        { type: NzRowDirective, decorators: [{ type: Optional }, { type: Host }] }
     ]; };
     NzFormLabelComponent.propDecorators = {
         nzFor: [{ type: Input }],
         nzRequired: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzFormLabelComponent.prototype, "nzRequired", void 0);
     return NzFormLabelComponent;
 }(NzColComponent));
 
@@ -21549,6 +20527,9 @@ var NzFormSplitComponent = /** @class */ (function () {
     NzFormSplitComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-form-split',
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-form-split]': 'true'
@@ -21568,6 +20549,9 @@ var NzFormTextComponent = /** @class */ (function () {
     NzFormTextComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-form-text',
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-form-text]': 'true'
@@ -21586,28 +20570,8 @@ var NzFormDirective = /** @class */ (function () {
         this.elementRef = elementRef;
         this.renderer = renderer;
         this.nzUpdateHostClassService = nzUpdateHostClassService;
-        this.el = this.elementRef.nativeElement;
-        this.prefixCls = 'ant-form';
-        this._layout = 'horizontal';
+        this.nzLayout = 'horizontal';
     }
-    Object.defineProperty(NzFormDirective.prototype, "nzLayout", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._layout;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._layout = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -21616,12 +20580,9 @@ var NzFormDirective = /** @class */ (function () {
      */
     function () {
         var _a;
-        /** @type {?} */
-        var classMap = (_a = {},
-            _a["" + this.prefixCls] = true,
-            _a[this.prefixCls + "-" + this.nzLayout] = this.nzLayout,
-            _a);
-        this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
+        this.nzUpdateHostClassService.updateHostClass(this.elementRef.nativeElement, (_a = {},
+            _a["ant-form-" + this.nzLayout] = this.nzLayout,
+            _a));
     };
     /**
      * @return {?}
@@ -21632,10 +20593,22 @@ var NzFormDirective = /** @class */ (function () {
     function () {
         this.setClassMap();
     };
+    /**
+     * @return {?}
+     */
+    NzFormDirective.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.setClassMap();
+    };
     NzFormDirective.decorators = [
         { type: Directive, args: [{
                     selector: '[nz-form]',
-                    providers: [NzUpdateHostClassService]
+                    providers: [NzUpdateHostClassService],
+                    host: {
+                        '[class.ant-form]': 'true'
+                    }
                 },] }
     ];
     /** @nocollapse */
@@ -21679,7 +20652,7 @@ var NzFormModule = /** @class */ (function () {
                         NzFormTextComponent,
                         NzFormSplitComponent
                     ],
-                    imports: [CommonModule, NzGridModule, NzIconModule]
+                    imports: [CommonModule, NzGridModule, NzIconModule, LayoutModule, PlatformModule]
                 },] }
     ];
     return NzFormModule;
@@ -21690,119 +20663,28 @@ var NzFormModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzInputNumberComponent = /** @class */ (function () {
-    function NzInputNumberComponent(elementRef, renderer) {
+    function NzInputNumberComponent(elementRef, renderer, cdr, focusMonitor) {
         this.elementRef = elementRef;
         this.renderer = renderer;
-        this.isInit = false;
-        this._disabled = false;
-        this._step = 1;
-        this._autoFocus = false;
-        this._formatter = function (value) { return value; };
+        this.cdr = cdr;
+        this.focusMonitor = focusMonitor;
         this.isFocused = false;
-        this.el = this.elementRef.nativeElement;
-        this.prefixCls = 'ant-input-number';
         this.disabledUp = false;
         this.disabledDown = false;
         this.onChange = function () { return null; };
         this.onTouched = function () { return null; };
+        this.nzBlur = new EventEmitter();
+        this.nzFocus = new EventEmitter();
         this.nzSize = 'default';
         this.nzMin = -Infinity;
         this.nzMax = Infinity;
         this.nzParser = function (value) { return value; };
         this.nzPlaceHolder = '';
+        this.nzStep = 1;
+        this.nzDisabled = false;
+        this.nzAutoFocus = false;
+        this.nzFormatter = function (value) { return value; };
     }
-    Object.defineProperty(NzInputNumberComponent.prototype, "isLarge", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'large';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputNumberComponent.prototype, "isSmall", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzSize === 'small';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputNumberComponent.prototype, "nzAutoFocus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._autoFocus;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._autoFocus = toBoolean(value);
-            this.updateAutoFocus();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputNumberComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputNumberComponent.prototype, "nzStep", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._step;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._step = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzInputNumberComponent.prototype, "nzFormatter", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._formatter;
-        },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) {
-            this._formatter = v;
-            /** @type {?} */
-            var value = this.getCurrentValidValue(this.actualValue);
-            this.writeValue(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -21826,7 +20708,10 @@ var NzInputNumberComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        this.actualValue = this.nzParser(value.trim().replace(/。/g, '.').replace(/[^\w\.-]+/g, ''));
+        this.actualValue = this.nzParser(value
+            .trim()
+            .replace(/。/g, '.')
+            .replace(/[^\w\.-]+/g, ''));
         this.inputElement.nativeElement.value = this.actualValue;
     };
     /**
@@ -21907,29 +20792,33 @@ var NzInputNumberComponent = /** @class */ (function () {
         return Number(num);
     };
     /**
-     * @param {?} e
      * @return {?}
      */
-    NzInputNumberComponent.prototype.onBlur = /**
-     * @param {?} e
+    NzInputNumberComponent.prototype.setValidateValue = /**
      * @return {?}
      */
-    function (e) {
-        this.onTouched();
-        this.isFocused = false;
+    function () {
         /** @type {?} */
         var value = this.getCurrentValidValue(this.actualValue);
         this.setValue(value, "" + this.value !== "" + value);
     };
     /**
-     * @param {?} e
+     * @return {?}
+     */
+    NzInputNumberComponent.prototype.onBlur = /**
+     * @return {?}
+     */
+    function () {
+        this.isFocused = false;
+        this.setValidateValue();
+    };
+    /**
      * @return {?}
      */
     NzInputNumberComponent.prototype.onFocus = /**
-     * @param {?} e
      * @return {?}
      */
-    function (e) {
+    function () {
         this.isFocused = true;
     };
     /**
@@ -22067,9 +20956,7 @@ var NzInputNumberComponent = /** @class */ (function () {
         /** @type {?} */
         var result;
         if (typeof val === 'number') {
-            result =
-                ((precisionFactor * val + precisionFactor * this.nzStep * rat) /
-                    precisionFactor).toFixed(precision);
+            result = ((precisionFactor * val + precisionFactor * this.nzStep * rat) / precisionFactor).toFixed(precision);
         }
         else {
             result = this.nzMin === -Infinity ? this.nzStep : this.nzMin;
@@ -22094,9 +20981,7 @@ var NzInputNumberComponent = /** @class */ (function () {
         /** @type {?} */
         var result;
         if (typeof val === 'number') {
-            result =
-                ((precisionFactor * val - precisionFactor * this.nzStep * rat) /
-                    precisionFactor).toFixed(precision);
+            result = ((precisionFactor * val - precisionFactor * this.nzStep * rat) / precisionFactor).toFixed(precision);
         }
         else {
             result = this.nzMin === -Infinity ? -this.nzStep : this.nzMin;
@@ -22172,7 +21057,7 @@ var NzInputNumberComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value, emit) {
-        if (emit && ("" + this.value !== "" + value)) {
+        if (emit && "" + this.value !== "" + value) {
             this.onChange(value);
         }
         this.value = value;
@@ -22214,16 +21099,17 @@ var NzInputNumberComponent = /** @class */ (function () {
             this.down(e, ratio);
             this.stop();
         }
+        else if (e.keyCode === ENTER) {
+            this.setValidateValue();
+        }
     };
     /**
-     * @param {?} e
      * @return {?}
      */
     NzInputNumberComponent.prototype.onKeyUp = /**
-     * @param {?} e
      * @return {?}
      */
-    function (e) {
+    function () {
         this.stop();
     };
     /**
@@ -22236,6 +21122,7 @@ var NzInputNumberComponent = /** @class */ (function () {
      */
     function (value) {
         this.setValue(value, false);
+        this.cdr.markForCheck();
     };
     /**
      * @param {?} fn
@@ -22269,6 +21156,7 @@ var NzInputNumberComponent = /** @class */ (function () {
      */
     function (isDisabled) {
         this.nzDisabled = isDisabled;
+        this.cdr.markForCheck();
     };
     /**
      * @return {?}
@@ -22277,7 +21165,7 @@ var NzInputNumberComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.inputElement.nativeElement.focus();
+        this.focusMonitor.focusVia(this.inputElement, 'keyboard');
     };
     /**
      * @return {?}
@@ -22291,19 +21179,63 @@ var NzInputNumberComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    NzInputNumberComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.focusMonitor.monitor(this.elementRef, true).subscribe(function (focusOrigin) {
+            if (!focusOrigin) {
+                _this.nzBlur.emit();
+                Promise.resolve().then(function () { return _this.onTouched(); });
+            }
+            else {
+                _this.nzFocus.emit();
+            }
+        });
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzInputNumberComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzAutoFocus"]) {
+            this.updateAutoFocus();
+        }
+        if (changes["nzFormatter"]) {
+            /** @type {?} */
+            var value = this.getCurrentValidValue(this.actualValue);
+            this.setValue(value, true);
+        }
+    };
+    /**
+     * @return {?}
+     */
     NzInputNumberComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
-        this.isInit = true;
-        if (this._autoFocus) {
+        if (this.nzAutoFocus) {
             this.focus();
         }
+    };
+    /**
+     * @return {?}
+     */
+    NzInputNumberComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.focusMonitor.stopMonitoring(this.elementRef);
     };
     NzInputNumberComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-input-number',
-                    template: "<div class=\"ant-input-number-handler-wrap\">\n  <span\n    unselectable=\"unselectable\"\n    (mousedown)=\"up($event)\"\n    (mouseup)=\"stop()\"\n    (mouseleave)=\"stop()\"\n    class=\"ant-input-number-handler ant-input-number-handler-up\"\n    [class.ant-input-number-handler-up-disabled]=\"disabledUp\">\n    <i nz-icon type=\"up\" class=\"ant-input-number-handler-up-inner\"></i>\n  </span>\n  <span\n    unselectable=\"unselectable\"\n    (mousedown)=\"down($event)\"\n    (mouseup)=\"stop()\"\n    (mouseleave)=\"stop()\"\n    class=\"ant-input-number-handler ant-input-number-handler-down\"\n    [class.ant-input-number-handler-down-disabled]=\"disabledDown\">\n    <i nz-icon type=\"down\" class=\"ant-input-number-handler-down-inner\"></i>\n  </span>\n</div>\n<div class=\"ant-input-number-input-wrap\">\n  <input\n    #inputElement\n    class=\"ant-input-number-input\"\n    [disabled]=\"nzDisabled\"\n    [attr.min]=\"nzMin\"\n    [attr.max]=\"nzMax\"\n    [placeholder]=\"nzPlaceHolder\"\n    [attr.step]=\"nzStep\"\n    (keydown)=\"onKeyDown($event)\"\n    (keyup)=\"onKeyUp($event)\"\n    (blur)=\"onBlur($event)\"\n    (focus)=\"onFocus($event)\"\n    [ngModel]=\"displayValue\"\n    (ngModelChange)=\"onModelChange($event)\"\n    autocomplete=\"off\">\n</div>",
+                    template: "<div class=\"ant-input-number-handler-wrap\">\n  <span unselectable=\"unselectable\"\n    class=\"ant-input-number-handler ant-input-number-handler-up\"\n    (mousedown)=\"up($event)\"\n    (mouseup)=\"stop()\"\n    (mouseleave)=\"stop()\"\n    [class.ant-input-number-handler-up-disabled]=\"disabledUp\">\n    <i nz-icon type=\"up\" class=\"ant-input-number-handler-up-inner\"></i>\n  </span>\n  <span unselectable=\"unselectable\"\n    class=\"ant-input-number-handler ant-input-number-handler-down\"\n    (mousedown)=\"down($event)\"\n    (mouseup)=\"stop()\"\n    (mouseleave)=\"stop()\"\n    [class.ant-input-number-handler-down-disabled]=\"disabledDown\">\n    <i nz-icon type=\"down\" class=\"ant-input-number-handler-down-inner\"></i>\n  </span>\n</div>\n<div class=\"ant-input-number-input-wrap\">\n  <input #inputElement\n    autocomplete=\"off\"\n    class=\"ant-input-number-input\"\n    [disabled]=\"nzDisabled\"\n    [attr.min]=\"nzMin\"\n    [attr.max]=\"nzMax\"\n    [placeholder]=\"nzPlaceHolder\"\n    [attr.step]=\"nzStep\"\n    (keydown)=\"onKeyDown($event)\"\n    (keyup)=\"onKeyUp()\"\n    (blur)=\"onBlur()\"\n    (focus)=\"onFocus()\"\n    [ngModel]=\"displayValue\"\n    (ngModelChange)=\"onModelChange($event)\">\n</div>",
                     providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
@@ -22311,18 +21243,27 @@ var NzInputNumberComponent = /** @class */ (function () {
                             multi: true
                         }
                     ],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     host: {
                         '[class.ant-input-number]': 'true',
-                        '[class.ant-input-number-focused]': 'isFocused'
+                        '[class.ant-input-number-focused]': 'isFocused',
+                        '[class.ant-input-number-lg]': "nzSize === 'large'",
+                        '[class.ant-input-number-sm]': "nzSize === 'small'",
+                        '[class.ant-input-number-disabled]': 'nzDisabled'
                     }
                 }] }
     ];
     /** @nocollapse */
     NzInputNumberComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: Renderer2 }
+        { type: Renderer2 },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
     ]; };
     NzInputNumberComponent.propDecorators = {
+        nzBlur: [{ type: Output }],
+        nzFocus: [{ type: Output }],
         inputElement: [{ type: ViewChild, args: ['inputElement',] }],
         nzSize: [{ type: Input }],
         nzMin: [{ type: Input }],
@@ -22330,13 +21271,19 @@ var NzInputNumberComponent = /** @class */ (function () {
         nzParser: [{ type: Input }],
         nzPrecision: [{ type: Input }],
         nzPlaceHolder: [{ type: Input }],
-        isLarge: [{ type: HostBinding, args: ['class.ant-input-number-lg',] }],
-        isSmall: [{ type: HostBinding, args: ['class.ant-input-number-sm',] }],
-        nzAutoFocus: [{ type: Input }],
-        nzDisabled: [{ type: Input }, { type: HostBinding, args: ['class.ant-input-number-disabled',] }],
         nzStep: [{ type: Input }],
+        nzDisabled: [{ type: Input }],
+        nzAutoFocus: [{ type: Input }],
         nzFormatter: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzInputNumberComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzInputNumberComponent.prototype, "nzAutoFocus", void 0);
     return NzInputNumberComponent;
 }());
 
@@ -22361,30 +21308,6 @@ var NzInputNumberModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var NzMatchMediaService = /** @class */ (function () {
-    function NzMatchMediaService() {
-    }
-    /**
-     * @param {?} mediaQuery
-     * @return {?}
-     */
-    NzMatchMediaService.prototype.matchMedia = /**
-     * @param {?} mediaQuery
-     * @return {?}
-     */
-    function (mediaQuery) {
-        return matchMedia(mediaQuery);
-    };
-    NzMatchMediaService.decorators = [
-        { type: Injectable }
-    ];
-    return NzMatchMediaService;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var NzContentComponent = /** @class */ (function () {
     function NzContentComponent() {
     }
@@ -22392,11 +21315,13 @@ var NzContentComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-content',
                     preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-layout-content]': 'true'
                     },
-                    styles: [":host {\n      display: block;\n    }"]
+                    styles: ["nz-content {\n      display: block;\n    }"]
                 }] }
     ];
     return NzContentComponent;
@@ -22413,11 +21338,13 @@ var NzFooterComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-footer',
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-layout-footer]': 'true'
                     },
-                    styles: [":host {\n      display: block;\n    }"]
+                    styles: ["nz-footer {\n      display: block;\n    }"]
                 }] }
     ];
     return NzFooterComponent;
@@ -22433,12 +21360,14 @@ var NzHeaderComponent = /** @class */ (function () {
     NzHeaderComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-header',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content>",
                     host: {
                         '[class.ant-layout-header]': 'true'
                     },
-                    styles: [":host {\n      display: block;\n    }"]
+                    styles: ["nz-header {\n      display: block;\n    }"]
                 }] }
     ];
     return NzHeaderComponent;
@@ -22449,20 +21378,45 @@ var NzHeaderComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzLayoutComponent = /** @class */ (function () {
-    function NzLayoutComponent() {
-        this.hasSider = false;
+    function NzLayoutComponent(elementRef, renderer) {
+        this.elementRef = elementRef;
+        this.renderer = renderer;
     }
+    /**
+     * @return {?}
+     */
+    NzLayoutComponent.prototype.destroySider = /**
+     * @return {?}
+     */
+    function () {
+        this.renderer.removeClass(this.elementRef.nativeElement, 'ant-layout-has-sider');
+    };
+    /**
+     * @return {?}
+     */
+    NzLayoutComponent.prototype.initSider = /**
+     * @return {?}
+     */
+    function () {
+        this.renderer.addClass(this.elementRef.nativeElement, 'ant-layout-has-sider');
+    };
     NzLayoutComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-layout',
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content>",
                     host: {
-                        '[class.ant-layout]': 'true',
-                        '[class.ant-layout-has-sider]': 'hasSider'
+                        '[class.ant-layout]': 'true'
                     }
                 }] }
     ];
+    /** @nocollapse */
+    NzLayoutComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ]; };
     return NzLayoutComponent;
 }());
 
@@ -22471,14 +21425,14 @@ var NzLayoutComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzSiderComponent = /** @class */ (function () {
-    function NzSiderComponent(nzLayoutComponent, nzMatchMediaService) {
+    function NzSiderComponent(nzLayoutComponent, mediaMatcher, ngZone, platform, cdr) {
         this.nzLayoutComponent = nzLayoutComponent;
-        this.nzMatchMediaService = nzMatchMediaService;
-        this._collapsed = false;
-        this._collapsible = false;
-        this._reverseArrow = false;
+        this.mediaMatcher = mediaMatcher;
+        this.ngZone = ngZone;
+        this.platform = platform;
+        this.cdr = cdr;
         this.below = false;
-        this.isInit = false;
+        this.destroy$ = new Subject();
         this.dimensionMap = {
             xs: '480px',
             sm: '576px',
@@ -22489,87 +21443,12 @@ var NzSiderComponent = /** @class */ (function () {
         };
         this.nzWidth = 200;
         this.nzCollapsedWidth = 80;
+        this.nzReverseArrow = false;
+        this.nzCollapsible = false;
+        this.nzCollapsed = false;
         this.nzCollapsedChange = new EventEmitter();
     }
-    Object.defineProperty(NzSiderComponent.prototype, "nzReverseArrow", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._reverseArrow;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._reverseArrow = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSiderComponent.prototype, "nzTrigger", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._trigger;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._trigger = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSiderComponent.prototype, "nzCollapsible", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._collapsible;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._collapsible = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSiderComponent.prototype, "nzCollapsed", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._collapsed;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._collapsed = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSiderComponent.prototype, "setZeroClass", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nzCollapsed && (this.nzCollapsedWidth === 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSiderComponent.prototype, "setFlex", {
+    Object.defineProperty(NzSiderComponent.prototype, "flexSetting", {
         get: /**
          * @return {?}
          */
@@ -22584,7 +21463,7 @@ var NzSiderComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzSiderComponent.prototype, "setWidth", {
+    Object.defineProperty(NzSiderComponent.prototype, "widthSetting", {
         get: /**
          * @return {?}
          */
@@ -22600,17 +21479,6 @@ var NzSiderComponent = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @param {?} e
-     * @return {?}
-     */
-    NzSiderComponent.prototype.onWindowResize = /**
-     * @param {?} e
-     * @return {?}
-     */
-    function (e) {
-        this.watchMatchMedia();
-    };
-    /**
      * @return {?}
      */
     NzSiderComponent.prototype.watchMatchMedia = /**
@@ -22619,12 +21487,11 @@ var NzSiderComponent = /** @class */ (function () {
     function () {
         if (this.nzBreakpoint) {
             /** @type {?} */
-            var matchBelow = this.nzMatchMediaService.matchMedia("(max-width: " + this.dimensionMap[this.nzBreakpoint] + ")").matches;
+            var matchBelow = this.mediaMatcher.matchMedia("(max-width: " + this.dimensionMap[this.nzBreakpoint] + ")").matches;
             this.below = matchBelow;
             this.nzCollapsed = matchBelow;
-            if (this.isInit) {
-                this.nzCollapsedChange.emit(matchBelow);
-            }
+            this.nzCollapsedChange.emit(matchBelow);
+            this.cdr.markForCheck();
         }
     };
     /**
@@ -22665,7 +21532,7 @@ var NzSiderComponent = /** @class */ (function () {
      */
     function () {
         if (this.nzLayoutComponent) {
-            this.nzLayoutComponent.hasSider = true;
+            this.nzLayoutComponent.initSider();
         }
     };
     /**
@@ -22676,39 +21543,75 @@ var NzSiderComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this.isInit = true;
-        Promise.resolve().then(function () { return _this.watchMatchMedia(); });
+        if (this.platform.isBrowser) {
+            Promise.resolve().then(function () { return _this.watchMatchMedia(); });
+            this.ngZone.runOutsideAngular(function () {
+                fromEvent(window, 'resize')
+                    .pipe(auditTime(16), takeUntil(_this.destroy$))
+                    .subscribe(function () { return _this.watchMatchMedia(); });
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzSiderComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+        if (this.nzLayoutComponent) {
+            this.nzLayoutComponent.destroySider();
+        }
     };
     NzSiderComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-sider',
                     preserveWhitespaces: false,
-                    template: "<div class=\"ant-layout-sider-children\">\n  <ng-content></ng-content>\n</div>\n<span class=\"ant-layout-sider-zero-width-trigger\" *ngIf=\"isZeroTrigger\" (click)=\"toggleCollapse()\">\n  <i nz-icon type=\"bars\"></i>\n</span>\n<div class=\"ant-layout-sider-trigger\" *ngIf=\"isSiderTrigger\" (click)=\"toggleCollapse()\" [style.width.px]=\"nzCollapsed?nzCollapsedWidth:nzWidth\">\n  <ng-template [ngTemplateOutlet]=\"nzTrigger\"></ng-template>\n</div>\n<ng-template #defaultTrigger>\n  <i nz-icon [type]=\"nzCollapsed ? 'right' : 'left'\" *ngIf=\"!nzReverseArrow\"></i>\n  <i nz-icon [type]=\"nzCollapsed ? 'left' : 'right'\" *ngIf=\"nzReverseArrow\"></i>\n</ng-template>",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    template: "<div class=\"ant-layout-sider-children\">\n  <ng-content></ng-content>\n</div>\n<span class=\"ant-layout-sider-zero-width-trigger\"\n  *ngIf=\"isZeroTrigger\"\n  (click)=\"toggleCollapse()\">\n  <i nz-icon type=\"bars\"></i>\n</span>\n<div class=\"ant-layout-sider-trigger\"\n  *ngIf=\"isSiderTrigger\"\n  (click)=\"toggleCollapse()\"\n  [style.width.px]=\"nzCollapsed ? nzCollapsedWidth : nzWidth\">\n  <ng-template [ngTemplateOutlet]=\"nzTrigger\"></ng-template>\n</div>\n<ng-template #defaultTrigger>\n  <i nz-icon [type]=\"nzCollapsed ? 'right' : 'left'\" *ngIf=\"!nzReverseArrow\"></i>\n  <i nz-icon [type]=\"nzCollapsed ? 'left' : 'right'\" *ngIf=\"nzReverseArrow\"></i>\n</ng-template>",
                     host: {
-                        '[class.ant-layout-sider]': 'true'
+                        '[class.ant-layout-sider]': 'true',
+                        '[class.ant-layout-sider-zero-width]': 'nzCollapsed && (nzCollapsedWidth===0)',
+                        '[style.flex]': 'flexSetting',
+                        '[style.max-width.px]': 'widthSetting',
+                        '[style.min-width.px]': 'widthSetting',
+                        '[style.width.px]': 'widthSetting'
                     }
                 }] }
     ];
     /** @nocollapse */
     NzSiderComponent.ctorParameters = function () { return [
         { type: NzLayoutComponent, decorators: [{ type: Optional }, { type: Host }] },
-        { type: NzMatchMediaService }
+        { type: MediaMatcher },
+        { type: NgZone },
+        { type: Platform },
+        { type: ChangeDetectorRef }
     ]; };
     NzSiderComponent.propDecorators = {
-        _trigger: [{ type: ViewChild, args: ['defaultTrigger',] }],
         nzWidth: [{ type: Input }],
         nzCollapsedWidth: [{ type: Input }],
         nzBreakpoint: [{ type: Input }],
         nzReverseArrow: [{ type: Input }],
-        nzTrigger: [{ type: Input }],
         nzCollapsible: [{ type: Input }],
+        nzTrigger: [{ type: Input }, { type: ViewChild, args: ['defaultTrigger',] }],
         nzCollapsed: [{ type: Input }, { type: HostBinding, args: ['class.ant-layout-sider-collapsed',] }],
-        nzCollapsedChange: [{ type: Output }],
-        setZeroClass: [{ type: HostBinding, args: ['class.ant-layout-sider-zero-width',] }],
-        setFlex: [{ type: HostBinding, args: ['style.flex',] }],
-        setWidth: [{ type: HostBinding, args: ['style.max-width.px',] }, { type: HostBinding, args: ['style.min-width.px',] }, { type: HostBinding, args: ['style.width.px',] }],
-        onWindowResize: [{ type: HostListener, args: ['window:resize', ['$event'],] }]
+        nzCollapsedChange: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSiderComponent.prototype, "nzReverseArrow", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSiderComponent.prototype, "nzCollapsible", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSiderComponent.prototype, "nzCollapsed", void 0);
     return NzSiderComponent;
 }());
 
@@ -22723,8 +21626,7 @@ var NzLayoutModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzLayoutComponent, NzHeaderComponent, NzContentComponent, NzFooterComponent, NzSiderComponent],
                     exports: [NzLayoutComponent, NzHeaderComponent, NzContentComponent, NzFooterComponent, NzSiderComponent],
-                    providers: [NzMatchMediaService],
-                    imports: [CommonModule, NzIconModule]
+                    imports: [CommonModule, NzIconModule, LayoutModule, PlatformModule]
                 },] }
     ];
     return NzLayoutModule;
@@ -22735,49 +21637,22 @@ var NzLayoutModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzSpinComponent = /** @class */ (function () {
-    function NzSpinComponent(elementRef, renderer, zone) {
+    function NzSpinComponent(elementRef, renderer) {
         this.elementRef = elementRef;
         this.renderer = renderer;
-        this.zone = zone;
-        this._delay = 0;
-        this.el = this.elementRef.nativeElement;
-        this.baseSpinning$ = new BehaviorSubject(true);
-        this.resultSpinning$ = this.baseSpinning$.asObservable().pipe(debounceTime(this.nzDelay));
+        this.spinning$ = new BehaviorSubject(true);
+        this.debounceSpinning$ = this.spinning$.asObservable().pipe(debounceTime(0));
         this.nzSize = 'default';
     }
     Object.defineProperty(NzSpinComponent.prototype, "nzDelay", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._delay;
-        },
         set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             if (isNotNil(value)) {
-                this._delay = value;
-                this.resultSpinning$ = this.baseSpinning$.asObservable().pipe(debounceTime(this.nzDelay));
+                this.debounceSpinning$ = this.spinning$.asObservable().pipe(debounceTime(value));
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSpinComponent.prototype, "nzTip", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._tip;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._tip = value;
         },
         enumerable: true,
         configurable: true
@@ -22788,7 +21663,7 @@ var NzSpinComponent = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            this.baseSpinning$.next(toBoolean(value));
+            this.spinning$.next(toBoolean(value));
         },
         enumerable: true,
         configurable: true
@@ -22801,6 +21676,8 @@ var NzSpinComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
+        var el = this.elementRef.nativeElement;
+        /** @type {?} */
         var containerElement = this.containerElement.nativeElement;
         /** @type {?} */
         var nestedElement = this.nestedElement.nativeElement;
@@ -22808,12 +21685,12 @@ var NzSpinComponent = /** @class */ (function () {
         /** https://github.com/angular/material2/issues/11280 **/
         if (!isEmpty(containerElement)) {
             this.renderer.removeStyle(containerElement, 'display');
-            this.renderer.setStyle(this.el, 'display', 'block');
+            this.renderer.setStyle(el, 'display', 'block');
             this.renderer.addClass(nestedElement, 'ant-spin-nested-loading');
         }
         else {
             this.renderer.setStyle(containerElement, 'display', 'none');
-            this.renderer.removeStyle(this.el, 'display');
+            this.renderer.removeStyle(el, 'display');
             this.renderer.removeClass(nestedElement, 'ant-spin-nested-loading');
         }
     };
@@ -22830,23 +21707,23 @@ var NzSpinComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-spin',
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    template: "<ng-template #defaultIndicatorTemplate>\n  <span\n    class=\"ant-spin-dot\"\n    [class.ant-spin-dot-spin]=\"resultSpinning$|async\">\n    <i></i><i></i><i></i><i></i>\n  </span>\n</ng-template>\n<div #nestedElement>\n  <div [hidden]=\"!(resultSpinning$|async)\">\n    <div\n      class=\"ant-spin\"\n      [class.ant-spin-spinning]=\"resultSpinning$|async\"\n      [class.ant-spin-lg]=\"nzSize=='large'\"\n      [class.ant-spin-sm]=\"nzSize=='small'\"\n      [class.ant-spin-show-text]=\"nzTip\">\n      <ng-template [ngTemplateOutlet]=\"nzIndicator||defaultIndicatorTemplate\"></ng-template>\n      <div class=\"ant-spin-text\" *ngIf=\"nzTip\">{{ nzTip }}</div>\n    </div>\n  </div>\n  <div\n    #containerElement\n    class=\"ant-spin-container\"\n    [class.ant-spin-blur]=\"resultSpinning$|async\"\n    (cdkObserveContent)=\"checkNested()\">\n    <ng-content></ng-content>\n  </div>\n</div>"
+                    template: "<ng-template #defaultIndicatorTemplate>\n  <span class=\"ant-spin-dot\"\n    [class.ant-spin-dot-spin]=\"(debounceSpinning$ | async) === true\">\n    <i></i><i></i><i></i><i></i>\n  </span>\n</ng-template>\n<div #nestedElement>\n  <div [hidden]=\"!((debounceSpinning$ | async) === true)\">\n    <div class=\"ant-spin\"\n      [class.ant-spin-spinning]=\"(debounceSpinning$ | async) === true\"\n      [class.ant-spin-lg]=\"nzSize === 'large'\"\n      [class.ant-spin-sm]=\"nzSize === 'small'\"\n      [class.ant-spin-show-text]=\"nzTip\">\n      <ng-template [ngTemplateOutlet]=\"nzIndicator || defaultIndicatorTemplate\"></ng-template>\n      <div class=\"ant-spin-text\" *ngIf=\"nzTip\">{{ nzTip }}</div>\n    </div>\n  </div>\n  <div #containerElement\n    class=\"ant-spin-container\"\n    [class.ant-spin-blur]=\"(debounceSpinning$ | async) === true\"\n    (cdkObserveContent)=\"checkNested()\">\n    <ng-content></ng-content>\n  </div>\n</div>"
                 }] }
     ];
     /** @nocollapse */
     NzSpinComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: Renderer2 },
-        { type: NgZone }
+        { type: Renderer2 }
     ]; };
     NzSpinComponent.propDecorators = {
         containerElement: [{ type: ViewChild, args: ['containerElement',] }],
         nestedElement: [{ type: ViewChild, args: ['nestedElement',] }],
         nzIndicator: [{ type: Input }],
         nzSize: [{ type: Input }],
-        nzDelay: [{ type: Input }],
         nzTip: [{ type: Input }],
+        nzDelay: [{ type: Input }],
         nzSpinning: [{ type: Input }]
     };
     return NzSpinComponent;
@@ -22875,12 +21752,7 @@ var NzSpinModule = /** @class */ (function () {
  */
 var NzListItemMetaComponent = /** @class */ (function () {
     function NzListItemMetaComponent() {
-        this.isAvatar = false;
         this.avatarStr = '';
-        this.isTitle = false;
-        this.titleStr = '';
-        this.isDesc = false;
-        this.descStr = '';
     }
     Object.defineProperty(NzListItemMetaComponent.prototype, "nzAvatar", {
         set: /**
@@ -22895,43 +21767,6 @@ var NzListItemMetaComponent = /** @class */ (function () {
             else {
                 this.avatarStr = value;
             }
-            this.isAvatar = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzListItemMetaComponent.prototype, "nzTitle", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this.titleStr = null;
-                this.titleTpl = value;
-            }
-            else {
-                this.titleStr = value;
-            }
-            this.isTitle = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzListItemMetaComponent.prototype, "nzDescription", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this.descStr = null;
-                this.descTpl = value;
-            }
-            else {
-                this.descStr = value;
-            }
-            this.isDesc = !!value;
         },
         enumerable: true,
         configurable: true
@@ -22939,8 +21774,10 @@ var NzListItemMetaComponent = /** @class */ (function () {
     NzListItemMetaComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-list-item-meta',
-                    template: "<div *ngIf=\"isAvatar\" class=\"ant-list-item-meta-avatar\">\n  <ng-container *ngIf=\"avatarStr; else avatarTpl\">\n    <nz-avatar [nzSrc]=\"avatarStr\"></nz-avatar>\n  </ng-container>\n</div>\n<div *ngIf=\"isTitle || isDesc\" class=\"ant-list-item-meta-content\">\n  <h4 *ngIf=\"isTitle\" class=\"ant-list-item-meta-title\">\n    <ng-container *ngIf=\"titleStr; else titleTpl\">{{ titleStr }}</ng-container>\n  </h4>\n  <div *ngIf=\"isDesc\" class=\"ant-list-item-meta-description\">\n    <ng-container *ngIf=\"descStr; else descTpl\">{{ descStr }}</ng-container>\n  </div>\n</div>",
+                    template: "<div *ngIf=\"avatarStr || avatarTpl\" class=\"ant-list-item-meta-avatar\">\n  <ng-container *ngIf=\"avatarStr; else avatarTpl\">\n    <nz-avatar [nzSrc]=\"avatarStr\"></nz-avatar>\n  </ng-container>\n</div>\n<div *ngIf=\"nzTitle || nzDescription\" class=\"ant-list-item-meta-content\">\n  <h4 *ngIf=\"nzTitle\" class=\"ant-list-item-meta-title\">\n    <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n  </h4>\n  <div *ngIf=\"nzDescription\" class=\"ant-list-item-meta-description\">\n    <ng-container *nzStringTemplateOutlet=\"nzDescription\">{{ nzDescription }}</ng-container>\n  </div>\n</div>",
                     preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     host: {
                         '[class.ant-list-item-meta]': 'true'
                     }
@@ -22961,40 +21798,22 @@ var NzListItemMetaComponent = /** @class */ (function () {
 var NzListItemComponent = /** @class */ (function () {
     function NzListItemComponent() {
         this.nzActions = [];
-        this.isCon = false;
-        this.conStr = '';
     }
-    Object.defineProperty(NzListItemComponent.prototype, "nzContent", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this.conStr = null;
-                this.conTpl = value;
-            }
-            else {
-                this.conStr = value;
-            }
-            this.isCon = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     NzListItemComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-list-item',
-                    template: "<ng-template #contentTpl>\n  <div *ngIf=\"isCon\" class=\"ant-list-item-content\" [ngClass]=\"{'ant-list-item-content-single': metas.length < 1}\">\n    <ng-container *ngIf=\"conStr; else conTpl\">{{ conStr }}</ng-container>\n  </div>\n</ng-template>\n<ng-template #actionsTpl>\n  <ul *ngIf=\"nzActions?.length > 0\" class=\"ant-list-item-action\">\n    <li *ngFor=\"let i of nzActions; let idx = index\">\n      <ng-template [ngTemplateOutlet]=\"i\"></ng-template>\n      <em *ngIf=\"idx!==nzActions.length-1\" class=\"ant-list-item-action-split\"></em>\n    </li>\n  </ul>\n</ng-template>\n<ng-template #mainTpl>\n  <ng-content></ng-content>\n  <ng-template [ngTemplateOutlet]=\"contentTpl\"></ng-template>\n  <ng-template [ngTemplateOutlet]=\"actionsTpl\"></ng-template>\n</ng-template>\n<div *ngIf=\"nzExtra; else mainTpl\" class=\"ant-list-item-extra-wrap\">\n  <div class=\"ant-list-item-main\">\n    <ng-template [ngTemplateOutlet]=\"mainTpl\"></ng-template>\n  </div>\n  <div class=\"ant-list-item-extra\">\n    <ng-template [ngTemplateOutlet]=\"nzExtra\"></ng-template>\n  </div>\n</div>",
+                    template: "<ng-template #contentTpl>\n  <div *ngIf=\"nzContent\" class=\"ant-list-item-content\" [ngClass]=\"{'ant-list-item-content-single': metas.length < 1}\">\n    <ng-container *nzStringTemplateOutlet=\"nzContent\">{{ nzContent }}</ng-container>\n  </div>\n</ng-template>\n<ng-template #actionsTpl>\n  <ul *ngIf=\"nzActions?.length > 0\" class=\"ant-list-item-action\">\n    <li *ngFor=\"let i of nzActions; let last=last;\">\n      <ng-template [ngTemplateOutlet]=\"i\"></ng-template>\n      <em *ngIf=\"!last\" class=\"ant-list-item-action-split\"></em>\n    </li>\n  </ul>\n</ng-template>\n<ng-template #mainTpl>\n  <ng-content></ng-content>\n  <ng-template [ngTemplateOutlet]=\"contentTpl\"></ng-template>\n  <ng-template [ngTemplateOutlet]=\"actionsTpl\"></ng-template>\n</ng-template>\n<div *ngIf=\"nzExtra; else mainTpl\" class=\"ant-list-item-extra-wrap\">\n  <div class=\"ant-list-item-main\">\n    <ng-template [ngTemplateOutlet]=\"mainTpl\"></ng-template>\n  </div>\n  <div class=\"ant-list-item-extra\">\n    <ng-template [ngTemplateOutlet]=\"nzExtra\"></ng-template>\n  </div>\n</div>",
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     host: {
                         '[class.ant-list-item]': 'true'
                     }
                 }] }
     ];
     NzListItemComponent.propDecorators = {
-        nzActions: [{ type: Input }],
         metas: [{ type: ContentChildren, args: [NzListItemMetaComponent,] }],
+        nzActions: [{ type: Input }],
         nzContent: [{ type: Input }],
         nzExtra: [{ type: Input }]
     };
@@ -23015,52 +21834,12 @@ var NzListComponent = /** @class */ (function () {
         /* tslint:disable-next-line:no-any */
         this.locale = {};
         this.nzBordered = false;
-        this._isHeader = false;
-        this._header = '';
-        this._isFooter = false;
-        this._footer = '';
         this.nzItemLayout = 'horizontal';
         this.nzLoading = false;
         this.nzSize = 'default';
         this.nzSplit = true;
         this.prefixCls = 'ant-list';
     }
-    Object.defineProperty(NzListComponent.prototype, "nzHeader", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this._header = null;
-                this._headerTpl = value;
-            }
-            else {
-                this._header = value;
-            }
-            this._isHeader = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzListComponent.prototype, "nzFooter", {
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value instanceof TemplateRef) {
-                this._footer = null;
-                this._footerTpl = value;
-            }
-            else {
-                this._footer = value;
-            }
-            this._isFooter = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -23079,7 +21858,7 @@ var NzListComponent = /** @class */ (function () {
             _a[this.prefixCls + "-bordered"] = this.nzBordered,
             _a[this.prefixCls + "-loading"] = this.nzLoading,
             _a[this.prefixCls + "-grid"] = this.nzGrid,
-            _a[this.prefixCls + "-something-after-last-item"] = !!(this.nzLoadMore || this.nzPagination || this._isFooter),
+            _a[this.prefixCls + "-something-after-last-item"] = !!(this.nzLoadMore || this.nzPagination || this.nzFooter),
             _a);
         this.updateHostClassService.updateHostClass(this.el.nativeElement, classMap);
     };
@@ -23095,6 +21874,7 @@ var NzListComponent = /** @class */ (function () {
             _this.locale = _this.i18n.getLocaleData('Table');
             _this.cd.detectChanges();
         });
+        this._setClassMap();
     };
     /**
      * @return {?}
@@ -23117,11 +21897,12 @@ var NzListComponent = /** @class */ (function () {
     NzListComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-list',
-                    template: "<ng-template #itemsTpl>\n  <ng-container *ngFor=\"let item of nzDataSource; let index = index\">\n    <ng-template\n      [ngTemplateOutlet]=\"nzRenderItem\"\n      [ngTemplateOutletContext]=\"{ $implicit: item, index: index }\"></ng-template>\n  </ng-container>\n</ng-template>\n<div *ngIf=\"_isHeader\" class=\"ant-list-header\">\n  <ng-container *ngIf=\"_header; else _headerTpl\">{{ _header }}</ng-container>\n</div>\n<nz-spin [nzSpinning]=\"nzLoading\">\n  <ng-container *ngIf=\"nzDataSource\">\n    <div *ngIf=\"nzLoading && nzDataSource.length === 0\" [style.min-height.px]=\"53\"></div>\n    <div *ngIf=\"nzGrid; else itemsTpl\" nz-row [nzGutter]=\"nzGrid.gutter\">\n      <div nz-col [nzSpan]=\"nzGrid.span\" [nzXs]=\"nzGrid.xs\" [nzSm]=\"nzGrid.sm\" [nzMd]=\"nzGrid.md\" [nzLg]=\"nzGrid.lg\" [nzXl]=\"nzGrid.xl\" [nzXXl]=\"nzGrid.xxl\"\n        *ngFor=\"let item of nzDataSource; let index = index\">\n        <ng-template\n          [ngTemplateOutlet]=\"nzRenderItem\"\n          [ngTemplateOutletContext]=\"{ $implicit: item, index: index }\"></ng-template>\n      </div>\n    </div>\n    <div *ngIf=\"!nzLoading && nzDataSource.length === 0\" class=\"ant-list-empty-text\">\n      {{locale.emptyText}}\n    </div>\n  </ng-container>\n  <ng-content></ng-content>\n</nz-spin>\n<div *ngIf=\"_isFooter\" class=\"ant-list-footer\">\n  <ng-container *ngIf=\"_footer; else _footerTpl\">{{ _footer }}</ng-container>\n</div>\n<ng-template [ngTemplateOutlet]=\"nzLoadMore\"></ng-template>\n<div *ngIf=\"nzPagination\" class=\"ant-list-pagination\">\n  <ng-template [ngTemplateOutlet]=\"nzPagination\"></ng-template>\n</div>",
+                    template: "<ng-template #itemsTpl>\n  <ng-container *ngFor=\"let item of nzDataSource; let index = index\">\n    <ng-template [ngTemplateOutlet]=\"nzRenderItem\" [ngTemplateOutletContext]=\"{ $implicit: item, index: index }\"></ng-template>\n  </ng-container>\n</ng-template>\n<div *ngIf=\"nzHeader\" class=\"ant-list-header\">\n  <ng-container *nzStringTemplateOutlet=\"nzHeader\">{{ nzHeader }}</ng-container>\n</div>\n<nz-spin [nzSpinning]=\"nzLoading\">\n  <ng-container *ngIf=\"nzDataSource\">\n    <div *ngIf=\"nzLoading && nzDataSource.length === 0\" [style.min-height.px]=\"53\"></div>\n    <div *ngIf=\"nzGrid; else itemsTpl\" nz-row [nzGutter]=\"nzGrid.gutter\">\n      <div nz-col [nzSpan]=\"nzGrid.span\" [nzXs]=\"nzGrid.xs\" [nzSm]=\"nzGrid.sm\" [nzMd]=\"nzGrid.md\" [nzLg]=\"nzGrid.lg\" [nzXl]=\"nzGrid.xl\"\n           [nzXXl]=\"nzGrid.xxl\" *ngFor=\"let item of nzDataSource; let index = index\">\n        <ng-template [ngTemplateOutlet]=\"nzRenderItem\" [ngTemplateOutletContext]=\"{ $implicit: item, index: index }\"></ng-template>\n      </div>\n    </div>\n    <div *ngIf=\"!nzLoading && nzDataSource.length === 0\" class=\"ant-list-empty-text\">\n      {{locale.emptyText}}\n    </div>\n  </ng-container>\n  <ng-content></ng-content>\n</nz-spin>\n<div *ngIf=\"nzFooter\" class=\"ant-list-footer\">\n  <ng-container *nzStringTemplateOutlet=\"nzFooter\">{{ nzFooter }}</ng-container>\n</div>\n<ng-template [ngTemplateOutlet]=\"nzLoadMore\"></ng-template>\n<div *ngIf=\"nzPagination\" class=\"ant-list-pagination\">\n  <ng-template [ngTemplateOutlet]=\"nzPagination\"></ng-template>\n</div>",
                     providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    styles: ["\n    :host {\n      display: block;\n    }\n\n    nz-spin {\n      display: block;\n    }\n  "]
+                    styles: ["\n    nz-list, nz-list nz-spin {\n      display: block;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
@@ -23169,7 +21950,7 @@ var NzListModule = /** @class */ (function () {
     }
     NzListModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, NzSpinModule, NzGridModule, NzAvatarModule, NzI18nModule],
+                    imports: [CommonModule, NzSpinModule, NzGridModule, NzAvatarModule, NzI18nModule, NzAddOnModule],
                     declarations: [NzListComponent, NzListItemComponent, NzListItemMetaComponent],
                     exports: [NzListComponent, NzListItemComponent, NzListItemMetaComponent]
                 },] }
@@ -23333,253 +22114,26 @@ var NzMentionTriggerDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @param {?} prefix
- * @return {?}
- */
-function getRegExp(prefix) {
-    /** @type {?} */
-    var prefixArray = Array.isArray(prefix) ? prefix : [prefix];
-    /** @type {?} */
-    var prefixToken = prefixArray.join('').replace(/(\$|\^)/g, '\\$1');
-    if (prefixArray.length > 1) {
-        prefixToken = "[" + prefixToken + "]";
-    }
-    return new RegExp("(\\s|^)(" + prefixToken + ")[^\\s]*", 'g');
-}
-/**
- * @param {?} value
- * @param {?=} prefix
- * @return {?}
- */
-function getMentions(value, prefix) {
-    if (prefix === void 0) { prefix = '@'; }
-    if (typeof value !== 'string') {
-        return [];
-    }
-    /** @type {?} */
-    var regex = getRegExp(prefix);
-    /** @type {?} */
-    var mentions = value.match(regex);
-    return mentions !== null ? mentions.map(function (e) { return e.trim(); }) : [];
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-// from https://github.com/component/textarea-caret-position
-/** @type {?} */
-var properties = [
-    'direction',
-    'boxSizing',
-    'width',
-    'height',
-    'overflowX',
-    'overflowY',
-    'borderTopWidth',
-    'borderRightWidth',
-    'borderBottomWidth',
-    'borderLeftWidth',
-    'borderStyle',
-    'paddingTop',
-    'paddingRight',
-    'paddingBottom',
-    'paddingLeft',
-    'fontStyle',
-    'fontVariant',
-    'fontWeight',
-    'fontStretch',
-    'fontSize',
-    'fontSizeAdjust',
-    'lineHeight',
-    'fontFamily',
-    'textAlign',
-    'textTransform',
-    'textIndent',
-    'textDecoration',
-    'letterSpacing',
-    'wordSpacing',
-    'tabSize',
-    'MozTabSize'
-];
-/** @type {?} */
-var isBrowser = (typeof window !== 'undefined');
-/** @type {?} */
-var isFirefox = (isBrowser && (/** @type {?} */ (window)).mozInnerScreenX != null);
-/** @type {?} */
-var _parseInt = function (str) { return parseInt(str, 10); };
-/**
- * @param {?} element
- * @param {?} position
- * @param {?=} options
- * @return {?}
- */
-function getCaretCoordinates(element, position, options) {
-    if (!isBrowser) {
-        throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
-    }
-    /** @type {?} */
-    var debug = options && options.debug || false;
-    if (debug) {
-        /** @type {?} */
-        var el = document.querySelector('#input-textarea-caret-position-mirror-div');
-        if (el) {
-            el.parentNode.removeChild(el);
-        }
-    }
-    /** @type {?} */
-    var div = document.createElement('div');
-    div.id = 'input-textarea-caret-position-mirror-div';
-    document.body.appendChild(div);
-    /** @type {?} */
-    var style$$1 = div.style;
-    /** @type {?} */
-    var computed = window.getComputedStyle ? window.getComputedStyle(element) : (/** @type {?} */ (element)).currentStyle;
-    /** @type {?} */
-    var isInput = element.nodeName === 'INPUT';
-    // Default textarea styles
-    style$$1.whiteSpace = 'pre-wrap';
-    if (!isInput) {
-        style$$1.wordWrap = 'break-word'; // only for textarea-s
-    }
-    // Position off-screen
-    style$$1.position = 'absolute'; // required to return coordinates properly
-    if (!debug) {
-        style$$1.visibility = 'hidden';
-    } // not 'display: none' because we want rendering
-    // Transfer the element's properties to the div
-    properties.forEach(function (prop) {
-        if (isInput && prop === 'lineHeight') {
-            // Special case for <input>s because text is rendered centered and line height may be != height
-            style$$1.lineHeight = computed.height;
-        }
-        else {
-            style$$1[prop] = computed[prop];
-        }
-    });
-    if (isFirefox) {
-        // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
-        if (element.scrollHeight > _parseInt(computed.height)) {
-            style$$1.overflowY = 'scroll';
-        }
-    }
-    else {
-        style$$1.overflow = 'hidden'; // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
-    }
-    div.textContent = element.value.substring(0, position);
-    // The second special handling for input type="text" vs textarea:
-    // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
-    if (isInput) {
-        div.textContent = div.textContent.replace(/\s/g, '\u00a0');
-    }
-    /** @type {?} */
-    var span = document.createElement('span');
-    // Wrapping must be replicated *exactly*, including when a long word gets
-    // onto the next line, with whitespace at the end of the line before (#7).
-    // The  *only* reliable way to do that is to copy the *entire* rest of the
-    // textarea's content into the <span> created at the caret position.
-    // For inputs, just '.' would be enough, but no need to bother.
-    span.textContent = element.value.substring(position) || '.'; // || because a completely empty faux span doesn't render at all
-    div.appendChild(span);
-    /** @type {?} */
-    var coordinates = {
-        top: span.offsetTop + _parseInt(computed.borderTopWidth),
-        left: span.offsetLeft + _parseInt(computed.borderLeftWidth),
-        height: _parseInt(computed.lineHeight)
-    };
-    if (debug) {
-        span.style.backgroundColor = '#eee';
-        createDebugEle(element, coordinates);
-    }
-    else {
-        document.body.removeChild(div);
-    }
-    return coordinates;
-}
-/**
- * @param {?} element
- * @param {?} coordinates
- * @return {?}
- */
-function createDebugEle(element, coordinates) {
-    /** @type {?} */
-    var fontSize = getComputedStyle(element).getPropertyValue('font-size');
-    /** @type {?} */
-    var rect = (/** @type {?} */ (document.querySelector('#DEBUG')))
-        || document.createElement('div');
-    document.body.appendChild(rect);
-    rect.id = 'DEBUG';
-    rect.style.position = 'absolute';
-    rect.style.backgroundColor = 'red';
-    rect.style.height = fontSize;
-    rect.style.width = '1px';
-    rect.style.top = element.getBoundingClientRect().top - element.scrollTop + window.pageYOffset + coordinates.top + "px";
-    rect.style.left = element.getBoundingClientRect().left - element.scrollLeft + window.pageXOffset + coordinates.left + "px";
-    console.log(rect.style.top);
-    console.log(rect.style.left);
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var NzMentionComponent = /** @class */ (function () {
-    function NzMentionComponent(document, ngZone, overlay, viewContainerRef) {
-        this.document = document;
+    function NzMentionComponent(ngDocument, changeDetectorRef, ngZone, overlay, viewContainerRef) {
+        this.ngDocument = ngDocument;
+        this.changeDetectorRef = changeDetectorRef;
         this.ngZone = ngZone;
         this.overlay = overlay;
         this.viewContainerRef = viewContainerRef;
-        this.nzOnSelect = new EventEmitter();
-        this.nzOnSearchChange = new EventEmitter();
-        this.nzValueWith = function (value) { return value; };
+        this.nzValueWith = function (value) { return value; }; // tslint:disable-line:no-any
         this.nzPrefix = '@';
         this.nzLoading = false;
         this.nzNotFoundContent = '无匹配结果，轻敲空格完成输入';
+        this.nzPlacement = 'bottom';
+        this.nzSuggestions = [];
+        this.nzOnSelect = new EventEmitter();
+        this.nzOnSearchChange = new EventEmitter();
         this.isOpen = false;
-        this.suggestionTemplate = null;
+        this.filteredSuggestions = [];
+        this.suggestionTemplate = null; // tslint:disable-line:no-any
         this.activeIndex = -1;
-        this._placement = 'bottom';
     }
-    Object.defineProperty(NzMentionComponent.prototype, "nzSuggestions", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._suggestions;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._suggestions = value;
-            if (this.isOpen) {
-                this.previousValue = null;
-                this.activeIndex = -1;
-                this.resetDropdown(false);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzMentionComponent.prototype, "nzPlacement", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._placement;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._placement = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzMentionComponent.prototype, "suggestionChild", {
         set: /**
          * @param {?} value
@@ -23603,6 +22157,23 @@ var NzMentionComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzMentionComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes.hasOwnProperty('nzSuggestions')) {
+            if (this.isOpen) {
+                this.previousValue = null;
+                this.activeIndex = -1;
+                this.resetDropdown(false);
+            }
+        }
+    };
     /**
      * @return {?}
      */
@@ -23632,6 +22203,7 @@ var NzMentionComponent = /** @class */ (function () {
             this.overlayRef.detach();
             this.overlayBackdropClickSubscription.unsubscribe();
             this.isOpen = false;
+            this.changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -23643,6 +22215,7 @@ var NzMentionComponent = /** @class */ (function () {
     function () {
         this.attachOverlay();
         this.isOpen = true;
+        this.changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -23805,6 +22378,7 @@ var NzMentionComponent = /** @class */ (function () {
         this.activeIndex = this.activeIndex + 1 <= this.filteredSuggestions.length - 1
             ? this.activeIndex + 1
             : 0;
+        this.changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -23816,6 +22390,7 @@ var NzMentionComponent = /** @class */ (function () {
         this.activeIndex = this.activeIndex - 1 < 0
             ? this.filteredSuggestions.length - 1
             : this.activeIndex - 1;
+        this.changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -23900,7 +22475,7 @@ var NzMentionComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        return merge(fromEvent(this.document, 'click'), fromEvent(this.document, 'touchend'))
+        return merge(fromEvent(this.ngDocument, 'click'), fromEvent(this.ngDocument, 'touchend'))
             .subscribe(function (event) {
             /** @type {?} */
             var clickTarget = /** @type {?} */ (event.target);
@@ -23962,29 +22537,35 @@ var NzMentionComponent = /** @class */ (function () {
                     selector: 'nz-mention',
                     template: "<ng-content></ng-content>\n<ng-template #suggestions>\n  <ul class=\"ant-mention-dropdown\">\n    <li class=\"ant-mention-dropdown-item\"\n        *ngFor=\"let suggestion of filteredSuggestions; let i = index\"\n        [class.focus]=\"i === activeIndex\"\n        (click)=\"selectSuggestion(suggestion)\">\n      <ng-container *ngIf=\"suggestionTemplate else defaultSuggestion\">\n        <ng-container *ngTemplateOutlet=\"suggestionTemplate; context: {$implicit: suggestion}\"></ng-container>\n      </ng-container>\n      <ng-template #defaultSuggestion>{{ nzValueWith(suggestion) }}</ng-template>\n    </li>\n    <li class=\"ant-mention-dropdown-notfound ant-mention-dropdown-item\"\n        *ngIf=\"filteredSuggestions.length === 0\">\n      <span *ngIf=\"nzLoading\"><i nz-icon type=\"loading\"></i></span>\n      <span *ngIf=\"!nzLoading\">{{ nzNotFoundContent }}</span>\n    </li>\n  </ul>\n</ng-template>\n",
                     preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     styles: ["\n    .ant-mention-dropdown {\n      top: 100%;\n      left: 0;\n      position: relative;\n      width: 100%;\n      margin-top: 4px;\n      margin-bottom: 4px;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
     NzMentionComponent.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: ChangeDetectorRef },
         { type: NgZone },
         { type: Overlay },
         { type: ViewContainerRef }
     ]; };
     NzMentionComponent.propDecorators = {
-        nzOnSelect: [{ type: Output }],
-        nzOnSearchChange: [{ type: Output }],
         nzValueWith: [{ type: Input }],
         nzPrefix: [{ type: Input }],
         nzLoading: [{ type: Input }],
         nzNotFoundContent: [{ type: Input }],
-        nzSuggestions: [{ type: Input }],
         nzPlacement: [{ type: Input }],
+        nzSuggestions: [{ type: Input }],
+        nzOnSelect: [{ type: Output }],
+        nzOnSearchChange: [{ type: Output }],
         trigger: [{ type: ContentChild, args: [NzMentionTriggerDirective,] }],
         suggestionsTemp: [{ type: ViewChild, args: [TemplateRef,] }],
         suggestionChild: [{ type: ContentChild, args: [NzMentionSuggestionDirective, { read: TemplateRef },] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzMentionComponent.prototype, "nzLoading", void 0);
     return NzMentionComponent;
 }());
 
@@ -24031,7 +22612,8 @@ var NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER = {
  * @suppress {checkTypes} checked by tsc
  */
 var NzMessageContainerComponent = /** @class */ (function () {
-    function NzMessageContainerComponent(defaultConfig, config) {
+    function NzMessageContainerComponent(cdr, defaultConfig, config) {
+        this.cdr = cdr;
         this.messages = [];
         this.config = {};
         this.setConfig(__assign({}, defaultConfig, config));
@@ -24062,6 +22644,7 @@ var NzMessageContainerComponent = /** @class */ (function () {
         }
         message.options = this._mergeMessageOptions(message.options);
         this.messages.push(message);
+        this.cdr.detectChanges();
     };
     // Remove a message by messageId
     /**
@@ -24077,6 +22660,7 @@ var NzMessageContainerComponent = /** @class */ (function () {
         this.messages.some(function (message, index) {
             if (message.messageId === messageId) {
                 _this.messages.splice(index, 1);
+                _this.cdr.detectChanges();
                 return true;
             }
         });
@@ -24090,8 +22674,9 @@ var NzMessageContainerComponent = /** @class */ (function () {
      */
     function () {
         this.messages = [];
+        this.cdr.detectChanges();
     };
-    // Merge default options and cutom message options
+    // Merge default options and custom message options
     /**
      * @param {?} options
      * @return {?}
@@ -24111,6 +22696,8 @@ var NzMessageContainerComponent = /** @class */ (function () {
     };
     NzMessageContainerComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-message-container',
                     preserveWhitespaces: false,
                     template: "<div class=\"ant-message\">\n  <nz-message *ngFor=\"let message of messages; let i = index\" [nzMessage]=\"message\" [nzIndex]=\"i\"></nz-message>\n</div>"
@@ -24118,6 +22705,7 @@ var NzMessageContainerComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     NzMessageContainerComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_MESSAGE_DEFAULT_CONFIG,] }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_MESSAGE_CONFIG,] }] }
     ]; };
@@ -24129,8 +22717,9 @@ var NzMessageContainerComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzMessageComponent = /** @class */ (function () {
-    function NzMessageComponent(_messageContainer) {
+    function NzMessageComponent(_messageContainer, cdr) {
         this._messageContainer = _messageContainer;
+        this.cdr = cdr;
         this._eraseTimer = null;
     }
     /**
@@ -24195,6 +22784,7 @@ var NzMessageComponent = /** @class */ (function () {
         var _this = this;
         if (this._options.nzAnimate) {
             this.nzMessage.state = 'leave';
+            this.cdr.detectChanges();
             setTimeout(function () { return _this._messageContainer.removeMessage(_this.nzMessage.messageId); }, 200);
         }
         else {
@@ -24232,6 +22822,7 @@ var NzMessageComponent = /** @class */ (function () {
         var _this = this;
         if (this._eraseTTL > 0) {
             this._clearEraseTimeout(); // To prevent calling _startEraseTimeout() more times to create more timer
+            // TODO: `window` should be removed in milestone II
             this._eraseTimer = window.setTimeout(function () { return _this._destroy(); }, this._eraseTTL);
             this._eraseTimingStart = Date.now();
         }
@@ -24253,6 +22844,8 @@ var NzMessageComponent = /** @class */ (function () {
     };
     NzMessageComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-message',
                     preserveWhitespaces: false,
                     animations: [
@@ -24274,7 +22867,8 @@ var NzMessageComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     NzMessageComponent.ctorParameters = function () { return [
-        { type: NzMessageContainerComponent }
+        { type: NzMessageContainerComponent },
+        { type: ChangeDetectorRef }
     ]; };
     NzMessageComponent.propDecorators = {
         nzMessage: [{ type: Input }],
@@ -24728,7 +23322,6 @@ var NZ_MODAL_DEFAULT_CONFIG = {
 var NZ_MODAL_CONFIG = new InjectionToken('NzModalConfig', {
     providedIn: 'root',
     factory: function () { return NZ_MODAL_DEFAULT_CONFIG; } // Default config
-    // Default config
 });
 
 /**
@@ -24782,22 +23375,23 @@ var NzModalComponent = /** @class */ (function (_super) {
         // tslint:disable-next-line:no-any
         _this.locale = {};
         _this.nzModalType = 'default';
-        _this.nzGetContainer = function () { return _this.overlay.create(); };
+        _this.nzGetContainer = function () { return _this.overlay.create(); }; // [STATIC]
         _this.nzVisible = false;
         _this.nzVisibleChange = new EventEmitter();
         _this.nzZIndex = 1000;
         _this.nzWidth = 520;
-        _this.nzIconType = 'question-circle';
+        _this.nzIconType = 'question-circle'; // Confirm Modal ONLY
         _this.nzClosable = true;
         _this.nzMask = true;
         _this.nzMaskClosable = true;
-        _this.nzAfterOpen = new EventEmitter();
+        _this.nzAfterOpen = new EventEmitter(); // Trigger when modal open(visible) after animations
         _this.nzAfterClose = new EventEmitter();
         _this.nzOkType = 'primary';
         _this.nzOkLoading = false;
         _this.nzOnOk = new EventEmitter();
         _this.nzCancelLoading = false;
         _this.nzOnCancel = new EventEmitter();
+        _this.nzKeyboard = true;
         _this.transformOrigin = '0px 0px 0px';
         _this.config = _this.mergeDefaultConfig(_this.config);
         return _this;
@@ -24865,6 +23459,7 @@ var NzModalComponent = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this.i18n.localeChange.pipe(takeUntil(this.unsubscribe$)).subscribe(function () { return _this.locale = _this.i18n.getLocaleData('Modal'); });
+        fromEvent(this.document.body, 'keydown').pipe(takeUntil(this.unsubscribe$)).subscribe(function (e) { return _this.keydownListener(e); });
         if (this.isComponent(this.nzContent)) {
             this.createDynamicComponent(/** @type {?} */ (this.nzContent)); // Create component along without View
         }
@@ -24933,6 +23528,19 @@ var NzModalComponent = /** @class */ (function (_super) {
             _this.unsubscribe$.next();
             _this.unsubscribe$.complete();
         });
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NzModalComponent.prototype.keydownListener = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (event.keyCode === ESCAPE && this.nzKeyboard) {
+            this.onClickOkCancel('cancel');
+        }
     };
     /**
      * @return {?}
@@ -25425,7 +24033,8 @@ var NzModalComponent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.previouslyFocusedElement) {
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
             this.previouslyFocusedElement.focus();
         }
         if (this.focusTrap) {
@@ -25483,7 +24092,8 @@ var NzModalComponent = /** @class */ (function (_super) {
         nzCancelLoading: [{ type: Input }],
         nzOnCancel: [{ type: Input }, { type: Output }],
         modalContainer: [{ type: ViewChild, args: ['modalContainer',] }],
-        bodyContainer: [{ type: ViewChild, args: ['bodyContainer', { read: ViewContainerRef },] }]
+        bodyContainer: [{ type: ViewChild, args: ['bodyContainer', { read: ViewContainerRef },] }],
+        nzKeyboard: [{ type: Input }]
     };
     __decorate([
         InputBoolean(),
@@ -25509,6 +24119,10 @@ var NzModalComponent = /** @class */ (function (_super) {
         InputBoolean(),
         __metadata("design:type", Boolean)
     ], NzModalComponent.prototype, "nzCancelLoading", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Boolean)
+    ], NzModalComponent.prototype, "nzKeyboard", void 0);
     return NzModalComponent;
 }(NzModalRef));
 /**
@@ -25814,11 +24428,72 @@ var NZ_NOTIFICATION_DEFAULT_CONFIG_PROVIDER = {
  */
 var NzNotificationContainerComponent = /** @class */ (function (_super) {
     __extends(NzNotificationContainerComponent, _super);
-    function NzNotificationContainerComponent(defaultConfig, config) {
-        return _super.call(this, defaultConfig, config) || this;
+    function NzNotificationContainerComponent(cdr, defaultConfig, config) {
+        var _this = _super.call(this, cdr, defaultConfig, config) || this;
+        /**
+         * A list of notifications displayed on the screen.
+         * @override
+         */
+        _this.messages = [];
+        return _this;
     }
+    /**
+     * Create a new notification.
+     * If there's a notification whose `nzKey` is same with `nzKey` in `NzNotificationDataFilled`, replace its content instead of create a new one.
+     * @override
+     * @param notification
+     */
+    /**
+     * Create a new notification.
+     * If there's a notification whose `nzKey` is same with `nzKey` in `NzNotificationDataFilled`, replace its content instead of create a new one.
+     * @override
+     * @param {?} notification
+     * @return {?}
+     */
+    NzNotificationContainerComponent.prototype.createMessage = /**
+     * Create a new notification.
+     * If there's a notification whose `nzKey` is same with `nzKey` in `NzNotificationDataFilled`, replace its content instead of create a new one.
+     * @override
+     * @param {?} notification
+     * @return {?}
+     */
+    function (notification) {
+        notification.options = this._mergeMessageOptions(notification.options);
+        /** @type {?} */
+        var key = notification.options.nzKey;
+        /** @type {?} */
+        var notificationWithSameKey = this.messages.find(function (msg) { return msg.options.nzKey === notification.options.nzKey; });
+        if (key && notificationWithSameKey) {
+            this.replaceNotification(notificationWithSameKey, notification);
+        }
+        else {
+            if (this.messages.length >= this.config.nzMaxStack) {
+                this.messages.splice(0, 1);
+            }
+            this.messages.push(notification);
+        }
+        this.cdr.detectChanges();
+    };
+    /**
+     * @param {?} old
+     * @param {?} _new
+     * @return {?}
+     */
+    NzNotificationContainerComponent.prototype.replaceNotification = /**
+     * @param {?} old
+     * @param {?} _new
+     * @return {?}
+     */
+    function (old, _new) {
+        old.title = _new.title;
+        old.content = _new.content;
+        old.template = _new.template;
+        old.type = _new.type;
+    };
     NzNotificationContainerComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-notification-container',
                     preserveWhitespaces: false,
                     template: "<div\n  class=\"ant-notification ant-notification-{{config.nzPlacement}}\"\n  [style.top]=\"(config.nzPlacement==='topLeft'||config.nzPlacement=='topRight')? config.nzTop:null\"\n  [style.bottom]=\"(config.nzPlacement==='bottomLeft'||config.nzPlacement=='bottomRight')? config.nzBottom:null\"\n  [style.right]=\"(config.nzPlacement==='bottomRight'||config.nzPlacement=='topRight')?'0px':null\"\n  [style.left]=\"(config.nzPlacement==='topLeft'||config.nzPlacement=='bottomLeft')?'0px':null\">\n  <nz-notification *ngFor=\"let message of messages; let i = index\" [nzMessage]=\"message\" [nzIndex]=\"i\"></nz-notification>\n</div>"
@@ -25826,6 +24501,7 @@ var NzNotificationContainerComponent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     NzNotificationContainerComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_NOTIFICATION_DEFAULT_CONFIG,] }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [NZ_NOTIFICATION_CONFIG,] }] }
     ]; };
@@ -25838,9 +24514,10 @@ var NzNotificationContainerComponent = /** @class */ (function (_super) {
  */
 var NzNotificationComponent = /** @class */ (function (_super) {
     __extends(NzNotificationComponent, _super);
-    function NzNotificationComponent(container) {
-        var _this = _super.call(this, container) || this;
+    function NzNotificationComponent(container, cdr) {
+        var _this = _super.call(this, container, cdr) || this;
         _this.container = container;
+        _this.cdr = cdr;
         return _this;
     }
     /**
@@ -25874,6 +24551,7 @@ var NzNotificationComponent = /** @class */ (function (_super) {
     });
     NzNotificationComponent.decorators = [
         { type: Component, args: [{
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-notification',
                     preserveWhitespaces: false,
                     animations: [
@@ -25908,7 +24586,8 @@ var NzNotificationComponent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     NzNotificationComponent.ctorParameters = function () { return [
-        { type: NzNotificationContainerComponent }
+        { type: NzNotificationContainerComponent },
+        { type: ChangeDetectorRef }
     ]; };
     NzNotificationComponent.propDecorators = {
         nzMessage: [{ type: Input }]
@@ -26591,48 +25270,12 @@ var NzToolTipComponent = /** @class */ (function () {
         this._trigger = 'hover';
         this.visibleSource = new BehaviorSubject(false);
         this.visible$ = this.visibleSource.asObservable();
-        this.nzVisibleChange = new EventEmitter();
         this.nzOverlayClassName = '';
         this.nzOverlayStyle = {};
-        this.nzMouseEnterDelay = 0.15;
-        this.nzMouseLeaveDelay = 0.1;
+        this.nzMouseEnterDelay = 0.15; // second
+        this.nzMouseLeaveDelay = 0.1; // second
+        this.nzVisibleChange = new EventEmitter();
     }
-    Object.defineProperty(NzToolTipComponent.prototype, "nzContent", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._content;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isContentString = !(value instanceof TemplateRef);
-            this._content = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzToolTipComponent.prototype, "nzTitle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._title;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isTitleString = !(value instanceof TemplateRef);
-            this._title = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzToolTipComponent.prototype, "nzVisible", {
         get: /**
          * @return {?}
@@ -26791,13 +25434,15 @@ var NzToolTipComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this.isTitleString ? (this.nzTitle === '' || !isNotNil(this.nzTitle)) : false; // Pity, can't detect whether nzTemplate is empty due to can't get it's content before shown up
+        return this.nzTitle instanceof TemplateRef ? false : (this.nzTitle === '' || !isNotNil(this.nzTitle));
     };
     NzToolTipComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-tooltip',
                     animations: [fadeAnimation],
-                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\">\n  <div class=\"ant-tooltip\" [ngClass]=\"_classMap\" [ngStyle]=\"nzOverlayStyle\" [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-tooltip-content\">\n      <div class=\"ant-tooltip-arrow\"></div>\n      <div class=\"ant-tooltip-inner\">\n        <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n        <ng-template #titleTemplate>\n          <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n        </ng-template>\n      </div>\n    </div>\n  </div>\n</ng-template>",
+                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\">\n  <div\n    class=\"ant-tooltip\"\n    [ngClass]=\"_classMap\"\n    [ngStyle]=\"nzOverlayStyle\"\n    [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-tooltip-content\">\n      <div class=\"ant-tooltip-arrow\"></div>\n      <div class=\"ant-tooltip-inner\">\n        <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n      </div>\n    </div>\n  </div>\n</ng-template>",
                     preserveWhitespaces: false,
                     styles: ["\n    .ant-tooltip {\n      position: relative;\n    }\n  "]
                 }] }
@@ -26807,15 +25452,13 @@ var NzToolTipComponent = /** @class */ (function () {
         { type: ChangeDetectorRef }
     ]; };
     NzToolTipComponent.propDecorators = {
-        _title: [{ type: ContentChild, args: ['nzTemplate',] }],
         overlay: [{ type: ViewChild, args: ['overlay',] }],
-        nzVisibleChange: [{ type: Output }],
+        nzTitle: [{ type: Input }, { type: ContentChild, args: ['nzTemplate',] }],
         nzOverlayClassName: [{ type: Input }],
         nzOverlayStyle: [{ type: Input }],
         nzMouseEnterDelay: [{ type: Input }],
         nzMouseLeaveDelay: [{ type: Input }],
-        nzContent: [{ type: Input }],
-        nzTitle: [{ type: Input }],
+        nzVisibleChange: [{ type: Output }],
         nzVisible: [{ type: Input }],
         nzTrigger: [{ type: Input }],
         nzPlacement: [{ type: Input }]
@@ -26831,32 +25474,15 @@ var NzPopconfirmComponent = /** @class */ (function (_super) {
     __extends(NzPopconfirmComponent, _super);
     function NzPopconfirmComponent(cdr) {
         var _this = _super.call(this, cdr) || this;
-        _this._condition = false;
         _this._prefix = 'ant-popover-placement';
         _this._trigger = 'click';
         _this._hasBackdrop = true;
+        _this.nzOkType = 'primary';
+        _this.nzCondition = false;
         _this.nzOnCancel = new EventEmitter();
         _this.nzOnConfirm = new EventEmitter();
-        _this.nzOkType = 'primary';
         return _this;
     }
-    Object.defineProperty(NzPopconfirmComponent.prototype, "nzCondition", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._condition;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._condition = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -26893,10 +25519,12 @@ var NzPopconfirmComponent = /** @class */ (function (_super) {
     };
     NzPopconfirmComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-popconfirm',
                     preserveWhitespaces: false,
                     animations: [fadeAnimation],
-                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\">\n  <div class=\"ant-popover\" [ngClass]=\"_classMap\" [ngStyle]=\"nzOverlayStyle\" [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-popover-content\">\n      <div class=\"ant-popover-arrow\"></div>\n      <div class=\"ant-popover-inner\">\n        <div>\n          <div class=\"ant-popover-inner-content\">\n            <div class=\"ant-popover-message\">\n              <ng-container *ngIf=\"isTitleString; else titleTemplate\">\n                <i nz-icon type=\"exclamation-circle\" theme=\"fill\"></i>\n                <div class=\"ant-popover-message-title\">{{ nzTitle }}</div>\n              </ng-container>\n              <ng-template #titleTemplate>\n                <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n              </ng-template>\n            </div>\n            <div class=\"ant-popover-buttons\">\n              <button nz-button [nzSize]=\"'small'\" (click)=\"onCancel()\">\n                <ng-container *ngIf=\"nzCancelText\">{{ nzCancelText }}</ng-container>\n                <ng-container *ngIf=\"!nzCancelText\">{{ 'Modal.cancelText' | nzI18n }}</ng-container>\n              </button>\n              <button nz-button [nzSize]=\"'small'\" [nzType]=\"nzOkType\" (click)=\"onConfirm()\">\n                <ng-container *ngIf=\"nzOkText\">{{ nzOkText }}</ng-container>\n                <ng-container *ngIf=\"!nzOkText\">{{ 'Modal.okText' | nzI18n }}</ng-container>\n              </button>\n            </div>\n\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</ng-template>",
+                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\">\n  <div class=\"ant-popover\" [ngClass]=\"_classMap\" [ngStyle]=\"nzOverlayStyle\" [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-popover-content\">\n      <div class=\"ant-popover-arrow\"></div>\n      <div class=\"ant-popover-inner\">\n        <div>\n          <div class=\"ant-popover-inner-content\">\n            <div class=\"ant-popover-message\">\n              <ng-container *nzStringTemplateOutlet=\"nzTitle\">\n                <i nz-icon type=\"exclamation-circle\" theme=\"fill\"></i>\n                <div class=\"ant-popover-message-title\">{{ nzTitle }}</div>\n              </ng-container>\n            </div>\n            <div class=\"ant-popover-buttons\">\n              <button nz-button [nzSize]=\"'small'\" (click)=\"onCancel()\">\n                <ng-container *ngIf=\"nzCancelText\">{{ nzCancelText }}</ng-container>\n                <ng-container *ngIf=\"!nzCancelText\">{{ 'Modal.cancelText' | nzI18n }}</ng-container>\n              </button>\n              <button nz-button [nzSize]=\"'small'\" [nzType]=\"nzOkType\" (click)=\"onConfirm()\">\n                <ng-container *ngIf=\"nzOkText\">{{ nzOkText }}</ng-container>\n                <ng-container *ngIf=\"!nzOkText\">{{ 'Modal.okText' | nzI18n }}</ng-container>\n              </button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</ng-template>",
                     styles: ["\n    .ant-popover {\n      position: relative;\n    }\n  "]
                 }] }
     ];
@@ -26905,13 +25533,17 @@ var NzPopconfirmComponent = /** @class */ (function (_super) {
         { type: ChangeDetectorRef }
     ]; };
     NzPopconfirmComponent.propDecorators = {
-        nzOnCancel: [{ type: Output }],
-        nzOnConfirm: [{ type: Output }],
         nzOkText: [{ type: Input }],
         nzOkType: [{ type: Input }],
         nzCancelText: [{ type: Input }],
-        nzCondition: [{ type: Input }]
+        nzCondition: [{ type: Input }],
+        nzOnCancel: [{ type: Output }],
+        nzOnConfirm: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzPopconfirmComponent.prototype, "nzCondition", void 0);
     return NzPopconfirmComponent;
 }(NzToolTipComponent));
 
@@ -26926,196 +25558,131 @@ var NzTooltipDirective = /** @class */ (function () {
         this.resolver = resolver;
         this.renderer = renderer;
         this.tooltip = tooltip;
-        this.unsubscribe$ = new Subject();
         // [NOTE] Here hard coded, and nzTitle used only under NzTooltipDirective currently.
         this.isTooltipOpen = false;
-        this.isDynamicTooltip = false;
+        this.isDynamicTooltip = false; // Indicate whether current tooltip is dynamic created
         this.factory = this.resolver.resolveComponentFactory(NzToolTipComponent);
+        /**
+         * Names of properties that should be proxy to child component.
+         */
+        this.needProxyProperties = [
+            'nzTitle',
+            'nzContent',
+            'nzOverlayClassName',
+            'nzOverlayStyle',
+            'nzMouseEnterDelay',
+            'nzMouseLeaveDelay',
+            'nzVisible',
+            'nzTrigger',
+            'nzPlacement'
+        ];
+        this.subs_ = new Subscription();
         this.nzVisibleChange = new EventEmitter();
     }
-    Object.defineProperty(NzTooltipDirective.prototype, "nzTitle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._title;
-        },
-        set: /**
-         * @param {?} title
-         * @return {?}
-         */
-        function (title) {
-            this._title = title;
-            this.updateCompValue('nzTitle', title);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzTooltipDirective.prototype, "setTitle", {
         set: /**
          * @param {?} title
          * @return {?}
          */
-        function (title) {
-            this.nzTitle = title;
-        },
+        function (title) { this.nzTitle = title; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzContent", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._content;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._content = value;
-            this.updateCompValue('nzContent', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzOverlayClassName", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._overlayClassName;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._overlayClassName = value;
-            this.updateCompValue('nzOverlayClassName', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzOverlayStyle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._overlayStyle;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._overlayStyle = value;
-            this.updateCompValue('nzOverlayStyle', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzMouseEnterDelay", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._mouseEnterDelay;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._mouseEnterDelay = value;
-            this.updateCompValue('nzMouseEnterDelay', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzMouseLeaveDelay", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._mouseEnterDelay;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._mouseLeaveDelay = value;
-            this.updateCompValue('nzMouseLeaveDelay', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzVisible", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._visible;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._visible = value;
-            this.updateCompValue('nzVisible', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzTrigger", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._trigger;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._trigger = value;
-            this.updateCompValue('nzTrigger', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "nzPlacement", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._placement;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._placement = value;
-            this.updateCompValue('nzPlacement', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTooltipDirective.prototype, "isOpen", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.isTooltipOpen;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTooltipDirective.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this.updateProxies(changes);
+    };
+    /**
+     * @return {?}
+     */
+    NzTooltipDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // Support faster tooltip mode: <a nz-tooltip="xxx"></a>. [NOTE] Used only under NzTooltipDirective currently.
+        if (!this.tooltip) {
+            /** @type {?} */
+            var tooltipComponent = this.hostView.createComponent(this.factory);
+            this.tooltip = tooltipComponent.instance;
+            // Remove element when use directive https://github.com/NG-ZORRO/ng-zorro-antd/issues/1967
+            this.renderer.removeChild(this.renderer.parentNode(this.elementRef.nativeElement), tooltipComponent.location.nativeElement);
+            this.isDynamicTooltip = true;
+            this.needProxyProperties.forEach(function (property) { return _this.updateCompValue(property, _this[property]); });
+            /** @type {?} */
+            var visible_ = this.tooltip.nzVisibleChange.pipe(distinctUntilChanged()).subscribe(function (data) {
+                _this.visible = data;
+                _this.nzVisibleChange.emit(data);
+            });
+            this.subs_.add(visible_);
+        }
+        this.tooltip.setOverlayOrigin(this);
+    };
+    /**
+     * @return {?}
+     */
+    NzTooltipDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.tooltip.nzTrigger === 'hover') {
+            /** @type {?} */
+            var overlayElement_1 = void 0;
+            this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', function () { return _this.delayEnterLeave(true, true, _this.tooltip.nzMouseEnterDelay); });
+            this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', function () {
+                _this.delayEnterLeave(true, false, _this.tooltip.nzMouseLeaveDelay);
+                if (_this.tooltip.overlay.overlayRef && !overlayElement_1) { // NOTE: we bind events under "mouseleave" due to the overlayRef is only created after the overlay was completely shown up
+                    // NOTE: we bind events under "mouseleave" due to the overlayRef is only created after the overlay was completely shown up
+                    overlayElement_1 = _this.tooltip.overlay.overlayRef.overlayElement;
+                    _this.renderer.listen(overlayElement_1, 'mouseenter', function () { return _this.delayEnterLeave(false, true); });
+                    _this.renderer.listen(overlayElement_1, 'mouseleave', function () { return _this.delayEnterLeave(false, false); });
+                }
+            });
+        }
+        else if (this.tooltip.nzTrigger === 'focus') {
+            this.renderer.listen(this.elementRef.nativeElement, 'focus', function () { return _this.show(); });
+            this.renderer.listen(this.elementRef.nativeElement, 'blur', function () { return _this.hide(); });
+        }
+        else if (this.tooltip.nzTrigger === 'click') {
+            this.renderer.listen(this.elementRef.nativeElement, 'click', function (e) {
+                e.preventDefault();
+                _this.show();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzTooltipDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.subs_.unsubscribe();
+    };
+    // tslint:disable-next-line:no-any
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    NzTooltipDirective.prototype.updateCompValue = /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    function (key, value) {
+        if (this.isDynamicTooltip && isNotNil(value)) {
+            this.tooltip[key] = value;
+        }
+    };
     /**
      * @return {?}
      */
@@ -27166,94 +25733,34 @@ var NzTooltipDirective = /** @class */ (function () {
             isEnter && isOrigin ? this.show() : this.hide(); // [Compatible] The "isOrigin" is used due to the tooltip will not hide immediately (may caused by the fade-out animation)
         }
     };
-    // tslint:disable-next-line:no-any
     /**
-     * @param {?} key
-     * @param {?} value
+     * Set inputs of child components when this component's inputs change.
+     * @param {?} changes
      * @return {?}
      */
-    NzTooltipDirective.prototype.updateCompValue = /**
-     * @param {?} key
-     * @param {?} value
+    NzTooltipDirective.prototype.updateProxies = /**
+     * Set inputs of child components when this component's inputs change.
+     * @param {?} changes
      * @return {?}
      */
-    function (key, value) {
-        if (this.isDynamicTooltip && isNotNil(value)) {
-            this.tooltip[key] = value;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzTooltipDirective.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
+    function (changes) {
         var _this = this;
-        // Support faster tooltip mode: <a nz-tooltip="xxx"></a>. [NOTE] Used only under NzTooltipDirective currently.
-        if (!this.tooltip) {
-            /** @type {?} */
-            var tooltipComponent = this.hostView.createComponent(this.factory);
-            this.tooltip = tooltipComponent.instance;
-            // Remove element when use directive https://github.com/NG-ZORRO/ng-zorro-antd/issues/1967
-            this.renderer.removeChild(this.renderer.parentNode(this.elementRef.nativeElement), tooltipComponent.location.nativeElement);
-            this.isDynamicTooltip = true;
-            /** @type {?} */
-            var properties = ['nzTitle', 'nzContent', 'nzOverlayClassName', 'nzOverlayStyle', 'nzMouseEnterDelay', 'nzMouseLeaveDelay', 'nzVisible', 'nzTrigger', 'nzPlacement'];
-            properties.forEach(function (property) { return _this.updateCompValue(property, _this[property]); });
-            this.tooltip.nzVisibleChange.pipe(takeUntil(this.unsubscribe$), distinctUntilChanged()).subscribe(function (data) {
-                _this._visible = data;
-                _this.nzVisibleChange.emit(data);
-            });
-        }
-        this.tooltip.setOverlayOrigin(this);
-    };
-    /**
-     * @return {?}
-     */
-    NzTooltipDirective.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this.tooltip.nzTrigger === 'hover') {
-            /** @type {?} */
-            var overlayElement_1 = void 0;
-            this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', function () { return _this.delayEnterLeave(true, true, _this.tooltip.nzMouseEnterDelay); });
-            this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', function () {
-                _this.delayEnterLeave(true, false, _this.tooltip.nzMouseLeaveDelay);
-                if (_this.tooltip.overlay.overlayRef && !overlayElement_1) { // NOTE: we bind events under "mouseleave" due to the overlayRef is only created after the overlay was completely shown up
-                    // NOTE: we bind events under "mouseleave" due to the overlayRef is only created after the overlay was completely shown up
-                    overlayElement_1 = _this.tooltip.overlay.overlayRef.overlayElement;
-                    _this.renderer.listen(overlayElement_1, 'mouseenter', function () { return _this.delayEnterLeave(false, true); });
-                    _this.renderer.listen(overlayElement_1, 'mouseleave', function () { return _this.delayEnterLeave(false, false); });
+        if (this.tooltip) {
+            Object.keys(changes).forEach(function (key) {
+                /** @type {?} */
+                var change = changes[key];
+                if (change) {
+                    _this.updateCompValue(key, change.currentValue);
                 }
             });
         }
-        else if (this.tooltip.nzTrigger === 'focus') {
-            this.renderer.listen(this.elementRef.nativeElement, 'focus', function () { return _this.show(); });
-            this.renderer.listen(this.elementRef.nativeElement, 'blur', function () { return _this.hide(); });
-        }
-        else if (this.tooltip.nzTrigger === 'click') {
-            this.renderer.listen(this.elementRef.nativeElement, 'click', function (e) {
-                e.preventDefault();
-                _this.show();
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NzTooltipDirective.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
     };
     NzTooltipDirective.decorators = [
         { type: Directive, args: [{
-                    selector: '[nz-tooltip]'
+                    selector: '[nz-tooltip]',
+                    host: {
+                        '[class.ant-tooltip-open]': 'isTooltipOpen'
+                    }
                 },] }
     ];
     /** @nocollapse */
@@ -27269,14 +25776,13 @@ var NzTooltipDirective = /** @class */ (function () {
         nzTitle: [{ type: Input, args: ['nz-tooltip',] }],
         setTitle: [{ type: Input, args: ['nzTitle',] }],
         nzContent: [{ type: Input }],
-        nzOverlayClassName: [{ type: Input }],
-        nzOverlayStyle: [{ type: Input }],
         nzMouseEnterDelay: [{ type: Input }],
         nzMouseLeaveDelay: [{ type: Input }],
-        nzVisible: [{ type: Input }],
+        nzOverlayClassName: [{ type: Input }],
+        nzOverlayStyle: [{ type: Input }],
         nzTrigger: [{ type: Input }],
-        nzPlacement: [{ type: Input }],
-        isOpen: [{ type: HostBinding, args: ['class.ant-tooltip-open',] }]
+        nzVisible: [{ type: Input }],
+        nzPlacement: [{ type: Input }]
     };
     return NzTooltipDirective;
 }());
@@ -27289,86 +25795,26 @@ var NzPopconfirmDirective = /** @class */ (function (_super) {
     __extends(NzPopconfirmDirective, _super);
     function NzPopconfirmDirective(elementRef, hostView, resolver, renderer, tooltip) {
         var _this = _super.call(this, elementRef, hostView, resolver, renderer, tooltip) || this;
-        _this.subclassUnsubscribe$ = new Subject();
         _this.factory = _this.resolver.resolveComponentFactory(NzPopconfirmComponent);
-        _this._condition = false;
-        _this._okType = 'primary';
+        _this.needProxyProperties = [
+            'nzTitle',
+            'nzContent',
+            'nzOverlayClassName',
+            'nzOverlayStyle',
+            'nzMouseEnterDelay',
+            'nzMouseLeaveDelay',
+            'nzVisible',
+            'nzTrigger',
+            'nzPlacement',
+            'nzOkText',
+            'nzOkType',
+            'nzCancelText',
+            'nzCondition'
+        ];
         _this.nzOnCancel = new EventEmitter();
         _this.nzOnConfirm = new EventEmitter();
         return _this;
     }
-    Object.defineProperty(NzPopconfirmDirective.prototype, "nzOkText", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._okText;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._okText = value;
-            this.updateCompValue('nzOkText', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzPopconfirmDirective.prototype, "nzOkType", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._okType;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._okType = value;
-            this.updateCompValue('nzOkType', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzPopconfirmDirective.prototype, "nzCancelText", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._cancelText;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._cancelText = value;
-            this.updateCompValue('nzCancelText', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzPopconfirmDirective.prototype, "nzCondition", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._condition;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._condition = toBoolean(value);
-            this.updateCompValue('nzCondition', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -27384,49 +25830,32 @@ var NzPopconfirmDirective = /** @class */ (function (_super) {
             // Remove element when use directive https://github.com/NG-ZORRO/ng-zorro-antd/issues/1967
             this.renderer.removeChild(this.renderer.parentNode(this.elementRef.nativeElement), tooltipComponent.location.nativeElement);
             this.isDynamicTooltip = true;
+            this.needProxyProperties.forEach(function (property) { return _this.updateCompValue(property, _this[property]); });
             /** @type {?} */
-            var properties = [
-                'nzTitle',
-                'nzContent',
-                'nzOverlayClassName',
-                'nzOverlayStyle',
-                'nzMouseEnterDelay',
-                'nzMouseLeaveDelay',
-                'nzVisible',
-                'nzTrigger',
-                'nzPlacement',
-                'nzOkText',
-                'nzOkType',
-                'nzCancelText',
-                'nzCondition'
-            ];
-            properties.forEach(function (property) { return _this.updateCompValue(property, _this[property]); });
-            this.tooltip.nzVisibleChange.pipe(takeUntil(this.subclassUnsubscribe$), distinctUntilChanged()).subscribe(function (data) {
-                _this._visible = data;
+            var visible_ = this.tooltip.nzVisibleChange.pipe(distinctUntilChanged()).subscribe(function (data) {
+                _this.visible = data;
                 _this.nzVisibleChange.emit(data);
             });
-            (/** @type {?} */ (this.tooltip)).nzOnCancel.pipe(takeUntil(this.subclassUnsubscribe$)).subscribe(function (data) {
+            /** @type {?} */
+            var cancel_ = (/** @type {?} */ (this.tooltip)).nzOnCancel.subscribe(function () {
                 _this.nzOnCancel.emit();
             });
-            (/** @type {?} */ (this.tooltip)).nzOnConfirm.pipe(takeUntil(this.subclassUnsubscribe$)).subscribe(function (data) {
+            /** @type {?} */
+            var confirm_ = (/** @type {?} */ (this.tooltip)).nzOnConfirm.subscribe(function () {
                 _this.nzOnConfirm.emit();
             });
+            this.subs_.add(visible_);
+            this.subs_.add(cancel_);
+            this.subs_.add(confirm_);
         }
         this.tooltip.setOverlayOrigin(this);
     };
-    /**
-     * @return {?}
-     */
-    NzPopconfirmDirective.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.subclassUnsubscribe$.next();
-        this.subclassUnsubscribe$.complete();
-    };
     NzPopconfirmDirective.decorators = [
         { type: Directive, args: [{
-                    selector: '[nz-popconfirm]'
+                    selector: '[nz-popconfirm]',
+                    host: {
+                        '[class.ant-popover-open]': 'isTooltipOpen'
+                    }
                 },] }
     ];
     /** @nocollapse */
@@ -27438,13 +25867,17 @@ var NzPopconfirmDirective = /** @class */ (function (_super) {
         { type: NzPopconfirmComponent, decorators: [{ type: Optional }] }
     ]; };
     NzPopconfirmDirective.propDecorators = {
-        nzOnCancel: [{ type: Output }],
-        nzOnConfirm: [{ type: Output }],
         nzOkText: [{ type: Input }],
         nzOkType: [{ type: Input }],
         nzCancelText: [{ type: Input }],
-        nzCondition: [{ type: Input }]
+        nzCondition: [{ type: Input }],
+        nzOnCancel: [{ type: Output }],
+        nzOnConfirm: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Boolean)
+    ], NzPopconfirmDirective.prototype, "nzCondition", void 0);
     return NzPopconfirmDirective;
 }(NzTooltipDirective));
 
@@ -27459,7 +25892,7 @@ var NzPopconfirmModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzPopconfirmComponent, NzPopconfirmDirective],
                     exports: [NzPopconfirmComponent, NzPopconfirmDirective],
-                    imports: [CommonModule, NzButtonModule, OverlayModule, NzI18nModule, NzIconModule],
+                    imports: [CommonModule, NzButtonModule, OverlayModule, NzI18nModule, NzIconModule, NzAddOnModule],
                     entryComponents: [NzPopconfirmComponent]
                 },] }
     ];
@@ -27477,11 +25910,26 @@ var NzPopoverComponent = /** @class */ (function (_super) {
         _this._prefix = 'ant-popover-placement';
         return _this;
     }
+    /**
+     * @return {?}
+     */
+    NzPopoverComponent.prototype.isContentEmpty = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var isTitleEmpty = this.nzTitle instanceof TemplateRef ? false : (this.nzTitle === '' || !isNotNil(this.nzTitle));
+        /** @type {?} */
+        var isContentEmpty = this.nzContent instanceof TemplateRef ? false : (this.nzContent === '' || !isNotNil(this.nzContent));
+        return isTitleEmpty && isContentEmpty;
+    };
     NzPopoverComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-popover',
                     animations: [fadeAnimation],
-                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\">\n  <div class=\"ant-popover\" [ngClass]=\"_classMap\" [ngStyle]=\"nzOverlayStyle\" [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-popover-content\">\n      <div class=\"ant-popover-arrow\"></div>\n      <div class=\"ant-popover-inner\">\n        <div class=\"ant-popover-title\" *ngIf=\"nzTitle\">\n          <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n          <ng-template #titleTemplate>\n            <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n          </ng-template>\n        </div>\n        <div class=\"ant-popover-inner-content\">\n          <ng-container *ngIf=\"isContentString; else contentTemplate\">{{ nzContent }}</ng-container>\n          <ng-template #contentTemplate>\n            <ng-template [ngTemplateOutlet]=\"nzContent\"></ng-template>\n          </ng-template>\n        </div>\n      </div>\n    </div>\n  </div>\n</ng-template>",
+                    template: "<ng-content></ng-content>\n<ng-template\n  #overlay=\"cdkConnectedOverlay\"\n  cdkConnectedOverlay\n  [cdkConnectedOverlayOrigin]=\"overlayOrigin\"\n  [cdkConnectedOverlayHasBackdrop]=\"_hasBackdrop\"\n  (backdropClick)=\"hide()\"\n  (detach)=\"hide()\"\n  (positionChange)=\"onPositionChange($event)\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayOpen]=\"visible$ | async\">\n  <div class=\"ant-popover\" [ngClass]=\"_classMap\" [ngStyle]=\"nzOverlayStyle\" [@fadeAnimation]=\"''+(visible$ | async)\"\n    (@fadeAnimation.done)=\"_afterVisibilityAnimation($event)\">\n    <div class=\"ant-popover-content\">\n      <div class=\"ant-popover-arrow\"></div>\n      <div class=\"ant-popover-inner\">\n        <div class=\"ant-popover-title\" *ngIf=\"nzTitle\">\n          <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n        </div>\n        <div class=\"ant-popover-inner-content\">\n          <ng-container *nzStringTemplateOutlet=\"nzContent\">{{ nzContent }}</ng-container>\n        </div>\n      </div>\n    </div>\n  </div>\n</ng-template>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     styles: ["\n    .ant-popover {\n      position: relative;\n    }\n  "]
                 }] }
@@ -27491,8 +25939,8 @@ var NzPopoverComponent = /** @class */ (function (_super) {
         { type: ChangeDetectorRef }
     ]; };
     NzPopoverComponent.propDecorators = {
-        _title: [{ type: ContentChild, args: ['neverUsedTemplate',] }],
-        _content: [{ type: ContentChild, args: ['nzTemplate',] }]
+        nzTitle: [{ type: Input }, { type: ContentChild, args: ['neverUsedTemplate',] }],
+        nzContent: [{ type: Input }, { type: ContentChild, args: ['nzTemplate',] }]
     };
     return NzPopoverComponent;
 }(NzToolTipComponent));
@@ -27510,7 +25958,10 @@ var NzPopoverDirective = /** @class */ (function (_super) {
     }
     NzPopoverDirective.decorators = [
         { type: Directive, args: [{
-                    selector: '[nz-popover]'
+                    selector: '[nz-popover]',
+                    host: {
+                        '[class.ant-popover-open]': 'isTooltipOpen'
+                    }
                 },] }
     ];
     /** @nocollapse */
@@ -27536,7 +25987,7 @@ var NzPopoverModule = /** @class */ (function () {
                     entryComponents: [NzPopoverComponent],
                     exports: [NzPopoverDirective, NzPopoverComponent],
                     declarations: [NzPopoverDirective, NzPopoverComponent],
-                    imports: [CommonModule, OverlayModule]
+                    imports: [CommonModule, OverlayModule, NzAddOnModule]
                 },] }
     ];
     return NzPopoverModule;
@@ -27553,6 +26004,7 @@ var NzProgressComponent = /** @class */ (function () {
         this._percent = 0;
         this._status = 'normal';
         this._cacheStatus = 'normal';
+        this._strokeLinecap = 'round';
         this._strokeWidth = 8;
         this._size = 'default';
         this._type = 'line';
@@ -27757,6 +26209,24 @@ var NzProgressComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(NzProgressComponent.prototype, "nzStrokeLinecap", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._strokeLinecap;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._strokeLinecap = value;
+            this.updatePathStyles();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(NzProgressComponent.prototype, "isCirCleStyle", {
         get: /**
          * @return {?}
@@ -27859,13 +26329,14 @@ var NzProgressComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-progress',
                     preserveWhitespaces: false,
-                    template: "<ng-template #progressInfoTemplate>\n  <span class=\"ant-progress-text\" *ngIf=\"nzShowInfo\">\n    <ng-container *ngIf=\"(nzStatus=='exception')||(nzStatus=='success')&&(!isFormatSet); else formatTemplate\">\n      <!-- Theme is handled in type here. -->\n      <i nz-icon [type]=\"icon\" [theme]=\"iconTheme\"></i>\n    </ng-container>\n    <ng-template #formatTemplate>\n      {{ nzFormat(nzPercent) }}\n    </ng-template>\n  </span>\n</ng-template>\n<div [ngClass]=\"'ant-progress ant-progress-status-'+nzStatus\"\n  [class.ant-progress-line]=\"nzType=='line'\"\n  [class.ant-progress-small]=\"nzSize=='small'\"\n  [class.ant-progress-show-info]=\"nzShowInfo\"\n  [class.ant-progress-circle]=\"isCirCleStyle\">\n  <div *ngIf=\"nzType=='line'\">\n    <div class=\"ant-progress-outer\">\n      <div class=\"ant-progress-inner\">\n        <div class=\"ant-progress-bg\" [style.width.%]=\"nzPercent\" [style.height.px]=\"nzStrokeWidth\"></div>\n        <div class=\"ant-progress-success-bg\" [style.width.%]=\"nzSuccessPercent\" [style.height.px]=\"nzStrokeWidth\"></div>\n      </div>\n    </div>\n    <ng-template [ngTemplateOutlet]=\"progressInfoTemplate\"></ng-template>\n  </div>\n  <div\n    [style.width.px]=\"this.nzWidth\"\n    [style.height.px]=\"this.nzWidth\"\n    [style.fontSize.px]=\"this.nzWidth*0.15+6\"\n    class=\"ant-progress-inner\"\n    *ngIf=\"isCirCleStyle\">\n    <svg class=\"ant-progress-circle \" viewBox=\"0 0 100 100\">\n      <path\n        class=\"ant-progress-circle-trail\"\n        stroke=\"#f3f3f3\"\n        fill-opacity=\"0\"\n        [attr.stroke-width]=\"nzStrokeWidth\"\n        [ngStyle]=\"trailPathStyle\"\n        [attr.d]=\"pathString\">\n      </path>\n      <path\n        class=\"ant-progress-circle-path\"\n        [attr.d]=\"pathString\"\n        stroke-linecap=\"round\"\n        fill-opacity=\"0\"\n        [attr.stroke]=\"statusColorMap[nzStatus]\"\n        [attr.stroke-width]=\"nzPercent?nzStrokeWidth:0\"\n        [ngStyle]=\"strokePathStyle\">\n      </path>\n    </svg>\n    <ng-template [ngTemplateOutlet]=\"progressInfoTemplate\"></ng-template>\n  </div>\n</div>"
+                    template: "<ng-template #progressInfoTemplate>\n  <span class=\"ant-progress-text\" *ngIf=\"nzShowInfo\">\n    <ng-container *ngIf=\"(nzStatus=='exception')||(nzStatus=='success')&&(!isFormatSet); else formatTemplate\">\n      <!-- Theme is handled in type here. -->\n      <i nz-icon [type]=\"icon\" [theme]=\"iconTheme\"></i>\n    </ng-container>\n    <ng-template #formatTemplate>\n      {{ nzFormat(nzPercent) }}\n    </ng-template>\n  </span>\n</ng-template>\n<div [ngClass]=\"'ant-progress ant-progress-status-'+nzStatus\"\n  [class.ant-progress-line]=\"nzType=='line'\"\n  [class.ant-progress-small]=\"nzSize=='small'\"\n  [class.ant-progress-show-info]=\"nzShowInfo\"\n  [class.ant-progress-circle]=\"isCirCleStyle\">\n  <div *ngIf=\"nzType=='line'\">\n    <div class=\"ant-progress-outer\">\n      <div class=\"ant-progress-inner\">\n        <div class=\"ant-progress-bg\"\n          [style.width.%]=\"nzPercent\"\n          [style.border-radius]=\"nzStrokeLinecap === 'round' ? '100px' : '0'\"\n          [style.background]=\"nzStrokeColor\"\n          [style.height.px]=\"nzStrokeWidth\">\n        </div>\n        <div class=\"ant-progress-success-bg\"\n          [style.width.%]=\"nzSuccessPercent\"\n          [style.border-radius]=\"nzStrokeLinecap === 'round' ? '100px' : '0'\"\n          [style.height.px]=\"nzStrokeWidth\"></div>\n      </div>\n    </div>\n    <ng-template [ngTemplateOutlet]=\"progressInfoTemplate\"></ng-template>\n  </div>\n  <div\n    [style.width.px]=\"this.nzWidth\"\n    [style.height.px]=\"this.nzWidth\"\n    [style.fontSize.px]=\"this.nzWidth*0.15+6\"\n    class=\"ant-progress-inner\"\n    *ngIf=\"isCirCleStyle\">\n    <svg class=\"ant-progress-circle \" viewBox=\"0 0 100 100\">\n      <path\n        class=\"ant-progress-circle-trail\"\n        stroke=\"#f3f3f3\"\n        fill-opacity=\"0\"\n        [attr.stroke-width]=\"nzStrokeWidth\"\n        [ngStyle]=\"trailPathStyle\"\n        [attr.d]=\"pathString\">\n      </path>\n      <path\n        class=\"ant-progress-circle-path\"\n        [attr.d]=\"pathString\"\n        [attr.stroke-linecap]=\"nzStrokeLinecap\"\n        fill-opacity=\"0\"\n        [attr.stroke]=\"nzStrokeColor || statusColorMap[nzStatus]\"\n        [attr.stroke-width]=\"nzPercent?nzStrokeWidth:0\"\n        [ngStyle]=\"strokePathStyle\">\n      </path>\n    </svg>\n    <ng-template [ngTemplateOutlet]=\"progressInfoTemplate\"></ng-template>\n  </div>\n</div>"
                 }] }
     ];
     NzProgressComponent.propDecorators = {
         nzShowInfo: [{ type: Input }],
         nzWidth: [{ type: Input }],
         nzSuccessPercent: [{ type: Input }],
+        nzStrokeColor: [{ type: Input }],
         nzSize: [{ type: Input }],
         nzFormat: [{ type: Input }],
         nzPercent: [{ type: Input }],
@@ -27873,7 +26344,8 @@ var NzProgressComponent = /** @class */ (function () {
         nzStatus: [{ type: Input }],
         nzType: [{ type: Input }],
         nzGapDegree: [{ type: Input }],
-        nzGapPosition: [{ type: Input }]
+        nzGapPosition: [{ type: Input }],
+        nzStrokeLinecap: [{ type: Input }]
     };
     return NzProgressComponent;
 }());
@@ -28375,15 +26847,28 @@ var NzRateModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzSkeletonComponent = /** @class */ (function () {
-    function NzSkeletonComponent() {
-        this.rowsList = [];
-        this.widthList = [];
+    function NzSkeletonComponent(cdr) {
+        this.cdr = cdr;
         this.nzActive = false;
         this.nzLoading = true;
         this.nzTitle = true;
         this.nzAvatar = false;
         this.nzParagraph = true;
+        this.rowsList = [];
+        this.widthList = [];
     }
+    /**
+     * @param {?=} value
+     * @return {?}
+     */
+    NzSkeletonComponent.prototype.toCSSUnit = /**
+     * @param {?=} value
+     * @return {?}
+     */
+    function (value) {
+        if (value === void 0) { value = ''; }
+        return toCssPixel(value);
+    };
     /**
      * @return {?}
      */
@@ -28455,27 +26940,7 @@ var NzSkeletonComponent = /** @class */ (function () {
      * @return {?}
      */
     function (prop) {
-        if (prop && typeof prop === 'object') {
-            return prop;
-        }
-        return {};
-    };
-    /**
-     * @param {?=} value
-     * @return {?}
-     */
-    NzSkeletonComponent.prototype.toCSSUnit = /**
-     * @param {?=} value
-     * @return {?}
-     */
-    function (value) {
-        if (value === void 0) { value = ''; }
-        if (typeof value === 'number') {
-            return value + "px";
-        }
-        else if (typeof value === 'string') {
-            return value;
-        }
+        return prop && typeof prop === 'object' ? prop : {};
     };
     /**
      * @return {?}
@@ -28499,21 +26964,6 @@ var NzSkeletonComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzSkeletonComponent.prototype.updateClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this.avatarClassMap = (_a = {},
-            _a["ant-skeleton-avatar-lg"] = this.avatar.size === 'large',
-            _a["ant-skeleton-avatar-sm "] = this.avatar.size === 'small',
-            _a["ant-skeleton-avatar-circle"] = this.avatar.shape === 'circle',
-            _a["ant-skeleton-avatar-square "] = this.avatar.shape === 'square',
-            _a);
-    };
-    /**
-     * @return {?}
-     */
     NzSkeletonComponent.prototype.updateProps = /**
      * @return {?}
      */
@@ -28523,6 +26973,7 @@ var NzSkeletonComponent = /** @class */ (function () {
         this.paragraph = this.getParagraphProps();
         this.rowsList = __spread(Array(this.paragraph.rows));
         this.widthList = this.getWidthList();
+        this.cdr.markForCheck();
     };
     /**
      * @return {?}
@@ -28532,7 +26983,6 @@ var NzSkeletonComponent = /** @class */ (function () {
      */
     function () {
         this.updateProps();
-        this.updateClassMap();
     };
     /**
      * @param {?} changes
@@ -28545,13 +26995,14 @@ var NzSkeletonComponent = /** @class */ (function () {
     function (changes) {
         if (changes["nzTitle"] || changes["nzAvatar"] || changes["nzParagraph"]) {
             this.updateProps();
-            this.updateClassMap();
         }
     };
     NzSkeletonComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-skeleton',
-                    template: "<ng-container *ngIf=\"nzLoading\">\n  <div class=\"ant-skeleton-header\">\n    <span *ngIf=\"!!nzAvatar\" \n      class=\"ant-skeleton-avatar\" \n      [ngClass]=\"avatarClassMap\">\n    </span>\n  </div>\n  <div class=\"ant-skeleton-content\">\n    <h3 *ngIf=\"!!nzTitle\" class=\"ant-skeleton-title\" [style.width]=\"toCSSUnit(title.width)\"></h3>\n    <ul *ngIf=\"!!nzParagraph\" class=\"ant-skeleton-paragraph\">\n      <li *ngFor=\"let row of rowsList;let i=index\" [style.width]=\"toCSSUnit(widthList[i])\">\n      </li>\n    </ul>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"!nzLoading\">\n  <ng-content></ng-content>\n</ng-container>",
+                    template: "<ng-container *ngIf=\"nzLoading\">\n  <div class=\"ant-skeleton-header\">\n    <span\n      *ngIf=\"!!nzAvatar\"\n      class=\"ant-skeleton-avatar\"\n      [class.ant-skeleton-avatar-lg]=\"avatar.size === 'large'\"\n      [class.ant-skeleton-avatar-sm]=\"avatar.size === 'small'\"\n      [class.ant-skeleton-avatar-circle]=\"avatar.shape === 'circle'\"\n      [class.ant-skeleton-avatar-square]=\"avatar.shape === 'square'\">\n    </span>\n  </div>\n  <div class=\"ant-skeleton-content\">\n    <h3 *ngIf=\"!!nzTitle\" class=\"ant-skeleton-title\" [style.width]=\"toCSSUnit(title.width)\"></h3>\n    <ul *ngIf=\"!!nzParagraph\" class=\"ant-skeleton-paragraph\">\n      <li *ngFor=\"let row of rowsList; let i=index\" [style.width]=\"toCSSUnit(widthList[i])\">\n      </li>\n    </ul>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"!nzLoading\">\n  <ng-content></ng-content>\n</ng-container>",
                     host: {
                         '[class.ant-skeleton]': 'true',
                         '[class.ant-skeleton-with-avatar]': '!!nzAvatar',
@@ -28559,6 +27010,10 @@ var NzSkeletonComponent = /** @class */ (function () {
                     }
                 }] }
     ];
+    /** @nocollapse */
+    NzSkeletonComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef }
+    ]; };
     NzSkeletonComponent.propDecorators = {
         nzActive: [{ type: Input }],
         nzLoading: [{ type: Input }],
@@ -28597,7 +27052,7 @@ var NzToolTipModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzToolTipComponent, NzTooltipDirective],
                     exports: [NzToolTipComponent, NzTooltipDirective],
-                    imports: [CommonModule, OverlayModule],
+                    imports: [CommonModule, OverlayModule, NzAddOnModule],
                     entryComponents: [NzToolTipComponent]
                 },] }
     ];
@@ -28953,17 +27408,17 @@ var NzSliderComponent = /** @class */ (function () {
         this._included = true;
         this._range = false;
         this._vertical = false;
-        this.value = null;
+        this.value = null; // CORE value state
         this.cacheSliderStart = null;
         this.cacheSliderLength = null;
         this.prefixCls = 'ant-slider';
-        this.activeValueIndex = null;
-        this.track = { offset: null, length: null };
-        this.bounds = { lower: null, upper: null };
+        this.activeValueIndex = null; // Current activated handle's index ONLY for range=true
+        this.track = { offset: null, length: null }; // Track's offset and length
+        this.bounds = { lower: null, upper: null }; // now for nz-slider-step
         this.onTouched = function () {
         } // onTouch function registered via registerOnTouch (ControlValueAccessor).
-        ;
-        this.isDragging = false;
+        ; // onTouch function registered via registerOnTouch (ControlValueAccessor).
+        this.isDragging = false; // Current dragging state
     }
     Object.defineProperty(NzSliderComponent.prototype, "nzDisabled", {
         get: /**
@@ -30174,37 +28629,33 @@ var NzSliderModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzStepComponent = /** @class */ (function () {
-    function NzStepComponent(elementRef, nzUpdateHostClassService) {
-        this.elementRef = elementRef;
-        this.nzUpdateHostClassService = nzUpdateHostClassService;
-        this._status = 'wait';
-        this._currentIndex = 0;
-        this.el = this.elementRef.nativeElement;
-        this.oldAPIIcon = true;
+    function NzStepComponent(cdr) {
+        this.cdr = cdr;
         this.isCustomStatus = false;
-        this.isDescriptionString = true;
-        this.isTitleString = true;
+        this._status = 'wait';
+        this.oldAPIIcon = true;
         this.isIconString = true;
-        this.last = false;
-        this.showProcessDot = false;
         this.direction = 'horizontal';
-        this.outStatus = 'process';
         this.index = 0;
+        this.last = false;
+        this.outStatus = 'process';
+        this.showProcessDot = false;
+        this._currentIndex = 0;
     }
-    Object.defineProperty(NzStepComponent.prototype, "nzTitle", {
+    Object.defineProperty(NzStepComponent.prototype, "nzStatus", {
         get: /**
          * @return {?}
          */
         function () {
-            return this._title;
+            return this._status;
         },
         set: /**
-         * @param {?} value
+         * @param {?} status
          * @return {?}
          */
-        function (value) {
-            this.isTitleString = !(value instanceof TemplateRef);
-            this._title = value;
+        function (status) {
+            this._status = status;
+            this.isCustomStatus = true;
         },
         enumerable: true,
         configurable: true
@@ -30223,56 +28674,12 @@ var NzStepComponent = /** @class */ (function () {
         function (value) {
             if (!(value instanceof TemplateRef)) {
                 this.isIconString = true;
-                if (typeof value === 'string') {
-                    /** @type {?} */
-                    var str = /** @type {?} */ (value);
-                    this.oldAPIIcon = str.indexOf('anticon') > -1;
-                }
-                else {
-                    this.oldAPIIcon = true;
-                }
+                this.oldAPIIcon = typeof value === 'string' && value.indexOf('anticon') > -1;
             }
             else {
                 this.isIconString = false;
             }
             this._icon = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepComponent.prototype, "nzStatus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._status;
-        },
-        set: /**
-         * @param {?} status
-         * @return {?}
-         */
-        function (status) {
-            this._status = status;
-            this.isCustomStatus = true;
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepComponent.prototype, "nzDescription", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._description;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isDescriptionString = !(value instanceof TemplateRef);
-            this._description = value;
         },
         enumerable: true,
         configurable: true
@@ -30291,19 +28698,8 @@ var NzStepComponent = /** @class */ (function () {
         function (current) {
             this._currentIndex = current;
             if (!this.isCustomStatus) {
-                if (current > this.index) {
-                    this._status = 'finish';
-                }
-                else if (current === this.index) {
-                    if (this.outStatus) {
-                        this._status = this.outStatus;
-                    }
-                }
-                else {
-                    this._status = 'wait';
-                }
+                this._status = current > this.index ? 'finish' : current === this.index ? this.outStatus || '' : 'wait';
             }
-            this.updateClassMap();
         },
         enumerable: true,
         configurable: true
@@ -30311,43 +28707,41 @@ var NzStepComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzStepComponent.prototype.updateClassMap = /**
+    NzStepComponent.prototype.detectChanges = /**
      * @return {?}
      */
     function () {
-        var _a;
-        /** @type {?} */
-        var classMap = (_a = {},
-            _a['ant-steps-item'] = true,
-            _a["ant-steps-item-wait"] = this.nzStatus === 'wait',
-            _a["ant-steps-item-process"] = this.nzStatus === 'process',
-            _a["ant-steps-item-finish"] = this.nzStatus === 'finish',
-            _a["ant-steps-item-error"] = this.nzStatus === 'error',
-            _a['ant-steps-custom'] = !!this.nzIcon,
-            _a['ant-steps-next-error'] = this.outStatus === 'error' && this.currentIndex === this.index + 1,
-            _a);
-        this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
+        this.cdr.detectChanges();
     };
     NzStepComponent.decorators = [
         { type: Component, args: [{
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     selector: 'nz-step',
-                    providers: [NzUpdateHostClassService],
                     preserveWhitespaces: false,
-                    template: "<ng-template #titleTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzTitle\"></ng-template>\n</ng-template>\n<ng-template #descriptionTemplate>\n  <ng-template [ngTemplateOutlet]=\"nzDescription\"></ng-template>\n</ng-template>\n<div class=\"ant-steps-item-tail\" *ngIf=\"last !== true\"></div>\n<div class=\"ant-steps-item-icon\">\n  <ng-template [ngIf]=\"!showProcessDot\">\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'finish' && !nzIcon\">\n      <i nz-icon type=\"check\"></i>\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'error'\">\n      <i nz-icon type=\"close\"></i>\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"(nzStatus === 'process' || nzStatus === 'wait') && !nzIcon\">\n      {{ index + 1 }}\n    </span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzIcon\">\n      <ng-container *ngIf=\"isIconString; else iconTemplate\">\n        <i nz-icon [type]=\"!oldAPIIcon && nzIcon\" [ngClass]=\"oldAPIIcon && nzIcon\"></i>\n      </ng-container>\n      <ng-template #iconTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzIcon\" [ngTemplateOutletContext]=\"nzCtx\"></ng-template>\n      </ng-template>\n    </span>\n  </ng-template>\n  <ng-template [ngIf]=\"showProcessDot\">\n    <span class=\"ant-steps-icon\">\n      <ng-template #processDotTemplate>\n        <span class=\"ant-steps-icon-dot\"></span>\n      </ng-template>\n      <ng-template\n        [ngTemplateOutlet]=\"customProcessTemplate || processDotTemplate\"\n        [ngTemplateOutletContext]=\"{ $implicit: processDotTemplate, status: nzStatus, index: index }\"\n      ></ng-template>\n    </span>\n  </ng-template>\n</div>\n<div class=\"ant-steps-item-content\">\n  <div class=\"ant-steps-item-title\">\n    <ng-container *ngIf=\"isTitleString; else titleTemplate\">{{ nzTitle }}</ng-container>\n  </div>\n  <div class=\"ant-steps-item-description\">\n    <ng-container *ngIf=\"isDescriptionString; else descriptionTemplate\">{{ nzDescription }}</ng-container>\n  </div>\n</div>\n"
+                    template: "<div class=\"ant-steps-item-tail\" *ngIf=\"last !== true\"></div>\n<div class=\"ant-steps-item-icon\">\n  <ng-template [ngIf]=\"!showProcessDot\">\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'finish' && !nzIcon\"><i nz-icon type=\"check\"></i></span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzStatus === 'error'\"><i nz-icon type=\"close\"></i></span>\n    <span class=\"ant-steps-icon\" *ngIf=\"(nzStatus === 'process' || nzStatus === 'wait') && !nzIcon\">{{\n      index + 1\n    }}</span>\n    <span class=\"ant-steps-icon\" *ngIf=\"nzIcon\">\n      <ng-container *ngIf=\"isIconString; else iconTemplate\">\n        <i nz-icon [type]=\"!oldAPIIcon && nzIcon\" [ngClass]=\"oldAPIIcon && nzIcon\"></i>\n      </ng-container>\n      <ng-template #iconTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzIcon\" [ngTemplateOutletContext]=\"nzCtx\"></ng-template>\n      </ng-template>\n    </span>\n  </ng-template>\n  <ng-template [ngIf]=\"showProcessDot\">\n    <span class=\"ant-steps-icon\">\n      <ng-template #processDotTemplate> <span class=\"ant-steps-icon-dot\"></span> </ng-template>\n      <ng-template\n        [ngTemplateOutlet]=\"customProcessTemplate || processDotTemplate\"\n        [ngTemplateOutletContext]=\"{ $implicit: processDotTemplate, status: nzStatus, index: index }\"\n      >\n      </ng-template>\n    </span>\n  </ng-template>\n</div>\n<div class=\"ant-steps-item-content\">\n  <div class=\"ant-steps-item-title\">\n    <ng-container *nzStringTemplateOutlet=\"nzTitle\">{{ nzTitle }}</ng-container>\n  </div>\n  <div class=\"ant-steps-item-description\">\n    <ng-container *nzStringTemplateOutlet=\"nzDescription\">{{ nzDescription }}</ng-container>\n  </div>\n</div>\n",
+                    host: {
+                        '[class.ant-steps-item]': 'true',
+                        '[class.ant-steps-item-wait]': 'nzStatus === "wait"',
+                        '[class.ant-steps-item-process]': 'nzStatus === "process"',
+                        '[class.ant-steps-item-finish]': 'nzStatus === "finish"',
+                        '[class.ant-steps-item-error]': 'nzStatus === "error"',
+                        '[class.ant-steps-custom]': '!!nzIcon',
+                        '[class.ant-steps-next-error]': '(outStatus === "error") && (currentIndex === index + 1)'
+                    }
                 }] }
     ];
     /** @nocollapse */
     NzStepComponent.ctorParameters = function () { return [
-        { type: ElementRef },
-        { type: NzUpdateHostClassService }
+        { type: ChangeDetectorRef }
     ]; };
     NzStepComponent.propDecorators = {
         processDotTemplate: [{ type: ViewChild, args: ['processDotTemplate',] }],
         nzTitle: [{ type: Input }],
-        nzCtx: [{ type: Input }],
-        nzIcon: [{ type: Input }],
+        nzDescription: [{ type: Input }],
         nzStatus: [{ type: Input }],
-        nzDescription: [{ type: Input }]
+        nzCtx: [{ type: Input }],
+        nzIcon: [{ type: Input }]
     };
     return NzStepComponent;
 }());
@@ -30358,88 +28752,15 @@ var NzStepComponent = /** @class */ (function () {
  */
 var NzStepsComponent = /** @class */ (function () {
     function NzStepsComponent() {
-        var _this = this;
-        this._status = 'process';
-        this._current = 0;
-        this._size = 'default';
-        this._direction = 'horizontal';
-        this._startIndex = 0;
-        this.unsubscribe$ = new Subject();
+        this.nzCurrent = 0;
+        this.nzDirection = 'horizontal';
+        this.nzLabelPlacement = 'horizontal';
+        this.nzSize = 'default';
+        this.nzStartIndex = 0;
+        this.nzStatus = 'process';
         this.showProcessDot = false;
-        this.updateChildrenSteps = function () {
-            if (_this.steps) {
-                _this.steps.toArray().forEach(function (step, index, arr) {
-                    Promise.resolve().then(function () {
-                        step.outStatus = _this.nzStatus;
-                        step.showProcessDot = _this.showProcessDot;
-                        if (_this.customProcessDotTemplate) {
-                            step.customProcessTemplate = _this.customProcessDotTemplate;
-                        }
-                        step.direction = _this.nzDirection;
-                        step.index = index + _this.nzStartIndex;
-                        step.currentIndex = _this.nzCurrent;
-                        step.last = arr.length === index + 1;
-                        step.updateClassMap();
-                    });
-                });
-            }
-        };
+        this.destroy$ = new Subject();
     }
-    Object.defineProperty(NzStepsComponent.prototype, "nzSize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._size;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._size = value;
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepsComponent.prototype, "nzStartIndex", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._startIndex;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._startIndex = value;
-            this.updateChildrenSteps();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepsComponent.prototype, "nzDirection", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._direction;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._direction = value;
-            this.updateClassMap();
-            this.updateChildrenSteps();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzStepsComponent.prototype, "nzProgressDot", {
         set: /**
          * @param {?} value
@@ -30454,62 +28775,25 @@ var NzStepsComponent = /** @class */ (function () {
                 this.showProcessDot = toBoolean(value);
             }
             this.updateChildrenSteps();
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepsComponent.prototype, "nzStatus", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._status;
-        },
-        set: /**
-         * @param {?} status
-         * @return {?}
-         */
-        function (status) {
-            this._status = status;
-            this.updateChildrenSteps();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzStepsComponent.prototype, "nzCurrent", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._current;
-        },
-        set: /**
-         * @param {?} current
-         * @return {?}
-         */
-        function (current) {
-            this._current = current;
-            this.updateChildrenSteps();
         },
         enumerable: true,
         configurable: true
     });
     /**
+     * @param {?} changes
      * @return {?}
      */
-    NzStepsComponent.prototype.updateClassMap = /**
+    NzStepsComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function () {
-        var _a;
-        this.stepsClassMap = (_a = {},
-            _a["ant-steps-" + this.nzDirection] = true,
-            _a["ant-steps-label-horizontal"] = this.nzDirection === 'horizontal',
-            _a["ant-steps-label-vertical"] = this.showProcessDot && (this.nzDirection === 'horizontal'),
-            _a["ant-steps-dot"] = this.showProcessDot,
-            _a['ant-steps-small'] = this.nzSize === 'small',
-            _a);
+    function (changes) {
+        if (changes["nzStartIndex"] || changes["nzDirection"] || changes["nzStatus"] || changes["nzCurrent"]) {
+            this.updateChildrenSteps();
+        }
+        if (changes["nzDirection"] || changes["nzProgressDot"] || changes["nzLabelPlacement"] || changes["nzSize"]) {
+            this.setClassMap();
+        }
     };
     /**
      * @return {?}
@@ -30518,7 +28802,8 @@ var NzStepsComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.updateClassMap();
+        this.setClassMap();
+        this.updateChildrenSteps();
     };
     /**
      * @return {?}
@@ -30527,8 +28812,8 @@ var NzStepsComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
+        this.destroy$.next();
+        this.destroy$.complete();
     };
     /**
      * @return {?}
@@ -30539,24 +28824,70 @@ var NzStepsComponent = /** @class */ (function () {
     function () {
         this.updateChildrenSteps();
         if (this.steps) {
-            this.steps.changes.pipe(takeUntil(this.unsubscribe$)).subscribe(this.updateChildrenSteps);
+            this.steps.changes.pipe(takeUntil(this.destroy$)).subscribe(this.updateChildrenSteps);
         }
+    };
+    /**
+     * @return {?}
+     */
+    NzStepsComponent.prototype.updateChildrenSteps = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.steps) {
+            /** @type {?} */
+            var length_1 = this.steps.length;
+            this.steps.toArray().forEach(function (step, index) {
+                Promise.resolve().then(function () {
+                    step.outStatus = _this.nzStatus;
+                    step.showProcessDot = _this.showProcessDot;
+                    if (_this.customProcessDotTemplate) {
+                        step.customProcessTemplate = _this.customProcessDotTemplate;
+                    }
+                    step.direction = _this.nzDirection;
+                    step.index = index + _this.nzStartIndex;
+                    step.currentIndex = _this.nzCurrent;
+                    step.last = length_1 === index + 1;
+                    step.detectChanges();
+                });
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzStepsComponent.prototype.setClassMap = /**
+     * @return {?}
+     */
+    function () {
+        var _a;
+        this.classMap = (_a = {},
+            _a["ant-steps-" + this.nzDirection] = true,
+            _a["ant-steps-label-horizontal"] = this.nzDirection === 'horizontal',
+            _a["ant-steps-label-vertical"] = (this.showProcessDot || this.nzLabelPlacement === 'vertical') && this.nzDirection === 'horizontal',
+            _a["ant-steps-dot"] = this.showProcessDot,
+            _a['ant-steps-small'] = this.nzSize === 'small',
+            _a);
     };
     NzStepsComponent.decorators = [
         { type: Component, args: [{
-                    selector: 'nz-steps',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    template: "<div class=\"ant-steps\" [ngClass]=\"stepsClassMap\">\n  <ng-content></ng-content>\n</div>"
+                    selector: 'nz-steps',
+                    template: "<div class=\"ant-steps\" [ngClass]=\"classMap\">\n  <ng-content></ng-content>\n</div>"
                 }] }
     ];
     NzStepsComponent.propDecorators = {
         steps: [{ type: ContentChildren, args: [NzStepComponent,] }],
+        nzCurrent: [{ type: Input }],
+        nzDirection: [{ type: Input }],
+        nzLabelPlacement: [{ type: Input }],
         nzSize: [{ type: Input }],
         nzStartIndex: [{ type: Input }],
-        nzDirection: [{ type: Input }],
-        nzProgressDot: [{ type: Input }],
         nzStatus: [{ type: Input }],
-        nzCurrent: [{ type: Input }]
+        nzProgressDot: [{ type: Input }]
     };
     return NzStepsComponent;
 }());
@@ -30570,7 +28901,7 @@ var NzStepsModule = /** @class */ (function () {
     }
     NzStepsModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, NzIconModule],
+                    imports: [CommonModule, NzIconModule, NzAddOnModule],
                     exports: [NzStepsComponent, NzStepComponent],
                     declarations: [NzStepsComponent, NzStepComponent]
                 },] }
@@ -30583,122 +28914,16 @@ var NzStepsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzSwitchComponent = /** @class */ (function () {
-    function NzSwitchComponent() {
-        this._disabled = false;
-        this._loading = false;
-        this._control = false;
-        this.prefixCls = 'ant-switch';
+    function NzSwitchComponent(cdr, focusMonitor) {
+        this.cdr = cdr;
+        this.focusMonitor = focusMonitor;
         this.checked = false;
         this.onChange = function () { return null; };
         this.onTouched = function () { return null; };
+        this.nzLoading = false;
+        this.nzDisabled = false;
+        this.nzControl = false;
     }
-    Object.defineProperty(NzSwitchComponent.prototype, "nzControl", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._control;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._control = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSwitchComponent.prototype, "nzCheckedChildren", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._checkedChildren;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isCheckedChildrenString = !(value instanceof TemplateRef);
-            this._checkedChildren = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSwitchComponent.prototype, "nzUnCheckedChildren", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._unCheckedChildren;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isUnCheckedChildrenString = !(value instanceof TemplateRef);
-            this._unCheckedChildren = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSwitchComponent.prototype, "nzSize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._size;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._size = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSwitchComponent.prototype, "nzLoading", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._loading;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._loading = toBoolean(value);
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzSwitchComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} e
      * @return {?}
@@ -30710,44 +28935,22 @@ var NzSwitchComponent = /** @class */ (function () {
     function (e) {
         e.preventDefault();
         if ((!this.nzDisabled) && (!this.nzLoading) && (!this.nzControl)) {
-            this.updateValue(!this.checked, true);
+            this.updateValue(!this.checked);
         }
     };
     /**
      * @param {?} value
-     * @param {?} emit
      * @return {?}
      */
     NzSwitchComponent.prototype.updateValue = /**
      * @param {?} value
-     * @param {?} emit
      * @return {?}
      */
-    function (value, emit) {
-        if (this.checked === value) {
-            return;
-        }
-        this.checked = value;
-        this.setClassMap();
-        if (emit) {
+    function (value) {
+        if (this.checked !== value) {
+            this.checked = value;
             this.onChange(this.checked);
         }
-    };
-    /**
-     * @return {?}
-     */
-    NzSwitchComponent.prototype.setClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        this.classMap = (_a = {},
-            _a[this.prefixCls] = true,
-            _a[this.prefixCls + "-checked"] = this.checked,
-            _a[this.prefixCls + "-loading"] = this.nzLoading,
-            _a[this.prefixCls + "-disabled"] = this.nzDisabled,
-            _a[this.prefixCls + "-small"] = this.nzSize === 'small',
-            _a);
     };
     /**
      * @param {?} e
@@ -30761,17 +28964,17 @@ var NzSwitchComponent = /** @class */ (function () {
         if (!this.nzControl) {
             if (e.keyCode === LEFT_ARROW) { // Left
                 // Left
-                this.updateValue(false, true);
+                this.updateValue(false);
                 e.preventDefault();
             }
             else if (e.keyCode === RIGHT_ARROW) { // Right
                 // Right
-                this.updateValue(true, true);
+                this.updateValue(true);
                 e.preventDefault();
             }
             else if (e.keyCode === SPACE || e.keyCode === ENTER) { // Space, Enter
                 // Space, Enter
-                this.updateValue(!this.checked, true);
+                this.updateValue(!this.checked);
                 e.preventDefault();
             }
         }
@@ -30783,7 +28986,7 @@ var NzSwitchComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.switchElement.nativeElement.focus();
+        this.focusMonitor.focusVia(this.switchElement.nativeElement, 'keyboard');
     };
     /**
      * @return {?}
@@ -30795,6 +28998,25 @@ var NzSwitchComponent = /** @class */ (function () {
         this.switchElement.nativeElement.blur();
     };
     /**
+     * @return {?}
+     */
+    NzSwitchComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.focusMonitor.monitor(this.switchElement.nativeElement, true).subscribe(function (focusOrigin) {
+            if (!focusOrigin) {
+                // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+                // Angular does not expect events to be raised during change detection, so any state change
+                // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+                // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+                // telling the form control it has been touched until the next tick.
+                Promise.resolve().then(function () { return _this.onTouched(); });
+            }
+        });
+    };
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -30803,7 +29025,8 @@ var NzSwitchComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        this.updateValue(value, false);
+        this.checked = value;
+        this.cdr.markForCheck();
     };
     /**
      * @param {?} fn
@@ -30837,21 +29060,15 @@ var NzSwitchComponent = /** @class */ (function () {
      */
     function (isDisabled) {
         this.nzDisabled = isDisabled;
-    };
-    /**
-     * @return {?}
-     */
-    NzSwitchComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        this.setClassMap();
+        this.cdr.markForCheck();
     };
     NzSwitchComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-switch',
                     preserveWhitespaces: false,
-                    template: "<span nz-wave [nzWaveExtraNode]=\"true\" [ngClass]=\"classMap\" [tabindex]=\"nzDisabled?-1:0\" #switchElement (keydown)=\"onKeyDown($event)\">\n  <i *ngIf=\"nzLoading\" nz-icon type=\"loading\" class=\"ant-switch-loading-icon\"></i>\n  <span class=\"ant-switch-inner\">\n    <span *ngIf=\"checked\">\n      <ng-container *ngIf=\"isCheckedChildrenString; else checkedChildrenTemplate\">{{ nzCheckedChildren }}</ng-container>\n      <ng-template #checkedChildrenTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzCheckedChildren\"></ng-template>\n      </ng-template>\n    </span>\n    <span *ngIf=\"!checked\">\n      <ng-container *ngIf=\"isUnCheckedChildrenString; else unCheckedChildrenTemplate\">{{ nzUnCheckedChildren }}</ng-container>\n      <ng-template #unCheckedChildrenTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzUnCheckedChildren\"></ng-template>\n      </ng-template>\n    </span>\n  </span>\n</span>",
+                    template: "<button type=\"button\" #switchElement\n  nz-wave\n  class=\"ant-switch\"\n  [disabled]=\"nzDisabled\"\n  [class.ant-switch-checked]=\"checked\"\n  [class.ant-switch-loading]=\"nzLoading\"\n  [class.ant-switch-disabled]=\"nzDisabled\"\n  [class.ant-switch-small]=\"nzSize === 'small'\"\n  [nzWaveExtraNode]=\"true\"\n  (keydown)=\"onKeyDown($event)\">\n  <i *ngIf=\"nzLoading\" nz-icon type=\"loading\" class=\"ant-switch-loading-icon\"></i>\n  <span class=\"ant-switch-inner\">\n    <span>\n      <ng-container *ngIf=\"checked\">\n        <ng-container *nzStringTemplateOutlet=\"nzCheckedChildren\">{{ nzCheckedChildren }}</ng-container>\n      </ng-container>\n      <ng-container *ngIf=\"!checked\">\n        <ng-container *nzStringTemplateOutlet=\"nzUnCheckedChildren\">{{ nzUnCheckedChildren }}</ng-container>\n      </ng-container>\n    </span>\n  </span>\n</button>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     providers: [
                         {
                             provide: NG_VALUE_ACCESSOR,
@@ -30859,19 +29076,36 @@ var NzSwitchComponent = /** @class */ (function () {
                             multi: true
                         }
                     ],
-                    styles: ["\n    :host {\n      display: inline-block;\n    }\n  "]
+                    styles: ["\n    nz-switch {\n      display: inline-block;\n    }"]
                 }] }
     ];
+    /** @nocollapse */
+    NzSwitchComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor }
+    ]; };
     NzSwitchComponent.propDecorators = {
         switchElement: [{ type: ViewChild, args: ['switchElement',] }],
+        nzLoading: [{ type: Input }],
+        nzDisabled: [{ type: Input }],
         nzControl: [{ type: Input }],
         nzCheckedChildren: [{ type: Input }],
         nzUnCheckedChildren: [{ type: Input }],
         nzSize: [{ type: Input }],
-        nzLoading: [{ type: Input }],
-        nzDisabled: [{ type: Input }],
         onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSwitchComponent.prototype, "nzLoading", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSwitchComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzSwitchComponent.prototype, "nzControl", void 0);
     return NzSwitchComponent;
 }());
 
@@ -30886,7 +29120,7 @@ var NzSwitchModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     exports: [NzSwitchComponent],
                     declarations: [NzSwitchComponent],
-                    imports: [CommonModule, NzWaveModule, NzIconModule]
+                    imports: [CommonModule, NzWaveModule, NzIconModule, NzAddOnModule]
                 },] }
     ];
     return NzSwitchModule;
@@ -32166,12 +30400,15 @@ var NzTdComponent = /** @class */ (function () {
         }
     };
     /**
+     * @param {?} e
      * @return {?}
      */
     NzTdComponent.prototype.expandChange = /**
+     * @param {?} e
      * @return {?}
      */
-    function () {
+    function (e) {
+        e.stopPropagation();
         this.nzExpand = !this.nzExpand;
         this.nzExpandChange.emit(this.nzExpand);
     };
@@ -32179,7 +30416,7 @@ var NzTdComponent = /** @class */ (function () {
         { type: Component, args: [{
                     // tslint:disable-next-line:component-selector
                     selector: 'td:not(.nz-disable-td)',
-                    template: "<span class=\"ant-table-row-indent\" *ngIf=\"nzIndentSize >= 0\" [style.padding-left.px]=\"nzIndentSize\"></span>\n<label\n  *ngIf=\"nzShowCheckbox\"\n  nz-checkbox\n  [nzDisabled]=\"nzDisabled\"\n  [(ngModel)]=\"nzChecked\"\n  [nzIndeterminate]=\"nzIndeterminate\"\n  (ngModelChange)=\"nzCheckedChange.emit($event)\">\n</label>\n<span\n  *ngIf=\"!nzShowExpand && nzIndentSize != null\"\n  class=\"ant-table-row-expand-icon ant-table-row-spaced\"></span>\n<span\n  *ngIf=\"nzShowExpand\"\n  class=\"ant-table-row-expand-icon\"\n  (click)=\"expandChange()\"\n  [class.ant-table-row-expanded]=\"nzExpand\"\n  [class.ant-table-row-collapsed]=\"!nzExpand\"></span>\n<ng-content></ng-content>"
+                    template: "<span class=\"ant-table-row-indent\" *ngIf=\"nzIndentSize >= 0\" [style.padding-left.px]=\"nzIndentSize\"></span>\n<label\n  *ngIf=\"nzShowCheckbox\"\n  nz-checkbox\n  [nzDisabled]=\"nzDisabled\"\n  [(ngModel)]=\"nzChecked\"\n  [nzIndeterminate]=\"nzIndeterminate\"\n  (ngModelChange)=\"nzCheckedChange.emit($event)\">\n</label>\n<span\n  *ngIf=\"!nzShowExpand && nzIndentSize != null\"\n  class=\"ant-table-row-expand-icon ant-table-row-spaced\"></span>\n<span\n  *ngIf=\"nzShowExpand\"\n  class=\"ant-table-row-expand-icon\"\n  (click)=\"expandChange($event)\"\n  [class.ant-table-row-expanded]=\"nzExpand\"\n  [class.ant-table-row-collapsed]=\"!nzExpand\"></span>\n<ng-content></ng-content>"
                 }] }
     ];
     /** @nocollapse */
@@ -32373,16 +30610,26 @@ var NzTableModule = /** @class */ (function () {
  */
 var NzTabBodyComponent = /** @class */ (function () {
     function NzTabBodyComponent() {
+        this.active = false;
+        this.forceRender = false;
     }
     NzTabBodyComponent.decorators = [
         { type: Component, args: [{
                     selector: '[nz-tab-body]',
                     preserveWhitespaces: false,
-                    template: "<ng-template [ngTemplateOutlet]=\"content\"></ng-template>"
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    template: "<ng-container *ngIf=\"active || forceRender\">\n  <ng-template [ngTemplateOutlet]=\"content\"></ng-template>\n</ng-container>",
+                    host: {
+                        '[class.ant-tabs-tabpane-active]': 'active',
+                        '[class.ant-tabs-tabpane-inactive]': '!active'
+                    }
                 }] }
     ];
     NzTabBodyComponent.propDecorators = {
-        content: [{ type: Input }]
+        content: [{ type: Input }],
+        active: [{ type: Input }],
+        forceRender: [{ type: Input }]
     };
     return NzTabBodyComponent;
 }());
@@ -32394,25 +30641,8 @@ var NzTabBodyComponent = /** @class */ (function () {
 var NzTabLabelDirective = /** @class */ (function () {
     function NzTabLabelDirective(elementRef) {
         this.elementRef = elementRef;
-        this._disabled = false;
+        this.disabled = false;
     }
-    Object.defineProperty(NzTabLabelDirective.prototype, "disabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -32453,7 +30683,8 @@ var NzTabLabelDirective = /** @class */ (function () {
         { type: Directive, args: [{
                     selector: '[nz-tab-label]',
                     host: {
-                        '[class.ant-tabs-tab]': 'true'
+                        '[class.ant-tabs-tab]': 'true',
+                        '[class.ant-tabs-tab-disabled]': 'disabled'
                     }
                 },] }
     ];
@@ -32462,9 +30693,83 @@ var NzTabLabelDirective = /** @class */ (function () {
         { type: ElementRef }
     ]; };
     NzTabLabelDirective.propDecorators = {
-        disabled: [{ type: Input }, { type: HostBinding, args: ['class.ant-tabs-tab-disabled',] }]
+        disabled: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabLabelDirective.prototype, "disabled", void 0);
     return NzTabLabelDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzTabComponent = /** @class */ (function () {
+    function NzTabComponent() {
+        this.position = null;
+        this.origin = null;
+        this.isActive = false;
+        this.stateChanges = new Subject();
+        this.nzForceRender = false;
+        this.nzDisabled = false;
+        this.nzClick = new EventEmitter();
+        this.nzSelect = new EventEmitter();
+        this.nzDeselect = new EventEmitter();
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTabComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzTitle"] || changes["nzForceRender"] || changes["nzDisabled"]) {
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzTabComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.stateChanges.complete();
+    };
+    NzTabComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'nz-tab',
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    template: "<ng-template>\n  <ng-content></ng-content>\n</ng-template>",
+                    host: {
+                        '[class.ant-tabs-tabpane]': 'true'
+                    }
+                }] }
+    ];
+    NzTabComponent.propDecorators = {
+        content: [{ type: ViewChild, args: [TemplateRef,] }],
+        nzTitle: [{ type: Input }],
+        nzForceRender: [{ type: Input }],
+        nzDisabled: [{ type: Input }],
+        nzClick: [{ type: Output }],
+        nzSelect: [{ type: Output }],
+        nzDeselect: [{ type: Output }]
+    };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabComponent.prototype, "nzForceRender", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabComponent.prototype, "nzDisabled", void 0);
+    return NzTabComponent;
 }());
 
 /**
@@ -32476,26 +30781,9 @@ var NzTabsInkBarDirective = /** @class */ (function () {
         this.renderer = renderer;
         this.elementRef = elementRef;
         this.ngZone = ngZone;
-        this._animated = false;
+        this.nzAnimated = false;
         this.nzPositionMode = 'horizontal';
     }
-    Object.defineProperty(NzTabsInkBarDirective.prototype, "nzAnimated", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._animated;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._animated = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} element
      * @return {?}
@@ -32506,44 +30794,36 @@ var NzTabsInkBarDirective = /** @class */ (function () {
      */
     function (element) {
         var _this = this;
-        this.show();
-        this.ngZone.runOutsideAngular(function () {
-            reqAnimFrame(function () {
-                /** when horizontal remove height style and add transform left **/
-                if (_this.nzPositionMode === 'horizontal') {
-                    _this.renderer.removeStyle(_this.elementRef.nativeElement, 'height');
-                    _this.renderer.setStyle(_this.elementRef.nativeElement, 'transform', "translate3d(" + _this.getLeftPosition(element) + ", 0px, 0px)");
-                    _this.renderer.setStyle(_this.elementRef.nativeElement, 'width', _this.getElementWidth(element));
-                }
-                else {
-                    /** when vertical remove width style and add transform top **/
-                    /** when vertical remove width style and add transform top **/
-                    _this.renderer.removeStyle(_this.elementRef.nativeElement, 'width');
-                    _this.renderer.setStyle(_this.elementRef.nativeElement, 'transform', "translate3d(0px, " + _this.getTopPosition(element) + ", 0px)");
-                    _this.renderer.setStyle(_this.elementRef.nativeElement, 'height', _this.getElementHeight(element));
-                }
+        if (typeof requestAnimationFrame !== 'undefined') {
+            this.ngZone.runOutsideAngular(function () {
+                requestAnimationFrame(function () { return _this.setStyles(element); });
             });
-        });
+        }
+        else {
+            this.setStyles(element);
+        }
     };
     /**
+     * @param {?} element
      * @return {?}
      */
-    NzTabsInkBarDirective.prototype.show = /**
+    NzTabsInkBarDirective.prototype.setStyles = /**
+     * @param {?} element
      * @return {?}
      */
-    function () {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', 'visible');
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzTabsInkBarDirective.prototype.setDisplay = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'display', value);
+    function (element) {
+        /** when horizontal remove height style and add transform left **/
+        if (this.nzPositionMode === 'horizontal') {
+            this.renderer.removeStyle(this.elementRef.nativeElement, 'height');
+            this.renderer.setStyle(this.elementRef.nativeElement, 'transform', "translate3d(" + this.getLeftPosition(element) + ", 0px, 0px)");
+            this.renderer.setStyle(this.elementRef.nativeElement, 'width', this.getElementWidth(element));
+        }
+        else {
+            /** when vertical remove width style and add transform top **/
+            this.renderer.removeStyle(this.elementRef.nativeElement, 'width');
+            this.renderer.setStyle(this.elementRef.nativeElement, 'transform', "translate3d(0px, " + this.getTopPosition(element) + ", 0px)");
+            this.renderer.setStyle(this.elementRef.nativeElement, 'height', this.getElementHeight(element));
+        }
     };
     /**
      * @param {?} element
@@ -32609,6 +30889,10 @@ var NzTabsInkBarDirective = /** @class */ (function () {
         nzAnimated: [{ type: Input }],
         nzPositionMode: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabsInkBarDirective.prototype, "nzAnimated", void 0);
     return NzTabsInkBarDirective;
 }());
 
@@ -32619,15 +30903,12 @@ var NzTabsInkBarDirective = /** @class */ (function () {
 /** @type {?} */
 var EXAGGERATED_OVERSCROLL = 64;
 var NzTabsNavComponent = /** @class */ (function () {
-    function NzTabsNavComponent(elementRef, ngZone, renderer, dir) {
+    function NzTabsNavComponent(elementRef, ngZone, renderer, cdr, dir) {
         this.elementRef = elementRef;
         this.ngZone = ngZone;
         this.renderer = renderer;
+        this.cdr = cdr;
         this.dir = dir;
-        this._animated = true;
-        this._hideBar = false;
-        this._showPagination = true;
-        this._type = 'line';
         this._tabPositionMode = 'horizontal';
         this._scrollDistance = 0;
         this._selectedIndex = 0;
@@ -32638,81 +30919,11 @@ var NzTabsNavComponent = /** @class */ (function () {
         this.realignInkBar = null;
         this.nzOnNextClick = new EventEmitter();
         this.nzOnPrevClick = new EventEmitter();
+        this.nzAnimated = true;
+        this.nzHideBar = false;
+        this.nzShowPagination = true;
+        this.nzType = 'line';
     }
-    Object.defineProperty(NzTabsNavComponent.prototype, "nzAnimated", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._animated;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._animated = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabsNavComponent.prototype, "nzHideBar", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._hideBar;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._hideBar = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabsNavComponent.prototype, "nzType", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._type;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._type = value;
-            if (this._type !== 'line') {
-                this.nzTabsInkBarDirective.setDisplay('none');
-            }
-            else {
-                this.nzTabsInkBarDirective.setDisplay('block');
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabsNavComponent.prototype, "nzShowPagination", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showPagination;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showPagination = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzTabsNavComponent.prototype, "nzPositionMode", {
         get: /**
          * @return {?}
@@ -32725,10 +30936,13 @@ var NzTabsNavComponent = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
+            var _this = this;
             this._tabPositionMode = value;
             this.alignInkBarToSelectedTab();
             if (this.nzShowPagination) {
-                this.updatePagination();
+                Promise.resolve().then(function () {
+                    _this.updatePagination();
+                });
             }
         },
         enumerable: true,
@@ -32759,10 +30973,21 @@ var NzTabsNavComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this.nzShowPagination) {
-            this.updatePagination();
+        var _this = this;
+        /** @type {?} */
+        var textContent = this.elementRef.nativeElement.textContent;
+        // We need to diff the text content of the header, because the MutationObserver callback
+        // will fire even if the text content didn't change which is inefficient and is prone
+        // to infinite loops if a poorly constructed expression is passed in (see #14249).
+        if (textContent !== this.currentTextContent) {
+            this.ngZone.run(function () {
+                if (_this.nzShowPagination) {
+                    _this.updatePagination();
+                }
+                _this.alignInkBarToSelectedTab();
+                _this.cdr.markForCheck();
+            });
         }
-        this.alignInkBarToSelectedTab();
     };
     /**
      * @param {?} scrollDir
@@ -32794,6 +31019,7 @@ var NzTabsNavComponent = /** @class */ (function () {
                 this.updatePagination();
             }
             this.tabLabelCount = this.listOfNzTabLabelDirective.length;
+            this.cdr.markForCheck();
         }
         if (this.selectedIndexChanged) {
             this.scrollToLabel(this._selectedIndex);
@@ -32802,12 +31028,14 @@ var NzTabsNavComponent = /** @class */ (function () {
             }
             this.alignInkBarToSelectedTab();
             this.selectedIndexChanged = false;
+            this.cdr.markForCheck();
         }
         if (this.scrollDistanceChanged) {
             if (this.nzShowPagination) {
                 this.updateTabScrollPosition();
             }
             this.scrollDistanceChanged = false;
+            this.cdr.markForCheck();
         }
     };
     /**
@@ -32869,11 +31097,15 @@ var NzTabsNavComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.showPaginationControls =
-            this.tabListScrollWidthHeightPix > this.elementRefOffSetWidthHeight;
-        if (!this.showPaginationControls) {
+        /** @type {?} */
+        var isEnabled = this.tabListScrollWidthHeightPix > this.tabListScrollOffSetWidthHeight;
+        if (!isEnabled) {
             this.scrollDistance = 0;
         }
+        if (isEnabled !== this.showPaginationControls) {
+            this.cdr.markForCheck();
+        }
+        this.showPaginationControls = isEnabled;
     };
     /**
      * @param {?} labelIndex
@@ -32931,6 +31163,7 @@ var NzTabsNavComponent = /** @class */ (function () {
         // Check if the pagination arrows should be activated.
         this.disableScrollBefore = this.scrollDistance === 0;
         this.disableScrollAfter = this.scrollDistance === this.getMaxScrollDistance();
+        this.cdr.markForCheck();
     };
     /**
      * Determines what is the maximum length in pixels that can be set for the scroll distance. This
@@ -33016,16 +31249,16 @@ var NzTabsNavComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzTabsNavComponent.prototype, "elementRefOffSetWidthHeight", {
+    Object.defineProperty(NzTabsNavComponent.prototype, "tabListScrollOffSetWidthHeight", {
         get: /**
          * @return {?}
          */
         function () {
             if (this.nzPositionMode === 'horizontal') {
-                return this.elementRef.nativeElement.offsetWidth;
+                return this.scrollListElement.nativeElement.offsetWidth;
             }
             else {
-                return this.elementRef.nativeElement.offsetHeight;
+                return this.scrollListElement.nativeElement.offsetHeight;
             }
         },
         enumerable: true,
@@ -33061,7 +31294,9 @@ var NzTabsNavComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: '[nz-tabs-nav]',
                     preserveWhitespaces: false,
-                    template: "<div style=\"float:right;\" *ngIf=\"nzTabBarExtraContent\" class=\"ant-tabs-extra-content\">\n  <ng-template [ngTemplateOutlet]=\"nzTabBarExtraContent\"></ng-template>\n</div>\n<div class=\"ant-tabs-nav-container\" [class.ant-tabs-nav-container-scrolling]=\"showPaginationControls\" #navContainerElement>\n  <span class=\"ant-tabs-tab-prev\" (click)=\"scrollHeader('before')\" [class.ant-tabs-tab-btn-disabled]=\"disableScrollBefore\" [class.ant-tabs-tab-arrow-show]=\"showPaginationControls\">\n    <span class=\"ant-tabs-tab-prev-icon\">\n      <i nz-icon [type]=\"nzPositionMode === 'horizontal' ? 'left' : 'up'\" class=\"ant-tabs-tab-prev-icon-target\"></i>\n    </span>\n  </span>\n  <span class=\"ant-tabs-tab-next\" (click)=\"scrollHeader('after')\" [class.ant-tabs-tab-btn-disabled]=\"disableScrollAfter\" [class.ant-tabs-tab-arrow-show]=\"showPaginationControls\">\n    <span class=\"ant-tabs-tab-next-icon\">\n      <i nz-icon [type]=\"nzPositionMode === 'horizontal' ? 'right' : 'down'\" class=\"ant-tabs-tab-next-icon-target\"></i>\n    </span>\n  </span>\n  <div class=\"ant-tabs-nav-wrap\">\n    <div class=\"ant-tabs-nav-scroll\">\n      <div\n        class=\"ant-tabs-nav\"\n        [class.ant-tabs-nav-animated]=\"nzAnimated\"\n        #navListElement\n        (cdkObserveContent)=\"onContentChanges()\">\n        <div nz-tabs-ink-bar [hidden]=\"nzHideBar\" [nzAnimated]=\"nzAnimated\" [nzPositionMode]=\"nzPositionMode\" style=\"display: block;\"></div>\n        <ng-content></ng-content>\n      </div>\n    </div>\n  </div>\n</div>"
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    template: "<div style=\"float:right;\" *ngIf=\"nzTabBarExtraContent\" class=\"ant-tabs-extra-content\">\n  <ng-template [ngTemplateOutlet]=\"nzTabBarExtraContent\"></ng-template>\n</div>\n<div class=\"ant-tabs-nav-container\"\n  [class.ant-tabs-nav-container-scrolling]=\"showPaginationControls\"\n  #navContainerElement>\n  <span class=\"ant-tabs-tab-prev\"\n    (click)=\"scrollHeader('before')\"\n    [class.ant-tabs-tab-btn-disabled]=\"disableScrollBefore\"\n    [class.ant-tabs-tab-arrow-show]=\"showPaginationControls\">\n    <span class=\"ant-tabs-tab-prev-icon\">\n      <i nz-icon [type]=\"nzPositionMode === 'horizontal' ? 'left' : 'up'\" class=\"ant-tabs-tab-prev-icon-target\"></i>\n    </span>\n  </span>\n  <span class=\"ant-tabs-tab-next\"\n    (click)=\"scrollHeader('after')\"\n    [class.ant-tabs-tab-btn-disabled]=\"disableScrollAfter\"\n    [class.ant-tabs-tab-arrow-show]=\"showPaginationControls\">\n    <span class=\"ant-tabs-tab-next-icon\">\n      <i nz-icon [type]=\"nzPositionMode === 'horizontal' ? 'right' : 'down'\" class=\"ant-tabs-tab-next-icon-target\"></i>\n    </span>\n  </span>\n  <div class=\"ant-tabs-nav-wrap\">\n    <div class=\"ant-tabs-nav-scroll\" #scrollListElement>\n      <div class=\"ant-tabs-nav\"\n        [class.ant-tabs-nav-animated]=\"nzAnimated\"\n        #navListElement\n        (cdkObserveContent)=\"onContentChanges()\">\n        <div>\n          <ng-content></ng-content>\n        </div>\n        <div nz-tabs-ink-bar [hidden]=\"nzHideBar\" [nzAnimated]=\"nzAnimated\" [nzPositionMode]=\"nzPositionMode\" style=\"display: block;\"></div>\n      </div>\n    </div>\n  </div>\n</div>"
                 }] }
     ];
     /** @nocollapse */
@@ -33069,6 +31304,7 @@ var NzTabsNavComponent = /** @class */ (function () {
         { type: ElementRef },
         { type: NgZone },
         { type: Renderer2 },
+        { type: ChangeDetectorRef },
         { type: Directionality, decorators: [{ type: Optional }] }
     ]; };
     NzTabsNavComponent.propDecorators = {
@@ -33076,16 +31312,29 @@ var NzTabsNavComponent = /** @class */ (function () {
         nzTabsInkBarDirective: [{ type: ViewChild, args: [NzTabsInkBarDirective,] }],
         navContainerElement: [{ type: ViewChild, args: ['navContainerElement',] }],
         navListElement: [{ type: ViewChild, args: ['navListElement',] }],
+        scrollListElement: [{ type: ViewChild, args: ['scrollListElement',] }],
         nzOnNextClick: [{ type: Output }],
         nzOnPrevClick: [{ type: Output }],
         nzTabBarExtraContent: [{ type: Input }],
         nzAnimated: [{ type: Input }],
         nzHideBar: [{ type: Input }],
-        nzType: [{ type: Input }],
         nzShowPagination: [{ type: Input }],
+        nzType: [{ type: Input }],
         nzPositionMode: [{ type: Input }],
         selectedIndex: [{ type: Input }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabsNavComponent.prototype, "nzAnimated", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabsNavComponent.prototype, "nzHideBar", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTabsNavComponent.prototype, "nzShowPagination", void 0);
     return NzTabsNavComponent;
 }());
 
@@ -33099,51 +31348,37 @@ var NzTabChangeEvent = /** @class */ (function () {
     return NzTabChangeEvent;
 }());
 var NzTabSetComponent = /** @class */ (function () {
+    function NzTabSetComponent(renderer, nzUpdateHostClassService, elementRef, cdr, 
     // tslint:disable-next-line:no-any
-    function NzTabSetComponent(renderer, nzUpdateHostClassService, elementRef, document) {
+    document) {
         this.renderer = renderer;
         this.nzUpdateHostClassService = nzUpdateHostClassService;
         this.elementRef = elementRef;
+        this.cdr = cdr;
         this.document = document;
-        this._tabPosition = 'top';
-        this._indexToSelect = 0;
-        this._selectedIndex = null;
-        this._type = 'line';
-        this._size = 'default';
-        this._animated = true;
+        this.indexToSelect = 0;
         this.el = this.elementRef.nativeElement;
-        this.prefixCls = 'ant-tabs';
+        this._selectedIndex = null;
+        /**
+         * Subscription to tabs being added/removed.
+         */
+        this.tabsSubscription = Subscription.EMPTY;
+        /**
+         * Subscription to changes in the tab labels.
+         */
+        this.tabLabelSubscription = Subscription.EMPTY;
         this.tabPositionMode = 'horizontal';
-        this.inkBarAnimated = true;
-        this.tabPaneAnimated = true;
-        this.isViewInit = false;
-        this.listOfNzTabComponent = [];
         this.nzShowPagination = true;
+        this.nzAnimated = true;
         this.nzHideAll = false;
+        this.nzTabPosition = 'top';
+        this.nzSize = 'default';
+        this.nzType = 'line';
         this.nzOnNextClick = new EventEmitter();
         this.nzOnPrevClick = new EventEmitter();
         this.nzSelectChange = new EventEmitter(true);
+        this.nzSelectedIndexChange = new EventEmitter();
     }
-    Object.defineProperty(NzTabSetComponent.prototype, "nzAnimated", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._animated;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._animated = value;
-            this.setClassMap();
-            this.inkBarAnimated = (this.nzAnimated === true) || ((/** @type {?} */ (this.nzAnimated)).inkBar === true);
-            this.tabPaneAnimated = (this.nzAnimated === true) || ((/** @type {?} */ (this.nzAnimated)).tabPane === true);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzTabSetComponent.prototype, "nzSelectedIndex", {
         get: /**
          * @return {?}
@@ -33156,87 +31391,27 @@ var NzTabSetComponent = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            this._indexToSelect = toNumber(value, null);
+            this.indexToSelect = toNumber(value, null);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzTabSetComponent.prototype, "nzSelectedIndexChange", {
+    Object.defineProperty(NzTabSetComponent.prototype, "inkBarAnimated", {
         get: /**
          * @return {?}
          */
         function () {
-            return this.nzSelectChange.pipe(map(function (event) { return event.index; }));
+            return (this.nzAnimated === true) || ((/** @type {?} */ (this.nzAnimated)).inkBar === true);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzTabSetComponent.prototype, "nzSize", {
+    Object.defineProperty(NzTabSetComponent.prototype, "tabPaneAnimated", {
         get: /**
          * @return {?}
          */
         function () {
-            return this._size;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._size = value;
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabSetComponent.prototype, "nzTabPosition", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._tabPosition;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (this._tabPosition === value) {
-                return;
-            }
-            this._tabPosition = value;
-            if ((this._tabPosition === 'top') || (this._tabPosition === 'bottom')) {
-                this.tabPositionMode = 'horizontal';
-            }
-            else {
-                this.tabPositionMode = 'vertical';
-            }
-            this.setPosition(value);
-            this.setClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabSetComponent.prototype, "nzType", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._type;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (this._type === value) {
-                return;
-            }
-            this._type = value;
-            if (this._type === 'card') {
-                this.nzAnimated = false;
-            }
-            this.setClassMap();
+            return (this.nzAnimated === true) || ((/** @type {?} */ (this.nzAnimated)).tabPane === true);
         },
         enumerable: true,
         configurable: true
@@ -33250,7 +31425,7 @@ var NzTabSetComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        if (this.isViewInit) {
+        if (this.tabContent) {
             if (value === 'bottom') {
                 this.renderer.insertBefore(this.el, this.tabContent.nativeElement, this.nzTabsNavComponent.elementRef.nativeElement);
             }
@@ -33267,17 +31442,15 @@ var NzTabSetComponent = /** @class */ (function () {
      */
     function () {
         var _a;
-        /** @type {?} */
-        var classMap = (_a = {},
-            _a[this.prefixCls] = true,
-            _a[this.prefixCls + "-vertical"] = (this.nzTabPosition === 'left') || (this.nzTabPosition === 'right'),
-            _a[this.prefixCls + "-" + this.nzTabPosition] = this.nzTabPosition,
-            _a[this.prefixCls + "-no-animation"] = (this.nzAnimated === false) || ((/** @type {?} */ (this.nzAnimated)).tabPane === false),
-            _a[this.prefixCls + "-" + this.nzType] = this.nzType,
-            _a[this.prefixCls + "-large"] = this.nzSize === 'large',
-            _a[this.prefixCls + "-small"] = this.nzSize === 'small',
-            _a);
-        this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
+        this.nzUpdateHostClassService.updateHostClass(this.el, (_a = {},
+            _a["ant-tabs"] = true,
+            _a["ant-tabs-vertical"] = (this.nzTabPosition === 'left') || (this.nzTabPosition === 'right'),
+            _a["ant-tabs-" + this.nzTabPosition] = this.nzTabPosition,
+            _a["ant-tabs-no-animation"] = (this.nzAnimated === false) || ((/** @type {?} */ (this.nzAnimated)).tabPane === false),
+            _a["ant-tabs-" + this.nzType] = this.nzType,
+            _a["ant-tabs-large"] = this.nzSize === 'large',
+            _a["ant-tabs-small"] = this.nzSize === 'small',
+            _a));
     };
     /**
      * @param {?} index
@@ -33292,7 +31465,86 @@ var NzTabSetComponent = /** @class */ (function () {
     function (index, disabled) {
         if (!disabled) {
             this.nzSelectedIndex = index;
-            this.listOfNzTabComponent[index].nzClick.emit();
+            this.listOfNzTabComponent.toArray()[index].nzClick.emit();
+        }
+    };
+    /**
+     * @param {?} index
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.createChangeEvent = /**
+     * @param {?} index
+     * @return {?}
+     */
+    function (index) {
+        /** @type {?} */
+        var event = new NzTabChangeEvent();
+        event.index = index;
+        if (this.listOfNzTabComponent && this.listOfNzTabComponent.length) {
+            event.tab = this.listOfNzTabComponent.toArray()[index];
+            this.listOfNzTabComponent.forEach(function (item, i) {
+                if (i !== index) {
+                    item.nzDeselect.emit();
+                }
+            });
+            event.tab.nzSelect.emit();
+        }
+        return event;
+    };
+    /**
+     * Clamps the given index to the bounds of 0 and the tabs length.
+     * @param {?} index
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.clampTabIndex = /**
+     * Clamps the given index to the bounds of 0 and the tabs length.
+     * @param {?} index
+     * @return {?}
+     */
+    function (index) {
+        // Note the `|| 0`, which ensures that values like NaN can't get through
+        // and which would otherwise throw the component into an infinite loop
+        // (since Math.max(NaN, 0) === NaN).
+        return Math.min(this.listOfNzTabComponent.length - 1, Math.max(index || 0, 0));
+    };
+    /**
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.subscribeToTabLabels = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.tabLabelSubscription) {
+            this.tabLabelSubscription.unsubscribe();
+        }
+        this.tabLabelSubscription = merge.apply(void 0, __spread(this.listOfNzTabComponent.map(function (tab) { return tab.stateChanges; }))).subscribe(function () { return _this.cdr.markForCheck(); });
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzTabPosition"]) {
+            if ((this.nzTabPosition === 'top') || (this.nzTabPosition === 'bottom')) {
+                this.tabPositionMode = 'horizontal';
+            }
+            else {
+                this.tabPositionMode = 'vertical';
+            }
+            this.setPosition(this.nzTabPosition);
+        }
+        if (changes["nzType"]) {
+            if (this.nzType === 'card') {
+                this.nzAnimated = false;
+            }
+        }
+        if (changes["nzSize"] || changes["nzAnimated"] || changes["nzTabPosition"] || changes["nzType"]) {
+            this.setClassMap();
         }
     };
     /**
@@ -33312,89 +31564,83 @@ var NzTabSetComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        /** @type {?} */
-        var indexToSelect = this._indexToSelect =
-            Math.min(this.listOfNzTabComponent.length - 1, Math.max(this._indexToSelect || 0, 0));
-        // If there is a change in selected index, emit a change event. Should not trigger if
-        // the selected index has not yet been initialized.
-        if (this._selectedIndex !== indexToSelect && isNotNil(this._selectedIndex)) {
-            this.nzSelectChange.emit(this.createChangeEvent(indexToSelect));
-        }
-        // Setup the position for each tab and optionally setup an origin on the next selected tab.
-        this.listOfNzTabComponent.forEach(function (tab, index) {
-            tab.position = index - indexToSelect;
-            // If there is already a selected tab, then set up an origin for the next selected tab
-            // if it doesn't have one already.
-            if (isNotNil(_this._selectedIndex) && tab.position === 0 && !tab.origin) {
-                tab.origin = indexToSelect - _this._selectedIndex;
-            }
-        });
-        this._selectedIndex = indexToSelect;
-    };
-    /**
-     * @param {?} index
-     * @return {?}
-     */
-    NzTabSetComponent.prototype.createChangeEvent = /**
-     * @param {?} index
-     * @return {?}
-     */
-    function (index) {
-        /** @type {?} */
-        var event = new NzTabChangeEvent();
-        event.index = index;
         if (this.listOfNzTabComponent && this.listOfNzTabComponent.length) {
-            event.tab = this.listOfNzTabComponent[index];
-            this.listOfNzTabComponent.forEach(function (item, i) {
-                if (i !== index) {
-                    item.nzDeselect.emit();
+            /** @type {?} */
+            var indexToSelect_1 = this.indexToSelect = this.clampTabIndex(this.indexToSelect);
+            // If there is a change in selected index, emit a change event. Should not trigger if
+            // the selected index has not yet been initialized.
+            if (this._selectedIndex !== indexToSelect_1) {
+                /** @type {?} */
+                var isFirstRun_1 = this._selectedIndex == null;
+                if (!isFirstRun_1) {
+                    this.nzSelectChange.emit(this.createChangeEvent(indexToSelect_1));
+                }
+                // Changing these values after change detection has run
+                // since the checked content may contain references to them.
+                Promise.resolve().then(function () {
+                    _this.listOfNzTabComponent.forEach(function (tab, index) { return tab.isActive = index === indexToSelect_1; });
+                    if (!isFirstRun_1) {
+                        _this.nzSelectedIndexChange.emit(indexToSelect_1);
+                    }
+                });
+            }
+            // Setup the position for each tab and optionally setup an origin on the next selected tab.
+            this.listOfNzTabComponent.forEach(function (tab, index) {
+                tab.position = index - indexToSelect_1;
+                // If there is already a selected tab, then set up an origin for the next selected tab
+                // if it doesn't have one already.
+                if (_this._selectedIndex != null && tab.position === 0 && !tab.origin) {
+                    tab.origin = indexToSelect_1 - _this._selectedIndex;
                 }
             });
-            event.tab.nzSelect.emit();
-        }
-        return event;
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzTabSetComponent.prototype.addTab = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.listOfNzTabComponent.push(value);
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzTabSetComponent.prototype.removeTab = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        this.listOfNzTabComponent.splice(this.listOfNzTabComponent.indexOf(value), 1);
-    };
-    // From https://github.com/react-component/tabs/blob/master/src/Tabs.js
-    // Prevent focus to make the Tabs scroll offset
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    NzTabSetComponent.prototype.onScroll = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        /** @type {?} */
-        var target = /** @type {?} */ ($event.target);
-        if (target.scrollLeft > 0) {
-            target.scrollLeft = 0;
-            if (this.document && this.document.activeElement) {
-                (/** @type {?} */ (this.document.activeElement)).blur();
+            if (this._selectedIndex !== indexToSelect_1) {
+                this._selectedIndex = indexToSelect_1;
+                this.cdr.markForCheck();
             }
         }
+    };
+    /**
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.subscribeToTabLabels();
+        // Subscribe to changes in the amount of tabs, in order to be
+        // able to re-render the content as new tabs are added or removed.
+        this.tabsSubscription = this.listOfNzTabComponent.changes.subscribe(function () {
+            /** @type {?} */
+            var indexToSelect = _this.clampTabIndex(_this.indexToSelect);
+            // Maintain the previously-selected tab if a new tab is added or removed and there is no
+            // explicit change that selects a different tab.
+            if (indexToSelect === _this._selectedIndex) {
+                /** @type {?} */
+                var tabs = _this.listOfNzTabComponent.toArray();
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].isActive) {
+                        // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                        // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                        // adding a tab within the `selectedIndexChange` event.
+                        _this.indexToSelect = _this._selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            _this.subscribeToTabLabels();
+            _this.cdr.markForCheck();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    NzTabSetComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.tabsSubscription.unsubscribe();
+        this.tabLabelSubscription.unsubscribe();
     };
     /**
      * @return {?}
@@ -33403,19 +31649,17 @@ var NzTabSetComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.isViewInit = true;
         this.setPosition(this.nzTabPosition);
     };
     NzTabSetComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-tabset',
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [NzUpdateHostClassService],
-                    template: "<div \n  class=\"ant-tabs-bar\"\n  nz-tabs-nav\n  role=\"tablist\"\n  tabindex=\"0\"\n  [nzType]=\"nzType\"\n  [nzShowPagination]=\"nzShowPagination\"\n  [nzPositionMode]=\"tabPositionMode\"\n  [nzAnimated]=\"inkBarAnimated\"\n  [ngStyle]=\"nzTabBarStyle\"\n  [nzHideBar]=\"nzHideAll\"\n  [nzTabBarExtraContent]=\"nzTabBarExtraContent\"\n  [selectedIndex]=\"nzSelectedIndex\"\n  (nzOnNextClick)=\"nzOnNextClick.emit()\"\n  (nzOnPrevClick)=\"nzOnPrevClick.emit()\">\n  <div\n    nz-tab-label\n    role=\"tab\"\n    [style.margin-right.px]=\"nzTabBarGutter\"\n    [class.ant-tabs-tab-active]=\"(nzSelectedIndex == i) && !nzHideAll\"\n    [disabled]=\"tab.nzDisabled\"\n    (click)=\"clickLabel(i,tab.nzDisabled)\"\n    *ngFor=\"let tab of listOfNzTabComponent; let i = index\">\n    <ng-container *ngIf=\"tab.isTitleString; else titleTemplate\">{{ tab.nzTitle }}</ng-container>\n    <ng-template #titleTemplate>\n      <ng-template [ngTemplateOutlet]=\"tab.nzTitle\"></ng-template>\n    </ng-template>\n  </div>\n</div>\n<div\n  class=\"ant-tabs-content\"\n  #tabContent\n  [class.ant-tabs-content-animated]=\"tabPaneAnimated\"\n  [class.ant-tabs-content-no-animated]=\"!tabPaneAnimated\"\n  [style.margin-left.%]=\"tabPaneAnimated&&(-nzSelectedIndex*100)\">\n  <div nz-tab-body\n    class=\"ant-tabs-tabpane\"\n    [class.ant-tabs-tabpane-active]=\"(nzSelectedIndex == i) && !nzHideAll\"\n    [class.ant-tabs-tabpane-inactive]=\"(nzSelectedIndex != i) || nzHideAll\"\n    [content]=\"tab.content\"\n    *ngFor=\"let tab of listOfNzTabComponent; let i = index\">\n  </div>\n</div>",
-                    host: {
-                        '(scroll)': 'onScroll($event)'
-                    },
-                    styles: ["\n    :host {\n      display: block;\n    }\n  "]
+                    template: "<ng-container *ngIf=\"listOfNzTabComponent\">\n  <div nz-tabs-nav\n    role=\"tablist\"\n    tabindex=\"0\"\n    class=\"ant-tabs-bar\"\n    [class.ant-tabs-card-bar]=\"nzType === 'card'\"\n    [class.ant-tabs-top-bar]=\"nzTabPosition === 'top'\"\n    [class.ant-tabs-bottom-bar]=\"nzTabPosition === 'bottom'\"\n    [class.ant-tabs-left-bar]=\"nzTabPosition === 'left'\"\n    [class.ant-tabs-right-bar]=\"nzTabPosition === 'right'\"\n    [class.ant-tabs-small-bar]=\"nzSize === 'small'\"\n    [class.ant-tabs-default-bar]=\"nzSize === 'default'\"\n    [class.ant-tabs-large-bar]=\"nzSize === 'large'\"\n    [nzType]=\"nzType\"\n    [nzShowPagination]=\"nzShowPagination\"\n    [nzPositionMode]=\"tabPositionMode\"\n    [nzAnimated]=\"inkBarAnimated\"\n    [ngStyle]=\"nzTabBarStyle\"\n    [nzHideBar]=\"nzHideAll\"\n    [nzTabBarExtraContent]=\"nzTabBarExtraContent\"\n    [selectedIndex]=\"nzSelectedIndex\"\n    (nzOnNextClick)=\"nzOnNextClick.emit()\"\n    (nzOnPrevClick)=\"nzOnPrevClick.emit()\">\n    <div nz-tab-label\n      role=\"tab\"\n      [style.margin-right.px]=\"nzTabBarGutter\"\n      [class.ant-tabs-tab-active]=\"(nzSelectedIndex == i) && !nzHideAll\"\n      [disabled]=\"tab.nzDisabled\"\n      (click)=\"clickLabel(i,tab.nzDisabled)\"\n      *ngFor=\"let tab of listOfNzTabComponent; let i = index\">\n      <ng-container *nzStringTemplateOutlet=\"tab.nzTitle\">{{ tab.nzTitle }}</ng-container>\n    </div>\n  </div>\n  <div #tabContent\n    class=\"ant-tabs-content\"\n    [class.ant-tabs-top-content]=\"nzTabPosition === 'top'\"\n    [class.ant-tabs-bottom-content]=\"nzTabPosition === 'bottom'\"\n    [class.ant-tabs-left-content]=\"nzTabPosition === 'left'\"\n    [class.ant-tabs-right-content]=\"nzTabPosition === 'right'\"\n    [class.ant-tabs-content-animated]=\"tabPaneAnimated\"\n    [class.ant-tabs-content-no-animated]=\"!tabPaneAnimated\"\n    [style.margin-left.%]=\"tabPaneAnimated && (-nzSelectedIndex*100)\">\n    <div nz-tab-body\n      class=\"ant-tabs-tabpane\"\n      *ngFor=\"let tab of listOfNzTabComponent; let i = index\"\n      [active]=\"(nzSelectedIndex == i) && !nzHideAll\"\n      [forceRender]=\"tab.nzForceRender\"\n      [content]=\"tab.content\">\n    </div>\n  </div>\n</ng-container>",
+                    styles: ["\n    nz-tabset {\n      display: block;\n    }\n  "]
                 }] }
     ];
     /** @nocollapse */
@@ -33423,119 +31667,29 @@ var NzTabSetComponent = /** @class */ (function () {
         { type: Renderer2 },
         { type: NzUpdateHostClassService },
         { type: ElementRef },
+        { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
     ]; };
     NzTabSetComponent.propDecorators = {
-        nzTabBarExtraContent: [{ type: Input }],
+        listOfNzTabComponent: [{ type: ContentChildren, args: [NzTabComponent,] }],
         nzTabsNavComponent: [{ type: ViewChild, args: [NzTabsNavComponent,] }],
         tabContent: [{ type: ViewChild, args: ['tabContent',] }],
+        nzTabBarExtraContent: [{ type: Input }],
         nzShowPagination: [{ type: Input }],
+        nzAnimated: [{ type: Input }],
         nzHideAll: [{ type: Input }],
+        nzTabPosition: [{ type: Input }],
+        nzSize: [{ type: Input }],
         nzTabBarGutter: [{ type: Input }],
         nzTabBarStyle: [{ type: Input }],
+        nzType: [{ type: Input }],
         nzOnNextClick: [{ type: Output }],
         nzOnPrevClick: [{ type: Output }],
-        nzAnimated: [{ type: Input }],
-        nzSelectedIndex: [{ type: Input }],
-        nzSelectedIndexChange: [{ type: Output }],
         nzSelectChange: [{ type: Output }],
-        nzSize: [{ type: Input }],
-        nzTabPosition: [{ type: Input }],
-        nzType: [{ type: Input }]
+        nzSelectedIndexChange: [{ type: Output }],
+        nzSelectedIndex: [{ type: Input }]
     };
     return NzTabSetComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzTabComponent = /** @class */ (function () {
-    function NzTabComponent(nzTabSetComponent) {
-        this.nzTabSetComponent = nzTabSetComponent;
-        this._disabled = false;
-        this.position = null;
-        this.origin = null;
-        this.nzClick = new EventEmitter();
-        this.nzSelect = new EventEmitter();
-        this.nzDeselect = new EventEmitter();
-    }
-    Object.defineProperty(NzTabComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTabComponent.prototype, "nzTitle", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._title;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isTitleString = !(value instanceof TemplateRef);
-            this._title = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzTabComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        this.nzTabSetComponent.addTab(this);
-    };
-    /**
-     * @return {?}
-     */
-    NzTabComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.nzTabSetComponent.removeTab(this);
-    };
-    NzTabComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'nz-tab',
-                    preserveWhitespaces: false,
-                    template: "<ng-template>\n  <ng-content></ng-content>\n</ng-template>",
-                    host: {
-                        '[class.ant-tabs-tabpane]': 'true'
-                    }
-                }] }
-    ];
-    /** @nocollapse */
-    NzTabComponent.ctorParameters = function () { return [
-        { type: NzTabSetComponent }
-    ]; };
-    NzTabComponent.propDecorators = {
-        nzDisabled: [{ type: Input }],
-        nzClick: [{ type: Output }],
-        nzSelect: [{ type: Output }],
-        nzDeselect: [{ type: Output }],
-        content: [{ type: ViewChild, args: [TemplateRef,] }],
-        nzTitle: [{ type: Input }]
-    };
-    return NzTabComponent;
 }());
 
 /**
@@ -33549,7 +31703,7 @@ var NzTabsModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzTabComponent, NzTabSetComponent, NzTabsNavComponent, NzTabLabelDirective, NzTabsInkBarDirective, NzTabBodyComponent],
                     exports: [NzTabComponent, NzTabSetComponent, NzTabsNavComponent, NzTabLabelDirective, NzTabsInkBarDirective, NzTabBodyComponent],
-                    imports: [CommonModule, ObserversModule, NzIconModule]
+                    imports: [CommonModule, ObserversModule, NzIconModule, NzAddOnModule]
                 },] }
     ];
     return NzTabsModule;
@@ -33562,69 +31716,13 @@ var NzTabsModule = /** @class */ (function () {
 var NzTagComponent = /** @class */ (function () {
     function NzTagComponent(renderer) {
         this.renderer = renderer;
-        this._checked = false;
-        this._mode = 'default';
         this.closed = false;
+        this.nzMode = 'default';
+        this.nzChecked = false;
         this.nzAfterClose = new EventEmitter();
         this.nzOnClose = new EventEmitter();
         this.nzCheckedChange = new EventEmitter();
     }
-    Object.defineProperty(NzTagComponent.prototype, "nzMode", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._mode;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._mode = value;
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTagComponent.prototype, "nzColor", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._color;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._color = value;
-            this.isPreset = this.isPresetColor(value);
-            this.updateClassMap();
-            this.updateColorStatus();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTagComponent.prototype, "nzChecked", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._checked;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._checked = toBoolean(value);
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?=} color
      * @return {?}
@@ -33643,6 +31741,40 @@ var NzTagComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    NzTagComponent.prototype.updateClassMap = /**
+     * @return {?}
+     */
+    function () {
+        var _a;
+        /** @type {?} */
+        var isPresetColor = this.isPresetColor(this.nzColor);
+        this.classMap = (_a = {},
+            _a["ant-tag"] = true,
+            _a["ant-tag-has-color"] = this.nzColor && !isPresetColor,
+            _a["ant-tag-" + this.nzColor] = isPresetColor,
+            _a["ant-tag-checkable"] = this.nzMode === 'checkable',
+            _a["ant-tag-checkable-checked"] = this.nzChecked,
+            _a);
+    };
+    /**
+     * @return {?}
+     */
+    NzTagComponent.prototype.updateColorStatus = /**
+     * @return {?}
+     */
+    function () {
+        if (this.wrapperElement && this.nzColor) {
+            if (this.isPresetColor(this.nzColor)) {
+                this.renderer.removeStyle(this.wrapperElement.nativeElement, 'background-color');
+            }
+            else {
+                this.renderer.setStyle(this.wrapperElement.nativeElement, 'background-color', this.nzColor);
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
     NzTagComponent.prototype.updateCheckedStatus = /**
      * @return {?}
      */
@@ -33650,6 +31782,7 @@ var NzTagComponent = /** @class */ (function () {
         if (this.nzMode === 'checkable') {
             this.nzChecked = !this.nzChecked;
             this.nzCheckedChange.emit(this.nzChecked);
+            this.updateClassMap();
         }
     };
     /**
@@ -33682,44 +31815,24 @@ var NzTagComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzTagComponent.prototype.updateClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        /** @type {?} */
-        var isPresetColor = this.isPresetColor(this.nzColor);
-        this.classMap = (_a = {},
-            _a["ant-tag"] = true,
-            _a["ant-tag-has-color"] = this.nzColor && !isPresetColor,
-            _a["ant-tag-" + this.nzColor] = isPresetColor,
-            _a["ant-tag-checkable"] = this.nzMode === 'checkable',
-            _a["ant-tag-checkable-checked"] = this.nzChecked,
-            _a);
-    };
-    /**
-     * @return {?}
-     */
-    NzTagComponent.prototype.updateColorStatus = /**
-     * @return {?}
-     */
-    function () {
-        if (this.wrapperElement && this.nzColor) {
-            if (this.isPreset) {
-                this.renderer.removeStyle(this.wrapperElement.nativeElement, 'background-color');
-            }
-            else {
-                this.renderer.setStyle(this.wrapperElement.nativeElement, 'background-color', this.nzColor);
-            }
-        }
-    };
-    /**
-     * @return {?}
-     */
     NzTagComponent.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
+        this.updateClassMap();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTagComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzColor"]) {
+            this.updateColorStatus();
+        }
         this.updateClassMap();
     };
     /**
@@ -33747,7 +31860,9 @@ var NzTagComponent = /** @class */ (function () {
                                 animate('300ms cubic-bezier(0.78, 0.14, 0.15, 0.86)')
                             ])
                         ])],
-                    template: "<div\n  *ngIf=\"!closed\"\n  [ngClass]=\"classMap\"\n  #wrapperElement\n  [@tagAnimation]\n  (@tagAnimation.done)=\"afterAnimation($event)\"\n  (click)=\"updateCheckedStatus()\">\n  <ng-content></ng-content>\n  <i nz-icon type=\"close\" *ngIf=\"nzMode==='closeable'\" (click)=\"closeTag($event)\"></i>\n</div>"
+                    template: "<div\n  *ngIf=\"!closed\"\n  [ngClass]=\"classMap\"\n  #wrapperElement\n  [@tagAnimation]\n  (@tagAnimation.done)=\"afterAnimation($event)\"\n  (click)=\"updateCheckedStatus()\">\n  <ng-content></ng-content>\n  <i nz-icon type=\"close\" *ngIf=\"nzMode==='closeable'\" (click)=\"closeTag($event)\"></i>\n</div>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
                 }] }
     ];
     /** @nocollapse */
@@ -33756,13 +31871,17 @@ var NzTagComponent = /** @class */ (function () {
     ]; };
     NzTagComponent.propDecorators = {
         wrapperElement: [{ type: ViewChild, args: ['wrapperElement',] }],
-        nzAfterClose: [{ type: Output }],
-        nzOnClose: [{ type: Output }],
-        nzCheckedChange: [{ type: Output }],
         nzMode: [{ type: Input }],
         nzColor: [{ type: Input }],
-        nzChecked: [{ type: Input }]
+        nzChecked: [{ type: Input }],
+        nzAfterClose: [{ type: Output }],
+        nzOnClose: [{ type: Output }],
+        nzCheckedChange: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Boolean)
+    ], NzTagComponent.prototype, "nzChecked", void 0);
     return NzTagComponent;
 }());
 
@@ -33792,94 +31911,12 @@ var NzTagModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzTimelineItemComponent = /** @class */ (function () {
-    function NzTimelineItemComponent(renderer) {
+    function NzTimelineItemComponent(renderer, cdr) {
         this.renderer = renderer;
-        this._color = 'blue';
-        this._isLast = false;
+        this.cdr = cdr;
+        this.nzColor = 'blue';
+        this.isLast = false;
     }
-    Object.defineProperty(NzTimelineItemComponent.prototype, "isLast", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._isLast;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._isLast = value;
-            if (this.isLast) {
-                this.renderer.addClass(this.liTemplate.nativeElement, 'ant-timeline-item-last');
-            }
-            else {
-                this.renderer.removeClass(this.liTemplate.nativeElement, 'ant-timeline-item-last');
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTimelineItemComponent.prototype, "nzDot", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._dot;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isDotString = !(value instanceof TemplateRef);
-            this._dot = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzTimelineItemComponent.prototype, "nzColor", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._color;
-        },
-        set: /**
-         * @param {?} color
-         * @return {?}
-         */
-        function (color) {
-            this._color = color;
-            this.updateClassMap();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzTimelineItemComponent.prototype.updateClassMap = /**
-     * @return {?}
-     */
-    function () {
-        var _a;
-        /** @type {?} */
-        var defaultColors = ['blue', 'red', 'green'];
-        /** @type {?} */
-        var circle = this.liTemplate.nativeElement.querySelector('.ant-timeline-item-head');
-        if (defaultColors.indexOf(this._color) === -1) {
-            this.renderer.setStyle(circle, 'border-color', this._color);
-        }
-        else {
-            this.renderer.removeStyle(circle, 'border-color');
-        }
-        this.classMap = (_a = {},
-            _a['ant-timeline-item-head-green'] = this.nzColor === 'green',
-            _a['ant-timeline-item-head-red'] = this.nzColor === 'red',
-            _a['ant-timeline-item-head-blue'] = this.nzColor === 'blue',
-            _a);
-    };
     /**
      * @return {?}
      */
@@ -33887,23 +31924,66 @@ var NzTimelineItemComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.updateClassMap();
+        this.tryUpdateCustomColor();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTimelineItemComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["nzColor"]) {
+            this.tryUpdateCustomColor();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzTimelineItemComponent.prototype.detectChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.cdr.detectChanges();
+    };
+    /**
+     * @return {?}
+     */
+    NzTimelineItemComponent.prototype.tryUpdateCustomColor = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var defaultColors = ['blue', 'red', 'green'];
+        /** @type {?} */
+        var circle = this.liTemplate.nativeElement.querySelector('.ant-timeline-item-head');
+        if (defaultColors.indexOf(this.nzColor) === -1) {
+            this.renderer.setStyle(circle, 'border-color', this.nzColor);
+        }
+        else {
+            this.renderer.removeStyle(circle, 'border-color');
+        }
     };
     NzTimelineItemComponent.decorators = [
         { type: Component, args: [{
-                    selector: 'nz-timeline-item',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    template: "<li class=\"ant-timeline-item\" #liTemplate>\n  <div class=\"ant-timeline-item-tail\"></div>\n  <div\n    class=\"ant-timeline-item-head\"\n    [class.ant-timeline-item-head-custom]=\"nzDot\"\n    [ngClass]=\"classMap\">\n    <ng-container *ngIf=\"isDotString; else dotTemplate\">{{ nzDot }}</ng-container>\n    <ng-template #dotTemplate>\n      <ng-template [ngTemplateOutlet]=\"nzDot\"></ng-template>\n    </ng-template>\n  </div>\n  <div class=\"ant-timeline-item-content\">\n    <ng-content></ng-content>\n  </div>\n</li>"
+                    selector: 'nz-timeline-item, [nz-timeline-item]',
+                    template: "<li\n  class=\"ant-timeline-item\"\n  [class.ant-timeline-item-right]=\"position === 'right'\"\n  [class.ant-timeline-item-left]=\"position === 'left'\"\n  [class.ant-timeline-item-last]=\"isLast\"\n  #liTemplate>\n  <div class=\"ant-timeline-item-tail\"></div>\n  <div\n    class=\"ant-timeline-item-head\"\n    [class.ant-timeline-item-head-red]=\"nzColor === 'red'\"\n    [class.ant-timeline-item-head-blue]=\"nzColor === 'blue'\"\n    [class.ant-timeline-item-head-green]=\"nzColor === 'green'\"\n    [class.ant-timeline-item-head-custom]=\"!!nzDot\">\n    <ng-container *nzStringTemplateOutlet=\"nzDot\">{{ nzDot }}</ng-container>\n  </div>\n  <div class=\"ant-timeline-item-content\">\n    <ng-content></ng-content>\n  </div>\n</li>"
                 }] }
     ];
     /** @nocollapse */
     NzTimelineItemComponent.ctorParameters = function () { return [
-        { type: Renderer2 }
+        { type: Renderer2 },
+        { type: ChangeDetectorRef }
     ]; };
     NzTimelineItemComponent.propDecorators = {
         liTemplate: [{ type: ViewChild, args: ['liTemplate',] }],
-        nzDot: [{ type: Input }],
-        nzColor: [{ type: Input }]
+        nzColor: [{ type: Input }],
+        nzDot: [{ type: Input }]
     };
     return NzTimelineItemComponent;
 }());
@@ -33912,51 +31992,60 @@ var NzTimelineItemComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var NzTimelineComponent = /** @class */ (function () {
-    function NzTimelineComponent() {
-        this.unsubscribe$ = new Subject();
-        this.isPendingBoolean = false;
-    }
-    Object.defineProperty(NzTimelineComponent.prototype, "nzPending", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._pending;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.isPendingString = !(value instanceof TemplateRef);
-            this.isPendingBoolean = value === true;
-            this._pending = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    NzTimelineComponent.prototype.updateChildrenTimeLine = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this.listOfTimeLine && this.listOfTimeLine.length) {
-            this.listOfTimeLine.toArray().forEach(function (item, index) { return item.isLast = index === _this.listOfTimeLine.length - 1; });
+/**
+ * @param {?} parent
+ * @return {?}
+ */
+function reverseChildNodes(parent) {
+    /** @type {?} */
+    var children = parent.childNodes;
+    /** @type {?} */
+    var length = children.length;
+    if (length) {
+        /** @type {?} */
+        var nodes_1 = [];
+        children.forEach(function (node, i) { return nodes_1[i] = node; });
+        while (length--) {
+            parent.appendChild(nodes_1[length]);
         }
-    };
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NzTimelineComponent = /** @class */ (function () {
+    function NzTimelineComponent(cdr) {
+        this.cdr = cdr;
+        this.nzReverse = false;
+        this.isPendingBoolean = false;
+        this.destroy$ = new Subject();
+    }
     /**
+     * @param {?} changes
      * @return {?}
      */
-    NzTimelineComponent.prototype.ngOnDestroy = /**
+    NzTimelineComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function () {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
+    function (changes) {
+        /** @type {?} */
+        var modeChanges = changes["nzMode"];
+        /** @type {?} */
+        var reverseChanges = changes["nzReverse"];
+        /** @type {?} */
+        var pendingChanges = changes["nzPending"];
+        if (modeChanges && (modeChanges.previousValue !== modeChanges.currentValue || modeChanges.isFirstChange())) {
+            this.updateChildren();
+        }
+        if (reverseChanges && reverseChanges.previousValue !== reverseChanges.currentValue && !reverseChanges.isFirstChange()) {
+            this.reverseChildTimelineDots();
+        }
+        if (pendingChanges) {
+            this.isPendingBoolean = pendingChanges.currentValue === true;
+        }
     };
     /**
      * @return {?}
@@ -33966,24 +32055,77 @@ var NzTimelineComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this.updateChildrenTimeLine();
+        this.updateChildren();
         if (this.listOfTimeLine) {
-            this.listOfTimeLine.changes.pipe(takeUntil(this.unsubscribe$)).subscribe(function () {
-                _this.updateChildrenTimeLine();
+            this.listOfTimeLine.changes.pipe(takeUntil(this.destroy$)).subscribe(function () {
+                _this.updateChildren();
             });
         }
     };
+    /**
+     * @return {?}
+     */
+    NzTimelineComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.destroy$.next();
+        this.destroy$.complete();
+    };
+    /**
+     * @return {?}
+     */
+    NzTimelineComponent.prototype.updateChildren = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.listOfTimeLine && this.listOfTimeLine.length) {
+            /** @type {?} */
+            var length_1 = this.listOfTimeLine.length;
+            this.listOfTimeLine.toArray().forEach(function (item, index) {
+                item.isLast = !_this.nzReverse ? index === length_1 - 1 : index === 0;
+                item.position = _this.nzMode === 'left' || !_this.nzMode
+                    ? undefined
+                    : _this.nzMode === 'right'
+                        ? 'right'
+                        : _this.nzMode === 'alternate' && index % 2 === 0 ? 'left' : 'right';
+                item.detectChanges();
+            });
+            this.cdr.markForCheck();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NzTimelineComponent.prototype.reverseChildTimelineDots = /**
+     * @return {?}
+     */
+    function () {
+        reverseChildNodes(/** @type {?} */ (this.timeline.nativeElement));
+        this.updateChildren();
+    };
     NzTimelineComponent.decorators = [
         { type: Component, args: [{
-                    selector: 'nz-timeline',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    template: "<ul class=\"ant-timeline\" [class.ant-timeline-pending]=\"nzPending\">\n  <ng-content></ng-content>\n  <li *ngIf=\"nzPending\" class=\"ant-timeline-item ant-timeline-item-pending\">\n    <div class=\"ant-timeline-item-tail\"></div>\n    <div class=\"ant-timeline-item-head ant-timeline-item-head-custom ant-timeline-item-head-blue\">\n      <i nz-icon type=\"spin anticon-loading\"></i>\n    </div>\n    <div class=\"ant-timeline-item-content\">\n      <ng-container *ngIf=\"isPendingString; else pendingTemplate\">{{ isPendingBoolean ? '' : nzPending }}</ng-container>\n      <ng-template #pendingTemplate>\n        <ng-template [ngTemplateOutlet]=\"nzPending\"></ng-template>\n      </ng-template>\n    </div>\n  </li>\n</ul>"
+                    selector: 'nz-timeline',
+                    template: "<ul\n  class=\"ant-timeline\"\n  [class.ant-timeline-right]=\"nzMode === 'right'\"\n  [class.ant-timeline-alternate]=\"nzMode === 'alternate'\"\n  [class.ant-timeline-pending]=\"!!nzPending\"\n  [class.ant-timeline-reverse]=\"nzReverse\"\n  #timeline>\n  <!-- User inserted timeline dots. -->\n  <ng-content></ng-content>\n  <!-- Pending dot. -->\n  <li *ngIf=\"nzPending\" class=\"ant-timeline-item ant-timeline-item-pending\">\n    <div class=\"ant-timeline-item-tail\"></div>\n    <div class=\"ant-timeline-item-head ant-timeline-item-head-custom ant-timeline-item-head-blue\">\n      <ng-container *nzStringTemplateOutlet=\"nzPendingDot\">\n        {{ nzPendingDot }}<i *ngIf=\"!nzPendingDot\" nz-icon type=\"loading\"></i>\n      </ng-container>\n    </div>\n    <div class=\"ant-timeline-item-content\">\n      <ng-container *nzStringTemplateOutlet=\"nzPending\">\n        {{ isPendingBoolean ? '' : nzPending }}\n      </ng-container>\n    </div>\n  </li>\n</ul>\n"
                 }] }
     ];
+    /** @nocollapse */
+    NzTimelineComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef }
+    ]; };
     NzTimelineComponent.propDecorators = {
-        nzPending: [{ type: Input }],
+        timeline: [{ type: ViewChild, args: ['timeline',] }],
         listOfTimeLine: [{ type: ContentChildren, args: [NzTimelineItemComponent,] }],
-        _pendingContent: [{ type: ContentChild, args: ['pending',] }]
+        _pendingContent: [{ type: ContentChild, args: ['pending',] }],
+        nzMode: [{ type: Input }],
+        nzPending: [{ type: Input }],
+        nzPendingDot: [{ type: Input }],
+        nzReverse: [{ type: Input }]
     };
     return NzTimelineComponent;
 }());
@@ -33999,7 +32141,7 @@ var NzTimelineModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [NzTimelineItemComponent, NzTimelineComponent],
                     exports: [NzTimelineItemComponent, NzTimelineComponent],
-                    imports: [CommonModule]
+                    imports: [CommonModule, NzIconModule, NzAddOnModule]
                 },] }
     ];
     return NzTimelineModule;
@@ -34010,11 +32152,12 @@ var NzTimelineModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzTransferListComponent = /** @class */ (function () {
-    function NzTransferListComponent(el, updateHostClassService, differs) {
+    // #endregion
+    function NzTransferListComponent(el, updateHostClassService, cdr) {
         this.el = el;
         this.updateHostClassService = updateHostClassService;
-        this._showSearch = false;
-        // region: fields
+        this.cdr = cdr;
+        // #region fields
         this.direction = '';
         this.titleText = '';
         this.dataSource = [];
@@ -34025,37 +32168,18 @@ var NzTransferListComponent = /** @class */ (function () {
         this.handleSelectAll = new EventEmitter();
         this.handleSelect = new EventEmitter();
         this.filterChange = new EventEmitter();
-        // endregion
-        // region: styles
+        // #endregion
+        // #region styles
         this.prefixCls = 'ant-transfer-list';
-        // endregion
-        // region: select all
+        // #endregion
+        // #region select all
         this.stat = {
             checkAll: false,
             checkHalf: false,
             checkCount: 0,
             shownCount: 0
         };
-        this.listDiffer = differs.find([]).create(null);
     }
-    Object.defineProperty(NzTransferListComponent.prototype, "showSearch", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showSearch;
-        },
-        // search
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showSearch = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -34102,8 +32226,8 @@ var NzTransferListComponent = /** @class */ (function () {
         this.stat.checkAll = validCount > 0 && validCount === this.stat.checkCount;
         this.stat.checkHalf = this.stat.checkCount > 0 && !this.stat.checkAll;
     };
-    // endregion
-    // region: search
+    // #endregion
+    // #region search
     /**
      * @param {?} value
      * @return {?}
@@ -34171,15 +32295,12 @@ var NzTransferListComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NzTransferListComponent.prototype.ngDoCheck = /**
+    NzTransferListComponent.prototype.markForCheck = /**
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var change = this.listDiffer.diff(this.dataSource);
-        if (change) {
-            this.updateCheckStatus();
-        }
+        this.updateCheckStatus();
+        this.cdr.markForCheck();
     };
     /**
      * @param {?} item
@@ -34190,7 +32311,7 @@ var NzTransferListComponent = /** @class */ (function () {
      * @return {?}
      */
     function (item) {
-        if (item.disabled) {
+        if (this.disabled || item.disabled) {
             return;
         }
         item.checked = !item.checked;
@@ -34202,14 +32323,16 @@ var NzTransferListComponent = /** @class */ (function () {
                     selector: 'nz-transfer-list',
                     preserveWhitespaces: false,
                     providers: [NzUpdateHostClassService],
-                    template: "<div class=\"ant-transfer-list-header\">\n  <label nz-checkbox [ngModel]=\"stat.checkAll\" (ngModelChange)=\"onHandleSelectAll($event)\"\n    [nzIndeterminate]=\"stat.checkHalf\">\n  </label>\n  <span class=\"ant-transfer-list-header-selected\">\n    <span>{{ (stat.checkCount > 0 ? stat.checkCount + '/' : '') + stat.shownCount }} {{ dataSource.length > 1 ? itemsUnit : itemUnit }}</span>\n    <span *ngIf=\"titleText\" class=\"ant-transfer-list-header-title\">{{ titleText }}</span>\n  </span>\n</div>\n<div class=\"{{showSearch ? 'ant-transfer-list-body ant-transfer-list-body-with-search' : 'ant-transfer-list-body'}}\"\n  [ngClass]=\"{'ant-transfer__nodata': stat.shownCount === 0}\">\n  <div *ngIf=\"showSearch\" class=\"ant-transfer-list-body-search-wrapper\">\n    <div nz-transfer-search\n      (valueChanged)=\"handleFilter($event)\"\n      (valueClear)=\"handleClear()\"\n      [placeholder]=\"searchPlaceholder\"\n      [value]=\"filter\"></div>\n  </div>\n  <ul class=\"ant-transfer-list-content\">\n    <ng-container *ngFor=\"let item of dataSource\">\n      <li *ngIf=\"!item._hiden\" (click)=\"_handleSelect(item)\" class=\"ant-transfer-list-content-item\">\n        <label nz-checkbox [ngModel]=\"item.checked\" [nzDisabled]=\"item.disabled\">\n          <ng-container *ngIf=\"!render; else renderContainer\">{{ item.title }}</ng-container>\n          <ng-template #renderContainer [ngTemplateOutlet]=\"render\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n        </label>\n      </li>\n    </ng-container>\n  </ul>\n  <div class=\"ant-transfer-list-body-not-found\">{{ notFoundContent }}</div>\n</div>\n<div *ngIf=\"footer\" class=\"ant-transfer-list-footer\">\n  <ng-template [ngTemplateOutlet]=\"footer\" [ngTemplateOutletContext]=\"{ $implicit: direction }\"></ng-template>\n</div>"
+                    template: "<div class=\"ant-transfer-list-header\">\n  <label nz-checkbox [nzChecked]=\"stat.checkAll\" (nzCheckedChange)=\"onHandleSelectAll($event)\"\n    [nzIndeterminate]=\"stat.checkHalf\" [nzDisabled]=\"stat.shownCount == 0 || disabled\">\n  </label>\n  <span class=\"ant-transfer-list-header-selected\">\n    <span>{{ (stat.checkCount > 0 ? stat.checkCount + '/' : '') + stat.shownCount }} {{ dataSource.length > 1 ? itemsUnit : itemUnit }}</span>\n    <span *ngIf=\"titleText\" class=\"ant-transfer-list-header-title\">{{ titleText }}</span>\n  </span>\n</div>\n<div class=\"{{showSearch ? 'ant-transfer-list-body ant-transfer-list-body-with-search' : 'ant-transfer-list-body'}}\"\n  [ngClass]=\"{'ant-transfer__nodata': stat.shownCount === 0}\">\n  <div *ngIf=\"showSearch\" class=\"ant-transfer-list-body-search-wrapper\">\n    <div nz-transfer-search\n      (valueChanged)=\"handleFilter($event)\"\n      (valueClear)=\"handleClear()\"\n      [placeholder]=\"searchPlaceholder\"\n      [disabled]=\"disabled\"\n      [value]=\"filter\"></div>\n  </div>\n  <ul class=\"ant-transfer-list-content\">\n    <ng-container *ngFor=\"let item of dataSource\">\n      <li *ngIf=\"!item._hiden\" (click)=\"_handleSelect(item)\"\n        class=\"ant-transfer-list-content-item\" [ngClass]=\"{'ant-transfer-list-content-item-disabled': disabled || item.disabled}\">\n        <label nz-checkbox [nzChecked]=\"item.checked\" [nzDisabled]=\"disabled || item.disabled\">\n          <ng-container *ngIf=\"!render; else renderContainer\">{{ item.title }}</ng-container>\n          <ng-template #renderContainer [ngTemplateOutlet]=\"render\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n        </label>\n      </li>\n    </ng-container>\n  </ul>\n  <div *ngIf=\"dataSource.length === 0\" class=\"ant-transfer-list-body-not-found\">{{ notFoundContent }}</div>\n</div>\n<div *ngIf=\"footer\" class=\"ant-transfer-list-footer\">\n  <ng-template [ngTemplateOutlet]=\"footer\" [ngTemplateOutletContext]=\"{ $implicit: direction }\"></ng-template>\n</div>",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
     /** @nocollapse */
     NzTransferListComponent.ctorParameters = function () { return [
         { type: ElementRef },
         { type: NzUpdateHostClassService },
-        { type: IterableDiffers }
+        { type: ChangeDetectorRef }
     ]; };
     NzTransferListComponent.propDecorators = {
         direction: [{ type: Input }],
@@ -34218,6 +32341,7 @@ var NzTransferListComponent = /** @class */ (function () {
         itemUnit: [{ type: Input }],
         itemsUnit: [{ type: Input }],
         filter: [{ type: Input }],
+        disabled: [{ type: Input }],
         showSearch: [{ type: Input }],
         searchPlaceholder: [{ type: Input }],
         notFoundContent: [{ type: Input }],
@@ -34236,11 +32360,12 @@ var NzTransferListComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzTransferSearchComponent = /** @class */ (function () {
-    function NzTransferSearchComponent() {
+    // endregion
+    function NzTransferSearchComponent(cdr) {
+        this.cdr = cdr;
         this.valueChanged = new EventEmitter();
         this.valueClear = new EventEmitter();
     }
-    // endregion
     /**
      * @return {?}
      */
@@ -34257,19 +32382,38 @@ var NzTransferSearchComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (this.disabled) {
+            return;
+        }
         this.value = '';
         this.valueClear.emit();
+    };
+    /**
+     * @return {?}
+     */
+    NzTransferSearchComponent.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.cdr.detectChanges();
     };
     NzTransferSearchComponent.decorators = [
         { type: Component, args: [{
                     selector: '[nz-transfer-search]',
                     preserveWhitespaces: false,
-                    template: "<input nz-input [(ngModel)]=\"value\" (ngModelChange)=\"_handle()\"\n  [placeholder]=\"placeholder\" class=\"ant-transfer-list-search\">\n<a *ngIf=\"value && value.length > 0; else def\" class=\"ant-transfer-list-search-action\" (click)=\"_clear()\">\n  <i nz-icon type=\"close-circle\"></i>\n</a>\n<ng-template #def>\n  <span class=\"ant-transfer-list-search-action\"><i nz-icon type=\"search\"></i></span>\n</ng-template>"
+                    template: "<input [(ngModel)]=\"value\" (ngModelChange)=\"_handle()\" [disabled]=\"disabled\" [placeholder]=\"placeholder\"\n  class=\"ant-input ant-transfer-list-search\" [ngClass]=\"{'ant-input-disabled': disabled}\">\n<a *ngIf=\"value && value.length > 0; else def\" class=\"ant-transfer-list-search-action\" (click)=\"_clear()\">\n  <i nz-icon type=\"close-circle\"></i>\n</a>\n<ng-template #def>\n  <span class=\"ant-transfer-list-search-action\"><i nz-icon type=\"search\"></i></span>\n</ng-template>",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
+    /** @nocollapse */
+    NzTransferSearchComponent.ctorParameters = function () { return [
+        { type: ChangeDetectorRef }
+    ]; };
     NzTransferSearchComponent.propDecorators = {
         placeholder: [{ type: Input }],
         value: [{ type: Input }],
+        disabled: [{ type: Input }],
         valueChanged: [{ type: Output }],
         valueClear: [{ type: Output }]
     };
@@ -34281,28 +32425,29 @@ var NzTransferSearchComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzTransferComponent = /** @class */ (function () {
-    // endregion
-    function NzTransferComponent(i18n, el) {
+    // #endregion
+    function NzTransferComponent(cdr, i18n) {
         var _this = this;
+        this.cdr = cdr;
         this.i18n = i18n;
-        this.el = el;
         this.unsubscribe$ = new Subject();
         // tslint:disable-next-line:no-any
         this.locale = {};
-        this._showSearch = false;
         this.leftFilter = '';
         this.rightFilter = '';
-        // region: fields
+        // #region fields
+        this.nzDisabled = false;
         this.nzDataSource = [];
         this.nzTitles = ['', ''];
         this.nzOperations = [];
         this.nzCanMove = function (arg) { return of(arg.list); };
+        this.nzShowSearch = false;
         // events
         this.nzChange = new EventEmitter();
         this.nzSearchChange = new EventEmitter();
         this.nzSelectChange = new EventEmitter();
-        // endregion
-        // region: process data
+        // #endregion
+        // #region process data
         // left
         this.leftDataSource = [];
         // right
@@ -34311,31 +32456,13 @@ var NzTransferComponent = /** @class */ (function () {
         this.handleRightSelectAll = function (checked) { return _this.handleSelect('right', checked); };
         this.handleLeftSelect = function (item) { return _this.handleSelect('left', item.checked, item); };
         this.handleRightSelect = function (item) { return _this.handleSelect('right', item.checked, item); };
-        // endregion
-        // region: operation
+        // #endregion
+        // #region operation
         this.leftActive = false;
         this.rightActive = false;
         this.moveToLeft = function () { return _this.moveTo('left'); };
         this.moveToRight = function () { return _this.moveTo('right'); };
     }
-    Object.defineProperty(NzTransferComponent.prototype, "nzShowSearch", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showSearch;
-        },
-        // search
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showSearch = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -34467,6 +32594,19 @@ var NzTransferComponent = /** @class */ (function () {
             to: direction,
             list: list
         });
+        this.markForCheckAllList();
+    };
+    /**
+     * @return {?}
+     */
+    NzTransferComponent.prototype.markForCheckAllList = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.lists) {
+            return;
+        }
+        this.lists.forEach(function (i) { return i.markForCheck(); });
     };
     /**
      * @return {?}
@@ -34476,7 +32616,10 @@ var NzTransferComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this.i18n.localeChange.pipe(takeUntil(this.unsubscribe$)).subscribe(function () { return _this.locale = _this.i18n.getLocaleData('Transfer'); });
+        this.i18n.localeChange.pipe(takeUntil(this.unsubscribe$)).subscribe(function () {
+            _this.locale = _this.i18n.getLocaleData('Transfer');
+            _this.markForCheckAllList();
+        });
     };
     /**
      * @param {?} changes
@@ -34491,6 +32634,8 @@ var NzTransferComponent = /** @class */ (function () {
             this.splitDataSource();
             this.updateOperationStatus('left');
             this.updateOperationStatus('right');
+            this.cdr.detectChanges();
+            this.markForCheckAllList();
         }
     };
     /**
@@ -34507,18 +32652,23 @@ var NzTransferComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'nz-transfer',
                     preserveWhitespaces: false,
-                    template: "<nz-transfer-list class=\"ant-transfer-list\" [ngStyle]=\"nzListStyle\" data-direction=\"left\"\n  [titleText]=\"nzTitles[0]\"\n  [dataSource]=\"leftDataSource\"\n  [filter]=\"leftFilter\"\n  [filterOption]=\"nzFilterOption\"\n  (filterChange)=\"handleFilterChange($event)\"\n  [render]=\"nzRender\"\n  [showSearch]=\"nzShowSearch\"\n  [searchPlaceholder]=\"nzSearchPlaceholder || locale.searchPlaceholder\"\n  [notFoundContent]=\"nzNotFoundContent || locale.notFoundContent\"\n  [itemUnit]=\"nzItemUnit || locale.itemUnit\"\n  [itemsUnit]=\"nzItemsUnit || locale.itemsUnit\"\n  [footer]=\"nzFooter\"\n  (handleSelect)=\"handleLeftSelect($event)\"\n  (handleSelectAll)=\"handleLeftSelectAll($event)\"></nz-transfer-list>\n<div class=\"ant-transfer-operation\">\n  <button nz-button (click)=\"moveToLeft()\" [disabled]=\"!leftActive\" [nzType]=\"'primary'\" [nzSize]=\"'small'\">\n    <i nz-icon type=\"left\"></i><span *ngIf=\"nzOperations[1]\">{{ nzOperations[1] }}</span>\n  </button>\n  <button nz-button (click)=\"moveToRight()\" [disabled]=\"!rightActive\" [nzType]=\"'primary'\" [nzSize]=\"'small'\">\n    <i nz-icon type=\"right\"></i><span *ngIf=\"nzOperations[0]\">{{ nzOperations[0] }}</span>\n  </button>\n</div>\n<nz-transfer-list class=\"ant-transfer-list\" [ngStyle]=\"nzListStyle\" data-direction=\"right\"\n  [titleText]=\"nzTitles[1]\"\n  [dataSource]=\"rightDataSource\"\n  [filter]=\"rightFilter\"\n  [filterOption]=\"nzFilterOption\"\n  (filterChange)=\"handleFilterChange($event)\"\n  [render]=\"nzRender\"\n  [showSearch]=\"nzShowSearch\"\n  [searchPlaceholder]=\"nzSearchPlaceholder || locale.searchPlaceholder\"\n  [notFoundContent]=\"nzNotFoundContent || locale.notFoundContent\"\n  [itemUnit]=\"nzItemUnit || locale.itemUnit\"\n  [itemsUnit]=\"nzItemsUnit || locale.itemsUnit\"\n  [footer]=\"nzFooter\"\n  (handleSelect)=\"handleRightSelect($event)\"\n  (handleSelectAll)=\"handleRightSelectAll($event)\"></nz-transfer-list>",
+                    template: "<nz-transfer-list class=\"ant-transfer-list\" [ngStyle]=\"nzListStyle\" data-direction=\"left\"\n  [titleText]=\"nzTitles[0]\"\n  [dataSource]=\"leftDataSource\"\n  [filter]=\"leftFilter\"\n  [filterOption]=\"nzFilterOption\"\n  (filterChange)=\"handleFilterChange($event)\"\n  [render]=\"nzRender\"\n  [disabled]=\"nzDisabled\"\n  [showSearch]=\"nzShowSearch\"\n  [searchPlaceholder]=\"nzSearchPlaceholder || locale.searchPlaceholder\"\n  [notFoundContent]=\"nzNotFoundContent || locale.notFoundContent\"\n  [itemUnit]=\"nzItemUnit || locale.itemUnit\"\n  [itemsUnit]=\"nzItemsUnit || locale.itemsUnit\"\n  [footer]=\"nzFooter\"\n  (handleSelect)=\"handleLeftSelect($event)\"\n  (handleSelectAll)=\"handleLeftSelectAll($event)\"></nz-transfer-list>\n<div class=\"ant-transfer-operation\">\n  <button nz-button (click)=\"moveToLeft()\" [disabled]=\"nzDisabled || !leftActive\" [nzType]=\"'primary'\" [nzSize]=\"'small'\">\n    <i nz-icon type=\"left\"></i><span *ngIf=\"nzOperations[1]\">{{ nzOperations[1] }}</span>\n  </button>\n  <button nz-button (click)=\"moveToRight()\" [disabled]=\"nzDisabled || !rightActive\" [nzType]=\"'primary'\" [nzSize]=\"'small'\">\n    <i nz-icon type=\"right\"></i><span *ngIf=\"nzOperations[0]\">{{ nzOperations[0] }}</span>\n  </button>\n</div>\n<nz-transfer-list class=\"ant-transfer-list\" [ngStyle]=\"nzListStyle\" data-direction=\"right\"\n  [titleText]=\"nzTitles[1]\"\n  [dataSource]=\"rightDataSource\"\n  [filter]=\"rightFilter\"\n  [filterOption]=\"nzFilterOption\"\n  (filterChange)=\"handleFilterChange($event)\"\n  [render]=\"nzRender\"\n  [disabled]=\"nzDisabled\"\n  [showSearch]=\"nzShowSearch\"\n  [searchPlaceholder]=\"nzSearchPlaceholder || locale.searchPlaceholder\"\n  [notFoundContent]=\"nzNotFoundContent || locale.notFoundContent\"\n  [itemUnit]=\"nzItemUnit || locale.itemUnit\"\n  [itemsUnit]=\"nzItemsUnit || locale.itemsUnit\"\n  [footer]=\"nzFooter\"\n  (handleSelect)=\"handleRightSelect($event)\"\n  (handleSelectAll)=\"handleRightSelectAll($event)\"></nz-transfer-list>",
                     host: {
-                        '[class.ant-transfer]': 'true'
-                    }
+                        '[class.ant-transfer]': 'true',
+                        '[class.ant-transfer-disabled]': 'nzDisabled'
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
     /** @nocollapse */
     NzTransferComponent.ctorParameters = function () { return [
-        { type: NzI18nService },
-        { type: ElementRef }
+        { type: ChangeDetectorRef },
+        { type: NzI18nService }
     ]; };
     NzTransferComponent.propDecorators = {
+        lists: [{ type: ViewChildren, args: [NzTransferListComponent,] }],
+        nzDisabled: [{ type: Input }],
         nzDataSource: [{ type: Input }],
         nzTitles: [{ type: Input }],
         nzOperations: [{ type: Input }],
@@ -34536,6 +32686,14 @@ var NzTransferComponent = /** @class */ (function () {
         nzSearchChange: [{ type: Output }],
         nzSelectChange: [{ type: Output }]
     };
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTransferComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzTransferComponent.prototype, "nzShowSearch", void 0);
     return NzTransferComponent;
 }());
 
@@ -36324,7 +34482,6 @@ var NzTreeComponent = /** @class */ (function () {
         this.nzOnDrop = new EventEmitter();
         this.nzOnDragEnd = new EventEmitter();
         this._searchValue = null;
-        // tslint:disable-next-line:no-any
         this.nzDefaultSubject = new ReplaySubject(6);
         this.nzNodes = [];
         this.prefixCls = 'ant-tree';
@@ -36839,22 +34996,11 @@ var selectTagAnimation = trigger('selectTagAnimation', [
  * @suppress {checkTypes} checked by tsc
  */
 var NzTreeSelectComponent = /** @class */ (function () {
-    function NzTreeSelectComponent(document, // tslint:disable-line:no-any
-    // tslint:disable-line:no-any
-    element, renderer, cdr, overlay, viewContainerRef) {
-        this.document = document;
-        this.element = element;
+    function NzTreeSelectComponent(renderer, cdr, overlay, viewContainerRef) {
         this.renderer = renderer;
         this.cdr = cdr;
         this.overlay = overlay;
         this.viewContainerRef = viewContainerRef;
-        this.nodes = [];
-        this.isComposing = false;
-        this.isDestroy = true;
-        this.inputValue = '';
-        this.dropDownPosition = 'bottom';
-        this.selectedNodes = [];
-        this.value = [];
         this.nzAllowClear = true;
         this.nzShowExpand = true;
         this.nzDropdownMatchSelectWidth = true;
@@ -36865,6 +35011,7 @@ var NzTreeSelectComponent = /** @class */ (function () {
         this.nzAsyncData = false;
         this.nzMultiple = false;
         this.nzDefaultExpandAll = false;
+        this.nzNodes = [];
         this.nzOpen = false;
         this.nzSize = 'default';
         this.nzPlaceHolder = '';
@@ -36876,27 +35023,14 @@ var NzTreeSelectComponent = /** @class */ (function () {
         this.nzExpandChange = new EventEmitter();
         this.nzTreeClick = new EventEmitter();
         this.nzTreeCheckBoxChange = new EventEmitter();
+        this.isComposing = false;
+        this.isDestroy = true;
+        this.inputValue = '';
+        this.dropDownPosition = 'bottom';
+        this.selectedNodes = [];
+        this.value = [];
         this.onTouched = function () { return null; };
     }
-    Object.defineProperty(NzTreeSelectComponent.prototype, "nzNodes", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.nodes;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            var _this = this;
-            this.nodes = value;
-            setTimeout(function () { return _this.updateSelectedNodes(); }, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzTreeSelectComponent.prototype, "placeHolderDisplay", {
         get: /**
          * @return {?}
@@ -36958,6 +35092,117 @@ var NzTreeSelectComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.isDestroy = false;
+        this.selectionChangeSubscription = this.subscribeSelectionChange();
+        Promise.resolve().then(function () {
+            _this.updateDropDownClassMap();
+            _this.updateCdkConnectedOverlayStatus();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.isDestroy = true;
+        this.detachOverlay();
+        this.selectionChangeSubscription.unsubscribe();
+        this.overlayBackdropClickSubscription.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this.attachOverlay();
+    };
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.setDisabledState = /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        this.nzDisabled = isDisabled;
+        this.closeDropDown();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        if (changes.hasOwnProperty('nzNodes')) {
+            setTimeout(function () { return _this.updateSelectedNodes(); }, 0);
+        }
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.writeValue = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        var _this = this;
+        if (value) {
+            if (this.isMultiple && Array.isArray(value)) {
+                this.value = value;
+            }
+            else {
+                this.value = [(/** @type {?} */ (value))];
+            }
+            this.updateSelectedNodes();
+        }
+        else {
+            this.value = [];
+            this.selectedNodes.forEach(function (node) {
+                _this.removeSelected(node, false);
+            });
+            this.selectedNodes = [];
+        }
+        this.cdr.markForCheck();
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.registerOnChange = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.onChange = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    NzTreeSelectComponent.prototype.registerOnTouched = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+    };
     /**
      * @return {?}
      */
@@ -37294,103 +35539,6 @@ var NzTreeSelectComponent = /** @class */ (function () {
             this.renderer.setStyle(this.overlayRef.backdropElement, 'display', 'none');
         }
     };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.writeValue = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        var _this = this;
-        if (value) {
-            if (this.isMultiple && Array.isArray(value)) {
-                this.value = value;
-            }
-            else {
-                this.value = [(/** @type {?} */ (value))];
-            }
-            this.updateSelectedNodes();
-        }
-        else {
-            this.value = [];
-            this.selectedNodes.forEach(function (node) {
-                _this.removeSelected(node, false);
-            });
-            this.selectedNodes = [];
-        }
-        this.cdr.markForCheck();
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.registerOnChange = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        this.onChange = fn;
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.registerOnTouched = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-    };
-    /**
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this.isDestroy = false;
-        this.selectionChangeSubscription = this.subscribeSelectionChange();
-        Promise.resolve().then(function () {
-            _this.updateDropDownClassMap();
-            _this.updateCdkConnectedOverlayStatus();
-        });
-    };
-    /**
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.isDestroy = true;
-        this.detachOverlay();
-        this.selectionChangeSubscription.unsubscribe();
-        this.overlayBackdropClickSubscription.unsubscribe();
-    };
-    /**
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        this.attachOverlay();
-    };
-    /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    NzTreeSelectComponent.prototype.setDisabledState = /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
-    function (isDisabled) {
-        this.nzDisabled = isDisabled;
-        this.closeDropDown();
-    };
     NzTreeSelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'nz-tree-select',
@@ -37417,8 +35565,6 @@ var NzTreeSelectComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     NzTreeSelectComponent.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
-        { type: ElementRef, decorators: [{ type: Optional }] },
         { type: Renderer2 },
         { type: ChangeDetectorRef },
         { type: Overlay },
@@ -37435,6 +35581,7 @@ var NzTreeSelectComponent = /** @class */ (function () {
         nzAsyncData: [{ type: Input }],
         nzMultiple: [{ type: Input }],
         nzDefaultExpandAll: [{ type: Input }],
+        nzNodes: [{ type: Input }],
         nzOpen: [{ type: Input }],
         nzSize: [{ type: Input }],
         nzPlaceHolder: [{ type: Input }],
@@ -37447,7 +35594,6 @@ var NzTreeSelectComponent = /** @class */ (function () {
         nzExpandChange: [{ type: Output }],
         nzTreeClick: [{ type: Output }],
         nzTreeCheckBoxChange: [{ type: Output }],
-        nzNodes: [{ type: Input }],
         inputElement: [{ type: ViewChild, args: ['inputElement',] }],
         treeSelect: [{ type: ViewChild, args: ['treeSelect',] }],
         dropdownTemplate: [{ type: ViewChild, args: ['dropdownTemplate', { read: TemplateRef },] }],
@@ -37519,23 +35665,22 @@ var NzTreeSelectModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzUploadBtnComponent = /** @class */ (function () {
-    // endregion
-    function NzUploadBtnComponent(http, el, updateHostClassService, cd) {
+    // #endregion
+    function NzUploadBtnComponent(http, el, updateHostClassService) {
         this.http = http;
         this.el = el;
         this.updateHostClassService = updateHostClassService;
-        this.cd = cd;
         this.reqs = {};
         this.inited = false;
         this.destroy = false;
-        // region: fields
+        // #region fields
         this.classes = {};
         this.prefixCls = 'ant-upload';
         if (!http) {
             throw new Error("Not found 'HttpClient', You can import 'HttpClientModule' in your root module.");
         }
     }
-    // endregion
+    // #endregion
     /**
      * @return {?}
      */
@@ -37543,7 +35688,7 @@ var NzUploadBtnComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this.options.disabled) {
+        if (this.options.disabled || !this.options.openFileDialogOnClick) {
             return;
         }
         (/** @type {?} */ (this.file.nativeElement)).click();
@@ -37649,15 +35794,16 @@ var NzUploadBtnComponent = /** @class */ (function () {
             }
         };
         try {
-            for (var files_1 = __values(files), files_1_1 = files_1.next(); !files_1_1.done; files_1_1 = files_1.next()) {
-                var file = files_1_1.value;
+            // tslint:disable-next-line:no-any
+            for (var _b = __values(/** @type {?} */ (files)), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var file = _c.value;
                 _traverseFileTree(file.webkitGetAsEntry(), '');
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (files_1_1 && !files_1_1.done && (_a = files_1.return)) _a.call(files_1);
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
             finally { if (e_1) throw e_1.error; }
         }
@@ -37722,11 +35868,21 @@ var NzUploadBtnComponent = /** @class */ (function () {
     function (fileList) {
         var _this = this;
         /** @type {?} */
-        var postFiles = Array.prototype.slice.call(fileList);
-        this.options.filters.forEach(function (f) { return postFiles = f.fn(postFiles); });
-        postFiles.forEach(function (file) {
-            _this.attachUid(file);
-            _this.upload(file, postFiles);
+        var filters$ = of(Array.prototype.slice.call(fileList));
+        this.options.filters.forEach(function (f) {
+            filters$ = filters$.pipe(switchMap(function (list) {
+                /** @type {?} */
+                var fnRes = f.fn(list);
+                return fnRes instanceof Observable ? fnRes : of(fnRes);
+            }));
+        });
+        filters$.subscribe(function (list) {
+            list.forEach(function (file) {
+                _this.attachUid(file);
+                _this.upload(file, list);
+            });
+        }, function (e) {
+            console.warn("Unhandled upload filter error", e);
         });
     };
     /**
@@ -37757,6 +35913,8 @@ var NzUploadBtnComponent = /** @class */ (function () {
                 else if (typeof processedFile === 'boolean' && processedFile !== false) {
                     _this.post(file);
                 }
+            }, function (e) {
+                console.warn("Unhandled upload beforeUpload error", e);
             });
         }
         else if (before !== false) {
@@ -37908,7 +36066,6 @@ var NzUploadBtnComponent = /** @class */ (function () {
         /** @type {?} */
         var classMap = __assign((_a = {}, _a[this.prefixCls] = true, _a[this.prefixCls + "-disabled"] = this.options.disabled, _a), this.classes);
         this.updateHostClassService.updateHostClass(this.el.nativeElement, classMap);
-        this.cd.detectChanges();
     };
     /**
      * @return {?}
@@ -37950,15 +36107,15 @@ var NzUploadBtnComponent = /** @class */ (function () {
                         '[attr.role]': '"button"'
                     },
                     providers: [NzUpdateHostClassService],
-                    preserveWhitespaces: false
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None
                 }] }
     ];
     /** @nocollapse */
     NzUploadBtnComponent.ctorParameters = function () { return [
         { type: HttpClient, decorators: [{ type: Optional }] },
         { type: ElementRef },
-        { type: NzUpdateHostClassService },
-        { type: ChangeDetectorRef }
+        { type: NzUpdateHostClassService }
     ]; };
     NzUploadBtnComponent.propDecorators = {
         file: [{ type: ViewChild, args: ['file',] }],
@@ -37976,11 +36133,11 @@ var NzUploadBtnComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzUploadListComponent = /** @class */ (function () {
-    // endregion
+    // #endregion
     function NzUploadListComponent(el, updateHostClassService) {
         this.el = el;
         this.updateHostClassService = updateHostClassService;
-        // region: fields
+        // #region fields
         // tslint:disable-next-line:no-any
         this.locale = {};
         this.prefixCls = 'ant-upload-list';
@@ -38000,8 +36157,8 @@ var NzUploadListComponent = /** @class */ (function () {
             _a);
         this.updateHostClassService.updateHostClass(this.el.nativeElement, classMap);
     };
-    // endregion
-    // region: render
+    // #endregion
+    // #region render
     /**
      * @param {?} file
      * @param {?} e
@@ -38037,14 +36194,12 @@ var NzUploadListComponent = /** @class */ (function () {
         return;
     };
     /**
-     * @param {?} changes
      * @return {?}
      */
     NzUploadListComponent.prototype.ngOnChanges = /**
-     * @param {?} changes
      * @return {?}
      */
-    function (changes) {
+    function () {
         this.setClassMap();
     };
     NzUploadListComponent.decorators = [
@@ -38063,7 +36218,8 @@ var NzUploadListComponent = /** @class */ (function () {
                             ])
                         ])
                     ],
-                    preserveWhitespaces: false
+                    preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None
                 }] }
     ];
     /** @nocollapse */
@@ -38087,28 +36243,30 @@ var NzUploadListComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 var NzUploadComponent = /** @class */ (function () {
-    // endregion
-    function NzUploadComponent(cd, i18n) {
+    // #endregion
+    function NzUploadComponent(cdr, i18n) {
         var _this = this;
-        this.cd = cd;
+        this.cdr = cdr;
         this.i18n = i18n;
+        // tslint:disable-next-line:no-any
         this.locale = {};
-        // region: fields
+        // #region fields
         this.nzType = 'select';
         this._limit = 0;
         this._size = 0;
         this.nzDirectory = false;
+        this.nzOpenFileDialogOnClick = true;
         this.nzFilter = [];
         this.nzFileList = [];
-        this.nzFileListChange = new EventEmitter();
-        this._disabled = false;
+        this.nzDisabled = false;
         this.nzListType = 'text';
-        this._multiple = false;
+        this.nzMultiple = false;
         this.nzName = 'file';
         this._showUploadList = true;
-        this._showBtn = true;
-        this._withCredentials = false;
+        this.nzShowButton = true;
+        this.nzWithCredentials = false;
         this.nzChange = new EventEmitter();
+        this.nzFileListChange = new EventEmitter();
         this.onStart = function (file) {
             if (!_this.nzFileList) {
                 _this.nzFileList = [];
@@ -38120,7 +36278,7 @@ var NzUploadComponent = /** @class */ (function () {
             _this.genThumb(targetItem);
             _this.nzFileListChange.emit(_this.nzFileList);
             _this.nzChange.emit({ file: targetItem, fileList: _this.nzFileList, type: 'start' });
-            _this.cd.detectChanges();
+            _this.cdr.markForCheck();
         };
         this.onProgress = function (e, file) {
             /** @type {?} */
@@ -38134,9 +36292,9 @@ var NzUploadComponent = /** @class */ (function () {
                 fileList: _this.nzFileList,
                 type: 'progress'
             });
-            _this.cd.detectChanges();
+            _this.cdr.detectChanges();
         };
-        this.onSuccess = function (res, file, xhr) {
+        this.onSuccess = function (res, file) {
             /** @type {?} */
             var fileList = _this.nzFileList;
             /** @type {?} */
@@ -38148,7 +36306,7 @@ var NzUploadComponent = /** @class */ (function () {
                 fileList: fileList,
                 type: 'success'
             });
-            _this.cd.detectChanges();
+            _this.cdr.detectChanges();
         };
         this.onError = function (err, file) {
             /** @type {?} */
@@ -38163,10 +36321,10 @@ var NzUploadComponent = /** @class */ (function () {
                 fileList: fileList,
                 type: 'error'
             });
-            _this.cd.detectChanges();
+            _this.cdr.detectChanges();
         };
-        // endregion
-        // region: list
+        // #endregion
+        // #region list
         this.onRemove = function (file) {
             _this.upload.abort(file);
             file.status = 'removed';
@@ -38183,11 +36341,9 @@ var NzUploadComponent = /** @class */ (function () {
                     type: 'removed'
                 });
                 _this.nzFileListChange.emit(_this.nzFileList);
-                _this.cd.detectChanges();
+                _this.cdr.detectChanges();
             });
         };
-        // endregion
-        // region: styles
         this.prefixCls = 'ant-upload';
         this.classList = [];
     }
@@ -38225,40 +36381,6 @@ var NzUploadComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NzUploadComponent.prototype, "nzDisabled", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._disabled;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disabled = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzUploadComponent.prototype, "nzMultiple", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._multiple;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._multiple = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(NzUploadComponent.prototype, "nzShowUploadList", {
         get: /**
          * @return {?}
@@ -38272,40 +36394,6 @@ var NzUploadComponent = /** @class */ (function () {
          */
         function (value) {
             this._showUploadList = typeof value === 'boolean' ? toBoolean(value) : value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzUploadComponent.prototype, "nzShowButton", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._showBtn;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._showBtn = toBoolean(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NzUploadComponent.prototype, "nzWithCredentials", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._withCredentials;
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._withCredentials = toBoolean(value);
         },
         enumerable: true,
         configurable: true
@@ -38351,6 +36439,7 @@ var NzUploadComponent = /** @class */ (function () {
             accept: this.nzAccept,
             action: this.nzAction,
             directory: this.nzDirectory,
+            openFileDialogOnClick: this.nzOpenFileDialogOnClick,
             beforeUpload: this.nzBeforeUpload,
             customRequest: this.nzCustomRequest,
             data: this.nzData,
@@ -38385,7 +36474,7 @@ var NzUploadComponent = /** @class */ (function () {
             response: file.response,
             error: file.error,
             percent: 0,
-            // tslint:disable-next-line:no-angle-bracket-type-assertion
+            // tslint:disable-next-line:no-any
             originFileObj: /** @type {?} */ (file)
         };
     };
@@ -38437,11 +36526,13 @@ var NzUploadComponent = /** @class */ (function () {
      * @return {?}
      */
     function (file) {
+        /** @type {?} */
+        var win = /** @type {?} */ (window);
         if ((this.nzListType !== 'picture' && this.nzListType !== 'picture-card') ||
             typeof document === 'undefined' ||
-            typeof window === 'undefined' ||
-            !(/** @type {?} */ (window)).FileReader ||
-            !(/** @type {?} */ (window)).File ||
+            typeof win === 'undefined' ||
+            !win.FileReader ||
+            !win.File ||
             !(file.originFileObj instanceof File) ||
             file.thumbUrl != null) {
             return;
@@ -38475,8 +36566,6 @@ var NzUploadComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var isDrag = this.nzType === 'drag';
-        /** @type {?} */
         var subCls = [];
         if (this.nzType === 'drag') {
             subCls = [
@@ -38495,9 +36584,9 @@ var NzUploadComponent = /** @class */ (function () {
         ], subCls, [
             this.nzDisabled && this.prefixCls + "-disabled"
         ]).filter(function (item) { return !!item; });
-        this.cd.detectChanges();
+        this.cdr.detectChanges();
     };
-    // endregion
+    // #endregion
     /**
      * @return {?}
      */
@@ -38508,7 +36597,7 @@ var NzUploadComponent = /** @class */ (function () {
         var _this = this;
         this.i18n$ = this.i18n.localeChange.subscribe(function () {
             _this.locale = _this.i18n.getLocaleData('Upload');
-            _this.cd.detectChanges();
+            _this.cdr.detectChanges();
         });
     };
     /**
@@ -38540,6 +36629,7 @@ var NzUploadComponent = /** @class */ (function () {
                     selector: 'nz-upload',
                     template: "<ng-template #list>\n  <nz-upload-list *ngIf=\"nzShowUploadList\"\n    [locale]=\"locale\"\n    [listType]=\"nzListType\"\n    [items]=\"nzFileList\"\n    [icons]=\"nzShowUploadList\"\n    [onPreview]=\"nzPreview\"\n    [onRemove]=\"onRemove\"></nz-upload-list>\n</ng-template>\n<ng-template #con><ng-content></ng-content></ng-template>\n<ng-template #btn>\n  <div [ngClass]=\"classList\" [style.display]=\"nzShowButton ? '' : 'none'\">\n    <div nz-upload-btn #upload [options]=\"_btnOptions\">\n      <ng-template [ngTemplateOutlet]=\"con\"></ng-template>\n    </div>\n  </div>\n</ng-template>\n<ng-container *ngIf=\"nzType === 'drag'; else select\">\n  <div [ngClass]=\"classList\"\n    (drop)=\"fileDrop($event)\"\n    (dragover)=\"fileDrop($event)\"\n    (dragleave)=\"fileDrop($event)\">\n    <div nz-upload-btn #upload [options]=\"_btnOptions\" [classes]=\"{'ant-upload-btn': true}\">\n      <div class=\"ant-upload-drag-container\">\n        <ng-template [ngTemplateOutlet]=\"con\"></ng-template>\n      </div>\n    </div>\n  </div>\n  <ng-template [ngTemplateOutlet]=\"list\"></ng-template>\n</ng-container>\n<ng-template #select>\n  <ng-container *ngIf=\"nzListType === 'picture-card'; else pic\">\n    <ng-template [ngTemplateOutlet]=\"list\"></ng-template>\n    <ng-template [ngTemplateOutlet]=\"btn\"></ng-template>\n  </ng-container>\n</ng-template>\n<ng-template #pic>\n  <ng-template [ngTemplateOutlet]=\"btn\"></ng-template>\n  <ng-template [ngTemplateOutlet]=\"list\"></ng-template>\n</ng-template>",
                     preserveWhitespaces: false,
+                    encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
     ];
@@ -38557,12 +36647,12 @@ var NzUploadComponent = /** @class */ (function () {
         nzAccept: [{ type: Input }],
         nzAction: [{ type: Input }],
         nzDirectory: [{ type: Input }],
+        nzOpenFileDialogOnClick: [{ type: Input }],
         nzBeforeUpload: [{ type: Input }],
         nzCustomRequest: [{ type: Input }],
         nzData: [{ type: Input }],
         nzFilter: [{ type: Input }],
         nzFileList: [{ type: Input }],
-        nzFileListChange: [{ type: Output }],
         nzDisabled: [{ type: Input }],
         nzHeaders: [{ type: Input }],
         nzListType: [{ type: Input }],
@@ -38573,12 +36663,33 @@ var NzUploadComponent = /** @class */ (function () {
         nzWithCredentials: [{ type: Input }],
         nzRemove: [{ type: Input }],
         nzPreview: [{ type: Input }],
-        nzChange: [{ type: Output }]
+        nzChange: [{ type: Output }],
+        nzFileListChange: [{ type: Output }]
     };
     __decorate([
         InputBoolean(),
-        __metadata("design:type", Boolean)
+        __metadata("design:type", Object)
     ], NzUploadComponent.prototype, "nzDirectory", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzUploadComponent.prototype, "nzOpenFileDialogOnClick", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzUploadComponent.prototype, "nzDisabled", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzUploadComponent.prototype, "nzMultiple", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzUploadComponent.prototype, "nzShowButton", void 0);
+    __decorate([
+        InputBoolean(),
+        __metadata("design:type", Object)
+    ], NzUploadComponent.prototype, "nzWithCredentials", void 0);
     return NzUploadComponent;
 }());
 
@@ -41911,6 +40022,120 @@ var sk_SK = {
  * @suppress {checkTypes} checked by tsc
  */
 var CalendarLocale$r = {
+    today: 'Danes',
+    now: 'Zdaj',
+    backToToday: 'Nazaj na danes',
+    ok: 'V redu',
+    clear: 'Počisti',
+    month: 'Mesec',
+    year: 'Leto',
+    timeSelect: 'Izberi čas',
+    dateSelect: 'Izberi datum',
+    monthSelect: 'Izberi mesec',
+    yearSelect: 'Izberi leto',
+    decadeSelect: 'Izberi desetletje',
+    yearFormat: 'YYYY',
+    dateFormat: 'DD.MM.YYYY',
+    dayFormat: 'D',
+    dateTimeFormat: 'DD.MM.YYYY HH:mm:ss',
+    monthBeforeYear: true,
+    previousMonth: 'Predhodnji mesec (PageUp)',
+    nextMonth: 'Naslednji mesec (PageDown)',
+    previousYear: 'Prejšnje leto (Control + left)',
+    nextYear: 'Naslednje leto (Control + right)',
+    previousDecade: 'Prejšnje desetletje',
+    nextDecade: 'Naslednje desetletje',
+    previousCentury: 'Prejšnje stoletje',
+    nextCentury: 'Naslednje stoletje',
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @type {?} */
+var locale$S = {
+    placeholder: 'Izberite čas',
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @type {?} */
+var locale$T = {
+    lang: __assign({ placeholder: 'Izberite datum', rangePlaceholder: ['Začetni datum', 'Končni datum'] }, CalendarLocale$r),
+    timePickerLocale: __assign({}, locale$S),
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var Pagination$r = {
+    // Options.jsx
+    items_per_page: '/ stran',
+    jump_to: 'Pojdi na',
+    jump_to_confirm: 'potrdi',
+    page: '',
+    // Pagination.jsx
+    prev_page: 'Prejšnja stran',
+    next_page: 'Naslednja stran',
+    prev_5: 'Prejšnjih 5 Strani',
+    next_5: 'Naslednjih 5 Strani',
+    prev_3: 'Prejšnje 3 Strani',
+    next_3: 'Naslednje 3 Strani',
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var sl_SI = {
+    locale: 'sl',
+    Pagination: Pagination$r,
+    DatePicker: locale$T,
+    TimePicker: locale$S,
+    Calendar: CalendarLocale$r,
+    Table: {
+        filterTitle: 'Filter',
+        filterConfirm: 'Potrdi',
+        filterReset: 'Ponastavi',
+        emptyText: 'Ni podataka',
+        selectAll: 'Izberi trenutno stran',
+        selectInvert: 'Obrni vrstni red izbora',
+    },
+    Modal: {
+        okText: 'V redu',
+        cancelText: 'Prekliči',
+        justOkText: 'V redu',
+    },
+    Popconfirm: {
+        okText: 'V redu',
+        cancelText: 'Prekliči',
+    },
+    Transfer: {
+        notFoundContent: 'Ni zadetkov',
+        searchPlaceholder: 'Išči tukaj',
+        itemUnit: 'vnos',
+        itemsUnit: 'vnosi',
+    },
+    Select: {
+        notFoundContent: 'Ni zadetkov',
+    },
+    Upload: {
+        uploading: 'Nalaganje...',
+        removeFile: 'Odstrani datoteko',
+        uploadError: 'Napaka pri nalaganju',
+        previewFile: 'Predogled datoteke',
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var CalendarLocale$s = {
     today: 'Danas',
     now: 'Sada',
     backToToday: 'Vrati se na danas',
@@ -41943,7 +40168,7 @@ var CalendarLocale$r = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$S = {
+var locale$U = {
     placeholder: 'Izaberite vreme',
 };
 
@@ -41952,16 +40177,16 @@ var locale$S = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$T = {
-    lang: __assign({ placeholder: 'Izaberite datum', rangePlaceholder: ['Početni datum', 'Krajnji datum'] }, CalendarLocale$r),
-    timePickerLocale: __assign({}, locale$S),
+var locale$V = {
+    lang: __assign({ placeholder: 'Izaberite datum', rangePlaceholder: ['Početni datum', 'Krajnji datum'] }, CalendarLocale$s),
+    timePickerLocale: __assign({}, locale$U),
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$r = {
+var Pagination$s = {
     // Options.jsx
     items_per_page: '/ strani',
     jump_to: 'Idi na',
@@ -41981,10 +40206,10 @@ var Pagination$r = {
  */
 var sr_RS = {
     locale: 'sr',
-    Pagination: Pagination$r,
-    DatePicker: locale$T,
-    TimePicker: locale$S,
-    Calendar: CalendarLocale$r,
+    Pagination: Pagination$s,
+    DatePicker: locale$V,
+    TimePicker: locale$U,
+    Calendar: CalendarLocale$s,
     Table: {
         filterTitle: 'Filter',
         filterConfirm: 'Primeni filter',
@@ -42023,7 +40248,7 @@ var sr_RS = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var CalendarLocale$s = {
+var CalendarLocale$t = {
     today: 'I dag',
     now: 'Nu',
     backToToday: 'Till idag',
@@ -42056,7 +40281,7 @@ var CalendarLocale$s = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$U = {
+var locale$W = {
     placeholder: 'Välj tid',
 };
 
@@ -42065,16 +40290,16 @@ var locale$U = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$V = {
-    lang: __assign({ placeholder: 'Välj datum', rangePlaceholder: ['Startdatum', 'Slutdatum'] }, CalendarLocale$s),
-    timePickerLocale: __assign({}, locale$U),
+var locale$X = {
+    lang: __assign({ placeholder: 'Välj datum', rangePlaceholder: ['Startdatum', 'Slutdatum'] }, CalendarLocale$t),
+    timePickerLocale: __assign({}, locale$W),
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$s = {
+var Pagination$t = {
     // Options.jsx
     items_per_page: '/ sida',
     jump_to: 'Gå till',
@@ -42095,10 +40320,10 @@ var Pagination$s = {
  */
 var sv_SE = {
     locale: 'sv',
-    Pagination: Pagination$s,
-    DatePicker: locale$V,
-    TimePicker: locale$U,
-    Calendar: CalendarLocale$s,
+    Pagination: Pagination$t,
+    DatePicker: locale$X,
+    TimePicker: locale$W,
+    Calendar: CalendarLocale$t,
     Table: {
         filterTitle: 'Filtermeny',
         filterConfirm: 'OK',
@@ -42129,7 +40354,7 @@ var sv_SE = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var CalendarLocale$t = {
+var CalendarLocale$u = {
     today: 'วันนี้',
     now: 'ตอนนี้',
     backToToday: 'กลับไปยังวันนี้',
@@ -42162,7 +40387,7 @@ var CalendarLocale$t = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$W = {
+var locale$Y = {
     placeholder: 'เลือกเวลา',
 };
 
@@ -42171,16 +40396,16 @@ var locale$W = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$X = {
-    lang: __assign({ placeholder: 'เลือกวันที่', rangePlaceholder: ['วันเริ่มต้น', 'วันสิ้นสุด'] }, CalendarLocale$t),
-    timePickerLocale: __assign({}, locale$W)
+var locale$Z = {
+    lang: __assign({ placeholder: 'เลือกวันที่', rangePlaceholder: ['วันเริ่มต้น', 'วันสิ้นสุด'] }, CalendarLocale$u),
+    timePickerLocale: __assign({}, locale$Y)
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$t = {
+var Pagination$u = {
     // Options.jsx
     items_per_page: '/ หน้า',
     jump_to: 'ไปยัง',
@@ -42201,10 +40426,10 @@ var Pagination$t = {
  */
 var th_TH = {
     locale: 'th',
-    Pagination: Pagination$t,
-    DatePicker: locale$X,
-    TimePicker: locale$W,
-    Calendar: CalendarLocale$t,
+    Pagination: Pagination$u,
+    DatePicker: locale$Z,
+    TimePicker: locale$Y,
+    Calendar: CalendarLocale$u,
     Table: {
         filterTitle: 'ตัวกรอง',
         filterConfirm: 'ยืนยัน',
@@ -42244,7 +40469,7 @@ var th_TH = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$Y = {
+var locale$_ = {
     placeholder: 'Zaman Seç',
 };
 
@@ -42253,9 +40478,9 @@ var locale$Y = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$Z = {
+var locale$10 = {
     lang: __assign({ placeholder: 'Tarih Seç', rangePlaceholder: ['Başlangıç Tarihi', 'Bitiş Tarihi'] }, CalendarLocale$8),
-    timePickerLocale: __assign({}, locale$Y),
+    timePickerLocale: __assign({}, locale$_),
 };
 
 /**
@@ -42265,8 +40490,8 @@ var locale$Z = {
 var tr_TR = {
     locale: 'tr',
     Pagination: Pagination$8,
-    DatePicker: locale$Z,
-    TimePicker: locale$Y,
+    DatePicker: locale$10,
+    TimePicker: locale$_,
     Calendar: CalendarLocale$8,
     Table: {
         filterTitle: 'Menü Filtrele',
@@ -42306,7 +40531,7 @@ var tr_TR = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var CalendarLocale$u = {
+var CalendarLocale$v = {
     today: 'Сьогодні',
     now: 'Зараз',
     backToToday: 'Поточна дата',
@@ -42339,7 +40564,7 @@ var CalendarLocale$u = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$_ = {
+var locale$11 = {
     placeholder: 'Оберіть час',
 };
 
@@ -42348,16 +40573,16 @@ var locale$_ = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$10 = {
-    lang: __assign({ placeholder: 'Оберіть дату', rangePlaceholder: ['Початкова дата', 'Кінцева дата'] }, CalendarLocale$u),
-    timePickerLocale: __assign({}, locale$_),
+var locale$12 = {
+    lang: __assign({ placeholder: 'Оберіть дату', rangePlaceholder: ['Початкова дата', 'Кінцева дата'] }, CalendarLocale$v),
+    timePickerLocale: __assign({}, locale$11),
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$u = {
+var Pagination$v = {
     // Options.jsx
     items_per_page: '/ сторінці',
     jump_to: 'Перейти',
@@ -42378,10 +40603,10 @@ var Pagination$u = {
  */
 var uk_UA = {
     locale: 'uk',
-    Pagination: Pagination$u,
-    DatePicker: locale$10,
-    TimePicker: locale$_,
-    Calendar: CalendarLocale$u,
+    Pagination: Pagination$v,
+    DatePicker: locale$12,
+    TimePicker: locale$11,
+    Calendar: CalendarLocale$v,
     Table: {
         filterTitle: 'Фільтрувати',
         filterConfirm: 'OK',
@@ -42421,7 +40646,7 @@ var uk_UA = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$11 = {
+var locale$13 = {
     lang: __assign({ placeholder: 'Chọn thời điểm', rangePlaceholder: ['Ngày bắt đầu', 'Ngày kết thúc'] }, CalendarLocale$8),
     timePickerLocale: __assign({}, locale$g),
 };
@@ -42435,7 +40660,7 @@ var locale$11 = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$v = {
+var Pagination$w = {
     // Options.jsx
     items_per_page: '/ trang',
     jump_to: 'Đến',
@@ -42455,7 +40680,7 @@ var Pagination$v = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$12 = {
+var locale$14 = {
     placeholder: 'Chọn thời gian',
 };
 
@@ -42465,10 +40690,10 @@ var locale$12 = {
  */
 var vi_VN = {
     locale: 'vi',
-    Pagination: Pagination$v,
-    DatePicker: locale$11,
-    TimePicker: locale$12,
-    Calendar: locale$11,
+    Pagination: Pagination$w,
+    DatePicker: locale$13,
+    TimePicker: locale$14,
+    Calendar: locale$13,
     Table: {
         filterTitle: 'Bộ ',
         filterConfirm: 'OK',
@@ -42507,7 +40732,7 @@ var vi_VN = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var CalendarLocale$v = {
+var CalendarLocale$w = {
     today: '今天',
     now: '此刻',
     backToToday: '返回今天',
@@ -42539,7 +40764,7 @@ var CalendarLocale$v = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$13 = {
+var locale$15 = {
     placeholder: '請選擇時間',
 };
 
@@ -42548,17 +40773,17 @@ var locale$13 = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var locale$14 = {
-    lang: __assign({ placeholder: '請選擇日期', rangePlaceholder: ['開始日期', '結束日期'] }, CalendarLocale$v),
-    timePickerLocale: __assign({}, locale$13),
+var locale$16 = {
+    lang: __assign({ placeholder: '請選擇日期', rangePlaceholder: ['開始日期', '結束日期'] }, CalendarLocale$w),
+    timePickerLocale: __assign({}, locale$15),
 };
-locale$14.lang.ok = '確 定';
+locale$16.lang.ok = '確 定';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var Pagination$w = {
+var Pagination$x = {
     // Options.jsx
     items_per_page: '條/頁',
     jump_to: '跳至',
@@ -42579,10 +40804,10 @@ var Pagination$w = {
  */
 var zh_TW = {
     locale: 'zh-tw',
-    Pagination: Pagination$w,
-    DatePicker: locale$14,
-    TimePicker: locale$13,
-    Calendar: CalendarLocale$v,
+    Pagination: Pagination$x,
+    DatePicker: locale$16,
+    TimePicker: locale$15,
+    Calendar: CalendarLocale$w,
     Table: {
         filterTitle: '篩選器',
         filterConfirm: '確 定',
@@ -42957,77 +41182,7 @@ var zh_TW = {
  * @suppress {checkTypes} checked by tsc
  */
 /** @type {?} */
-var VERSION = new Version('0.0.0-PLACEHOLDER');
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var NzGlobalMonitorService = /** @class */ (function () {
-    function NzGlobalMonitorService() {
-        this.counter = 0;
-        this.lastClickPos = {
-            x: 0,
-            y: 0
-        };
-        this._navItemSource = new EventEmitter();
-        this._observeGlobalEvents();
-    }
-    /**
-     * @return {?}
-     */
-    NzGlobalMonitorService.prototype.getGlobalCount = /**
-     * @return {?}
-     */
-    function () {
-        return ++this.counter;
-    };
-    /**
-     * @param {?} status
-     * @return {?}
-     */
-    NzGlobalMonitorService.prototype.setDocumentOverflowHidden = /**
-     * @param {?} status
-     * @return {?}
-     */
-    function (status) {
-        document.body.style.overflow = status ? 'hidden' : '';
-    };
-    /**
-     * @return {?}
-     */
-    NzGlobalMonitorService.prototype._observeGlobalEvents = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        // 监听document的点击事件，记录点击坐标，并抛出 documentClick 事件
-        document.addEventListener('click', function (e) {
-            _this.lastClickPos = {
-                x: e.clientX,
-                y: e.clientY
-            };
-            _this._navItemSource.emit('documentClick');
-        });
-    };
-    return NzGlobalMonitorService;
-}());
-new NzGlobalMonitorService();
+var VERSION = new Version('7.0.0-rc.3');
 
 /**
  * @fileoverview added by tsickle
@@ -43131,6 +41286,6 @@ var NgZorroAntdModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { NgZorroAntdModule, NzAffixComponent, NzAffixModule, NzAlertComponent, NzAlertModule, NzAnchorLinkComponent, NzAnchorComponent, NzAnchorModule, NzAvatarComponent, NzAvatarModule, NzBackTopComponent, NzBackTopModule, NzBadgeComponent, NzBadgeModule, NzBreadCrumbItemComponent, NzBreadCrumbComponent, NzBreadCrumbModule, NzButtonComponent, NzButtonGroupComponent, NzButtonModule, NzCalendarComponent, NzCalendarModule, NzCardGridDirective, NzCardComponent, NzCardModule, NzCardLoadingComponent, NzCardMetaComponent, NzCardTabComponent, NzCarouselModule, NzCarouselComponent, NzCarouselContentDirective, NzCheckboxComponent, NzCheckboxModule, NzCheckboxGroupComponent, NzCheckboxWrapperComponent, NzCollapsePanelComponent, NzCollapseComponent, NzCollapseModule, CandyDate, NzDatePickerModule, NzDatePickerComponent, NzRangePickerComponent, NzMonthPickerComponent, NzWeekPickerComponent, NzDividerComponent, NzDividerModule, DRAWER_ANIMATE_DURATION, NzDrawerComponent, NzDrawerModule, DrawerBuilderForService$$1 as DrawerBuilderForService, NzDrawerService$$1 as NzDrawerService, NzDrawerRef, NzDropdownContextComponent, NzDropDownComponent, NzDropDownDirective, NzDropdownService$$1 as NzDropdownService, NzDropDownButtonComponent, NzDropDownModule, NzFormModule, NzFormDirective, NzFormControlComponent, NzFormExplainComponent, NzFormItemComponent, NzFormExtraComponent, NzFormLabelComponent, NzFormSplitComponent, NzFormTextComponent, NzRowDirective, NzRowComponent, NzColComponent, NzColDirective, NzGridModule, NzI18nModule, NZ_I18N, NzI18nService, ar_EG, bg_BG, ca_ES, cs_CZ, de_DE, el_GR, en_GB, en_US, es_ES, et_EE, fa_IR, fi_FI, fr_BE, fr_FR, is_IS, it_IT, ja_JP, ko_KR, nb_NO, nl_BE, nl_NL, pl_PL, pt_BR, pt_PT, ru_RU, sk_SK, sr_RS, sv_SE, th_TH, tr_TR, uk_UA, vi_VN, zh_CN, zh_TW, NzIconModule, NzIconDirective, NZ_ICONS$$1 as NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR$$1 as NZ_ICON_DEFAULT_TWOTONE_COLOR, DEFAULT_TWOTONE_COLOR$$1 as DEFAULT_TWOTONE_COLOR, NzIconService$$1 as NzIconService, NzInputGroupComponent, NzInputModule, NzInputNumberComponent, NzInputNumberModule, NzContentComponent, NzFooterComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent, NzLayoutModule, NzListItemMetaComponent, NzListItemComponent, NzListComponent, NzListModule, NzMentionModule, NzMentionComponent, NZ_MENTION_TRIGGER_ACCESSOR, NzMentionTriggerDirective, NzMenuDirective, NzMenuGroupComponent, NzMenuDividerDirective, NzMenuItemDirective, NzSubMenuComponent, NzMenuModule, NzPaginationComponent, NzPaginationModule, NzProgressModule, NzProgressComponent, NzRadioButtonComponent, NzRadioGroupComponent, NzRadioComponent, NzRadioModule, NzRateComponent, NzRateModule, NzOptionGroupComponent, NzOptionContainerComponent, NzOptionComponent, NzSelectComponent, NzSelectModule, NzSpinComponent, NzSpinModule, NzStepsComponent, NzStepComponent, NzStepsModule, NzSwitchComponent, NzSwitchModule, NzTableComponent, NzTableModule, NzTbodyDirective, NzTdComponent, NzThComponent, NzTheadComponent, NzTrDirective, NzTabBodyComponent, NzTabLabelDirective, NzTabComponent, NzTabsInkBarDirective, NzTabsModule, NzTabsNavComponent, NzTabChangeEvent, NzTabSetComponent, NzTimelineItemComponent, NzTimelineComponent, NzTimelineModule, NzTransferListComponent, NzTransferSearchComponent, NzTransferComponent, NzTransferModule, NzUploadBtnComponent, NzUploadListComponent, NzUploadComponent, NzUploadModule, NzTagComponent, NzTagModule, NzAutocompleteModule, NzAutocompleteComponent, getNzAutocompleteMissingPanelError, NZ_AUTOCOMPLETE_VALUE_ACCESSOR, NzAutocompleteTriggerDirective, NzOptionSelectionChange, NzAutocompleteOptionComponent, NzAutocompleteOptgroupComponent, NzMessageBaseService$$1 as NzMessageBaseService, NzMessageService$$1 as NzMessageService, NzMessageModule, NzMessageComponent, NzMessageContainerComponent, NZ_MESSAGE_DEFAULT_CONFIG, NZ_MESSAGE_CONFIG, NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER, NzTimePickerComponent, NzTimePickerModule, NzToolTipComponent, NzTooltipDirective, NzToolTipModule, NzSkeletonComponent, NzSkeletonModule, SliderHandle, NzSliderComponent, NzSliderModule, NzSliderService, NzSliderHandleComponent, NzSliderMarksComponent, Marks, MarksArray, NzSliderStepComponent, NzSliderTrackComponent, NzPopoverComponent, NzPopoverDirective, NzPopoverModule, NZ_NOTIFICATION_DEFAULT_CONFIG, NZ_NOTIFICATION_CONFIG, NZ_NOTIFICATION_DEFAULT_CONFIG_PROVIDER, NzNotificationComponent, NzNotificationModule, NzNotificationService$$1 as NzNotificationService, NzNotificationContainerComponent, NzPopconfirmComponent, NzPopconfirmDirective, NzPopconfirmModule, NzModalComponent, NzModalRef, NzModalModule, NzModalService, NZ_MODAL_CONFIG, NzCascaderModule, NzCascaderComponent, NzTreeModule, NzTreeComponent, NzTreeNodeComponent, NzTreeNode, NzTreeService, isCheckDisabled, isInArray, NzTreeSelectComponent, NzTreeSelectModule, VERSION, NzWaveRenderer, NzWaveDirective, NzWaveModule, isNotNil, shallowEqual, isInteger, isEmpty, filterNotEmptyNode, isNonEmptyString, isTemplateRef, isComponent, toBoolean, toNumber, toCssPixel, valueFunctionProp, InputBoolean, getRegExp, getMentions, NzGlobalMonitorService, getCaretCoordinates, createDebugEle, properties, throttleByAnimationFrameDecorator, NzAffixComponent as ɵcv, NzAffixModule as ɵcu, NzAlertComponent as ɵen, NzAlertModule as ɵem, NzAnchorLinkComponent as ɵct, NzAnchorComponent as ɵcp, NzAnchorModule as ɵco, NzAutocompleteOptgroupComponent as ɵii, NzAutocompleteOptionComponent as ɵif, NZ_AUTOCOMPLETE_VALUE_ACCESSOR as ɵig, NzAutocompleteTriggerDirective as ɵih, NzAutocompleteComponent as ɵie, NzAutocompleteModule as ɵid, NzAvatarComponent as ɵfg, NzAvatarModule as ɵff, NzBackTopComponent as ɵjr, NzBackTopModule as ɵjq, NzBadgeComponent as ɵel, NzBadgeModule as ɵek, NzBreadCrumbItemComponent as ɵdi, NzBreadCrumbComponent as ɵdh, NzBreadCrumbModule as ɵdg, NzButtonGroupComponent as ɵh, NzButtonComponent as ɵb, NzButtonModule as ɵa, NzDateCellDirective as ɵx, NzDateFullCellDirective as ɵz, NzMonthCellDirective as ɵy, NzMonthFullCellDirective as ɵba, NzCalendarHeaderComponent as ɵm, NzCalendarComponent as ɵw, NzCalendarModule as ɵl, NzCardGridDirective as ɵfc, NzCardLoadingComponent as ɵfe, NzCardMetaComponent as ɵfd, NzCardTabComponent as ɵfb, NzCardComponent as ɵfa, NzCardModule as ɵez, NzCarouselContentDirective as ɵfq, NzCarouselComponent as ɵfp, NzCarouselModule as ɵfo, NzCascaderComponent as ɵjt, NzCascaderModule as ɵjs, NzCheckboxGroupComponent as ɵdu, NzCheckboxWrapperComponent as ɵdt, NzCheckboxComponent as ɵds, NzCheckboxModule as ɵdr, NzCollapsePanelComponent as ɵfs, NzCollapseComponent as ɵft, NzCollapseModule as ɵfr, dropDownAnimation as ɵce, fadeAnimation as ɵeg, selectDropDownAnimation as ɵka, selectTagAnimation as ɵkb, NzScrollStrategyOptions as ɵhk, NzScrollService as ɵcq, SCROLL_SERVICE_PROVIDER as ɵcs, SCROLL_SERVICE_PROVIDER_FACTORY as ɵcr, NzMatchMediaService as ɵdf, NzMeasureScrollbarService as ɵfx, NzUpdateHostClassService as ɵc, InputBoolean as ɵgy, LoggerModule as ɵbc, LOGGER_SERVICE_PROVIDER as ɵv, LOGGER_SERVICE_PROVIDER_FACTORY as ɵu, LoggerService as ɵs, NZ_LOGGER_STATE as ɵt, throttleByAnimationFrameDecorator as ɵcw, NzWaveDirective as ɵj, NzWaveModule as ɵi, AbstractPickerComponent as ɵgx, NzDatePickerComponent as ɵgv, NzDatePickerModule as ɵgc, DateRangePickerComponent as ɵgw, HeaderPickerComponent as ɵhc, CalendarFooterComponent as ɵgk, CalendarHeaderComponent as ɵgi, CalendarInputComponent as ɵgj, OkButtonComponent as ɵgl, TimePickerButtonComponent as ɵgm, TodayButtonComponent as ɵgn, DateTableComponent as ɵgo, DecadePanelComponent as ɵgs, LibPackerModule as ɵgd, MonthPanelComponent as ɵgq, MonthTableComponent as ɵgr, DateRangePopupComponent as ɵgu, InnerPopupComponent as ɵgt, YearPanelComponent as ɵgp, NzMonthPickerComponent as ɵhb, NzPickerComponent as ɵgz, NzRangePickerComponent as ɵha, NzWeekPickerComponent as ɵhe, NzYearPickerComponent as ɵhd, NzDividerComponent as ɵhg, NzDividerModule as ɵhf, NzDrawerRef as ɵhj, NzDrawerComponent as ɵhi, NzDrawerModule as ɵhh, NzDrawerService$$1 as ɵhl, NzDropDownButtonComponent as ɵcg, NzDropdownContextComponent as ɵcy, NzDropDownComponent as ɵcd, NzDropDownDirective as ɵcf, NzDropDownModule as ɵcx, NzFormControlComponent as ɵhr, NzFormExplainComponent as ɵhs, NzFormExtraComponent as ɵhn, NzFormItemComponent as ɵhq, NzFormLabelComponent as ɵho, NzFormSplitComponent as ɵhu, NzFormTextComponent as ɵht, NzFormDirective as ɵhp, NzFormModule as ɵhm, NzColComponent as ɵbv, NzColDirective as ɵbu, NzGridModule as ɵbs, NzRowComponent as ɵbt, NzRowDirective as ɵbw, NzI18nModule as ɵbb, NzI18nPipe as ɵbd, NZ_I18N_SERVICE_PROVIDER as ɵp, NZ_LOCALE_SERVICE_PROVIDER_FACTORY as ɵo, NzI18nService as ɵn, NZ_I18N as ɵq, NzIconDirective as ɵd, NzIconModule as ɵk, NZ_ICONS$$1 as ɵe, NZ_ICON_DEFAULT_TWOTONE_COLOR$$1 as ɵf, NzIconService$$1 as ɵg, NzInputNumberComponent as ɵdw, NzInputNumberModule as ɵdv, NzInputGroupComponent as ɵdq, NzInputDirective as ɵdp, NzInputModule as ɵdo, NzContentComponent as ɵdc, NzFooterComponent as ɵdd, NzHeaderComponent as ɵdb, NzLayoutComponent as ɵda, NzLayoutModule as ɵcz, NzSiderComponent as ɵde, NzListItemMetaComponent as ɵhy, NzListItemComponent as ɵhx, NzListComponent as ɵhw, NzListModule as ɵhv, NzMentionSuggestionDirective as ɵcn, NZ_MENTION_TRIGGER_ACCESSOR as ɵcl, NzMentionTriggerDirective as ɵcm, NzMentionComponent as ɵck, NzMentionModule as ɵcj, NzMenuDividerDirective as ɵch, NzMenuGroupComponent as ɵci, NzMenuItemDirective as ɵcb, NzMenuDirective as ɵca, NzMenuModule as ɵbz, NzSubMenuComponent as ɵcc, NZ_MESSAGE_CONFIG as ɵip, NZ_MESSAGE_DEFAULT_CONFIG as ɵio, NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER as ɵiq, NzMessageContainerComponent as ɵim, NzMessageComponent as ɵir, NzMessageModule as ɵil, NzMessageBaseService$$1 as ɵis, NzMessageService$$1 as ɵit, CssUnitPipe as ɵjo, NZ_MODAL_CONFIG as ɵjl, NzModalControlService as ɵjn, NzModalRef as ɵjk, NzModalComponent as ɵjj, NzModalModule as ɵji, NzModalService as ɵjp, NZ_NOTIFICATION_CONFIG as ɵiz, NZ_NOTIFICATION_DEFAULT_CONFIG as ɵiy, NZ_NOTIFICATION_DEFAULT_CONFIG_PROVIDER as ɵja, NzNotificationContainerComponent as ɵiw, NzNotificationComponent as ɵiv, NzNotificationModule as ɵiu, NzNotificationService$$1 as ɵjb, NzPaginationComponent as ɵdk, NzPaginationModule as ɵdj, NzPopconfirmComponent as ɵjg, NzPopconfirmDirective as ɵjh, NzPopconfirmModule as ɵjf, NzPopoverComponent as ɵjd, NzPopoverDirective as ɵje, NzPopoverModule as ɵjc, NzProgressComponent as ɵer, NzProgressModule as ɵeq, NzRadioButtonComponent as ɵbh, NzRadioGroupComponent as ɵbg, NzRadioComponent as ɵbf, NzRadioModule as ɵbe, NzRateComponent as ɵej, NzRateModule as ɵei, NzOptionContainerComponent as ɵbo, NzOptionGroupComponent as ɵbq, NzOptionLiComponent as ɵbp, NzOptionComponent as ɵbl, NzOptionPipe as ɵbj, NzSubOptionPipe as ɵbk, NzSelectTopControlComponent as ɵbn, NzSelectUnselectableDirective as ɵbr, NzSelectComponent as ɵbm, NzSelectModule as ɵbi, NzSkeletonComponent as ɵkd, NzSkeletonModule as ɵkc, NzSliderHandleComponent as ɵeb, NzSliderMarksComponent as ɵed, NzSliderStepComponent as ɵec, NzSliderTrackComponent as ɵea, NzSliderComponent as ɵdy, NzSliderModule as ɵdx, NzSliderService as ɵdz, NzSpinComponent as ɵep, NzSpinModule as ɵeo, NzStepComponent as ɵdn, NzStepsComponent as ɵdm, NzStepsModule as ɵdl, NzSwitchComponent as ɵby, NzSwitchModule as ɵbx, NzTableComponent as ɵfv, NzTableModule as ɵfu, NzTbodyDirective as ɵga, NzTdComponent as ɵfy, NzThComponent as ɵfw, NzTheadComponent as ɵfz, NzTrDirective as ɵgb, NzTabBodyComponent as ɵey, NzTabLabelDirective as ɵew, NzTabComponent as ɵet, NzTabsInkBarDirective as ɵex, NzTabsNavComponent as ɵev, NzTabsModule as ɵes, NzTabSetComponent as ɵeu, NzTagComponent as ɵik, NzTagModule as ɵij, NzTimePickerPanelComponent as ɵgg, NzTimePickerComponent as ɵgf, NzTimePickerModule as ɵge, NzTimeValueAccessorDirective as ɵgh, NzTimelineItemComponent as ɵfi, NzTimelineComponent as ɵfj, NzTimelineModule as ɵfh, NzToolTipComponent as ɵef, NzTooltipDirective as ɵeh, NzToolTipModule as ɵee, NzTransferListComponent as ɵfm, NzTransferSearchComponent as ɵfn, NzTransferComponent as ɵfl, NzTransferModule as ɵfk, NzTreeSelectComponent as ɵjz, NzTreeSelectModule as ɵjy, NzTreeNodeComponent as ɵjx, NzTreeComponent as ɵjv, NzTreeModule as ɵju, NzTreeService as ɵjw, NzUploadBtnComponent as ɵib, NzUploadListComponent as ɵic, NzUploadComponent as ɵia, NzUploadModule as ɵhz };
+export { NgZorroAntdModule, NzAffixComponent, NzAffixModule, NzAlertComponent, NzAlertModule, NzAnchorLinkComponent, NzAnchorComponent, NzAnchorModule, NzAvatarComponent, NzAvatarModule, NzBackTopComponent, NzBackTopModule, NzBadgeComponent, NzBadgeModule, NzBreadCrumbItemComponent, NZ_ROUTE_DATA_BREADCRUMB, NzBreadCrumbComponent, NzBreadCrumbModule, NzButtonComponent, NzButtonGroupComponent, NzButtonModule, NzCalendarComponent, NzCalendarModule, NzCardGridDirective, NzCardComponent, NzCardModule, NzCardLoadingComponent, NzCardMetaComponent, NzCardTabComponent, NzCarouselModule, NzCarouselComponent, NzCarouselContentDirective, NzCheckboxComponent, NzCheckboxModule, NzCheckboxGroupComponent, NzCheckboxWrapperComponent, NzCollapsePanelComponent, NzCollapseComponent, NzCollapseModule, CandyDate, NzDatePickerModule, NzDatePickerComponent, NzRangePickerComponent, NzMonthPickerComponent, NzWeekPickerComponent, NzDividerComponent, NzDividerModule, DRAWER_ANIMATE_DURATION, NzDrawerComponent, NzDrawerModule, DrawerBuilderForService$$1 as DrawerBuilderForService, NzDrawerService$$1 as NzDrawerService, NzDrawerRef, NzDropdownContextComponent, NzDropDownComponent, NzDropDownDirective, NzDropdownService$$1 as NzDropdownService, NzDropDownButtonComponent, NzDropDownModule, NzFormModule, NzFormDirective, NzFormControlComponent, NzFormExplainComponent, NzFormItemComponent, NzFormExtraComponent, NzFormLabelComponent, NzFormSplitComponent, NzFormTextComponent, NzRowDirective, Breakpoint, NzRowComponent, NzColComponent, NzColDirective, NzGridModule, NzI18nModule, NZ_I18N, NzI18nService, ar_EG, bg_BG, ca_ES, cs_CZ, de_DE, el_GR, en_GB, en_US, es_ES, et_EE, fa_IR, fi_FI, fr_BE, fr_FR, is_IS, it_IT, ja_JP, ko_KR, nb_NO, nl_BE, nl_NL, pl_PL, pt_BR, pt_PT, ru_RU, sk_SK, sl_SI, sr_RS, sv_SE, th_TH, tr_TR, uk_UA, vi_VN, zh_CN, zh_TW, NzIconModule, NzIconDirective, NZ_ICONS$$1 as NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR$$1 as NZ_ICON_DEFAULT_TWOTONE_COLOR, DEFAULT_TWOTONE_COLOR$$1 as DEFAULT_TWOTONE_COLOR, NZ_ICONS_USED_BY_ZORRO$$1 as NZ_ICONS_USED_BY_ZORRO, NzIconService$$1 as NzIconService, NzInputGroupComponent, NzInputModule, NzInputNumberComponent, NzInputNumberModule, NzContentComponent, NzFooterComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent, NzLayoutModule, NzListItemMetaComponent, NzListItemComponent, NzListComponent, NzListModule, NzMentionModule, NzMentionComponent, NZ_MENTION_TRIGGER_ACCESSOR, NzMentionTriggerDirective, NzMentionSuggestionDirective, NzMenuDirective, NzMenuGroupComponent, NzMenuDividerDirective, NzMenuItemDirective, NzSubMenuComponent, NzMenuModule, NzPaginationComponent, NzPaginationModule, NzProgressModule, NzProgressComponent, NzRadioButtonComponent, NzRadioGroupComponent, NzRadioComponent, NzRadioModule, NzRateComponent, NzRateModule, NzOptionGroupComponent, NzOptionContainerComponent, NzOptionComponent, NzSelectComponent, NzSelectModule, NzSpinComponent, NzSpinModule, NzStepsComponent, NzStepComponent, NzStepsModule, NzSwitchComponent, NzSwitchModule, NzTableComponent, NzTableModule, NzTbodyDirective, NzTdComponent, NzThComponent, NzTheadComponent, NzTrDirective, NzTabBodyComponent, NzTabLabelDirective, NzTabComponent, NzTabsInkBarDirective, NzTabsModule, NzTabsNavComponent, NzTabChangeEvent, NzTabSetComponent, NzTimelineItemComponent, NzTimelineComponent, NzTimelineModule, NzTransferListComponent, NzTransferSearchComponent, NzTransferComponent, NzTransferModule, NzUploadBtnComponent, NzUploadListComponent, NzUploadComponent, NzUploadModule, NzTagComponent, NzTagModule, NzAutocompleteModule, NzAutocompleteComponent, getNzAutocompleteMissingPanelError, NZ_AUTOCOMPLETE_VALUE_ACCESSOR, NzAutocompleteTriggerDirective, NzOptionSelectionChange, NzAutocompleteOptionComponent, NzAutocompleteOptgroupComponent, NzMessageBaseService$$1 as NzMessageBaseService, NzMessageService$$1 as NzMessageService, NzMessageModule, NzMessageComponent, NzMessageContainerComponent, NZ_MESSAGE_DEFAULT_CONFIG, NZ_MESSAGE_CONFIG, NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER, NzTimePickerComponent, NzTimePickerModule, NzToolTipComponent, NzTooltipDirective, NzToolTipModule, NzSkeletonComponent, NzSkeletonModule, SliderHandle, NzSliderComponent, NzSliderModule, NzSliderService, NzSliderHandleComponent, NzSliderMarksComponent, Marks, MarksArray, NzSliderStepComponent, NzSliderTrackComponent, NzPopoverComponent, NzPopoverDirective, NzPopoverModule, NZ_NOTIFICATION_DEFAULT_CONFIG, NZ_NOTIFICATION_CONFIG, NZ_NOTIFICATION_DEFAULT_CONFIG_PROVIDER, NzNotificationComponent, NzNotificationModule, NzNotificationService$$1 as NzNotificationService, NzNotificationContainerComponent, NzPopconfirmComponent, NzPopconfirmDirective, NzPopconfirmModule, NzModalComponent, NzModalRef, NzModalModule, NzModalService, NZ_MODAL_CONFIG, NzCascaderModule, NzCascaderComponent, NzTreeModule, NzTreeComponent, NzTreeNodeComponent, NzTreeNode, NzTreeService, isCheckDisabled, isInArray, NzTreeSelectComponent, NzTreeSelectModule, VERSION, NzWaveRenderer, NZ_WAVE_GLOBAL_CONFIG_FACTORY, NZ_WAVE_GLOBAL_DEFAULT_CONFIG, NZ_WAVE_GLOBAL_CONFIG, NzWaveDirective, NzWaveModule, isNotNil, shallowEqual, isInteger, isEmpty, filterNotEmptyNode, isNonEmptyString, isTemplateRef, isComponent, toBoolean, toNumber, toCssPixel, valueFunctionProp, InputBoolean, InputCssPixel, getRegExp, getMentions, NzGlobalMonitorService, getCaretCoordinates, createDebugEle, properties, throttleByAnimationFrameDecorator, NzAffixComponent as ɵdd, NzAffixModule as ɵdc, NzAlertComponent as ɵew, NzAlertModule as ɵev, NzAnchorLinkComponent as ɵdb, NzAnchorComponent as ɵcx, NzAnchorModule as ɵcw, NzAutocompleteOptgroupComponent as ɵiq, NzAutocompleteOptionComponent as ɵin, NZ_AUTOCOMPLETE_VALUE_ACCESSOR as ɵio, NzAutocompleteTriggerDirective as ɵip, NzAutocompleteComponent as ɵim, NzAutocompleteModule as ɵil, NzAvatarComponent as ɵfp, NzAvatarModule as ɵfo, NzBackTopComponent as ɵjz, NzBackTopModule as ɵjy, NzBadgeComponent as ɵet, NzBadgeModule as ɵes, NzBreadCrumbItemComponent as ɵdp, NzBreadCrumbComponent as ɵdo, NzBreadCrumbModule as ɵdn, NzButtonGroupComponent as ɵm, NzButtonComponent as ɵb, NzButtonModule as ɵa, NzDateCellDirective as ɵbb, NzDateFullCellDirective as ɵbd, NzMonthCellDirective as ɵbc, NzMonthFullCellDirective as ɵbe, NzCalendarHeaderComponent as ɵq, NzCalendarComponent as ɵba, NzCalendarModule as ɵp, NzCardGridDirective as ɵfl, NzCardLoadingComponent as ɵfn, NzCardMetaComponent as ɵfm, NzCardTabComponent as ɵfk, NzCardComponent as ɵfj, NzCardModule as ɵfi, NzCarouselContentDirective as ɵfz, NzCarouselComponent as ɵfy, NzCarouselModule as ɵfx, NzCascaderOptionComponent as ɵkc, NzCascaderComponent as ɵkb, NzCascaderModule as ɵka, NzCheckboxGroupComponent as ɵec, NzCheckboxWrapperComponent as ɵeb, NzCheckboxComponent as ɵea, NzCheckboxModule as ɵdz, NzCollapsePanelComponent as ɵgb, NzCollapseComponent as ɵgc, NzCollapseModule as ɵga, NzAddOnModule as ɵce, NzStringTemplateOutletDirective as ɵcf, AnimationCurves as ɵeu, dropDownAnimation as ɵcl, fadeAnimation as ɵeo, selectDropDownAnimation as ɵkj, selectTagAnimation as ɵkk, NzScrollStrategyOptions as ɵhs, NzScrollService as ɵcy, SCROLL_SERVICE_PROVIDER as ɵda, SCROLL_SERVICE_PROVIDER_FACTORY as ɵcz, NzMeasureScrollbarService as ɵgg, NzUpdateHostClassService as ɵc, InputBoolean as ɵcs, InputBoolean as ɵbk, LoggerModule as ɵbg, LOGGER_SERVICE_PROVIDER as ɵz, LOGGER_SERVICE_PROVIDER_FACTORY as ɵy, LoggerService as ɵw, NZ_LOGGER_STATE as ɵx, throttleByAnimationFrameDecorator as ɵde, NZ_WAVE_GLOBAL_CONFIG as ɵj, NZ_WAVE_GLOBAL_CONFIG_FACTORY as ɵk, NZ_WAVE_GLOBAL_DEFAULT_CONFIG as ɵi, NzWaveDirective as ɵl, NzWaveModule as ɵn, AbstractPickerComponent as ɵhg, NzDatePickerComponent as ɵhe, NzDatePickerModule as ɵgl, DateRangePickerComponent as ɵhf, HeaderPickerComponent as ɵhk, CalendarFooterComponent as ɵgt, CalendarHeaderComponent as ɵgr, CalendarInputComponent as ɵgs, OkButtonComponent as ɵgu, TimePickerButtonComponent as ɵgv, TodayButtonComponent as ɵgw, DateTableComponent as ɵgx, DecadePanelComponent as ɵhb, LibPackerModule as ɵgm, MonthPanelComponent as ɵgz, MonthTableComponent as ɵha, DateRangePopupComponent as ɵhd, InnerPopupComponent as ɵhc, YearPanelComponent as ɵgy, NzMonthPickerComponent as ɵhj, NzPickerComponent as ɵhh, NzRangePickerComponent as ɵhi, NzWeekPickerComponent as ɵhm, NzYearPickerComponent as ɵhl, NzDividerComponent as ɵho, NzDividerModule as ɵhn, NzDrawerRef as ɵhr, NzDrawerComponent as ɵhq, NzDrawerModule as ɵhp, NzDrawerService$$1 as ɵht, NzDropDownButtonComponent as ɵcn, NzDropdownContextComponent as ɵdg, NzDropDownComponent as ɵck, NzDropDownDirective as ɵcm, NzDropDownModule as ɵdf, NzFormControlComponent as ɵia, NzFormExplainComponent as ɵhy, NzFormExtraComponent as ɵhv, NzFormItemComponent as ɵhx, NzFormLabelComponent as ɵhw, NzFormSplitComponent as ɵic, NzFormTextComponent as ɵib, NzFormDirective as ɵhz, NzFormModule as ɵhu, NzColComponent as ɵca, NzColDirective as ɵbz, NzGridModule as ɵbx, NzRowComponent as ɵby, NzRowDirective as ɵcb, NzI18nModule as ɵbf, NzI18nPipe as ɵbh, NZ_I18N_SERVICE_PROVIDER as ɵt, NZ_LOCALE_SERVICE_PROVIDER_FACTORY as ɵs, NzI18nService as ɵr, NZ_I18N as ɵu, NzIconDirective as ɵd, NzIconModule as ɵo, NZ_ICONS$$1 as ɵe, NZ_ICON_DEFAULT_TWOTONE_COLOR$$1 as ɵf, NzIconService$$1 as ɵg, NzInputNumberComponent as ɵee, NzInputNumberModule as ɵed, NzAutoResizeDirective as ɵdy, NzInputGroupComponent as ɵdx, NzInputDirective as ɵdw, NzInputModule as ɵdv, NzContentComponent as ɵdk, NzFooterComponent as ɵdl, NzHeaderComponent as ɵdj, NzLayoutComponent as ɵdi, NzLayoutModule as ɵdh, NzSiderComponent as ɵdm, NzListItemMetaComponent as ɵig, NzListItemComponent as ɵif, NzListComponent as ɵie, NzListModule as ɵid, NzMentionSuggestionDirective as ɵcv, NZ_MENTION_TRIGGER_ACCESSOR as ɵct, NzMentionTriggerDirective as ɵcu, NzMentionComponent as ɵcr, NzMentionModule as ɵcq, NzMenuDividerDirective as ɵco, NzMenuGroupComponent as ɵcp, NzMenuItemDirective as ɵci, NzMenuDirective as ɵch, NzMenuModule as ɵcg, NzSubMenuComponent as ɵcj, NZ_MESSAGE_CONFIG as ɵix, NZ_MESSAGE_DEFAULT_CONFIG as ɵiw, NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER as ɵiy, NzMessageContainerComponent as ɵiu, NzMessageComponent as ɵiz, NzMessageModule as ɵit, NzMessageBaseService$$1 as ɵja, NzMessageService$$1 as ɵjb, CssUnitPipe as ɵjw, NZ_MODAL_CONFIG as ɵjt, NzModalControlService as ɵjv, NzModalRef as ɵjs, NzModalComponent as ɵjr, NzModalModule as ɵjq, NzModalService as ɵjx, NZ_NOTIFICATION_CONFIG as ɵjh, NZ_NOTIFICATION_DEFAULT_CONFIG as ɵjg, NZ_NOTIFICATION_DEFAULT_CONFIG_PROVIDER as ɵji, NzNotificationContainerComponent as ɵje, NzNotificationComponent as ɵjd, NzNotificationModule as ɵjc, NzNotificationService$$1 as ɵjj, NzPaginationComponent as ɵdr, NzPaginationModule as ɵdq, NzPopconfirmComponent as ɵjo, NzPopconfirmDirective as ɵjp, NzPopconfirmModule as ɵjn, NzPopoverComponent as ɵjl, NzPopoverDirective as ɵjm, NzPopoverModule as ɵjk, NzProgressComponent as ɵfa, NzProgressModule as ɵez, NzRadioButtonComponent as ɵbl, NzRadioGroupComponent as ɵbm, NzRadioComponent as ɵbj, NzRadioModule as ɵbi, NzRateComponent as ɵer, NzRateModule as ɵeq, NzOptionContainerComponent as ɵbt, NzOptionGroupComponent as ɵbv, NzOptionLiComponent as ɵbu, NzOptionComponent as ɵbq, NzOptionPipe as ɵbo, NzSubOptionPipe as ɵbp, NzSelectTopControlComponent as ɵbs, NzSelectUnselectableDirective as ɵbw, NzSelectComponent as ɵbr, NzSelectModule as ɵbn, NzSkeletonComponent as ɵkm, NzSkeletonModule as ɵkl, NzSliderHandleComponent as ɵej, NzSliderMarksComponent as ɵel, NzSliderStepComponent as ɵek, NzSliderTrackComponent as ɵei, NzSliderComponent as ɵeg, NzSliderModule as ɵef, NzSliderService as ɵeh, NzSpinComponent as ɵey, NzSpinModule as ɵex, NzStepComponent as ɵdu, NzStepsComponent as ɵdt, NzStepsModule as ɵds, NzSwitchComponent as ɵcd, NzSwitchModule as ɵcc, NzTableComponent as ɵge, NzTableModule as ɵgd, NzTbodyDirective as ɵgj, NzTdComponent as ɵgh, NzThComponent as ɵgf, NzTheadComponent as ɵgi, NzTrDirective as ɵgk, NzTabBodyComponent as ɵfh, NzTabLabelDirective as ɵff, NzTabComponent as ɵfc, NzTabsInkBarDirective as ɵfg, NzTabsNavComponent as ɵfe, NzTabsModule as ɵfb, NzTabSetComponent as ɵfd, NzTagComponent as ɵis, NzTagModule as ɵir, NzTimePickerPanelComponent as ɵgp, NzTimePickerComponent as ɵgo, NzTimePickerModule as ɵgn, NzTimeValueAccessorDirective as ɵgq, NzTimelineItemComponent as ɵfr, NzTimelineComponent as ɵfs, NzTimelineModule as ɵfq, NzToolTipComponent as ɵen, NzTooltipDirective as ɵep, NzToolTipModule as ɵem, NzTransferListComponent as ɵfv, NzTransferSearchComponent as ɵfw, NzTransferComponent as ɵfu, NzTransferModule as ɵft, NzTreeSelectComponent as ɵki, NzTreeSelectModule as ɵkh, NzTreeNodeComponent as ɵkg, NzTreeComponent as ɵke, NzTreeModule as ɵkd, NzTreeService as ɵkf, NzUploadBtnComponent as ɵij, NzUploadListComponent as ɵik, NzUploadComponent as ɵii, NzUploadModule as ɵih };
 
 //# sourceMappingURL=ng-zorro-antd.js.map

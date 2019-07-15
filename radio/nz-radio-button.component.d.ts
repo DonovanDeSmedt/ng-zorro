@@ -1,7 +1,6 @@
-import { OnInit, Renderer2 } from '@angular/core';
-import { NzRadioGroupComponent } from './nz-radio-group.component';
+import { ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { NzRadioComponent } from './nz-radio.component';
-export declare class NzRadioButtonComponent extends NzRadioComponent implements OnInit {
-    prefixCls: string;
-    constructor(nzRadioGroup: NzRadioGroupComponent, renderer: Renderer2, document: any);
+export declare class NzRadioButtonComponent extends NzRadioComponent {
+    constructor(elementRef: ElementRef, renderer: Renderer2, document: any, cdr: ChangeDetectorRef, focusMonitor: FocusMonitor);
 }

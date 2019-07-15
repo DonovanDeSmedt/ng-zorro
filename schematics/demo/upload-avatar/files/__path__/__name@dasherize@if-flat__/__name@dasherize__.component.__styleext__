@@ -1,5 +1,5 @@
 
-    :host ::ng-deep .avatar-uploader > .ant-upload {
+    :host ::ng-deep .avatar-uploader > .ant-upload, :host ::ng-deep .avatar {
       width: 128px;
       height: 128px;
     }

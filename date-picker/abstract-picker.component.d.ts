@@ -22,7 +22,7 @@ export declare abstract class AbstractPickerComponent implements OnInit, OnChang
     nzDropdownClassName: string;
     nzSize: 'large' | 'small';
     nzStyle: object;
-    nzOnOpenChange: EventEmitter<boolean>;
+    readonly nzOnOpenChange: EventEmitter<boolean>;
     nzFormat: string;
     nzValue: CompatibleValue;
     protected picker: NzPickerComponent;

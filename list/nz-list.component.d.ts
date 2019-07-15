@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, ElementRef, OnChanges, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzSizeLDSType } from '../core/types/size';
 import { NzI18nService } from '../i18n/nz-i18n.service';
-import { ListSize, NzListGrid } from './interface';
+import { NzListGrid } from './interface';
 export declare class NzListComponent implements OnInit, OnChanges, OnDestroy {
     private el;
     private cd;
@@ -12,20 +13,14 @@ export declare class NzListComponent implements OnInit, OnChanges, OnDestroy {
     nzDataSource: any[];
     nzBordered: boolean;
     nzGrid: NzListGrid;
-    _isHeader: boolean;
-    _header: string;
-    _headerTpl: TemplateRef<void>;
     nzHeader: string | TemplateRef<void>;
-    _isFooter: boolean;
-    _footer: string;
-    _footerTpl: TemplateRef<void>;
     nzFooter: string | TemplateRef<void>;
     nzItemLayout: 'vertical' | 'horizontal';
     nzRenderItem: TemplateRef<void>;
     nzLoading: boolean;
     nzLoadMore: TemplateRef<void>;
     nzPagination: TemplateRef<void>;
-    nzSize: ListSize;
+    nzSize: NzSizeLDSType;
     nzSplit: boolean;
     private prefixCls;
     private _setClassMap;

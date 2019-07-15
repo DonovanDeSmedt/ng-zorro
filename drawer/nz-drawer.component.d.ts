@@ -53,8 +53,8 @@ export declare class NzDrawerComponent<T = any, R = any, D = any> extends NzDraw
     nzOffsetX: number;
     nzOffsetY: number;
     nzVisible: boolean;
-    nzOnViewInit: EventEmitter<void>;
-    nzOnClose: EventEmitter<MouseEvent>;
+    readonly nzOnViewInit: EventEmitter<void>;
+    readonly nzOnClose: EventEmitter<MouseEvent>;
     nzAfterOpen: Subject<void>;
     nzAfterClose: Subject<R>;
     readonly afterOpen: Observable<void>;

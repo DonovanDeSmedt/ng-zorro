@@ -46,7 +46,7 @@ export declare class NzTimePickerPanelComponent implements ControlValueAccessor,
     nzHideDisabledOptions: boolean;
     nzClearText: string;
     nzPlaceHolder: string;
-    timeClear: EventEmitter<void>;
+    readonly timeClear: EventEmitter<void>;
     nzAllowEmpty: boolean;
     opened: boolean;
     nzDefaultOpenValue: Date;

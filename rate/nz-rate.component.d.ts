@@ -9,10 +9,10 @@ export declare class NzRateComponent implements OnInit, ControlValueAccessor, Af
     private _value;
     private _autoFocus;
     nzCharacter: TemplateRef<void>;
-    nzOnBlur: EventEmitter<FocusEvent>;
-    nzOnFocus: EventEmitter<FocusEvent>;
-    nzOnKeyDown: EventEmitter<KeyboardEvent>;
-    nzOnHoverChange: EventEmitter<number>;
+    readonly nzOnBlur: EventEmitter<FocusEvent>;
+    readonly nzOnFocus: EventEmitter<FocusEvent>;
+    readonly nzOnKeyDown: EventEmitter<KeyboardEvent>;
+    readonly nzOnHoverChange: EventEmitter<number>;
     private ulElement;
     prefixCls: string;
     isInit: boolean;

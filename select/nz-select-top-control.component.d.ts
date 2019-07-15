@@ -8,8 +8,8 @@ export declare class NzSelectTopControlComponent {
     inputValue: string;
     isComposing: boolean;
     inputElement: ElementRef;
-    nzListOfSelectedValueChange: EventEmitter<any[]>;
-    nzOnSearch: EventEmitter<{
+    readonly nzListOfSelectedValueChange: EventEmitter<any[]>;
+    readonly nzOnSearch: EventEmitter<{
         value: string;
         emit: boolean;
     }>;

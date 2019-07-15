@@ -1,19 +1,17 @@
-import { EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { NzTabSetComponent } from './nz-tabset.component';
-export declare class NzTabComponent implements OnDestroy, OnInit {
-    private nzTabSetComponent;
-    private _title;
-    private _disabled;
-    position: number | null;
-    origin: number | null;
-    isTitleString: boolean;
-    nzDisabled: boolean;
-    nzClick: EventEmitter<void>;
-    nzSelect: EventEmitter<void>;
-    nzDeselect: EventEmitter<void>;
-    content: TemplateRef<void>;
+import { EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { Subject } from 'rxjs';
+export declare class NzTabComponent implements OnChanges, OnDestroy {
+    position: number;
+    origin: number;
+    isActive: boolean;
+    readonly stateChanges: Subject<void>;
+    private content;
     nzTitle: string | TemplateRef<void>;
-    constructor(nzTabSetComponent: NzTabSetComponent);
-    ngOnInit(): void;
+    nzForceRender: boolean;
+    nzDisabled: boolean;
+    readonly nzClick: EventEmitter<void>;
+    readonly nzSelect: EventEmitter<void>;
+    readonly nzDeselect: EventEmitter<void>;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
 }

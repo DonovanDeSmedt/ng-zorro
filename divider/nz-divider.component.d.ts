@@ -1,19 +1,14 @@
-import { ChangeDetectorRef, ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 export declare class NzDividerComponent implements OnChanges, OnInit {
-    private el;
-    private cd;
-    private updateHostClassService;
-    isText: boolean;
-    textStr: string;
-    textTpl: TemplateRef<void>;
+    private elementRef;
+    private nzUpdateHostClassService;
     nzText: string | TemplateRef<void>;
     nzType: 'horizontal' | 'vertical';
     nzOrientation: 'left' | 'right' | '';
-    private _dashed;
     nzDashed: boolean;
     private setClass;
-    constructor(el: ElementRef, cd: ChangeDetectorRef, updateHostClassService: NzUpdateHostClassService);
+    constructor(elementRef: ElementRef, nzUpdateHostClassService: NzUpdateHostClassService);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
 }

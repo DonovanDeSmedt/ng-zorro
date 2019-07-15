@@ -4,7 +4,7 @@ export declare class NzDropDownButtonComponent extends NzDropDownComponent imple
     nzSize: string;
     nzType: string;
     content: any;
-    nzClick: EventEmitter<MouseEvent>;
+    readonly nzClick: EventEmitter<MouseEvent>;
     nzOrigin: any;
     onVisibleChange: (visible: boolean) => void;
     constructor(renderer: Renderer2, changeDetector: ChangeDetectorRef);
