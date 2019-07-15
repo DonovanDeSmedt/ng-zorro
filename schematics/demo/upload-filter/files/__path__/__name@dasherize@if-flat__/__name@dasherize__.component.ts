@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NzMessageService, UploadFile, UploadFilter } from 'ng-zorro-antd';
-import { Observable, Observer } from 'rxjs';
+import { UploadFile, UploadFilter, NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: '<%= selector %>',
@@ -32,16 +31,6 @@ export class <%= classify(name) %>Component {
           return filterFiles;
         }
         return fileList;
-      }
-    },
-    {
-      name: 'async',
-      fn: (fileList: UploadFile[]) => {
-        return new Observable((observer: Observer<UploadFile[]>) => {
-          // doing
-          observer.next(fileList);
-          observer.complete();
-        });
       }
     }
   ];

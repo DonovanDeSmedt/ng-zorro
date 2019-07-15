@@ -4,13 +4,14 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <div>
-      <textarea nz-input placeholder="Autosize height based on content lines" ngModel nzAutosize></textarea>
+      <textarea nz-input placeholder="Autosize height based on content lines" nzAutosize></textarea>
       <div style="margin:24px 0;"></div>
-      <textarea nz-input placeholder="Autosize height with minimum and maximum number of lines" [(ngModel)]="value" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      <textarea nz-input placeholder="Autosize height with minimum and maximum number of lines" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
     </div>
 
-  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>
+  `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
+
+  styles: []
 })
 export class <%= classify(name) %>Component {
-  value;
 }

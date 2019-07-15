@@ -21,8 +21,8 @@ export declare class NzPaginationComponent implements OnInit, OnDestroy {
     }>;
     nzInTable: boolean;
     nzSize: string;
-    readonly nzPageSizeChange: EventEmitter<number>;
-    readonly nzPageIndexChange: EventEmitter<number>;
+    nzPageSizeChange: EventEmitter<number>;
+    nzPageIndexChange: EventEmitter<number>;
     nzItemRender: TemplateRef<{
         $implicit: 'page' | 'prev' | 'next';
         page: number;

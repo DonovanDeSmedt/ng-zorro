@@ -3,7 +3,7 @@ export declare class NzWaveRenderer {
     private triggerElement;
     private ngZone;
     private insertExtraNode;
-    private waveTransitionDuration;
+    readonly waveTransitionDuration: number;
     private styleForPseudo;
     private extraNode;
     private lastTime;

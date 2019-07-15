@@ -1,26 +1,39 @@
-import { AfterContentInit, QueryList, TemplateRef } from '@angular/core';
-import { NgClassType } from '../core/types/ng-class';
-import { NzSizeLDSType } from '../core/types/size';
+import { AfterContentInit, ElementRef, QueryList, TemplateRef } from '@angular/core';
 import { NzInputDirective } from './nz-input.directive';
+export declare type TInputGroupIconClass = string | string[] | Set<string> | {
+    [klass: string]: any;
+};
+export declare type NzInputGroupSizeType = 'large' | 'default' | 'small';
 export declare class NzInputGroupComponent implements AfterContentInit {
-    listOfNzInputDirective: QueryList<NzInputDirective>;
+    private el;
+    private _addOnBefore;
+    private _addOnAfter;
+    private _prefix;
+    private _suffix;
     private _size;
-    nzAddOnBeforeIcon: NgClassType;
-    nzAddOnAfterIcon: NgClassType;
-    nzPrefixIcon: NgClassType;
-    nzSuffixIcon: NgClassType;
+    private _compact;
+    private _search;
+    isAddOnBeforeString: boolean;
+    isAddOnAfterString: boolean;
+    isPrefixString: boolean;
+    isSuffixString: boolean;
+    nzInputDirectiveQueryList: QueryList<NzInputDirective>;
+    nzAddOnBeforeIcon: TInputGroupIconClass;
+    nzAddOnAfterIcon: TInputGroupIconClass;
+    nzPrefixIcon: TInputGroupIconClass;
+    nzSuffixIcon: TInputGroupIconClass;
+    nzSize: NzInputGroupSizeType;
+    nzCompact: boolean;
     nzAddOnBefore: string | TemplateRef<void>;
     nzAddOnAfter: string | TemplateRef<void>;
     nzPrefix: string | TemplateRef<void>;
     nzSuffix: string | TemplateRef<void>;
     nzSearch: boolean;
-    nzCompact: boolean;
-    nzSize: NzSizeLDSType;
     readonly isLarge: boolean;
     readonly isSmall: boolean;
     readonly isAffix: boolean;
-    readonly isAddOn: boolean;
     readonly isAffixWrapper: boolean;
+    readonly isAddOn: boolean;
     readonly isGroup: boolean;
     readonly isLargeGroup: boolean;
     readonly isLargeGroupWrapper: boolean;
@@ -31,6 +44,6 @@ export declare class NzInputGroupComponent implements AfterContentInit {
     readonly isSmallGroupWrapper: boolean;
     readonly isSmallSearch: boolean;
     updateChildrenInputSize(): void;
-    constructor();
+    constructor(el: ElementRef);
     ngAfterContentInit(): void;
 }

@@ -34,9 +34,9 @@ export declare class NzSelectComponent implements ControlValueAccessor, OnInit, 
     /** should move to nz-option-container when https://github.com/angular/angular/issues/20810 resolved **/
     listOfNzOptionComponent: QueryList<NzOptionComponent>;
     listOfNzOptionGroupComponent: QueryList<NzOptionGroupComponent>;
-    readonly nzOnSearch: EventEmitter<string>;
-    readonly nzScrollToBottom: EventEmitter<void>;
-    readonly nzOpenChange: EventEmitter<boolean>;
+    nzOnSearch: EventEmitter<string>;
+    nzScrollToBottom: EventEmitter<void>;
+    nzOpenChange: EventEmitter<boolean>;
     nzSize: string;
     nzServerSearch: boolean;
     nzMode: 'default' | 'multiple' | 'tags';

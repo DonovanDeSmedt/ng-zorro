@@ -1,45 +1,19 @@
 import { FlexibleConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NzFormatEmitEvent } from '../tree/interface';
 import { NzTreeNode } from '../tree/nz-tree-node';
 import { NzTreeComponent } from '../tree/nz-tree.component';
-export declare class NzTreeSelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy, OnChanges {
+export declare class NzTreeSelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+    private document;
+    private element;
     private renderer;
     private cdr;
     private overlay;
     private viewContainerRef;
-    nzAllowClear: boolean;
-    nzShowExpand: boolean;
-    nzDropdownMatchSelectWidth: boolean;
-    nzCheckable: boolean;
-    nzShowSearch: boolean;
-    nzDisabled: boolean;
-    nzShowLine: boolean;
-    nzAsyncData: boolean;
-    nzMultiple: boolean;
-    nzDefaultExpandAll: boolean;
-    nzNodes: NzTreeNode[];
-    nzOpen: boolean;
-    nzSize: string;
-    nzPlaceHolder: string;
-    nzDropdownStyle: {
-        [key: string]: string;
-    };
-    nzDefaultExpandedKeys: string[];
-    nzDisplayWith: (node: NzTreeNode) => string;
-    readonly nzOpenChange: EventEmitter<boolean>;
-    readonly nzCleared: EventEmitter<void>;
-    readonly nzRemoved: EventEmitter<NzTreeNode>;
-    readonly nzExpandChange: EventEmitter<NzFormatEmitEvent>;
-    readonly nzTreeClick: EventEmitter<NzFormatEmitEvent>;
-    readonly nzTreeCheckBoxChange: EventEmitter<NzFormatEmitEvent>;
-    inputElement: ElementRef;
-    treeSelect: ElementRef;
-    dropdownTemplate: any;
-    treeRef: NzTreeComponent;
+    private nodes;
     isComposing: boolean;
     isDestroy: boolean;
     inputValue: string;
@@ -54,6 +28,35 @@ export declare class NzTreeSelectComponent implements ControlValueAccessor, OnIn
     selectionChangeSubscription: Subscription;
     selectedNodes: NzTreeNode[];
     value: string[];
+    nzAllowClear: boolean;
+    nzShowExpand: boolean;
+    nzDropdownMatchSelectWidth: boolean;
+    nzCheckable: boolean;
+    nzShowSearch: boolean;
+    nzDisabled: boolean;
+    nzShowLine: boolean;
+    nzAsyncData: boolean;
+    nzMultiple: boolean;
+    nzDefaultExpandAll: boolean;
+    nzOpen: boolean;
+    nzSize: string;
+    nzPlaceHolder: string;
+    nzDropdownStyle: {
+        [key: string]: string;
+    };
+    nzDefaultExpandedKeys: string[];
+    nzDisplayWith: (node: NzTreeNode) => string;
+    nzOpenChange: EventEmitter<boolean>;
+    nzCleared: EventEmitter<void>;
+    nzRemoved: EventEmitter<NzTreeNode>;
+    nzExpandChange: EventEmitter<NzFormatEmitEvent>;
+    nzTreeClick: EventEmitter<NzFormatEmitEvent>;
+    nzTreeCheckBoxChange: EventEmitter<NzFormatEmitEvent>;
+    nzNodes: NzTreeNode[];
+    inputElement: ElementRef;
+    treeSelect: ElementRef;
+    dropdownTemplate: any;
+    treeRef: NzTreeComponent;
     onChange: (value: string[] | string) => void;
     onTouched: () => void;
     readonly placeHolderDisplay: string;
@@ -62,15 +65,8 @@ export declare class NzTreeSelectComponent implements ControlValueAccessor, OnIn
     readonly selectedValueDisplay: {
         [key: string]: string;
     };
-    constructor(renderer: Renderer2, cdr: ChangeDetectorRef, overlay: Overlay, viewContainerRef: ViewContainerRef);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
-    ngAfterViewInit(): void;
-    setDisabledState(isDisabled: boolean): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    writeValue(value: string[] | string): void;
-    registerOnChange(fn: (_: string[] | string) => void): void;
-    registerOnTouched(fn: () => void): void;
+    constructor(document: any, // tslint:disable-line:no-any
+    element: ElementRef, renderer: Renderer2, cdr: ChangeDetectorRef, overlay: Overlay, viewContainerRef: ViewContainerRef);
     trigger(): void;
     openDropdown(): void;
     closeDropDown(): void;
@@ -90,4 +86,11 @@ export declare class NzTreeSelectComponent implements ControlValueAccessor, OnIn
     onClearSelection(): void;
     updateDropDownClassMap(): void;
     updateCdkConnectedOverlayStatus(): void;
+    writeValue(value: string[] | string): void;
+    registerOnChange(fn: (_: string[] | string) => void): void;
+    registerOnTouched(fn: () => void): void;
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    ngAfterViewInit(): void;
+    setDisabledState(isDisabled: boolean): void;
 }

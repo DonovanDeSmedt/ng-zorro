@@ -1,16 +1,15 @@
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NzI18nService } from '../i18n/nz-i18n.service';
 import { TransferCanMove, TransferChange, TransferItem, TransferSearchChange, TransferSelectChange } from './interface';
 export declare class NzTransferComponent implements OnInit, OnChanges, OnDestroy {
-    private cdr;
     private i18n;
+    private el;
     private unsubscribe$;
-    private lists;
     locale: any;
+    private _showSearch;
     leftFilter: string;
     rightFilter: string;
-    nzDisabled: boolean;
     nzDataSource: TransferItem[];
     nzTitles: string[];
     nzOperations: string[];
@@ -24,9 +23,9 @@ export declare class NzTransferComponent implements OnInit, OnChanges, OnDestroy
     nzFilterOption: (inputValue: string, item: TransferItem) => boolean;
     nzSearchPlaceholder: string;
     nzNotFoundContent: string;
-    readonly nzChange: EventEmitter<TransferChange>;
-    readonly nzSearchChange: EventEmitter<TransferSearchChange>;
-    readonly nzSelectChange: EventEmitter<TransferSelectChange>;
+    nzChange: EventEmitter<TransferChange>;
+    nzSearchChange: EventEmitter<TransferSearchChange>;
+    nzSelectChange: EventEmitter<TransferSelectChange>;
     leftDataSource: TransferItem[];
     rightDataSource: TransferItem[];
     private splitDataSource;
@@ -47,8 +46,7 @@ export declare class NzTransferComponent implements OnInit, OnChanges, OnDestroy
     moveToRight: () => void;
     moveTo(direction: string): void;
     private truthMoveTo;
-    constructor(cdr: ChangeDetectorRef, i18n: NzI18nService);
-    private markForCheckAllList;
+    constructor(i18n: NzI18nService, el: ElementRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

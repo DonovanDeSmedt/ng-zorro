@@ -10,18 +10,23 @@ export declare class NzToolTipComponent {
     _classMap: {};
     _placement: string;
     _trigger: string;
+    _content: string | TemplateRef<void>;
     overlayOrigin: CdkOverlayOrigin;
+    isContentString: boolean;
+    isTitleString: boolean;
     visibleSource: BehaviorSubject<boolean>;
     visible$: Observable<boolean>;
+    _title: string | TemplateRef<void>;
     overlay: CdkConnectedOverlay;
-    nzTitle: string | TemplateRef<void>;
+    nzVisibleChange: EventEmitter<boolean>;
     nzOverlayClassName: string;
     nzOverlayStyle: {
         [key: string]: string;
     };
     nzMouseEnterDelay: number;
     nzMouseLeaveDelay: number;
-    readonly nzVisibleChange: EventEmitter<boolean>;
+    nzContent: string | TemplateRef<void>;
+    nzTitle: string | TemplateRef<void>;
     nzVisible: boolean;
     nzTrigger: string;
     nzPlacement: string;
@@ -33,5 +38,5 @@ export declare class NzToolTipComponent {
     setClassMap(): void;
     setOverlayOrigin(origin: CdkOverlayOrigin): void;
     constructor(cdr: ChangeDetectorRef);
-    protected isContentEmpty(): boolean;
+    isContentEmpty(): boolean;
 }

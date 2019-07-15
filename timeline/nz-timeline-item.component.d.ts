@@ -1,16 +1,16 @@
-import { ChangeDetectorRef, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
-import { NzTimelineMode } from './nz-timeline.component';
-export declare class NzTimelineItemComponent implements OnInit, OnChanges {
+import { ElementRef, OnInit, Renderer2, TemplateRef } from '@angular/core';
+export declare class NzTimelineItemComponent implements OnInit {
     private renderer;
-    private cdr;
+    private _dot;
+    private _color;
+    private _isLast;
     liTemplate: ElementRef;
-    nzColor: string;
-    nzDot: string | TemplateRef<void>;
+    isDotString: boolean;
+    classMap: any;
     isLast: boolean;
-    position: NzTimelineMode | undefined;
-    constructor(renderer: Renderer2, cdr: ChangeDetectorRef);
+    nzDot: string | TemplateRef<void>;
+    nzColor: string;
+    updateClassMap(): void;
+    constructor(renderer: Renderer2);
     ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    detectChanges(): void;
-    private tryUpdateCustomColor;
 }

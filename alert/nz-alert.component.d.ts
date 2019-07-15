@@ -1,22 +1,36 @@
-import { EventEmitter, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
-import { NgClassType } from '../core/types/ng-class';
-export declare class NzAlertComponent implements OnChanges {
+import { EventEmitter, OnInit, TemplateRef } from '@angular/core';
+export declare type NgClassType = string | string[] | Set<string> | {
+    [klass: string]: any;
+};
+export declare class NzAlertComponent implements OnInit {
+    private _banner;
+    private _closeable;
+    private _showIcon;
+    private _type;
+    private _description;
+    private _message;
+    private _closeText;
     display: boolean;
     isTypeSet: boolean;
     isShowIconSet: boolean;
-    iconType: string;
-    iconTheme: string;
-    readonly nzOnClose: EventEmitter<boolean>;
+    prefixClass: string;
+    isDescriptionString: boolean;
+    isMessageString: boolean;
+    isCloseTextString: boolean;
+    outerClassMap: any;
+    iconType: any;
+    nzOnClose: EventEmitter<boolean>;
+    nzIconType: NgClassType;
+    nzDescription: string | TemplateRef<void>;
+    nzCloseText: string | TemplateRef<void>;
+    nzMessage: string | TemplateRef<void>;
+    nzType: string;
+    nzBanner: boolean;
     nzCloseable: boolean;
     nzShowIcon: boolean;
-    nzBanner: boolean;
-    nzCloseText: string | TemplateRef<void>;
-    nzIconType: NgClassType;
-    nzMessage: string | TemplateRef<void>;
-    nzDescription: string | TemplateRef<void>;
-    nzType: string;
     closeAlert(): void;
     onFadeAnimationDone(): void;
+    updateOuterClassMap(): void;
     updateIconClassMap(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnInit(): void;
 }

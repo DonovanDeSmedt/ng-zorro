@@ -56,7 +56,7 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
-        <nz-form-control [nzSpan]="12">
+        <nz-form-control [nzSpan]="12" >
           <textarea formControlName="comment" nz-input rows="2" placeholder="write any thing"></textarea>
           <nz-form-explain *ngIf="validateForm.get('comment').dirty&&validateForm.get('comment').hasError('required')">Please write something here!</nz-form-explain>
         </nz-form-control>

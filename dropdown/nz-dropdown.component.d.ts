@@ -21,11 +21,7 @@ export declare class NzDropDownComponent implements OnInit, OnDestroy, AfterView
     nzOrigin: NzDropDownDirective;
     nzMenu: NzMenuDirective;
     nzTrigger: 'click' | 'hover';
-    nzOverlayClassName: string;
-    nzOverlayStyle: {
-        [key: string]: string;
-    };
-    readonly nzVisibleChange: EventEmitter<boolean>;
+    nzVisibleChange: EventEmitter<boolean>;
     cdkOverlay: CdkConnectedOverlay;
     nzClickHide: boolean;
     nzDisabled: boolean;

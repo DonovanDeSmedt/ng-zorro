@@ -4,9 +4,9 @@ import { NzI18nService as I18n } from '../i18n/nz-i18n.service';
 export declare class NzCalendarComponent implements ControlValueAccessor, OnInit {
     private i18n;
     nzMode: 'month' | 'year';
-    readonly nzModeChange: EventEmitter<'month' | 'year'>;
+    nzModeChange: EventEmitter<'month' | 'year'>;
     nzValue: Date;
-    readonly nzValueChange: EventEmitter<Date>;
+    nzValueChange: EventEmitter<Date>;
     nzDateCell: TemplateRef<{
         $implicit: Date;
     }>;

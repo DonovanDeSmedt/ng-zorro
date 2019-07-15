@@ -35,7 +35,7 @@ export declare class NzTimePickerComponent implements ControlValueAccessor, OnIn
     nzDisabledSeconds: (hour: number, minute: number) => number[];
     nzFormat: string;
     nzOpen: boolean;
-    readonly nzOpenChange: EventEmitter<boolean>;
+    nzOpenChange: EventEmitter<boolean>;
     nzHideDisabledOptions: boolean;
     nzAllowEmpty: boolean;
     nzAutoFocus: boolean;

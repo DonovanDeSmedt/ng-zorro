@@ -7,23 +7,21 @@ export interface NzIconfontOption {
 export declare const NZ_ICONS: InjectionToken<{}>;
 export declare const NZ_ICON_DEFAULT_TWOTONE_COLOR: InjectionToken<{}>;
 export declare const DEFAULT_TWOTONE_COLOR = "#1890ff";
-export declare const NZ_ICONS_USED_BY_ZORRO: IconDefinition[];
 /**
  * It should be a global singleton, otherwise registered icons could not be found.
  */
 export declare class NzIconService extends IconService {
-    protected rendererFactory: RendererFactory2;
-    protected handler: HttpBackend;
-    protected document: any;
-    private icons;
-    private defaultColor;
-    private iconfontCache;
-    private warnedAboutAPI;
-    private warnedAboutCross;
-    private warnedAboutVertical;
-    warnAPI(type: 'old' | 'cross' | 'vertical'): void;
+    protected _rendererFactory: RendererFactory2;
+    protected _handler: HttpBackend;
+    protected _document: any;
+    private _icons;
+    private _defaultColor;
+    private _iconfontCache;
+    warnedAboutAPI: boolean;
+    warnedAboutCross: boolean;
+    warnedAboutVertical: boolean;
     normalizeSvgElement(svg: SVGElement): void;
     fetchFromIconfont(opt: NzIconfontOption): void;
     createIconfontIcon(type: string): SVGElement;
-    constructor(rendererFactory: RendererFactory2, handler: HttpBackend, document: any, icons: IconDefinition[], defaultColor: string);
+    constructor(_rendererFactory: RendererFactory2, _handler: HttpBackend, _document: any, _icons: IconDefinition[], _defaultColor: string);
 }

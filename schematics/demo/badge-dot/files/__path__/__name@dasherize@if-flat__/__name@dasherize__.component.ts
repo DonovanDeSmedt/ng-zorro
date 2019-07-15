@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: '<%= selector %>',
   <% if(inlineTemplate) { %>template: `
     <nz-badge nzDot><i nz-icon type="notification"></i></nz-badge>
-    <nz-badge nzDot [nzShowDot]="false"><i nz-icon type="notification"></i></nz-badge>
     <nz-badge nzDot><a>Link something</a></nz-badge>
   `<% } else { %>templateUrl: './<%= dasherize(name) %>.component.html'<% } %>,
   <% if(inlineStyle) { %>styles: [`[nz-icon] {
